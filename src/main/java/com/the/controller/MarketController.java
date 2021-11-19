@@ -7,6 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MarketController {
 	@RequestMapping("/")
 	public String hello() {
-		return "index";
+		return "main";
 	}
+	@RequestMapping("/sideMenu")
+	public String sideMenu() {
+		return "/common/sideMenu";
+	}
+	@RequestMapping("/menuMgt")
+	public String menuMgt() {
+		return "menuMgt";
+	}
+	
 }

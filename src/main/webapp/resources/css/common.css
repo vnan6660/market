@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul, li, ol {
+	list-style: none;
+}
+
+#contents {
+	position: absolute;
+	display: inline-block;
+	padding: 15px;
+	top: 15%;
+	width: 80%;
+}
+
+h2{
+	margin-bottom: 5px;
+}
