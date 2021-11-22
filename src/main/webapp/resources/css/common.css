@@ -21,3 +21,10 @@ ul, li, ol {
 h2{
 	margin-bottom: 5px;
 }
+
+button{
+	width: 20%;
+	height: 2.5em;
+	color:#fff;
+	background: rgba(0,0,0,0.6);
+}
