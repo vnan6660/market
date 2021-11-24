@@ -22,24 +22,48 @@
 				<span><img id="plusBtn" alt="+button" src="/images/plusBtn.svg"></span>
 				<span id="plusMenu">새로운 메뉴 만들기</span>
 			</li>
-			<li id="menuList"></li>
+			<li id="menuList">
+				<c:forEach items="${list}" var="vo">
+				<li>${vo.menuNm}</li>
+				</c:forEach>
+			</li>
 		</ul>
 		<table>
 			<tr>
 				<td>메뉴명</td>
-				<td><input id="menuId"  type="text"></td>
+				<td><input id="menuNm"  type="text"></td>
+			</tr>
+			<tr>
+				<td>메뉴코드</td>
+				<td><input id="menuCd"  type="text"></td>
 			</tr>
 			<tr>
 				<td>상위메뉴명</td>
 				<td>
-					<select>
-						<option>없음</option>
+					<select id="menuUpCd">
+						<option value="none">없음</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>정렬순서</td>
 				<td><input id="menuSn" type="text"></td>
+			</tr>
+			<tr>
+				<td>사용여부</td>
+				<td>
+					<span>관리자</span>
+					<select id="adminSelect">
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+					</select>
+						
+					<span>사용자</span>
+					<select id="userSelect">
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">

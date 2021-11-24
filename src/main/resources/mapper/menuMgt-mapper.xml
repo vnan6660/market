@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.menuMgt.MenuMgtDaoImpl">
+
+<insert id="setMenuInfo" parameterType="com.vo.MenuMgtVO">
+	INSERT INTO MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
+	VALUES ('4',#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
+</insert>
+<select id="selectMenuList" resultType="com.vo.MenuMgtVO">
+	SELECT 
+	MU_ID as menuId,
+	MU_NM as menuNm,
+	MU_CD as menuCd,
+	MU_UPCD as menuUpCd,
+	MU_SN as menuSn,
+	ADMIN_YN as adminYn,
+	USER_YN as userYn
+	FROM MENU_MGT
+</select>
+</mapper>

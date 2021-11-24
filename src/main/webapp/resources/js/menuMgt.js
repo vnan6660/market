@@ -6,15 +6,24 @@ var attachEvent = function() {
 	$("#plusMenu").click(function() {
 		$("#menuDelBtn").hide();
 		$("#menuSaveBtn").css("margin-left", "40%");
-		$("#menuId, #menuSn").val("");
+		$("#menuNm, #menuCd, #menuSn").val("");
 	});
 
 	$("#menuSaveBtn").click(function() {
 		$.ajax({
 			url: "/MenuInfo",
-			success: function() {
-				/*성공했을 때 */
-			}
+			type: "POST",
+			dataType: "Json",
+			data: JSON.stringify({
+				"menuNm": $("#menuNm").val(),
+				"menuCd": $("#menuCd").val(),
+				"menuUpCd": $("#menuUpCd option:selected").val(),
+				"menuSn": $("#menuSn").val(),
+				"adminYn": $("#adminSelect option:selected").val(),
+				"userYn": $("#userSelect option:selected").val()
+			}),
+			contentType: 'application/json'
 		});
+		
 	});
 }
