@@ -25,7 +25,10 @@ public class MenuMgtController {
 	@RequestMapping("/menuMgt")
 	public String menuMgt(Model model) {
 		List<MenuMgtVO> list = MenuMgtService.getMenuList();
+		List<MenuMgtVO> option = MenuMgtService.getUpCd();
 		model.addAttribute("list", list);	
+		model.addAttribute("option",option);
+		
 		return "menuMgt";
 	}
 	
@@ -33,6 +36,12 @@ public class MenuMgtController {
 	@ResponseBody
 	public void setMenuInfo(@RequestBody MenuMgtVO vo) {
 		MenuMgtService.setMenuInfo(vo);
+	}
+	
+	@PostMapping("/menuInfo/upd")
+	@ResponseBody
+	public void updateMenuInfo(@RequestBody MenuMgtVO vo) {
+		MenuMgtService.updateMenuInfo(vo);
 	}
 	
 	@GetMapping("/menuInfo")
@@ -46,5 +55,12 @@ public class MenuMgtController {
 	@ResponseBody
 	public void deleteMenuInfo(@RequestParam String menuId) {
 		MenuMgtService.deleteMenuInfo(menuId);
+	}
+
+	@GetMapping("/valiMenuCd")
+	@ResponseBody
+	public List<MenuMgtVO> valiMenuCd() {
+		List<MenuMgtVO> list = MenuMgtService.getMenuList();
+		return list;
 	}
 }

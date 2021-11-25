@@ -13,10 +13,15 @@ public class MenuMgtServiceImpl implements MenuMgtService {
 
 	@Autowired
 	private MenuMgtDao menuMgtDao;
-	
+
 	@Override
 	public void setMenuInfo(MenuMgtVO vo) {
 		menuMgtDao.setMenuInfo(vo);
+	}
+
+	@Override
+	public void updateMenuInfo(MenuMgtVO vo) {
+		menuMgtDao.updateMenuInfo(vo);
 	}
 
 	@Override
@@ -32,6 +37,11 @@ public class MenuMgtServiceImpl implements MenuMgtService {
 	@Override
 	public void deleteMenuInfo(String menuId) {
 		menuMgtDao.deleteMenuInfo(menuId);
+	}
+
+	@Override
+	public List<MenuMgtVO> getUpCd() {
+		return menuMgtDao.selectUpCd();
 	}
 
 }

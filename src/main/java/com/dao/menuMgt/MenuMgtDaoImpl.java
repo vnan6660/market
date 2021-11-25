@@ -13,13 +13,17 @@ public class MenuMgtDaoImpl implements MenuMgtDao {
 
 	@Autowired
 	SqlSession sqlSession;
-	
+
 	@Override
 	public void setMenuInfo(MenuMgtVO vo) {
 		sqlSession.insert("setMenuInfo", vo);
-		
 	}
 
+	@Override
+	public void updateMenuInfo(MenuMgtVO vo) {
+		sqlSession.update("updateMenuInfo", vo);
+	}
+	
 	@Override
 	public List<MenuMgtVO> selectMenuList() {
 		return sqlSession.selectList("selectMenuList");
@@ -27,7 +31,7 @@ public class MenuMgtDaoImpl implements MenuMgtDao {
 
 	@Override
 	public List<MenuMgtVO> selectMenuInfo(String menuId) {
-		return sqlSession.selectList("selectMenuInfo",menuId);
+		return sqlSession.selectList("selectMenuInfo", menuId);
 	}
 
 	@Override
@@ -35,4 +39,9 @@ public class MenuMgtDaoImpl implements MenuMgtDao {
 		sqlSession.delete("deleteMenuInfo", menuId);
 	}
 
+	@Override
+	public List<MenuMgtVO> selectUpCd() {
+		return sqlSession.selectList("selectUpCd");
+	}
+	
 }

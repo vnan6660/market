@@ -29,6 +29,7 @@
 			</li>
 		</ul>
 		<table>
+				<tr><td><input type="hidden" id="menuId"></td></tr>
 			<tr>
 				<td>메뉴명</td>
 				<td><input id="menuNm"  type="text"></td>
@@ -41,7 +42,10 @@
 				<td>상위메뉴명</td>
 				<td>
 					<select id="menuUpCd">
-						<option value="none">없음</option>
+					<option value="none">없음</option>
+					<c:forEach items="${option}" var="op">
+						<option value="${op.menuCd}">${op.menuNm}</option>
+					</c:forEach>	
 					</select>
 				</td>
 			</tr>
@@ -67,7 +71,6 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-				<input type="hidden" id="menuId">
 					<button id="menuSaveBtn">저장</button>
 					<button id="menuDelBtn">삭제</button>
 				</td>
