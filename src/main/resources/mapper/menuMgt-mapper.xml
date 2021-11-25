@@ -6,10 +6,11 @@
 
 <insert id="setMenuInfo" parameterType="com.vo.MenuMgtVO">
 	INSERT INTO MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
-	VALUES ('4',#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
+	VALUES (TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
 </insert>
+
 <select id="selectMenuList" resultType="com.vo.MenuMgtVO">
-	SELECT 
+SELECT 
 	MU_ID as menuId,
 	MU_NM as menuNm,
 	MU_CD as menuCd,
@@ -17,6 +18,26 @@
 	MU_SN as menuSn,
 	ADMIN_YN as adminYn,
 	USER_YN as userYn
-	FROM MENU_MGT
+FROM MENU_MGT
 </select>
+
+<select id="selectMenuInfo" parameterType="string" resultType="com.vo.MenuMgtVO">
+SELECT 
+	MU_ID as menuId,
+	MU_NM as menuNm,
+	MU_CD as menuCd,
+	MU_UPCD as menuUpCd,
+	MU_SN as menuSn,
+	ADMIN_YN as adminYn,
+	USER_YN as userYn
+FROM MENU_MGT
+WHERE MU_ID =#{menuId}
+</select>
+
+<delete id="deleteMenuInfo" parameterType="string">
+DELETE 
+FROM MENU_MGT
+WHERE MU_ID =#{menuId}
+</delete>
+
 </mapper>

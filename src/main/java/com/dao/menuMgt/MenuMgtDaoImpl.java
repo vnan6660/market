@@ -25,4 +25,14 @@ public class MenuMgtDaoImpl implements MenuMgtDao {
 		return sqlSession.selectList("selectMenuList");
 	}
 
+	@Override
+	public List<MenuMgtVO> selectMenuInfo(String menuId) {
+		return sqlSession.selectList("selectMenuInfo",menuId);
+	}
+
+	@Override
+	public void deleteMenuInfo(String menuId) {
+		sqlSession.delete("deleteMenuInfo", menuId);
+	}
+
 }

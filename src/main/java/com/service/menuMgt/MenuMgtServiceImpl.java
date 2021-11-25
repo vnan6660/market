@@ -24,4 +24,14 @@ public class MenuMgtServiceImpl implements MenuMgtService {
 		return menuMgtDao.selectMenuList();
 	}
 
+	@Override
+	public List<MenuMgtVO> getMenuInfo(String menuId) {
+		return menuMgtDao.selectMenuInfo(menuId);
+	}
+
+	@Override
+	public void deleteMenuInfo(String menuId) {
+		menuMgtDao.deleteMenuInfo(menuId);
+	}
+
 }

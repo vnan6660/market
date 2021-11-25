@@ -24,7 +24,7 @@
 			</li>
 			<li id="menuList">
 				<c:forEach items="${list}" var="vo">
-				<li>${vo.menuNm}</li>
+				<li onclick="menuClick(${vo.menuId})">${vo.menuNm}</li>
 				</c:forEach>
 			</li>
 		</ul>
@@ -67,6 +67,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
+				<input type="hidden" id="menuId">
 					<button id="menuSaveBtn">저장</button>
 					<button id="menuDelBtn">삭제</button>
 				</td>

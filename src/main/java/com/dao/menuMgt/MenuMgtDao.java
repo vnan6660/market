@@ -10,4 +10,8 @@ public interface MenuMgtDao {
 
 	List<MenuMgtVO> selectMenuList();
 
+	List<MenuMgtVO> selectMenuInfo(String menuId);
+
+	void deleteMenuInfo(String menuId);
+
 }

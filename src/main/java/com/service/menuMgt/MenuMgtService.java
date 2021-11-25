@@ -10,4 +10,8 @@ public interface MenuMgtService {
 
 	List<MenuMgtVO> getMenuList();
 
+	List<MenuMgtVO> getMenuInfo(String menuId);
+
+	void deleteMenuInfo(String menuId);
+
 }
