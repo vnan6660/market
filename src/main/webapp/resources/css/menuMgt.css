@@ -21,6 +21,10 @@
 	margin-left:15px;
 }
 
+.menuC{
+	padding: 0.5em;
+}
+
 #newMenuWrap table{
 	background:rgb(241, 241, 241);
 }

@@ -1,11 +1,11 @@
 $(function() {
 	attachEvent();
-	getUpperCd();
 });
 
 var attachEvent = function() {
 	//새로운 메뉴 만들기 클릭시
 	$("#plusMenu").click(function() {
+		$("#menuId").val("");
 		$("#menuDelBtn").hide();
 		$("#menuSaveBtn").css("margin-left", "40%");
 		$("#menuNm, #menuCd, #menuSn").val("");
@@ -33,7 +33,8 @@ var attachEvent = function() {
 	}
 
 	var updateMenuInfo = function(menuId) {
-		$.ajax({
+		if(confirm('정말로 변경하시겠습니까?')){
+			$.ajax({
 			url: '/menuInfo/upd',
 			type: 'POST',
 			contentType: 'application/json',
@@ -50,10 +51,12 @@ var attachEvent = function() {
 				location.href = "/menuMgt";
 			}
 		});
+		}
 	}
 
 	var saveMenuInfo = function() {
-		$.ajax({
+		if(confirm('정말로 저장하시겠습니까?')){
+			$.ajax({
 			url: '/menuInfo',
 			type: 'POST',
 			contentType: 'application/json',
@@ -69,25 +72,30 @@ var attachEvent = function() {
 				location.href = "/menuMgt";
 			}
 		});
+		}
 	}
 
 	//삭제버튼 클릭시
 	$("#menuDelBtn").click(function() {
 		var menuId = $("#menuId").val();
 
-		$.ajax({
-			url: '/menuInfo/del',
-			type: 'GET',
-			data: { "menuId": menuId },
-			success: function() {
-				location.href = "/menuMgt";
-			}
-		});
+		if (confirm('정말로 삭제하시겠습니까?')) {
+			$.ajax({
+				url: '/menuInfo/del',
+				type: 'GET',
+				data: { "menuId": menuId },
+				success: function() {
+					location.href = "/menuMgt";
+				}
+			});
+		}
 	});
 }
 
 // 메뉴 클릭시 옆에 리스트 띄우기
 menuClick = function(menuId) {
+	$("#menuDelBtn").show();
+	$("#menuSaveBtn").css("margin-left", "19%");
 	$.ajax({
 		url: '/menuInfo',
 		type: 'GET',
@@ -102,12 +110,4 @@ menuClick = function(menuId) {
 				$("#userSelect").val(res[0].userYn).prop("selected", true);
 		}
 	});
-}
-
-var getUpperCd = function() {
-	//console.log("실행");
-	/*$.ajax({
-		url: '/UpCdInfo',
-		type: 'GET'
-	});*/
 }

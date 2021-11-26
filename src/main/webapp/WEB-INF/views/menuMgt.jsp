@@ -17,16 +17,17 @@
 		<h2>메뉴관리</h2>
 		<hr>
 		<div id="newMenuWrap">
-		<ul>
+		<ul style="overflow: auto;">
 			<li>
 				<span><img id="plusBtn" alt="+button" src="/images/plusBtn.svg"></span>
 				<span id="plusMenu">새로운 메뉴 만들기</span>
 			</li>
-			<li id="menuList">
-				<c:forEach items="${list}" var="vo">
-				<li onclick="menuClick(${vo.menuId})">${vo.menuNm}</li>
-				</c:forEach>
-			</li>
+			<c:forEach items="${list}" var="vo">
+				<li class="menuC" onclick="menuClick(${vo.menuId})">
+					<c:if test="${vo.menuUpCd != null}">&nbsp;&nbsp; -</c:if>
+					<span>${vo.menuNm}</span>
+				</li>
+			</c:forEach>
 		</ul>
 		<table>
 				<tr><td><input type="hidden" id="menuId"></td></tr>
@@ -42,7 +43,7 @@
 				<td>상위메뉴명</td>
 				<td>
 					<select id="menuUpCd">
-					<option value="none">없음</option>
+					<option value="">없음</option>
 					<c:forEach items="${option}" var="op">
 						<option value="${op.menuCd}">${op.menuNm}</option>
 					</c:forEach>	

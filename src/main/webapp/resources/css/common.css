@@ -18,13 +18,36 @@ ul, li, ol {
 	width: 80%;
 }
 
-h2{
+h2 {
 	margin-bottom: 5px;
 }
 
-button{
+button {
 	width: 20%;
 	height: 2.5em;
-	color:#fff;
-	background: rgba(0,0,0,0.6);
+	color: #fff;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+/* ---- side Menu ------- */
+#sideUl {
+	margin: 0;
+	border-bottom: 1px solid #000;
+	overflow: auto;
+}
+
+#sideUl>li {
+	border-top: 1px solid #000;
+}
+
+.rootMenu {
+	display: inline-block;
+	height: 30px;
+	margin: 10px 0 0 10px;
+}
+
+.nodeMenu {
+	display: inline-block;
+	height: 20px;
+	margin-top: 5px;
 }

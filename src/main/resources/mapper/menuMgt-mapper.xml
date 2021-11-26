@@ -4,58 +4,67 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.menuMgt.MenuMgtDaoImpl">
 
-<insert id="setMenuInfo" parameterType="com.vo.MenuMgtVO">
-	INSERT INTO MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
-	VALUES (TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
-</insert>
+	<insert id="setMenuInfo" parameterType="com.vo.MenuMgtVO">
+		INSERT INTO MENU_MGT(MU_ID, MU_NM, MU_CD, MU_SN, ADMIN_YN, USER_YN)
+		VALUES
+		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuSn},#{adminYn},#{userYn})
+	</insert>
 
-<update id="updateMenuInfo" parameterType="com.vo.MenuMgtVO">
-UPDATE MENU_MGT
-SET
-	MU_NM = #{menuNm},
-	MU_CD = #{menuCd},
-	MU_UPCD = #{menuUpCd},
-	MU_SN = #{menuSn},
-	ADMIN_YN = #{adminYn},
-	USER_YN = #{userYn}
-WHERE MU_ID =#{menuId}
-</update>
+	<update id="updateMenuInfo" parameterType="com.vo.MenuMgtVO">
+		UPDATE MENU_MGT
+		SET
+		MU_NM = #{menuNm},
+		MU_CD = #{menuCd},
+		MU_UPCD = #{menuUpCd},
+		MU_SN = #{menuSn},
+		ADMIN_YN = #{adminYn},
+		USER_YN = #{userYn}
+		WHERE MU_ID =#{menuId}
+	</update>
 
-<select id="selectMenuList" resultType="com.vo.MenuMgtVO">
-SELECT 
-	MU_ID as menuId,
-	MU_NM as menuNm,
-	MU_CD as menuCd
-FROM MENU_MGT
-ORDER BY menuId
-</select>
+	<select id="selectMenuList" resultType="com.vo.MenuMgtVO">
+		SELECT
+		MU_ID as menuId,
+		MU_NM as menuNm,
+		MU_CD as menuCd,
+		MU_UPCD as menuUpCd,
+		MU_SN as menuSn,
+		ADMIN_YN as adminYn,
+		USER_YN as userYn
+		FROM
+		menu_mgt
+		START WITH MU_UPCD IS NULL  
+  		CONNECT BY PRIOR MU_CD = MU_UPCD
+        ORDER SIBLINGS BY MU_SN
+	</select>
 
-<select id="selectMenuInfo" parameterType="string" resultType="com.vo.MenuMgtVO">
-SELECT 
-	MU_ID as menuId,
-	MU_NM as menuNm,
-	MU_CD as menuCd,
-	MU_UPCD as menuUpCd,
-	MU_SN as menuSn,
-	ADMIN_YN as adminYn,
-	USER_YN as userYn
-FROM MENU_MGT
-WHERE MU_ID =#{menuId}
-</select>
+	<select id="selectMenuInfo" parameterType="string"
+		resultType="com.vo.MenuMgtVO">
+		SELECT
+		MU_ID as menuId,
+		MU_NM as menuNm,
+		MU_CD as menuCd,
+		MU_UPCD as menuUpCd,
+		MU_SN as menuSn,
+		ADMIN_YN as adminYn,
+		USER_YN as userYn
+		FROM MENU_MGT
+		WHERE MU_ID =#{menuId}
+	</select>
 
-<delete id="deleteMenuInfo" parameterType="string">
-DELETE 
-FROM MENU_MGT
-WHERE MU_ID =#{menuId}
-</delete>
+	<delete id="deleteMenuInfo" parameterType="string">
+		DELETE
+		FROM MENU_MGT
+		WHERE MU_ID =#{menuId}
+	</delete>
 
 
-<select id="selectUpCd" resultType="com.vo.MenuMgtVO">
-SELECT 
-	MU_NM as menuNm,
-	MU_CD as menuCd
-FROM MENU_MGT
-WHERE MU_UPCD ='none'
-</select>
+	<select id="selectUpCd" resultType="com.vo.MenuMgtVO">
+		SELECT
+		MU_NM as menuNm,
+		MU_CD as menuCd
+		FROM MENU_MGT
+		WHERE MU_UPCD IS NULL 
+	</select>
 
 </mapper>
