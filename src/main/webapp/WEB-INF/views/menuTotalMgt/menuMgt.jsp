@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <title>메뉴관리</title>
 <link rel="shortcut icon" href="#">
-<link rel="stylesheet" href="/css/menuMgt.css">
 <script src="webjars/jquery/3.4.1/jquery.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
-<script type="text/javascript" src="/js/menuMgt.js"></script>
+<link rel="stylesheet" href="/css/menuTotalMgt/menuMgt.css">
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/menuTotalMgt/menuMgt.js"></script>
 </head>
 <body>
 	<c:import url="/sideMenu"></c:import>
@@ -18,12 +18,12 @@
 		<hr>
 		<div id="newMenuWrap">
 		<ul style="overflow: auto;">
-			<li>
+			<li class="hover">
 				<span><img id="plusBtn" alt="+button" src="/images/plusBtn.svg"></span>
 				<span id="plusMenu">새로운 메뉴 만들기</span>
 			</li>
 			<c:forEach items="${list}" var="vo">
-				<li class="menuC" onclick="menuClick(${vo.menuId})">
+				<li class="menuC hover" onclick="menuClick(${vo.menuId})">
 					<c:if test="${vo.menuUpCd != null}">&nbsp;&nbsp; -</c:if>
 					<span>${vo.menuNm}</span>
 				</li>
@@ -72,8 +72,8 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button id="menuSaveBtn">저장</button>
-					<button id="menuDelBtn">삭제</button>
+					<button id="menuSaveBtn" class="hover">저장</button>
+					<button id="menuDelBtn" class="hover">삭제</button>
 				</td>
 			</tr>
 		</table>

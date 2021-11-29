@@ -1,3 +1,8 @@
+/**
+*생성자 : 김소연
+*생성일 : 2021.11.27
+*공통
+*/
 @charset "UTF-8";
 
 * {
@@ -22,6 +27,14 @@ h2 {
 	margin-bottom: 5px;
 }
 
+a:link{
+	color: #000;
+}
+
+a:visited{
+	color: #000;
+}
+
 button {
 	width: 20%;
 	height: 2.5em;
@@ -29,7 +42,31 @@ button {
 	background: rgba(0, 0, 0, 0.6);
 }
 
+.hover{
+	cursor: pointer;
+}
+
 /* ---- side Menu ------- */
+#homeIcon {
+	width: 60px;
+	padding: 15px;
+}
+
+
+
+#logoIcon {
+	position: absolute;
+	padding: 20px 0;
+}
+
+
+#sideUlWrap {
+	display: inline-block;
+	background-color: grey;
+	width: 200px;
+	min-height: 575px;
+}
+
 #sideUl {
 	margin: 0;
 	border-bottom: 1px solid #000;
@@ -51,3 +88,11 @@ button {
 	height: 20px;
 	margin-top: 5px;
 }
+
+#goLogInBtn {
+	display: block;
+	margin: 20px 20px 0 0;
+	width: 100px;
+	float: right;
+}
+

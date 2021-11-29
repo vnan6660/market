@@ -1,3 +1,9 @@
+/*
+*생성자 : 김소연
+*생성일 : 2021.11.27
+*메뉴관리
+*/
+
 $(function() {
 	attachEvent();
 });
@@ -17,7 +23,7 @@ var attachEvent = function() {
 		var menuCd = $("#menuCd").val();
 		/*저장버튼을 클리했을 때 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
 		$.ajax({
-			url: '/valiMenuCd',
+			url: '/validation/menuMgt',
 			type: 'GET',
 			success: function(res) {
 				var list = res.filter((ele) => {
@@ -33,9 +39,9 @@ var attachEvent = function() {
 	}
 
 	var updateMenuInfo = function(menuId) {
-		if(confirm('정말로 변경하시겠습니까?')){
+		if(confirm('변경하시겠습니까?')){
 			$.ajax({
-			url: '/menuInfo/upd',
+			url: '/update/menuMgt',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
@@ -55,9 +61,9 @@ var attachEvent = function() {
 	}
 
 	var saveMenuInfo = function() {
-		if(confirm('정말로 저장하시겠습니까?')){
+		if(confirm('저장하시겠습니까?')){
 			$.ajax({
-			url: '/menuInfo',
+			url: '/set/menuMgt',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
@@ -79,9 +85,9 @@ var attachEvent = function() {
 	$("#menuDelBtn").click(function() {
 		var menuId = $("#menuId").val();
 
-		if (confirm('정말로 삭제하시겠습니까?')) {
+		if (confirm('삭제하시겠습니까?')) {
 			$.ajax({
-				url: '/menuInfo/del',
+				url: '/delete/menuMgt',
 				type: 'GET',
 				data: { "menuId": menuId },
 				success: function() {
@@ -92,12 +98,12 @@ var attachEvent = function() {
 	});
 }
 
-// 메뉴 클릭시 옆에 리스트 띄우기
+//하나의 메뉴정보 가져오기와서 내용 뿌리기
 menuClick = function(menuId) {
 	$("#menuDelBtn").show();
 	$("#menuSaveBtn").css("margin-left", "19%");
 	$.ajax({
-		url: '/menuInfo',
+		url: '/get/menuMgt',
 		type: 'GET',
 		data: { "menuId": menuId },
 		success: function(res) {

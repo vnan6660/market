@@ -6,8 +6,9 @@
 <meta charset="UTF-8">
 <title>main</title>
 <link rel="shortcut icon" href="#">
-<link rel="stylesheet" href="/css/common.css">
-<script type="text/javascript" src="/js/common.js"></script>
+<script src="webjars/jquery/3.4.1/jquery.js"></script>
+<link rel="stylesheet" href="/css/common/common.css">
+<script type="text/javascript" src="/js/common/common.js"></script>
 </head>
 <body>
 	<c:import url="/sideMenu"></c:import>

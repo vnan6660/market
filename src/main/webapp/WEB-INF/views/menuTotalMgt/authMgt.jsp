@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>권한관리</title>
 <link rel="shortcut icon" href="#">
-<link rel="stylesheet" href="/css/authMgt.css">
+<link rel="stylesheet" href="/css/menuTotalMgt/authMgt.css">
 <script src="webjars/jquery/3.4.1/jquery.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
-<script type="text/javascript" src="/js/authMgt.js"></script>
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/menuTotalMgt/authMgt.js"></script>
 </head>
 <body>
 	<c:import url="/sideMenu"></c:import>
@@ -38,7 +38,7 @@
 			</tr>
 			</table>
 			
-			<button id="menuSaveBtn">저장</button>
+			<button id="menuSaveBtn" class="hover">저장</button>
 		</div>
 	</main>
 
