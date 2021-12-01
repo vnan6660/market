@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>메뉴관리</title>
 <link rel="shortcut icon" href="#">
-<script src="webjars/jquery/3.4.1/jquery.js"></script>
+<script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/menuTotalMgt/menuMgt.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/menuTotalMgt/menuMgt.js"></script>

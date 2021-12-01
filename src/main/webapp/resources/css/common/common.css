@@ -17,21 +17,24 @@ ul, li, ol {
 
 #contents {
 	position: absolute;
-	display: inline-block;
+	margin: 5% auto;
 	padding: 15px;
-	top: 15%;
-	width: 80%;
+	width: 90%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: stretch;
 }
 
 h2 {
 	margin-bottom: 5px;
 }
 
-a:link{
+a:link {
 	color: #000;
 }
 
-a:visited{
+a:visited {
 	color: #000;
 }
 
@@ -42,7 +45,19 @@ button {
 	background: rgba(0, 0, 0, 0.6);
 }
 
-.hover{
+.btnSmall {
+	width: 100px;
+	margin-top: 10px;
+	margin-left: 10px;
+	float: right;
+}
+.btnSmallList {
+	width: 100px;
+	margin-top: 10px;
+	float: left;
+}
+
+.hover {
 	cursor: pointer;
 }
 
@@ -52,18 +67,15 @@ button {
 	padding: 15px;
 }
 
-
-
 #logoIcon {
 	position: absolute;
 	padding: 20px 0;
 }
 
-
 #sideUlWrap {
 	display: inline-block;
-	background-color: grey;
-	width: 200px;
+	background-color: #E0E0E0;
+	width: 10%;
 	min-height: 575px;
 }
 
@@ -89,10 +101,9 @@ button {
 	margin-top: 5px;
 }
 
-#goLogInBtn , #goLogOutBtn{
+#goLogInBtn, #goLogOutBtn {
 	display: block;
 	margin: 20px 20px 0 0;
 	width: 100px;
 	float: right;
 }
-

@@ -1,0 +1,89 @@
+/**
+*생성자 : 김소연
+*생성일 : 2021.12.01
+*공지사항
+*/
+@charset "UTF-8";
+
+@import url("/css/common/common.css");
+
+#ssWrap {
+	margin-top: 10px;
+}
+
+#searchWrap {
+	display: inline-block;
+	width: 250px;
+}
+
+#goSearch {
+	width: 100px;
+	height: 1.8em;
+}
+
+input, select {
+	padding: 3px;
+}
+
+#searchWrap>input {
+	width: 250px;
+}
+
+#ntcTable {
+	margin-top: 10px;
+	width: 100%;
+	border: 1px solid;
+	text-align: center;
+}
+
+#ntcTable tr:nth-of-type(1) {
+	background-color: #ccc;
+}
+
+#writeFrom {
+	display: flex;
+	height: 423px;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 15px;
+}
+
+#subject {
+	width: 50%;
+	height: 2.5em;
+	margin: 15px;
+}
+
+#writeText {
+	width: 50%;
+	height: 300px;
+	padding: 10px;
+	margin: 15px;
+	resize: none;
+}
+
+#noticeUl {
+	margin: 20px 0;
+	border-top: 2px solid #ccc;
+}
+
+#noticeUl li {
+	display: flex;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+#noticeUl li:nth-of-type(1) {
+	height: 30px;
+	padding: 0.3em;
+}
+
+#noticeUl li:nth-of-type(2) {
+	height: 30px;
+	padding: 0.3em;
+}
+
+#noticeUl li:nth-of-type(3) {
+	height: 280px;
+	border-bottom: 2px solid #ccc;
+	padding: 1em;
+}
