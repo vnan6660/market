@@ -52,9 +52,9 @@
 		parameterType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--*menuMgtMapper.setMenuMgt -->
 		INSERT INTO 
-		MENU_MGT(MU_ID, MU_NM, MU_CD, MU_SN, ADMIN_YN, USER_YN)
+		MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
 		VALUES
-		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuSn},#{adminYn},#{userYn})
+		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
 	</insert>
 
 	<update id="updateMenuMgt"
