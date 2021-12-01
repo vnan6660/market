@@ -23,4 +23,5 @@
 </div>
 
 <img id="logoIcon" class="hover" alt="logo" src="/images/logo.png" onclick="goHome()">
-<button id="goLogInBtn" class="hover" onclick="goLogin()">로그인</button>
+		<button id="goLogInBtn" class="hover" onclick="goLogin()">로그인</button>
+		<button id="goLogOutBtn" class="hover" onclick="goLogout()">로그아웃</button>

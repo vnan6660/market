@@ -4,11 +4,15 @@
 *공통
 */
 
-var goHome = function(){
+
+var goHome = function() {
 	location.href = "/";
 }
 
-var goLogin = function(){
+var goLogin = function() {
 	location.href = "/login";
 }
 
+var goLogout = function() {
+	location.href = "/login";
+}
