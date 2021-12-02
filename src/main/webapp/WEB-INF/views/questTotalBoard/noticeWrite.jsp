@@ -18,10 +18,10 @@
 		<h2>공지사항 글쓰기</h2>
 		<hr>
 		<div id="ntcWriteWrap">
-			<form action="/write/notice" method="post" id="writeFromData">
-				<input id="subject" name="ntcSj" placeholder="제목을 입력하세요">
-				<textarea id="writeText" name="ntcText" placeholder="내용을 입력하세요"></textarea>
-			</form>
+			<div id="writeFromData">
+				<input id="subject" placeholder="제목을 입력하세요">
+				<textarea id="writeText" placeholder="내용을 입력하세요"></textarea>
+			</div>
 			<button id="saveWriteFrom" class="btnSmall">저장</button>
 		</div>
 

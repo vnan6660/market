@@ -21,19 +21,23 @@
 			<div id="ntcListWrap">
 				<ul id="noticeUl">
 					<li>
-						<span>제목내용</span>
+						<span id="orgSubject"><c:out value="${noticeOne.ntcSj}" /></span>
+						<input type="text" id="updSubject" value="<c:out value="${noticeOne.ntcSj}"/>">
 					</li>
 					<li>
-						<span>게스트일지도</span>
+						<span><c:out value="${noticeOne.ntcWrt}" /></span>
 					</li>
 					<li>
-						<span>내용일지도</span>
+						<span id="orgText"><c:out value="${noticeOne.ntcText}" /></span>
+						<textarea id="updText" rows="20" cols="50"><c:out value="${noticeOne.ntcText}"/></textarea>
 					</li>
 				</ul>
 			</div>
-			<button id="goNoticeList" class="btnSmallList">목록</button>
-			<button class="btnSmall">삭제</button>
-			<button class="btnSmall">수정</button>
+			<input type="hidden" id="ntcNo" value="${noticeOne.ntcNo}">
+			<button id="goNoticeList" class="btnSmallList hover">목록</button>
+			<button id="ntcDelBtn" class="btnSmall hover">삭제</button>
+			<button id="ntcUpdBtn" class="btnSmall hover">수정</button>
+			<button id="ntcUpdDoneBtn" class="btnSmall hover">수정완료</button>
 		</div>
 	</main>
 </body>

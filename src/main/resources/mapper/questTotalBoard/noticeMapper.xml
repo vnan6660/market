@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.questTotalBoard.NoticeDaoImpl">
+	<insert id="insertNotice"
+		parameterType="com.vo.questTotalBoard.NoticeVO">
+		<!-- noticeMapper.insertNotice -->
+		INSERT INTO NOTICE (NTC_NO, NTC_SJ, NTC_TEXT, NTC_WRT, NTC_REGDATE,
+		NTC_VCNT)
+		VALUES (NOTICE_SEQ.NEXTVAL, #{ntcSj}, #{ntcText} , 'GUEST',
+		SYSDATE, '0')
+	</insert>
+
+	<select id="selectNoticeList"
+		parameterType="com.vo.questTotalBoard.SearchVO"
+		resultType="com.vo.questTotalBoard.NoticeVO">
+		<!-- noticeMapper.selectNoticeList -->
+		SELECT
+		NTC_NO AS ntcNo, <!--공지사항번호 -->
+		NTC_SJ AS ntcSj, <!--제목 -->
+		NTC_TEXT AS ntcText, <!--내용 -->
+		NTC_WRT AS ntcWrt, <!--작성자 -->
+		NTC_REGDATE AS ntcRegDate, <!--생성일자 -->
+		NTC_VCNT AS ntcVcnt <!--조회수 -->
+		FROM
+		NOTICE
+		WHERE 1 = 1
+		<if test='selectOptVal != null and selectOptVal.equals("optAll")'>
+			AND(NTC_SJ LIKE '%'||#{searchVal}||'%'
+			OR NTC_WRT LIKE '%'||#{searchVal}||'%'
+			OR NTC_TEXT LIKE '%'||#{searchVal}||'%')
+		</if>
+		<if test='selectOptVal != null and selectOptVal.equals("optSj")'>
+			AND(NTC_SJ LIKE '%'||#{searchVal}||'%')
+		</if>
+		<if test='selectOptVal != null and selectOptVal.equals("optWrt")'>
+			AND(NTC_WRT LIKE '%'||#{searchVal}||'%')
+		</if>
+		<if test='selectOptVal != null and selectOptVal.equals("optText")'>
+			AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
+		</if>
+		ORDER BY NTC_NO DESC
+	</select>
+
+	<select id="selectNotcieDetail" parameterType="_int"
+		resultType="com.vo.questTotalBoard.NoticeVO">
+		<!-- noticeMapper.selectNotcieDetail -->
+		SELECT
+		NTC_NO AS ntcNo, <!--공지사항번호 -->
+		NTC_SJ AS ntcSj, <!--제목 -->
+		NTC_TEXT AS ntcText, <!--내용 -->
+		NTC_WRT AS ntcWrt, <!--작성자 -->
+		NTC_REGDATE AS ntcRegDate, <!--생성일자 -->
+		NTC_VCNT AS ntcVcnt <!--조회수 -->
+		FROM
+		NOTICE
+		WHERE NTC_NO = #{ntcNo}
+	</select>
+
+	<delete id="deleteNotice" parameterType="_int">
+		<!-- noticeMapper.deleteNotice -->
+		DELETE
+		FROM
+		NOTICE
+		WHERE NTC_NO = #{ntcNo}
+	</delete>
+
+	<update id="updateNotice"
+		parameterType="com.vo.questTotalBoard.NoticeVO">
+		<!-- noticeMapper.updateNotice -->
+		UPDATE NOTICE
+		SET NTC_SJ = #{ntcSj}, NTC_TEXT = #{ntcText}
+		WHERE NTC_NO
+		= #{ntcNo}
+	</update>
+
+</mapper>

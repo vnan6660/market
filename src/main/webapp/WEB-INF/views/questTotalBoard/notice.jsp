@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,15 @@
 		<div>
 			<div id="ssWrap">
 				<select id="selectWrap">
-					<option>제목넣을곳</option>
+					<option value="optAll">전체</option>
+					<option value="optSj">제목</option>
+					<option value="optWrt">작성자</option>
+					<option value="optText">내용</option>
 				</select>
 				<div id="searchWrap">
-					<input type="search" placeholder="검색어를 입력해주세요" />
+					<input type="search" id="searchVal" placeholder="검색어를 입력해주세요" />
 				</div>
-<button id="goSearch">검색</button>
+<button id="goSearch" class="hover">검색</button>
 			</div>
 			<div id="ntcListWrap">
 				<table id="ntcTable">
@@ -43,15 +47,17 @@
 						<th>작성일</th>
 						<th>조회</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="/detail/notice">제목1</a></td>
-						<td>작성자1</td>
-						<td>작성일1</td>
-						<td>0</td>
-					</tr>
+					<c:forEach items="${noticeList}" var="vo">
+						<tr>
+							<td>${vo.ntcNo}</td>
+							<td class="hover" onclick="goDetail(${vo.ntcNo})">${vo.ntcSj}</td>
+							<td>${vo.ntcWrt}</td>
+							<td><fmt:formatDate value="${vo.ntcRegDate}" pattern="yyyy.MM.dd"/></td>
+							<td>${vo.ntcVcnt}</td>
+						</tr>
+					</c:forEach>
 				</table>
-				<button id="goWriteForm" class="btnSmall">글쓰기</button>
+				<button id="goWriteForm" class="btnSmall hover">글쓰기</button>
 			</div>
 
 		</div>
