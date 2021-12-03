@@ -12,7 +12,7 @@
 <script type="text/javascript" src="/js/menuTotalMgt/menuMgt.js"></script>
 </head>
 <body>
-	<c:import url="/sideMenu"></c:import>
+	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents">
 		<h2>메뉴관리</h2>
 		<hr>

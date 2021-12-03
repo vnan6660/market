@@ -2,8 +2,8 @@ package com.service.questTotalBoard;
 
 import java.util.List;
 
+import com.vo.common.SearchVO;
 import com.vo.questTotalBoard.NoticeVO;
-import com.vo.questTotalBoard.SearchVO;
 
 /**
  * 공지사항 Service
@@ -27,5 +27,8 @@ public interface NoticeService {
 
 	/* 공지사항 글 수정*/
 	void updateNotice(NoticeVO vo);
+
+	/* 검색글카운트 */
+	int getListCount(SearchVO vo);
 
 }

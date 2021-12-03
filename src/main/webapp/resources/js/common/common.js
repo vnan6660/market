@@ -10,9 +10,9 @@ var goHome = function() {
 }
 
 var goLogin = function() {
-	location.href = "/login";
+	location.href = "/login/loginPage";
 }
 
 var goLogout = function() {
-	location.href = "/login";
+	location.href = "/login/loginPage";
 }

@@ -17,8 +17,10 @@ var attchEvent = function(){
 		}
 	});
 	
+	
+	//회원가입
 	$("#signUpBtn").click(function(){
-		location.href = "/signUp";
+		
 	});
 }
 
@@ -46,7 +48,7 @@ var login = function(idCheck,passCheck){
 	idCheck;
 	passCheck;
 	$.ajax({
-		url: '/get/login',
+		url: '/get/getLogin',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({

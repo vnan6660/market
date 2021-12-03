@@ -27,7 +27,7 @@ public class MenuMgtController {
 	private MenuMgtService MenuMgtService;
 
 	// 메뉴관리 메뉴리스트와 상위코드 불러오기
-	@RequestMapping("/menuMgt")
+	@RequestMapping("/menuMgt/menuMgtPage")
 	public String menuMgt(Model model) {
 		List<MenuMgtVO> list = MenuMgtService.getMenuList();
 		List<MenuMgtVO> option = MenuMgtService.getUpCd();
@@ -38,7 +38,7 @@ public class MenuMgtController {
 	}
 
 	// 메뉴관리 하나의 메뉴정보 가져오기
-	@GetMapping("/get/menuMgt")
+	@GetMapping("/menuMgt/getMenuMgt")
 	@ResponseBody
 	public List<MenuMgtVO> getMenuMgt(@RequestParam String menuId) {
 		List<MenuMgtVO> menuDetail = MenuMgtService.getMenuMgt(menuId);
@@ -46,28 +46,28 @@ public class MenuMgtController {
 	}
 
 	// 메뉴관리 입력
-	@PostMapping("/set/menuMgt")
+	@PostMapping("/menuMgt/setMenuMgt")
 	@ResponseBody
 	public void setMenuMgt(@RequestBody MenuMgtVO vo) {
 		MenuMgtService.setMenuMgt(vo);
 	}
 
 	// 메뉴관리 업데이트
-	@PostMapping("/update/menuMgt")
+	@PostMapping("/menuMgt/updateMenuMgt")
 	@ResponseBody
 	public void updateMenuMgt(@RequestBody MenuMgtVO vo) {
 		MenuMgtService.updateMenuMgt(vo);
 	}
 
 	// 메뉴관리 삭제
-	@GetMapping("/delete/menuMgt")
+	@GetMapping("/menuMgt/deleteMenuMgt")
 	@ResponseBody
 	public void deleteMenuMgt(@RequestParam String menuId) {
 		MenuMgtService.deleteMenuMgt(menuId);
 	}
 
 	// 메뉴관리 저장하기전 기존코드와 같은코드인지 체크
-	@GetMapping("/validation/menuMgt")
+	@GetMapping("/menuMgt/validationMenuMgt")
 	@ResponseBody
 	public List<MenuMgtVO> validationMenuMgt() {
 		List<MenuMgtVO> list = MenuMgtService.getMenuList();

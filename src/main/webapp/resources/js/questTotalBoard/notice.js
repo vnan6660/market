@@ -14,12 +14,12 @@ $(function() {
 var attachEvent = function() {
 	/*글쓰기 페이지가기*/
 	$("#goWriteForm").click(function() {
-		location.href = "/write/notice";
+		location.href = "/notice/writeNotice";
 	});
 
 	/*공지사항목록 페이지가기*/
 	$("#goNoticeList").click(function() {
-		location.href = "/notice";
+		location.href = "/notice/noticePage";
 	});
 
 	/*글쓴것 저장하기*/
@@ -51,27 +51,25 @@ var attachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*select값하고 input 값 같이넘기기*/
-		var selectOptVal = $("#selectWrap option:selected").val();
-		var searchVal = $("#searchVal").val();
-
+		goPage(1);
 	});
 }
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(ntcNo) {
-	location.href = '/detail/notice/' + ntcNo;
+	location.href = '/notice/detailNotcie/' + ntcNo;
 }
 
 var saveNotice = function(param) {
 	if (confirm("저장하시겠습니까?")) {
 		$.ajax({
-			url: '/write/notice',
+			url: '/notice/writeNotice',
 			type: 'POST',
 			data: JSON.stringify(param),
 			datatype: 'JSON',
 			contentType: 'application/json',
 			success: function() {
-				location.href = '/notice';
+				location.href = '/notice/noticePage';
 			}
 		});
 	}
@@ -80,11 +78,11 @@ var saveNotice = function(param) {
 var deleteNotice = function() {
 	if (confirm("삭제하시겠습니까?")) {
 		$.ajax({
-			url: '/delete/notice',
+			url: '/notice/deleteNotice',
 			type: 'GET',
 			data: { "ntcNo": $("#ntcNo").val() },
 			success: function() {
-				location.href = '/notice';
+				location.href = '/notice/noticePage';
 			}
 		});
 	}
@@ -94,7 +92,7 @@ var updateNotice = function() {
 	var ntcNo = $("#ntcNo").val();
 	if (confirm("수정하시겠습니까?")) {
 		$.ajax({
-			url: '/update/notice',
+			url: '/notice/updateNotice',
 			type: 'POST',
 			data: JSON.stringify({
 				"ntcNo": ntcNo,
@@ -103,11 +101,65 @@ var updateNotice = function() {
 			}),
 			contentType: 'application/json',
 			success: function() {
-				location.href = '/detail/notice/' + ntcNo;
+				location.href = '/notice/detailNotcie/' + ntcNo;
 			}
 		});
 	}
 }
 
+var goPage = function(pageNum) {
+	searchParam.selectOptVal = $("#selectWrap option:selected").val();
+	searchParam.searchVal = $("#searchVal").val();
+	searchParam.page = pageNum;
 
+	$.ajax({
+		url: '/notice/searchNotice',
+		type: 'GET',
+		data: searchParam,
+		success: function(res) {
+			var page = res.page;
+			var startpage = res.startpage;
+			var endpage = res.endpage;
+			var noticeList = res.noticeList;
+			var viewList = "";
+			viewList += "<colgroup>";
+			viewList += "<col width='10%;'>";
+			viewList += "<col width='50%;'>";
+			viewList += "<col width='15%;'>";
+			viewList += "<col width='15%;'>";
+			viewList += "<col width='10%;'>";
+			viewList += "/colgroup";
+			viewList += "<tr>";
+			viewList += "<th>NO</th>";
+			viewList += "<th>제목</th>";
+			viewList += "<th>작성자</th>";
+			viewList += "<th>작성일</th>";
+			viewList += "<th>조회</th>";
+			viewList += "</tr>";
+
+			$.each(noticeList, function(i, e) {
+				var date = new Date(e.ntcRegDate);
+				var year = date.getFullYear().toString();
+				var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+				var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+				viewList += "<tr>";
+				viewList += "<td>" + e.ntcNo + "</td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.ntcNo + ")'>" + e.ntcSj + "</td>";
+				viewList += "<td>" + e.ntcWrt + "</td>";
+				viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
+				viewList += "<td>" + e.ntcVcnt + "</td>";
+				viewList += "</tr>";
+			});
+
+			var pageList = "";
+			for (var num = startpage; num <= endpage; num++) {
+				pageList += '<span onclick="goPage(' + num + ')">' + num + '</span>';
+			}
+
+			$("#ntcTable").html(viewList);
+			$("#pageList").html(pageList);
+
+		}
+	});
+}
 

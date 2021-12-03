@@ -13,7 +13,7 @@
 <script type="text/javascript" src="/js/questTotalBoard/notice.js"></script>
 </head>
 <body>
-	<c:import url="/sideMenu"></c:import>
+	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents">
 		<h2>공지사항 글쓰기</h2>
 		<hr>

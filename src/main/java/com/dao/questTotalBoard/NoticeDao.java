@@ -2,8 +2,8 @@ package com.dao.questTotalBoard;
 
 import java.util.List;
 
+import com.vo.common.SearchVO;
 import com.vo.questTotalBoard.NoticeVO;
-import com.vo.questTotalBoard.SearchVO;
 
 
 /**
@@ -28,6 +28,9 @@ public interface NoticeDao {
 
 	/* 공지사항 글 수정*/
 	void updateNotice(NoticeVO vo);
+
+	/* 검색글카운트 */
+	int selectListCount(SearchVO vo);
 
 
 }

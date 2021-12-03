@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/js/common/common.js"></script>
 </head>
 <body>
-	<c:import url="/sideMenu"></c:import>
+	<c:import url="/sideMenu/sideMenuPage"></c:import>
 </body>
 
 </html>

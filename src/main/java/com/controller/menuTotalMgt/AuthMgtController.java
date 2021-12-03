@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthMgtController {
 	
 	/* 권한관리 페이지 가기 */
-	@RequestMapping("/authMgt")
+	@RequestMapping("/authMgt/authMgtPage")
 	public String authMgt() {
 		return "/menuTotalMgt/authMgt";
 	}

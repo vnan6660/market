@@ -14,11 +14,11 @@
 <script type="text/javascript" src="/js/questTotalBoard/notice.js"></script>
 </head>
 <body>
-	<c:import url="/sideMenu"></c:import>
+	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents">
 		<h2>공지사항</h2>
 		<hr>
-		<div>
+		<div id="noticeUpperWrap">
 			<div id="ssWrap">
 				<select id="selectWrap">
 					<option value="optAll">전체</option>
@@ -29,17 +29,17 @@
 				<div id="searchWrap">
 					<input type="search" id="searchVal" placeholder="검색어를 입력해주세요" />
 				</div>
-<button id="goSearch" class="hover">검색</button>
+				<button id="goSearch" class="hover">검색</button>
 			</div>
 			<div id="ntcListWrap">
 				<table id="ntcTable">
-				<colgroup>
-					<col width="10%;">
-					<col width="50%;">
-					<col width="15%;">
-					<col width="15%;">
-					<col width="10%;">
-				</colgroup>
+					<colgroup>
+						<col width="10%;">
+						<col width="50%;">
+						<col width="15%;">
+						<col width="15%;">
+						<col width="10%;">
+					</colgroup>
 					<tr>
 						<th>NO</th>
 						<th>제목</th>
@@ -52,14 +52,20 @@
 							<td>${vo.ntcNo}</td>
 							<td class="hover" onclick="goDetail(${vo.ntcNo})">${vo.ntcSj}</td>
 							<td>${vo.ntcWrt}</td>
-							<td><fmt:formatDate value="${vo.ntcRegDate}" pattern="yyyy.MM.dd"/></td>
+							<td><fmt:formatDate value="${vo.ntcRegDate}"
+									pattern="yyyy-MM-dd" /></td>
 							<td>${vo.ntcVcnt}</td>
 						</tr>
 					</c:forEach>
 				</table>
+
 				<button id="goWriteForm" class="btnSmall hover">글쓰기</button>
 			</div>
-
+		</div>
+		<div id="pageList">
+			<c:forEach var="cnt"  begin="${startpage}" end="${endpage}" >
+			<span onclick="goPage(${cnt})">${cnt}</span>
+			</c:forEach>
 		</div>
 	</main>
 </body>

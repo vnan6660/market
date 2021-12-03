@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.questTotalBoard.NoticeDao;
+import com.vo.common.SearchVO;
 import com.vo.questTotalBoard.NoticeVO;
-import com.vo.questTotalBoard.SearchVO;
 
 
 /**
@@ -50,6 +50,12 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void updateNotice(NoticeVO vo) {
 		noticeDao.updateNotice(vo);
+	}
+
+	/* 검색글카운트 */
+	@Override
+	public int getListCount(SearchVO vo) {
+		return noticeDao.selectListCount(vo);
 	}
 
 

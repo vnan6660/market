@@ -23,7 +23,7 @@ var attachEvent = function() {
 		var menuCd = $("#menuCd").val();
 		/*저장버튼을 클리했을 때 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
 		$.ajax({
-			url: '/validation/menuMgt',
+			url: '/menuMgt/validationMenuMgt',
 			type: 'GET',
 			success: function(res) {
 				var list = res.filter((ele) => {
@@ -39,45 +39,45 @@ var attachEvent = function() {
 	}
 
 	var updateMenuInfo = function(menuId) {
-		if(confirm('변경하시겠습니까?')){
+		if (confirm('변경하시겠습니까?')) {
 			$.ajax({
-			url: '/update/menuMgt',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				"menuId": menuId,
-				"menuNm": $("#menuNm").val(),
-				"menuCd": $("#menuCd").val(),
-				"menuUpCd": $("#menuUpCd option:selected").val(),
-				"menuSn": $("#menuSn").val(),
-				"adminYn": $("#adminSelect option:selected").val(),
-				"userYn": $("#userSelect option:selected").val()
-			}),
-			success: function() {
-				location.href = "/menuMgt";
-			}
-		});
+				url: '/menuMgt/updateMenuMgt',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					"menuId": menuId,
+					"menuNm": $("#menuNm").val(),
+					"menuCd": $("#menuCd").val(),
+					"menuUpCd": $("#menuUpCd option:selected").val(),
+					"menuSn": $("#menuSn").val(),
+					"adminYn": $("#adminSelect option:selected").val(),
+					"userYn": $("#userSelect option:selected").val()
+				}),
+				success: function() {
+					location.href = "/menuMgt/menuMgtPage";
+				}
+			});
 		}
 	}
 
 	var saveMenuInfo = function() {
-		if(confirm('저장하시겠습니까?')){
+		if (confirm('저장하시겠습니까?')) {
 			$.ajax({
-			url: '/set/menuMgt',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				"menuNm": $("#menuNm").val(),
-				"menuCd": $("#menuCd").val(),
-				"menuUpCd": $("#menuUpCd option:selected").val(),
-				"menuSn": $("#menuSn").val(),
-				"adminYn": $("#adminSelect option:selected").val(),
-				"userYn": $("#userSelect option:selected").val()
-			}),
-			success: function() {
-				location.href = "/menuMgt";
-			}
-		});
+				url: '/menuMgt/setMenuMgt',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					"menuNm": $("#menuNm").val(),
+					"menuCd": $("#menuCd").val(),
+					"menuUpCd": $("#menuUpCd option:selected").val(),
+					"menuSn": $("#menuSn").val(),
+					"adminYn": $("#adminSelect option:selected").val(),
+					"userYn": $("#userSelect option:selected").val()
+				}),
+				success: function() {
+					location.href = "/menuMgt/menuMgtPage";
+				}
+			});
 		}
 	}
 
@@ -87,11 +87,11 @@ var attachEvent = function() {
 
 		if (confirm('삭제하시겠습니까?')) {
 			$.ajax({
-				url: '/delete/menuMgt',
+				url: '/menuMgt/deleteMenuMgt',
 				type: 'GET',
 				data: { "menuId": menuId },
 				success: function() {
-					location.href = "/menuMgt";
+					location.href = "/menuMgt/menuMgtPage";
 				}
 			});
 		}
@@ -103,7 +103,7 @@ menuClick = function(menuId) {
 	$("#menuDelBtn").show();
 	$("#menuSaveBtn").css("margin-left", "19%");
 	$.ajax({
-		url: '/get/menuMgt',
+		url: '/menuMgt/getMenuMgt',
 		type: 'GET',
 		data: { "menuId": menuId },
 		success: function(res) {

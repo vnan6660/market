@@ -27,7 +27,7 @@ public class CommonController {
     public String main() {
         return "main";
     }
-    @RequestMapping("/sideMenu")
+    @RequestMapping("/sideMenu/sideMenuPage")
     public String sideMenu(Model model) {
         List<MenuMgtVO> list = MenuMgtService.getMenuList();
         model.addAttribute("list", list);

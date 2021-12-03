@@ -10,7 +10,7 @@
 						<span class="rootMenu">${vo.menuNm}</span>
 				</c:if>
 				 <c:if test="${vo.menuUpCd != null}">
-					 <a href="/${vo.menuCd}">
+					 <a href="/${vo.menuCd}/${vo.menuCd}Page">
 						<span class="nodeMenu">
 							<span>&nbsp;&nbsp;-</span> <span>${vo.menuNm}</span>
 						</span>

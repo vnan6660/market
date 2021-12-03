@@ -13,7 +13,7 @@
 <script type="text/javascript" src="/js/menuTotalMgt/authMgt.js"></script>
 </head>
 <body>
-	<c:import url="/sideMenu"></c:import>
+	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents">
 		<h2>권한관리</h2>
 		<hr>

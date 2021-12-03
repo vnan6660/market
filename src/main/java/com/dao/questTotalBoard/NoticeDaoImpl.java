@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.vo.common.SearchVO;
 import com.vo.questTotalBoard.NoticeVO;
-import com.vo.questTotalBoard.SearchVO;
 
 /**
  * 공지사항 DaoImpl
@@ -49,5 +49,10 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public void updateNotice(NoticeVO vo) {
 		sqlSession.update("updateNotice", vo);
+	}
+
+	@Override
+	public int selectListCount(SearchVO vo) {
+		return sqlSession.selectOne("selectListCount", vo);
 	}
 }

@@ -7,6 +7,9 @@
 
 @import url("/css/common/common.css");
 
+#noticeUpperWrap{
+	height: 400px;
+}
 #ssWrap {
 	margin-top: 10px;
 }

@@ -23,12 +23,12 @@ public class LoginController {
 	private LoginService loginService;
 	
 	/* 로그인 페이지 가기 */
-	@RequestMapping("/login")
+	@RequestMapping("/login/loginPage")
 	public String authMgt() {
 		return "/login/login";
 	}
 	
-	@PostMapping("/get/login")
+	@PostMapping("/login/getLogin")
 	@ResponseBody
 	public String getLogin(@RequestBody LoginVO vo) {
 		
