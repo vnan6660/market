@@ -36,4 +36,15 @@ public class LoginController {
 		
 		return returnval;
 	}
+	
+	/**
+	 * 회원가입 joinPage
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.06
+	 */
+	// /login/joinPage URL로 요청이 들어오면 controller에서 이 URL요청을 특정 메서드와 매핑하기위해 사용하는것이 @RequestMapping이다.
+	@RequestMapping("/login/joinPage") 
+	public String joinPage() { // joinPage() 메서드는
+		return "/login/join"; // /login/join를 리턴해준다
+	}
 }

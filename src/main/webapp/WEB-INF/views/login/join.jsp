@@ -14,16 +14,7 @@
 </head>
 <body>
 	<main>
-		<div id="logInWrap">
-		<img id="logoIcon" class="hover" alt="logo" src="/images/logo.png" onclick="goHome()"> 
-			<div id="checkWrap">
-				<input id="idCheck" class="check" /> 
-				<input id="passCheck" class="check" type="password"/>
-				<span id="signUpBtn" onclick="goJoin()">회원가입</span>
-				<div id="validCheckText"></div>
-			</div>
-			<button id="loginBtn">로그인</button>
-		</div>
+		<h1>aaaaaaaaaaaa</h1>
 	</main>
 </body>
 

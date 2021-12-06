@@ -1,0 +1,50 @@
+/**
+*생성자 : 김혜경
+*생성일 : 2021.12.06
+*로그인
+*/
+@charset "UTF-8";
+
+@import url("/css/common/common.css");
+
+#logoIcon {
+	margin-top: -100px;
+	width: 30%;
+	height: 15%;
+}
+
+#logInWrap {
+	display: flex;
+	height: 500px;
+	justify-content: center;
+	align-items: center;
+}
+
+#checkWrap {
+	width: 220px;
+	margin-top: 40px;
+}
+
+.check {
+	padding: 1.2em;
+	font-size: 11pt;
+}
+
+#validCheckText {
+	width: 320px;
+	min-height: 22px;
+	color: red;
+}
+
+#loginBtn {
+	width: 10%;
+	height: 23%;
+}
+
+#loginBtn:hover {
+	cursor: pointer;
+}
+
+#signUpBtn:hover {
+	cursor: pointer;
+}
