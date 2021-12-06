@@ -108,6 +108,7 @@ var updateNotice = function() {
 }
 
 var goPage = function(pageNum) {
+	searchParam = {};
 	searchParam.selectOptVal = $("#selectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
@@ -118,6 +119,7 @@ var goPage = function(pageNum) {
 		data: searchParam,
 		success: function(res) {
 			var page = res.page;
+			var maxPage = res.maxPage;
 			var startpage = res.startpage;
 			var endpage = res.endpage;
 			var noticeList = res.noticeList;
@@ -152,8 +154,15 @@ var goPage = function(pageNum) {
 			});
 
 			var pageList = "";
+			if (1 < startpage) {
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+			}
 			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span onclick="goPage(' + num + ')">' + num + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ')">' + num + '</span>';
+			}
+
+			if (endpage < maxPage) {
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1 )+ ')">' + '&gt;&gt;' + '</span>';
 			}
 
 			$("#ntcTable").html(viewList);

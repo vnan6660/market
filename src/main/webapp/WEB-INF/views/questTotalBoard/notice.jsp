@@ -63,9 +63,10 @@
 			</div>
 		</div>
 		<div id="pageList">
-			<c:forEach var="cnt"  begin="${startpage}" end="${endpage}" >
-			<span onclick="goPage(${cnt})">${cnt}</span>
+			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
 			</c:forEach>
+			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
 		</div>
 	</main>
 </body>

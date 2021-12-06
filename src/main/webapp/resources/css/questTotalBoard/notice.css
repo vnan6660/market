@@ -90,3 +90,15 @@ input, select {
 	border-bottom: 2px solid #ccc;
 	padding: 1em;
 }
+
+#pageList{
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.page{
+	border: 2px solid #eee;
+    padding: 0.5em 1em;
+}
+

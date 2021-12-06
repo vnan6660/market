@@ -93,6 +93,7 @@ public class NoticeController {
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 
 		resultMap.put("noticeList", noticeList);
+		resultMap.put("maxPage", searchVO.getMaxpage());
 		resultMap.put("page", searchVO.getPage());
 		resultMap.put("startpage", searchVO.getStartpage());
 		resultMap.put("endpage", searchVO.getEndpage());
