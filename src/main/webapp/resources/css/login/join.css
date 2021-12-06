@@ -13,7 +13,7 @@
 
 .contents-join {
 	position: absolute;
-	margin-top: 10%;
+	margin-top: 5%;
 	margin-left: 15%;
 	margin-right: 15%;
 	width: 60%;
@@ -45,10 +45,8 @@ table th{
 	width: 90px;
 }
 
-.join-btn-wrap{
-	margin: 0 auto;
-}
-#join-btn{
+#joinBtn{
+	margin-left: 356px;
 	border: 0;
 	height: 53px;
     width: 176px;

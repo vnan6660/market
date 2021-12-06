@@ -1,9 +1,12 @@
 package com.dao.login;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
 
 /**
@@ -26,6 +29,18 @@ public class LoginDaoImpl implements LoginDao {
 	public LoginVO selectLogin(LoginVO vo) {
 		return sqlSession.selectOne("selectLogin", vo);
 	}
+
+//	@Override
+//	public void doJoin(Map<String, Object> paramMap) {
+//		sqlSession.insert("doJoin", paramMap);
+//	}
+
+	@Override
+	public void doJoin(JoinVO vo) {
+		sqlSession.insert("doJoin", vo);
+	}
+
+
 	
 
 }

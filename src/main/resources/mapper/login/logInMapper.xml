@@ -27,4 +27,37 @@
 		FROM CUSTOMER_INFO
 		WHERE CS_ID = #{csId} AND CS_PS = #{csPs}
 	</select>
+	
+	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
+		INSERT INTO CUSTOMER_INFO(
+			CS_NO
+			,CS_GRADE
+			,CS_ID
+			,CS_PS
+			,CS_NM
+			,CS_PHONE_ONE
+			,CS_PHONE_TWO
+			,CS_PHONE_THREE
+			,CS_EMAIL_ONE
+			,CS_EMAIL_TWO
+			,CREATE_DATE
+			,CS_ADDR_ONE
+			,CS_ADDR_TWO
+		)
+		VALUES(
+			CUSTOMER_INFO_SEQ.nextval
+			,'1'
+			,#{csId}
+			,#{csPs}
+			,#{csNm}
+			,#{csPhoneOne}
+			,#{csPhoneTwo}
+			,#{csPhoneThree}
+			,#{csEmailOne}
+			,#{csEmailTwo}
+			,SYSDATE
+			,#{csAddrOne}
+			,#{csAddrTwo}
+		)
+	</insert>
 </mapper>

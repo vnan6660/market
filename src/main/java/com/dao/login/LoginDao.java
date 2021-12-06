@@ -1,5 +1,6 @@
 package com.dao.login;
 
+import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
 
 /**
@@ -12,9 +13,8 @@ public interface LoginDao {
 	int selectLoginCnt(LoginVO vo);
 
 	LoginVO selectLogin(LoginVO vo);
-
 	
-
-	
+	//회원가입 수행
+	void doJoin(JoinVO vo);
 
 }

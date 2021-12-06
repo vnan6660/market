@@ -1,11 +1,14 @@
 package com.controller.login;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.service.login.LoginService;
 import com.vo.login.LoginVO;
@@ -42,9 +45,20 @@ public class LoginController {
 	 * 생성자 : 김혜경
 	 * 생성일 : 2021.12.06
 	 */
-	// /login/joinPage URL로 요청이 들어오면 controller에서 이 URL요청을 특정 메서드와 매핑하기위해 사용하는것이 @RequestMapping이다.
+	// ("/login/joinPage")URL로 요청이 들어오면 controller에서 이 URL요청을 특정 메서드와 매핑하기위해 사용하는것이 @RequestMapping이다.
 	@RequestMapping("/login/joinPage") 
 	public String joinPage() { // joinPage() 메서드는
 		return "/login/join"; // /login/join를 리턴해준다
+	}
+	
+	/**
+	 * 회원가입 수행
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.06
+	 */
+	@PostMapping("/login/getJoin")
+	@ResponseBody
+	public void doJoin(@RequestBody Map<String, Object> paramMap) { // joinPage() 메서드는
+		loginService.doJoin(paramMap);
 	}
 }

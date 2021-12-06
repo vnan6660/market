@@ -1,5 +1,7 @@
 package com.service.login;
 
+import java.util.Map;
+
 import com.vo.login.LoginVO;
 
 /**
@@ -10,6 +12,9 @@ import com.vo.login.LoginVO;
 public interface LoginService {
 
 	String getLogin(LoginVO vo);
+
+	//회원가입 수행
+	public void doJoin(Map<String, Object> paramMap);
 
 
 }

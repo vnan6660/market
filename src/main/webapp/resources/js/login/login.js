@@ -29,12 +29,64 @@ var attchEvent = function(){
 	});
 	
 	
-	//회원가입
+	//회원가입페이지로 이동
 	$("#signUpBtn").click(function(){
 		location.href = "/login/joinPage";
 	});
+	
+	$("#joinBtn").click(function(){
+		doJoin();
+	});
 }
 
+//회원가입 수행
+var doJoin = function (){
+	var csId = $("#csId").val();
+	console.log("csId: "+csId);
+	var csPs = $("#csPs").val();
+	console.log("csPs: "+csPs);
+	var csNm = $("#csNm").val();
+	console.log("csNm: "+csNm);
+	var csPhoneOne = $("#csPhoneOne").val();
+	console.log("csPhoneOne: "+csPhoneOne);
+	var csPhoneTwo = $("#csPhoneTwo").val();
+	console.log("csPhoneTwo: "+csPhoneTwo);
+	var csPhoneThree = $("#csPhoneThree").val();
+	console.log("csPhoneThree: "+csPhoneThree);
+	var csEmailOne = $("#csEmailOne").val();
+	console.log("csEmailOne: "+csEmailOne);
+	var csEmailTwo = $("#csEmailTwo").val();
+	console.log("csEmailTwo: "+csEmailTwo);
+	var csAddrOne = $("#csAddrOne").val();
+	console.log("csAddrOne: "+csAddrOne);
+	var csAddrTwo = $("#csAddrTwo").val();
+	console.log("csAddrTwo: "+csAddrTwo);
+	
+	var data = {};
+	data.csId = csId;
+	data.csPs = csPs;
+	data.csNm = csNm;
+	data.csPhoneOne = csPhoneOne;
+	data.csPhoneTwo = csPhoneTwo;
+	data.csPhoneThree = csPhoneThree;
+	data.csEmailOne = csEmailOne;
+	data.csEmailTwo = csEmailTwo;
+	data.csAddrOne = csAddrOne;
+	data.csAddrTwo = csAddrTwo;
+	
+	$.ajax({
+		url: '/login/getJoin',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			dataType: 'json',
+			success: function(res) {
+				alert(JSON.stringify(res));
+				location.href="/";
+			}
+	});
+}
+	
 var wrapValidation = function(idCheck,passCheck){
 	var returnVal = false;
 	
