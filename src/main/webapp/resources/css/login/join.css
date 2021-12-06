@@ -4,6 +4,53 @@
 *로그인
 */
 @charset "UTF-8";
-
 @import url("/css/common/common.css");
 
+.join-info{
+	display: flex;
+    justify-content: space-between;
+}
+
+.contents-join {
+	position: absolute;
+	margin-top: 10%;
+	margin-left: 15%;
+	margin-right: 15%;
+	width: 60%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: stretch;
+}
+
+table {
+    border: 1px solid #ccc;
+	border-collapse: collapse;
+	margin-top: 1%;
+	margin-bottom: 10%;
+	background: white;
+	width: 100%;
+}
+
+th, td {
+    border: 1px solid #ccc;
+   
+    padding: 10px;
+}
+
+table th{
+	width: 230px;
+	background: #eaeaea;
+}
+#yearBox{
+	width: 90px;
+}
+
+.join-btn-wrap{
+	margin: 0 auto;
+}
+#join-btn{
+	border: 0;
+	height: 53px;
+    width: 176px;
+}

@@ -7,15 +7,145 @@
 <meta charset="UTF-8">
 <title>main</title>
 <link rel="shortcut icon" href="#">
-<script src="webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/login/login.css">
+<script src="/webjars/jquery/3.4.1/jquery.js"></script>
+<link rel="stylesheet" href="/css/login/join.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/login/login.js"></script>
 </head>
 <body>
-	<main>
-		<h1>aaaaaaaaaaaa</h1>
-	</main>
+<c:import url="/sideMenu/sideMenuPage"></c:import>
+<main class="contents-join">
+	<div class="table-wrap">
+		<ul class="join-info">
+			<li><h3>기본정보</h3></li>
+			<li>*필수입력사항</li>
+		</ul>
+		
+			<table>
+				<tr>
+					<th>회원구분*</th>
+					<td><input type="radio" checked="checked"> 개인회원</td>
+				</tr>
+				<tr>
+					<th>아이디*</th>
+					<td><input type="text" placeholder="아이디"> (영문소문자/숫자, 4~16자)</td>
+				</tr>
+				<tr>
+					<th>비밀번호*</th>
+					<td><input type="text" placeholder="비밀번호"> (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인*</th>
+					<td><input type="text" placeholder="비밀번호 확인"></td>
+				</tr>
+				<tr>
+					<th>이름*</th>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td>
+						<ul>
+							<li><input type="text" placeholder="기본 주소"></li>
+							<li><input type="text" placeholder="나머지 주소"></li>
+							
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>휴대전화*</th>
+					<td>
+						<select>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
+						</select>
+						- <input type="text"> - <input type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>이메일*</th>
+					<td>
+						<input type="text"> @ 
+						<select id="email">
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="hanmail.net">hanmail.net</option>
+							<option value="kakao.com">kakao.com</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<h3>추가정보</h3>
+			<table>
+				<tr>
+					<th>생년원일*</th>
+					<td>
+						<select id="yearBox"></select>
+						년
+						<select id="month">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						<select id="day">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option> 
+							<option value="15">15</option> 
+							<option value="16">16</option> 
+							<option value="17">17</option> 
+							<option value="18">18</option> 
+							<option value="19">19</option> 
+							<option value="20">20</option> 
+							<option value="21">21</option> 
+							<option value="22">22</option> 
+							<option value="23">23</option> 
+							<option value="24">24</option> 
+							<option value="25">25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>
+						</select>
+						일
+						<div>* 만 14세 미만 아동의 회원가입은 받고 있지 않습니다</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="join-btn-wrap">
+			<button id="join-btn">회원가입</button>
+		</div>
+</main>
 </body>
 
 </html>

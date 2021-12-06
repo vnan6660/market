@@ -6,6 +6,17 @@
 
 $(function(){
 	attchEvent();
+	
+	//회원가입 년도 생성
+	var date = new Date();
+	var selYear = date.getFullYear();
+	
+	// 현재년도를 기준으로 호출
+	getYears(selYear);
+	
+	// 현재년도를 select함
+	$('#yearBox').val(selYear);
+	
 });
 
 var attchEvent = function(){
@@ -20,10 +31,9 @@ var attchEvent = function(){
 	
 	//회원가입
 	$("#signUpBtn").click(function(){
-		
+		location.href = "/login/joinPage";
 	});
 }
-
 
 var wrapValidation = function(idCheck,passCheck){
 	var returnVal = false;
@@ -61,5 +71,22 @@ var login = function(idCheck,passCheck){
 			}
 	});
 	
-	
 }
+
+/*
+*회원가입 년도 생성
+*생성자 : 김혜경
+*생성일 : 2021.12.06
+*/
+function getYears(getY){
+	// 기존option을 삭제함
+	$("#yearBox option").remove();
+	
+	//올해 기준으로 -50년을 보여줌.
+	var stY = Number(getY)-50;
+	var edY = Number(getY);
+	for(var y = stY; y <= edY; y++){
+		$('#yearBox').append("<option value='"+ y + "'>" + y + "년" + "</option>");
+	}
+}
+

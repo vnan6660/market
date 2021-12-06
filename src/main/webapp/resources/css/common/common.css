@@ -15,20 +15,6 @@ ul, li, ol {
 	list-style: none;
 }
 
-#contents {
-	position: absolute;
-	margin: 5% auto;
-	padding: 15px;
-	width: 90%;
-	display: inline-flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	align-content: stretch;
-}
-
-h2 {
-	margin-bottom: 5px;
-}
 
 a:link {
 	color: #000;
