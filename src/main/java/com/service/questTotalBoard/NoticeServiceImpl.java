@@ -34,6 +34,12 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.selectNoticeList(vo);
 	}
 
+	/* 공지사항 디테일페이지가기전 조회수 증가 */
+	@Override
+	public void plusVcnt(int ntcNo) {
+		noticeDao.updateVcnt(ntcNo);
+	}
+	
 	/* 공시사항디테일불러오기 */
 	@Override
 	public NoticeVO getNotcieDetail(int ntcNo) {
@@ -57,6 +63,8 @@ public class NoticeServiceImpl implements NoticeService {
 	public int getListCount(SearchVO vo) {
 		return noticeDao.selectListCount(vo);
 	}
+
+	
 
 
 }

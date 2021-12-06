@@ -18,26 +18,15 @@
 		<h2>권한관리</h2>
 		<hr>
 		<div>
-			<select>
-				<option>관리자</option>
-				<option>사용자</option>
+			<input type="checkbox">
+			<select id="authSelect">
+				<option value="adminOpt">관리자</option>
+				<option value="userOpt">사용자</option>
 			</select>
-			
-			<table style="overflow: auto; width: 100%; margin-top: 40px;">
-			<colgroup>
-			<col width="20%">
-			<col width="80%">
-			</colgroup>
-			<tr style="background-color: #ccc;">
-				<th><input type="checkbox" id="allCheck"></th>
-				<th><h4>메뉴명</h4></th>
-			</tr>
-			<tr>
-				<th><input type="checkbox" name="checkbox"></th>
-				<th><h4>메뉴1</h4></th>
-			</tr>
+
+			<table id="authTable">
 			</table>
-			
+
 			<button id="menuSaveBtn" class="hover">저장</button>
 		</div>
 	</main>

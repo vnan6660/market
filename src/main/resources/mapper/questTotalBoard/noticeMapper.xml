@@ -17,11 +17,11 @@
 		parameterType="com.vo.common.SearchVO"
 		resultType="com.vo.questTotalBoard.NoticeVO">
 		<!-- noticeMapper.selectNoticeList -->
-	SELECT 
-	*
-	FROM(SELECT
-	ROWNUM as rnum,ntcNo,ntcSj,ntcText,ntcWrt,ntcRegDate,ntcVcnt
-	FROM(
+		SELECT
+		*
+		FROM(SELECT
+		ROWNUM as rnum,ntcNo,ntcSj,ntcText,ntcWrt,ntcRegDate,ntcVcnt
+		FROM(
 		SELECT
 		NTC_NO AS ntcNo, <!--공지사항번호 -->
 		NTC_SJ AS ntcSj, <!--제목 -->
@@ -48,8 +48,10 @@
 			AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
 		</if>
 		ORDER BY NTC_NO DESC
-		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
-	)WHERE rnum  <![CDATA[>=]]> #{startCount}
+		)WHERE ROWNUM <![CDATA[<=]]>
+		#{endCount}
+		)WHERE rnum  <![CDATA[>=]]>
+		#{startCount}
 	</select>
 
 	<select id="selectNotcieDetail" parameterType="_int"
@@ -85,9 +87,10 @@
 	</update>
 
 
-	<select id="selectListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	<select id="selectListCount"
+		parameterType="com.vo.common.SearchVO" resultType="_int">
 		SELECT
-			COUNT(*)
+		COUNT(*)
 		FROM
 		NOTICE
 		WHERE 1 = 1
@@ -107,5 +110,11 @@
 			AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
 		</if>
 	</select>
+
+	<update id="updateVcnt" parameterType="_int">
+		UPDATE NOTICE
+		SET NTC_VCNT = TO_CHAR(TO_NUMBER(NTC_VCNT)+1)
+		WHERE NTC_NO = #{ntcNo}
+	</update>
 
 </mapper>

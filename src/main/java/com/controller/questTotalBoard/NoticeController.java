@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.service.questTotalBoard.NoticeService;
 import com.vo.common.SearchVO;
@@ -38,10 +39,11 @@ public class NoticeController {
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("maxPage", searchVO.getMaxpage());
 		model.addAttribute("page", searchVO.getPage());
 		model.addAttribute("startpage", searchVO.getStartpage());
 		model.addAttribute("endpage", searchVO.getEndpage());
-		
+
 		return "/questTotalBoard/notice";
 	}
 
@@ -59,11 +61,15 @@ public class NoticeController {
 	}
 
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
-	@GetMapping("/notice/detailNotcie/{ntcNo}")
-	public String detailNotcie(@PathVariable int ntcNo, Model model) {
+	@GetMapping("/notice/detailNotcie")
+	public String detailNotcie(@RequestParam int ntcNo,Model model) {
+		noticeService.plusVcnt(ntcNo);//두번 호출되는 이유? 찾아보기
 		NoticeVO noticeOne = noticeService.getNotcieDetail(ntcNo);
-		model.addAttribute("noticeOne", noticeOne);
+		 model.addAttribute("noticeOne", noticeOne);
+	
 		return "/questTotalBoard/noticeDetail";
+
+		
 	}
 
 	/* 공지사항 글 삭제 */

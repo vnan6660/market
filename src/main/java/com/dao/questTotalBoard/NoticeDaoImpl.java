@@ -33,6 +33,13 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectList("selectNoticeList",vo);
 	}
 
+	/* 공지사항 디테일페이지가기전 조회수 증가 */
+	@Override
+	public void updateVcnt(int ntcNo) {
+		sqlSession.update("updateVcnt", ntcNo);
+		
+	}
+	
 	/* 공시사항디테일불러오기 */
 	@Override
 	public NoticeVO selectNotcieDetail(int ntcNo) {
@@ -55,4 +62,5 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int selectListCount(SearchVO vo) {
 		return sqlSession.selectOne("selectListCount", vo);
 	}
+
 }

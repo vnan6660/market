@@ -3,14 +3,25 @@
 *생성일 : 2021.11.27
 *권한관리
 */
+
 $(function() {
+	init();
 	attachEvent();
 });
 
+var init = function() {
+	getAuthList("adminOpt");
+}
+
 var attachEvent = function() {
-	//전체선택체크박스에 변화가 있을 때
-	$("#allCheck").change(function() {
-		allcheck();
+
+	//권한자 selectBox 변경시 event
+	$("#authSelect").change(function() {
+		getAuthList($("#authSelect option:selected").val());
+	});
+
+	$('#menuSaveBtn').click(function() {
+		saveOpt();
 	});
 }
 
@@ -21,18 +32,67 @@ var allcheck = function() {
 	if (allcheckStatus == true) {
 		console.log("체크됨");
 		$("input[name = checkbox]").each(function() {
-			if ($("input[name = checkbox]").is(":checked") == false) {
-				$("input[name = checkbox]").attr("checked", true);
-			}
+			$("input[name = checkbox]").prop("checked", true);
 		});
 	} else {
 		console.log("체크해제됨");
 		$("input[name = checkbox]").each(function() {
-			if ($("input[name = checkbox]").is(":checked") == true) {
-				$("input[name = checkbox]").attr("checked", false);
-			}
+			$("input[name = checkbox]").prop("checked", false);
 		});
 	}
 }
 
+var getAuthList = function(authSelect) {
+	$.ajax({
+		url: '/authMgt/getAuthMgtList',
+		data: { "authSelect": authSelect },
+		success: function(res) {
+			var viewList = "";
+			var checkF = 0;
+			viewList += "<colgroup>";
+			viewList += "<col width='20%;'>";
+			viewList += "<col width='80%;'>";
+			viewList += "<tr>";
+			viewList += "<th><input type='checkbox' id='allCheck' onchange='allcheck()'></th>";
+			viewList += "<th><h4>메뉴명</h4></th>";
+			viewList += "</tr>";
+			$.each(res, function(i, e) {
+				viewList += "<tr>";
+				if (e.adminYn != null) {
+					if (e.adminYn == "Y") {
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "' checked='checked'></th>";
+					} else {
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'></th>";
+						checkF += 1;
+					}
+				}
+				if (e.userYn != null) {
+					if (e.userYn == "Y") {
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "' checked='checked'></th>";
+					} else {
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'></th>";
+						checkF += 1;
+					}
+				}
+				viewList += "<th>" + e.menuNm + "</th>";
+				viewList += "</tr>";
+			});
+			$("#authTable").html(viewList);
+			if (checkF == 0) {
+				$("input[id = allCheck]").attr("checked", true);
+			}
+		}
+	});
+}
 
+var saveOpt = function() {
+	var www={};
+		 $("input[name = checkbox]").filter(function() {
+		 if(this.checked){
+			 www += this.defaultValue;
+			 www += "/";
+		}
+		console.log(www);
+
+	});
+}

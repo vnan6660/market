@@ -20,6 +20,9 @@ public interface NoticeDao {
 	/* 공지사항목록불러오기 */
 	List<NoticeVO> selectNoticeList(SearchVO vo);
 
+	/* 공지사항 디테일페이지가기전 조회수 증가 */
+	void updateVcnt(int ntcNo);
+	
 	/* 공시사항디테일불러오기 */
 	NoticeVO selectNotcieDetail(int ntcNo);
 
@@ -31,6 +34,8 @@ public interface NoticeDao {
 
 	/* 검색글카운트 */
 	int selectListCount(SearchVO vo);
+
+	
 
 
 }

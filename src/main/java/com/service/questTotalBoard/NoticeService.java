@@ -18,7 +18,10 @@ public interface NoticeService {
 
 	/* 공지사항목록불러오기 */
 	List<NoticeVO> getNoticeList(SearchVO vo);
-
+	
+	/* 공지사항 디테일페이지가기전 조회수 증가 */
+	void plusVcnt(int ntcNo);
+	
 	/* 공시사항디테일불러오기 */
 	NoticeVO getNotcieDetail(int ntcNo);
 
@@ -30,5 +33,7 @@ public interface NoticeService {
 
 	/* 검색글카운트 */
 	int getListCount(SearchVO vo);
+
+	
 
 }
