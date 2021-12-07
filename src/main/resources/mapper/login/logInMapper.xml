@@ -31,22 +31,22 @@
 	<!-- 회원가입 insert -->
 	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
 		INSERT INTO CUSTOMER_INFO(
-			CS_NO
-			,CS_GRADE
-			,CS_ID
-			,CS_PS
-			,CS_NM
-			,CS_PHONE_ONE
-			,CS_PHONE_TWO
-			,CS_PHONE_THREE
-			,CS_EMAIL_ONE
-			,CS_EMAIL_TWO
-			,CREATE_DATE
-			,CS_ADDR_ONE
-			,CS_ADDR_TWO
-			,CS_BIRTH_YEAR
-			,CS_BIRTH_MONTH
-			,CS_BIRTH_DAY
+			CS_NO <!-- 고객번호 -->
+			,CS_GRADE <!-- 고객등급 -->
+			,CS_ID <!-- 고객아이디 -->
+			,CS_PS <!-- 비밀번호 -->
+			,CS_NM <!-- 이름 -->
+			,CS_PHONE_ONE <!-- 핸드폰앞자리 -->
+			,CS_PHONE_TWO <!-- 핸드폰중간자리 -->
+			,CS_PHONE_THREE <!-- 핸드폰끝자리 -->
+			,CS_EMAIL_ONE <!-- 이메일앞자리 -->
+			,CS_EMAIL_TWO <!-- 이메일 뒷자리 -->
+			,CREATE_DATE <!-- 생성일 -->
+			,CS_ADDR_ONE <!-- 주소 앞부분 -->
+			,CS_ADDR_TWO <!-- 주소 뒷부분 -->
+			,CS_BIRTH_YEAR <!-- 생일 년도 -->
+			,CS_BIRTH_MONTH <!-- 생일 월 -->
+			,CS_BIRTH_DAY <!-- 생일 일 -->
 		)
 		VALUES(
 			CUSTOMER_INFO_SEQ.nextval
@@ -70,7 +70,9 @@
 	
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck" resultType="int">
-		SELECT COUNT(*)
+	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
+	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
+		SELECT COUNT(*) 
 		FROM CUSTOMER_INFO
 		WHERE CS_ID = #{csId}
 	</select>

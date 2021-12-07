@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
 	 */
 	@Override
 	public int idCheck(JoinVO vo) {
-		int result = loginDao.idCheck(vo);
+		int result = loginDao.idCheck(vo); //loginDao로 넘겨라
 		return result;
 	}
 }

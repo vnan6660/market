@@ -45,6 +45,8 @@ public class LoginDaoImpl implements LoginDao {
 	 */
 	@Override
 	public int idCheck(JoinVO vo) {
+		//LIST선택이 아니니깐 SelectOne으로
+		//idCheck라는 이름으로 loginMapper에 넘긴다.
 		int result = sqlSession.selectOne("idCheck", vo);
 		return result;
 	}

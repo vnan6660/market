@@ -44,7 +44,7 @@ public class LoginController {
 	 * 생성자 : 김혜경
 	 * 생성일 : 2021.12.06
 	 */
-	// ("/login/joinPage")URL로 요청이 들어오면 controller에서 이 URL요청을 특정 메서드와 매핑하기위해 사용하는것이 @RequestMapping이다.
+	//@RequestMapping: ("/login/joinPage")URL로 요청이 들어오면 controller에서 이 URL요청을 특정 메서드와 매핑하기위해 사용하는것이 @RequestMapping이다.
 	@RequestMapping("/login/joinPage") 
 	public String joinPage() { // joinPage() 메서드는
 		return "/login/join"; // /login/join를 리턴해준다
@@ -55,19 +55,24 @@ public class LoginController {
 	 * 생성자 : 김혜경
 	 * 생성일 : 2021.12.06
 	 */
+//	@ResponseBody
+//	- 반환
+//	- java객체를 Json 으로 바꿔서 다시 HTTP BODY(XML or JSON)에 담는 역할
+//	@RequestBody
+//	- 요청
+//	- 요청값을 java객체로 전달받을 수 있다.
+//	- Ajax에서 파라미터를 컨트롤러에 보내면 컨트롤러에선 @RequestBody를 사용하여 파라미터를 받는다.
 	@PostMapping("/login/getJoin")
-	@ResponseBody
+	@ResponseBody 
 	public String doJoin(@RequestBody JoinVO vo) { // joinPage() 메서드는
 		int result = loginService.idCheck(vo);
-		
-		System.out.println("중복은1 신규회원이면0 = "+ result);
-		
 		if(result == 1) { //id가 이미 있으면
 			return "/login/join"; //회원가입페이지로 이동
 		}else if(result == 0) { //신규회원이면
 			loginService.doJoin(vo); //회원가입 계속 진행
 		}
-		return "redirect:/";
+		//redirect: 브라우저에게 다른 URL(길, 방향) 을 지시할 수 있는 것 메인페이지로 이동시켜라
+		return "redirect:/"; 
 	}
 	
 	/**
@@ -75,10 +80,18 @@ public class LoginController {
 	 * 생성자 : 김혜경
 	 * 생성일 : 2021.12.07
 	 */
+//	@ResponseBody
+//	- 반환
+//	- java객체를 Json 으로 바꿔서 다시 HTTP BODY(XML or JSON)에 담는 역할
+//	@RequestBody
+//	- 요청
+//	- 요청값을 java객체로 전달받을 수 있다.
+//	- Ajax에서 파라미터를 컨트롤러에 보내면 컨트롤러에선 @RequestBody를 사용하여 파라미터를 받는다.
 	@PostMapping("/login/idCheck")
 	@ResponseBody
-	public int idCheck(@RequestBody JoinVO vo) { // joinPage() 메서드는
-		int result = loginService.idCheck(vo);
-		return result;
+	//id중복체크하려고 int형으로 설정했다. DB에 COUNT(*)써서 ID가 있으면 1, 없으면0으로 반환하려고
+	public int idCheck(@RequestBody JoinVO vo) { // idCheck() 메서드는 (int형)
+		int result = loginService.idCheck(vo); // loginService.idCheck(vo)의 값을 result에 담아라
+		return result; //result를 반환해라
 	}
 }
