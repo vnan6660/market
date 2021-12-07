@@ -18,7 +18,6 @@
 		<h2>권한관리</h2>
 		<hr>
 		<div>
-			<input type="checkbox">
 			<select id="authSelect">
 				<option value="adminOpt">관리자</option>
 				<option value="userOpt">사용자</option>

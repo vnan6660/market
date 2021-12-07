@@ -11,9 +11,16 @@ $(function() {
 var attachEvent = function() {
 	//새로운 메뉴 만들기 클릭시
 	$("#plusMenu").click(function() {
+		/*menuId가 비어있지 않을 수도 있으니 "" 넣음*/
 		$("#menuId").val("");
+		
+		/*새로운 메뉴 만들때는 삭제버튼 숨김*/
 		$("#menuDelBtn").hide();
+		
+		/*새로운 메뉴 만들때는 저장버튼 재위치*/
 		$("#menuSaveBtn").css("margin-left", "40%");
+		
+		/*menuNm,menuCd,menuSn 가 비어있지 않을 수도 있으니 "" 넣음*/
 		$("#menuNm, #menuCd, #menuSn").val("");
 	});
 
@@ -21,7 +28,8 @@ var attachEvent = function() {
 	$("#menuSaveBtn").click(function() {
 		var menuId = $("#menuId").val();
 		var menuCd = $("#menuCd").val();
-		/*저장버튼을 클리했을 때 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
+		
+		/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
 		$.ajax({
 			url: '/menuMgt/validationMenuMgt',
 			type: 'GET',
@@ -38,6 +46,7 @@ var attachEvent = function() {
 		alert("코드값이 존재합니다. 다른 코드를 적어주세요");
 	}
 
+	/*메뉴 정보 update 후 다시 원래 페이지로 돌아오기*/
 	var updateMenuInfo = function(menuId) {
 		if (confirm('변경하시겠습니까?')) {
 			$.ajax({
@@ -59,7 +68,7 @@ var attachEvent = function() {
 			});
 		}
 	}
-
+	/*메뉴 정보 insert 후 다시 원래 페이지로 돌아오기*/
 	var saveMenuInfo = function() {
 		if (confirm('저장하시겠습니까?')) {
 			$.ajax({
@@ -81,7 +90,7 @@ var attachEvent = function() {
 		}
 	}
 
-	//삭제버튼 클릭시
+	/*메뉴 삭제 후 다시 원래 페이지로 돌아오기*/
 	$("#menuDelBtn").click(function() {
 		var menuId = $("#menuId").val();
 
@@ -98,9 +107,12 @@ var attachEvent = function() {
 	});
 }
 
-//하나의 메뉴정보 가져오기와서 내용 뿌리기
+//메뉴 클릭시 해당 메뉴정보 가져오기와서 오른쪽에table에 내용 뿌리기
 menuClick = function(menuId) {
+	/*메뉴삭제버튼 보이기*/
 	$("#menuDelBtn").show();
+	
+	/*메뉴삭제버튼 재위치*/
 	$("#menuSaveBtn").css("margin-left", "19%");
 	$.ajax({
 		url: '/menuMgt/getMenuMgt',
