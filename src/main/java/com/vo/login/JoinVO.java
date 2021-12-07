@@ -20,4 +20,7 @@ public class JoinVO {
 	private String csEmailTwo;
 	private String csAddrOne;
 	private String csAddrTwo;
+	private String csBirthYear;
+	private String csBirthMonth;
+	private String csBirthDay;
 }

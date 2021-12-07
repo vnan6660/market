@@ -28,6 +28,7 @@
 		WHERE CS_ID = #{csId} AND CS_PS = #{csPs}
 	</select>
 	
+	<!-- 회원가입 insert -->
 	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
 		INSERT INTO CUSTOMER_INFO(
 			CS_NO
@@ -43,6 +44,9 @@
 			,CREATE_DATE
 			,CS_ADDR_ONE
 			,CS_ADDR_TWO
+			,CS_BIRTH_YEAR
+			,CS_BIRTH_MONTH
+			,CS_BIRTH_DAY
 		)
 		VALUES(
 			CUSTOMER_INFO_SEQ.nextval
@@ -58,6 +62,16 @@
 			,SYSDATE
 			,#{csAddrOne}
 			,#{csAddrTwo}
+			,#{csBirthYear}
+			,#{csBirthMonth}
+			,#{csBirthDay}
 		)
 	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM CUSTOMER_INFO
+		WHERE CS_ID = #{csId}
+	</select>
 </mapper>

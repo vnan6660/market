@@ -1,7 +1,5 @@
 package com.service.login;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,23 +28,24 @@ public class LoginServiceImpl implements LoginService {
 		return rtMsg;
 	}
 
-	//회원가입 수행
+	/**
+	 * 회원가입 수행
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.06
+	 */
 	@Override
-	public void doJoin(Map<String, Object> paramMap) {
-		JoinVO vo = new JoinVO();
-		vo.setCsGrade("csNomal");
-		vo.setCsId((String) paramMap.get("csId"));
-		vo.setCsPs((String) paramMap.get("csPs"));
-		vo.setCsNm((String) paramMap.get("csNm"));
-		vo.setCsPhoneOne((String) paramMap.get("csPhoneOne"));
-		vo.setCsPhoneTwo((String) paramMap.get("csPhoneTwo"));
-		vo.setCsPhoneThree((String) paramMap.get("csPhoneThree"));
-		vo.setCsEmailOne((String) paramMap.get("csEmailOne"));
-		vo.setCsEmailTwo((String) paramMap.get("csEmailTwo"));
-		vo.setCsAddrOne((String) paramMap.get("csAddrOne"));
-		vo.setCsAddrTwo((String) paramMap.get("csAddrTwo"));
+	public void doJoin(JoinVO vo) {
 		loginDao.doJoin(vo);
 	}
 
-
+	/**
+	 * 회원가입 id 중복체크
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.07
+	 */
+	@Override
+	public int idCheck(JoinVO vo) {
+		int result = loginDao.idCheck(vo);
+		return result;
+	}
 }

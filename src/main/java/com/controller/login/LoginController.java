@@ -1,17 +1,16 @@
 package com.controller.login;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.service.login.LoginService;
+import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
+
 
 /**
  * 로그인 Controller
@@ -58,7 +57,28 @@ public class LoginController {
 	 */
 	@PostMapping("/login/getJoin")
 	@ResponseBody
-	public void doJoin(@RequestBody Map<String, Object> paramMap) { // joinPage() 메서드는
-		loginService.doJoin(paramMap);
+	public String doJoin(@RequestBody JoinVO vo) { // joinPage() 메서드는
+		int result = loginService.idCheck(vo);
+		
+		System.out.println("중복은1 신규회원이면0 = "+ result);
+		
+		if(result == 1) { //id가 이미 있으면
+			return "/login/join"; //회원가입페이지로 이동
+		}else if(result == 0) { //신규회원이면
+			loginService.doJoin(vo); //회원가입 계속 진행
+		}
+		return "redirect:/";
+	}
+	
+	/**
+	 * 회원가입 id 중복체크
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.07
+	 */
+	@PostMapping("/login/idCheck")
+	@ResponseBody
+	public int idCheck(@RequestBody JoinVO vo) { // joinPage() 메서드는
+		int result = loginService.idCheck(vo);
+		return result;
 	}
 }

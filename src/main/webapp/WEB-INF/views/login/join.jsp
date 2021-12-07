@@ -27,15 +27,24 @@
 					</tr>
 					<tr>
 						<th>아이디*</th>
-						<td><input type="text" id="csId" name="csId" placeholder="아이디"> (영문소문자/숫자, 4~16자)</td>
+						<td>
+							<input type="text" id="csId" name="csId" placeholder="아이디"> (영문소문자/숫자 조합, 4~16자)<button id="idChkBtn" onclick="idChk()">중복확인</button>
+							<div id="csIdCheck"></div>
+						</td>
 					</tr>
 					<tr>
 						<th>비밀번호*</th>
-						<td><input type="text" id="csPs" name="csPs" placeholder="비밀번호"> (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</td>
+						<td>
+							<input type="password" id="csPs" name="csPs" placeholder="비밀번호"> (영문소문자/숫자/특수문자 조합, 8자~16자)
+							<div id="csPwCheck"></div>
+						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인*</th>
-						<td><input type="text" placeholder="비밀번호 확인"></td>
+						<td>
+							<input type="password" id="csPsConfirm" placeholder="비밀번호 확인">
+							<div id="csPwConfirm"></div>
+						</td>
 					</tr>
 					<tr>
 						<th>이름*</th>
@@ -75,13 +84,14 @@
 								<option value="hanmail.net">hanmail.net</option>
 								<option value="kakao.com">kakao.com</option>
 							</select>
+							<div id="csEmailChk"></div>
 						</td>
 					</tr>
 				</table>
 				<h3>추가정보</h3>
 				<table>
 					<tr>
-						<th>생년원일*</th>
+						<th>생년월일*</th>
 						<td>
 							<select id="yearBox"></select>
 							년
@@ -141,7 +151,7 @@
 			</div>
 			
 			<div class="join-btn-wrap">
-				<button class="hover" id="joinBtn">회원가입</button>
+				<button class="hover" id="joinBtn" disabled="disabled">회원가입</button>
 			</div>
 	</main>
 </body>

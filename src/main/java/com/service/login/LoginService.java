@@ -1,7 +1,6 @@
 package com.service.login;
 
-import java.util.Map;
-
+import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
 
 /**
@@ -13,8 +12,19 @@ public interface LoginService {
 
 	String getLogin(LoginVO vo);
 
-	//회원가입 수행
-	public void doJoin(Map<String, Object> paramMap);
+	/**
+	 * 회원가입 수행
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.06
+	 */
+	public void doJoin(JoinVO vo);
+
+	/**
+	 * 회원가입 id 중복체크
+	 * 생성자 : 김혜경
+	 * 생성일 : 2021.12.07
+	 */
+	int idCheck(JoinVO vo);
 
 
 }
