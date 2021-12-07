@@ -14,5 +14,5 @@ var goLogin = function() {
 }
 
 var goLogout = function() {
-	location.href = "/login/loginPage";
+	location.href = "/";
 }

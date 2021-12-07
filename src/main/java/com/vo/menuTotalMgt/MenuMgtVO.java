@@ -1,5 +1,7 @@
 package com.vo.menuTotalMgt;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 /**
@@ -18,5 +20,8 @@ public class MenuMgtVO {
 	private String menuSn;
 	private String adminYn;
 	private String userYn;
+	
+	List optList;
+	String authSelect;
 
 }

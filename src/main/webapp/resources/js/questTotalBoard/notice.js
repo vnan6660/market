@@ -7,10 +7,12 @@ var searchParam = {};
 
 $(function() {
 	attachEvent();
+	
+	/*detail페이지의 수정을 위한 input박스 숨김*/
 	$("#updSubject, #updText, #ntcUpdDoneBtn").hide();
 });
 
-
+/*이벤트함수*/
 var attachEvent = function() {
 	/*글쓰기 페이지가기*/
 	$("#goWriteForm").click(function() {
@@ -50,7 +52,7 @@ var attachEvent = function() {
 
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
-		/*select값하고 input 값 같이넘기기*/
+		/*페이지가 1페이지인 검색함수*/
 		goPage(1);
 	});
 }
@@ -60,6 +62,7 @@ var goDetail = function(ntcNo) {
 	location.href = '/notice/detailNotcie/' + ntcNo;
 }
 
+/*글작성후 성공하면 글목록에 가기*/
 var saveNotice = function(param) {
 	if (confirm("저장하시겠습니까?")) {
 		$.ajax({
@@ -75,6 +78,7 @@ var saveNotice = function(param) {
 	}
 }
 
+/*글삭제후 성공하면 글목록에 가기*/
 var deleteNotice = function() {
 	if (confirm("삭제하시겠습니까?")) {
 		$.ajax({
@@ -88,6 +92,7 @@ var deleteNotice = function() {
 	}
 }
 
+/*글수정후 성공하면 해당 글상세에 가기*/
 var updateNotice = function() {
 	var ntcNo = $("#ntcNo").val();
 	if (confirm("수정하시겠습니까?")) {
@@ -107,6 +112,7 @@ var updateNotice = function() {
 	}
 }
 
+/*검색과 페이지 정보 같이 넘기기*/
 var goPage = function(pageNum) {
 	searchParam = {};
 	searchParam.selectOptVal = $("#selectWrap option:selected").val();
@@ -144,6 +150,7 @@ var goPage = function(pageNum) {
 				var year = date.getFullYear().toString();
 				var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
 				var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+				
 				viewList += "<tr>";
 				viewList += "<td>" + e.ntcNo + "</td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.ntcNo + ")'>" + e.ntcSj + "</td>";
@@ -155,6 +162,7 @@ var goPage = function(pageNum) {
 
 			var pageList = "";
 			if (1 < startpage) {
+				/*startpage가 1보다 커야 실행가능*/
 				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
 			}
 			for (var num = startpage; num <= endpage; num++) {
@@ -162,6 +170,7 @@ var goPage = function(pageNum) {
 			}
 
 			if (endpage < maxPage) {
+				/*endpage가 maxPage보다 작아야 실행 가능*/
 				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1 )+ ')">' + '&gt;&gt;' + '</span>';
 			}
 

@@ -4,9 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.menuTotalMgt.AuthMgtDaoImpl">
 <select id="selectAuthMgtList" parameterType="String" resultType="com.vo.menuTotalMgt.MenuMgtVO">
+<!-- AuthMgyMapper.selectAuthMgtList -->
 SELECT
 		MU_ID as menuId, <!-- 메뉴아이디 -->
 		MU_NM as menuNm,<!-- 메뉴이름 -->
+		MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
 		<if test='authSelect.equals("adminOpt")'>
 		ADMIN_YN as adminYn<!-- 관리자메뉴노출여부 -->
 		</if>
@@ -19,4 +21,38 @@ SELECT
 		CONNECT BY PRIOR MU_CD = MU_UPCD
 		ORDER SIBLINGS BY MU_SN
 </select>
+
+<update id="updateAuthMgtListTrue" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+<!-- AuthMgyMapper.updateAuthMgtListTrue -->
+UPDATE menu_mgt
+	<if test='authSelect.equals("adminOpt")'>
+		SET	ADMIN_YN = 'Y'<!-- 관리자메뉴노출여부 -->
+	</if>
+	<if test='authSelect.equals("userOpt")'>
+		SET	USER_YN = 'Y'<!-- 사용자메뉴노출여부 -->
+	</if>
+	
+WHERE mu_id IN
+	<foreach item="item" collection="optList" open="(" separator="," close=")"> 
+		#{item}
+	</foreach>
+</update>
+<update id="updateAuthMgtListFalse" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+<!-- AuthMgyMapper.updateAuthMgtListFalse -->
+UPDATE menu_mgt
+	<if test='authSelect.equals("adminOpt")'>
+		SET	ADMIN_YN = 'N'<!-- 관리자메뉴노출여부 -->
+	</if>
+	<if test='authSelect.equals("userOpt")'>
+		SET	USER_YN = 'N'<!-- 사용자메뉴노출여부 -->
+	</if>
+<if test="optList.size != 0">
+	WHERE mu_id NOT IN
+	<foreach item="item" collection="optList" open="(" separator="," close=")"> 
+		#{item}
+	</foreach>
+</if>	
+
+</update>
+
 </mapper>
