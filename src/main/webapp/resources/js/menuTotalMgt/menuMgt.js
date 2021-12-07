@@ -5,21 +5,37 @@
 */
 
 $(function() {
+	init();
 	attachEvent();
 });
 
+var init = function() {
+	$("#blankTable").show();
+	$("#writeTable").hide();
+}
 var attachEvent = function() {
 	//새로운 메뉴 만들기 클릭시
 	$("#plusMenu").click(function() {
+
+		$("#blankTable").hide();
+		$("#writeTable").show();
+
+		/*상위메뉴명 selectbox의 없을을 selected값으로 설정*/
+		$("#menuUpCd").val("").prop("selected", true);
+		/*사용여부의 관리자 selectbox의 Y값을 selected값으로 설정*/
+		$("#adminSelect").val("Y").prop("selected", true);
+		/*사용여부의 사용자 selectbox의 Y값을 selected값으로 설정*/
+		$("#userSelect").val("Y").prop("selected", true);
+
 		/*menuId가 비어있지 않을 수도 있으니 "" 넣음*/
 		$("#menuId").val("");
-		
+
 		/*새로운 메뉴 만들때는 삭제버튼 숨김*/
 		$("#menuDelBtn").hide();
-		
+
 		/*새로운 메뉴 만들때는 저장버튼 재위치*/
 		$("#menuSaveBtn").css("margin-left", "40%");
-		
+
 		/*menuNm,menuCd,menuSn 가 비어있지 않을 수도 있으니 "" 넣음*/
 		$("#menuNm, #menuCd, #menuSn").val("");
 	});
@@ -28,7 +44,7 @@ var attachEvent = function() {
 	$("#menuSaveBtn").click(function() {
 		var menuId = $("#menuId").val();
 		var menuCd = $("#menuCd").val();
-		
+
 		/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
 		$.ajax({
 			url: '/menuMgt/validationMenuMgt',
@@ -109,9 +125,13 @@ var attachEvent = function() {
 
 //메뉴 클릭시 해당 메뉴정보 가져오기와서 오른쪽에table에 내용 뿌리기
 menuClick = function(menuId) {
+
+	$("#blankTable").hide();
+	$("#writeTable").show();
+
 	/*메뉴삭제버튼 보이기*/
 	$("#menuDelBtn").show();
-	
+
 	/*메뉴삭제버튼 재위치*/
 	$("#menuSaveBtn").css("margin-left", "19%");
 	$.ajax({
