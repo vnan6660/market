@@ -15,34 +15,33 @@ import com.service.menuTotalMgt.AuthMgtService;
 import com.vo.menuTotalMgt.MenuMgtVO;
 
 /**
- * 권한관리 Controller
- * 생성자 : 김소연
- * 생성일 : 2021.12.06
+ * 권한관리 Controller 생성자 : 김소연 생성일 : 2021.12.06
  *
  */
 
 @Controller
 public class AuthMgtController {
-	
+
 	@Autowired
 	AuthMgtService authMgtService;
-	
+
 	/* 권한관리 페이지 가기 */
 	@RequestMapping("/authMgt/authMgtPage")
 	public String authMgt() {
 		return "/menuTotalMgt/authMgt";
 	}
-	
+
 	/* selectBox에 맞는 권한목록 불러오기 */
 	@GetMapping("/authMgt/getAuthMgtList")
 	@ResponseBody
 	public List<MenuMgtVO> getAuthMgtList(@RequestParam String authSelect) {
-		
+
 		List<MenuMgtVO> list = authMgtService.getAuthMgtList(authSelect);
-		
+
 		return list;
 	}
-	/*권한 수정*/
+
+	/* 권한 수정 */
 	@PostMapping("/authMgt/updateAuthMgtList")
 	@ResponseBody
 	public void updateAuthMgtList(@RequestBody MenuMgtVO vo) {
