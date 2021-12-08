@@ -16,16 +16,19 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginDao loginDao;
 
+	/* 로그인하는 아이디 비밀번호체크*/
 	@Override
-	public String getLogin(LoginVO vo) {
+	public String getLoginCnt(LoginVO vo) {
 		int loginCnt = loginDao.selectLoginCnt(vo);
-		
-		//세션 구현하면 사용할 예정
-		//LoginVO  loginInfo = loginDao.selectLogin(vo);
-		
 		String rtMsg = loginCnt > 0 ? "1" : "0";
 		
 		return rtMsg;
+	}
+
+	/* 로그인 정보 가져오기 */
+	@Override
+	public LoginVO getLogin(LoginVO vo) {
+		return loginDao.selectLogin(vo);
 	}
 
 	/**

@@ -10,8 +10,10 @@ import com.vo.login.LoginVO;
  */
 public interface LoginDao {
 
+	/* 로그인하는 아이디 비밀번호체크*/
 	int selectLoginCnt(LoginVO vo);
-
+	
+	/* 로그인 정보 가져오기 */
 	LoginVO selectLogin(LoginVO vo);
 	
 	/**

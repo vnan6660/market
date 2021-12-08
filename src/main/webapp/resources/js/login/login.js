@@ -5,7 +5,7 @@
 */
 
 $(function() {
-	
+	attchEvent();
 	/*if($("#joinBtn").attr("disabled")==false){
 		alert("disabled:false -> disabled설정 풀림");
 		$("#joinBtn").css("background-color","rgba(0, 0, 0, 0.6)");
@@ -13,9 +13,6 @@ $(function() {
 		//alert("disabled:true -> disabled설정되어있음");
 		$("#joinBtn").css("background-color","#cfcfcf");
 	}*/
-	
-	attchEvent();
-
 	/**
 	*회원가입 생년월일 년도 selectBox만들기
 	*생성자 : 김혜경
@@ -60,6 +57,11 @@ $(function() {
 });
 
 var attchEvent = function() {
+	/**
+	*로그인 버튼 클릭시 수행
+	*생성자 : 김소연
+	*생성일 : 2021.11.29
+	*/
 	$("#loginBtn").click(function() {
 		var idCheck = $("#idCheck").val();
 		var passCheck = $("#passCheck").val();
@@ -151,7 +153,11 @@ var doJoin = function() {
 	});
 	
 }
-
+/**
+	*로그인 validation check
+	*생성자 : 김소연
+	*생성일 : 2021.11.29
+	*/
 var wrapValidation = function(idCheck, passCheck) {
 	var returnVal = false;
 
@@ -171,6 +177,12 @@ var wrapValidation = function(idCheck, passCheck) {
 	return returnVal;
 }
 
+
+/**
+	*로그인 수행
+	*생성자 : 김소연
+	*생성일 : 2021.11.29
+	*/
 var login = function(idCheck, passCheck) {
 	idCheck;
 	passCheck;

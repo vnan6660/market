@@ -10,7 +10,11 @@ import com.vo.login.LoginVO;
  */
 public interface LoginService {
 
-	String getLogin(LoginVO vo);
+	/* 로그인하는 아이디 비밀번호체크*/
+	String getLoginCnt(LoginVO vo);
+	
+	/* 로그인 정보 가져오기 */
+	LoginVO getLogin(LoginVO vo);
 
 	/**
 	 * 회원가입 수행
