@@ -151,7 +151,7 @@
 			</div>
 			
 			<div class="join-btn-wrap">
-				<button class="hover" id="joinBtn" disabled="disabled">회원가입</button>
+				<button class="hover" id="joinBtn">회원가입</button>
 			</div>
 	</main>
 </body>
