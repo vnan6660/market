@@ -11,15 +11,21 @@
 			<c:choose>
 				<c:when test="${vo.userYn == 'N' and sessionScope.userGrade != '0'}">
 				</c:when>
+				<c:when test="${vo.userYn == 'N' and vo.adminYn == 'N'}">
+				</c:when>
 				<c:otherwise>
-					<li class="menu"><c:if test="${vo.menuUpCd == null}">
+					<li class="menu">
+					<c:if test="${vo.menuUpCd == null}">
 							<span class="rootMenu">${vo.menuNm}</span>
-						</c:if> <c:if test="${vo.menuUpCd != null}">
-							<a href="/${vo.menuCd}/${vo.menuCd}Page"> <span
-								class="nodeMenu"> <span>&nbsp;&nbsp;-</span> <span>${vo.menuNm}</span>
+					</c:if> 
+					<c:if test="${vo.menuUpCd != null}">
+						<a href="/${vo.menuCd}/${vo.menuCd}Page"> 
+							<span class="nodeMenu">
+								<span>&nbsp;&nbsp;-</span> <span>${vo.menuNm}</span>
 							</span>
-							</a>
-						</c:if></li>
+						</a>
+					</c:if>
+					</li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
