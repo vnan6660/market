@@ -51,6 +51,7 @@ button {
 	margin-left: 10px;
 	float: right;
 }
+
 .btnSmallList {
 	width: 100px;
 	margin-top: 10px;
@@ -61,8 +62,8 @@ button {
 	cursor: pointer;
 }
 
-.mr6{
-	margin-right:6px; 
+.mr6 {
+	margin-right: 6px;
 }
 /* ---- side Menu ------- */
 #homeIcon {
@@ -109,4 +110,12 @@ button {
 	margin: 20px 20px 0 0;
 	width: 100px;
 	float: right;
+}
+
+#userNameSpace {
+	display: inline-block;
+	position: absolute;
+	text-align: right;
+	top: 25px;
+	width: 76%;
 }

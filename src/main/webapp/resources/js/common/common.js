@@ -14,5 +14,13 @@ var goLogin = function() {
 }
 
 var goLogout = function() {
-	location.href = "/";
+	/*location.href = "/";*/
+	$.ajax({
+		url:'/login/getLogout',
+		type:'GET',
+		success:function(){
+			location.href = "/";
+		}
+		
+	});
 }

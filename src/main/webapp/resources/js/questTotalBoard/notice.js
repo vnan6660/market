@@ -7,7 +7,7 @@ var searchParam = {};
 
 $(function() {
 	attachEvent();
-	
+
 	/*detail페이지의 수정을 위한 input박스 숨김*/
 	$("#updSubject, #updText, #ntcUpdDoneBtn").hide();
 });
@@ -59,7 +59,7 @@ var attachEvent = function() {
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(ntcNo) {
-	location.href = '/notice/detailNotcie/' + ntcNo;
+	location.href = '/notice/detailNotcie?ntcNo='+ntcNo;
 }
 
 /*글작성후 성공하면 글목록에 가기*/
@@ -150,7 +150,7 @@ var goPage = function(pageNum) {
 				var year = date.getFullYear().toString();
 				var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
 				var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
-				
+
 				viewList += "<tr>";
 				viewList += "<td>" + e.ntcNo + "</td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.ntcNo + ")'>" + e.ntcSj + "</td>";
@@ -171,7 +171,7 @@ var goPage = function(pageNum) {
 
 			if (endpage < maxPage) {
 				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1 )+ ')">' + '&gt;&gt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
 			}
 
 			$("#ntcTable").html(viewList);
