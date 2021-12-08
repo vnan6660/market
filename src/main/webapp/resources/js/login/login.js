@@ -54,6 +54,14 @@ $(function() {
 		emailChk(); //emailChk()메서드 수행
 	});
 	
+	/**
+	*회원가입 이름 공백확인
+	*생성자 : 김혜경
+	*생성일 : 2021.12.08
+	*/
+	$("#csNm").focusout(function(){ //id가 csNm인 selector에서 커서가 사라지면 수행
+		nameChk(); //nameChk()메서드 수행
+	});
 });
 
 var attchEvent = function() {
@@ -91,7 +99,8 @@ var doJoin = function() {
 	idChk();
 	psChk();
 	csPwConfirm();
-	emailChk(); 
+	emailChk();
+	ageChk();
 	
 	var csId = $("#csId").val(); // id가 csId인 selector의 값을 .val()로 가져와 csId라는 변수에 넣는다. (이하 동일)
 	var csPs = $("#csPs").val();
@@ -228,16 +237,21 @@ function idChk(){ //idChk function
 	// 위에서 작성한 변수값을 data.속성에 넣는 작업
 	var chkCsId = $("#csId").val(); 
 	data.csId = chkCsId;
-	
 	var idOnlyEngNum = /^(?=.*?[a-z])(?=.*?[0-9]).{4,16}$/; //(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, {4,16}$4~16자
 	
-	if(chkCsId == ""){
+	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
+	
+	if(chkCsId == ""){//id가 입력되지않았을때
 		alert("아이디를 입력해주세요");
-		$("#csIdCheck").text("");
-	}else{
+	}else{//id가 입력되어있을때
 		//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
 		if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
-			$.ajax({
+			if( chkCsId.match(pattern) ) {
+				alert("공백이 존재합니다.");
+				$("#csId").val("");
+				$("#csIdCheck").text("");
+			}else{
+				$.ajax({
 				url: '/login/idCheck', //요청 url
 				type: "POST", //post타입
 				datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
@@ -257,6 +271,8 @@ function idChk(){ //idChk function
 				error: function() {
 				}
 			});
+			}
+			
 		//정규표현식이 맞지 않으면
 		}else{
 			alert("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요."); //영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.띄움
@@ -271,19 +287,28 @@ function idChk(){ //idChk function
 *생성일 : 2021.12.07
 */
 function psChk(){
-	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	
+	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	//(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, (?=.*?[#?!@$%^&*-])특수문자필수 {4,16}$4~16자
 	var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-	 
-	//비밀번호가 7자리가 넘고 정규식이 맞으면 비밀번호 통과
-	if(chkCsPs.length > 7 && pwOnlyEngNumSpecial.test(chkCsPs)==true){
-		$("#csPwCheck").text("사용 가능한 비밀번입니다.").css("color", "green"); //id csPwCheck에 text()의 내용을 넣고 색을 초록색으로 설정
+	
+	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
+	if( chkCsPs.match(pattern) ) {
+		alert("공백이 존재합니다.");
+		$("#csPs").val("");
+		$("#csPwCheck").text("");
 	}else{
-		alert("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.")
-		$("#csPwCheck").text("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.").css("color", "red"); //id csPwCheck에 text()의 내용을 넣고 색을 빨간색으로 설정
-		$("#csPs").val("");//id가 csId인 선택자의 내용을 공백으로 설정
+		//비밀번호가 7자리가 넘고 정규식이 맞으면 비밀번호 통과
+		if(chkCsPs.length > 7 && pwOnlyEngNumSpecial.test(chkCsPs)==true){
+			$("#csPwCheck").text("사용 가능한 비밀번입니다.").css("color", "green"); //id csPwCheck에 text()의 내용을 넣고 색을 초록색으로 설정
+		}else{
+			alert("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.")
+			$("#csPwCheck").text("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.").css("color", "red"); //id csPwCheck에 text()의 내용을 넣고 색을 빨간색으로 설정
+			$("#csPs").val("");//id가 csId인 선택자의 내용을 공백으로 설정
+		}
 	}
+
+	
 }
 
 /*
@@ -295,10 +320,26 @@ function csPwConfirm(){
 	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	var csPsConfirm = $("#csPsConfirm").val(); //id가 csPsConfirm인 선택자의 값을 csPsConfirm변수에 넣는다
 	
+	if(chkCsPs)
+	
 	if(chkCsPs == csPsConfirm){ //비밀번호가 같다면
 		$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
 	}else{ //비밀번호가 다르다면	
 		$("#csPwConfirm").text("비밀번호가 다릅니다. 다시 확인해주세요.").css("color", "red");//id csPwConfirm에 text()의 내용을 넣고 색을 빨간색으로 설정
+	}
+}
+
+/*
+*회원가입 이름 공백확인
+*생성자 : 김혜경
+*생성일 : 2021.12.08
+*/
+function nameChk(){
+	var chkName = $("#csNm").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
+	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
+	if( chkName.match(pattern) ) {
+		alert("공백이 존재합니다.");
+		$("#csNm").val("");
 	}
 }
 
@@ -318,23 +359,33 @@ function emailChk(){
 	data.csEmailTwo = csEmailTwo;
 	data.csEmail = csEmail;
 	
+	
+	
+	
 	if(csEmailOne=="" || csEmailOne==null){
 		alert("이메일을 입력해주세요.");
 	}else{
-		$.ajax({
-			url: '/login/emailChk',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify(data),
-			dataType: 'json',
-			success: function(result) {
-				if(result == 0){
-					$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
-				}else if(result == 1){
-					$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
+		var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
+		if( csEmailOne.match(pattern) ) {
+			alert("이메일에 공백이 존재합니다.");
+			$("#csEmailOne").val("");
+			$("#csEmailChk").text("");
+		}else{
+			$.ajax({
+				url: '/login/emailChk',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType: 'json',
+				success: function(result) {
+					if(result == 0){
+						$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
+					}else if(result == 1){
+						$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 }
 
@@ -349,7 +400,6 @@ function ageChk(){
 	var selectY = $("#yearBox").val(); //선택한 년도
 	if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
 		alert("만14세 미만 아동은 회원가입이 불가능합니다.");
-		location.href = "/"; //메인페이지로 돌아가기
 	}else{
 		alert("만14세 이상입니다.");
 	}
