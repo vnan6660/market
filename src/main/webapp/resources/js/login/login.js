@@ -338,8 +338,6 @@ function emailChk(){
 	}
 }
 
-
-
 /*
 *회원가입 만14세 미만 가입 금지
 *생성자 : 김혜경
@@ -347,12 +345,11 @@ function emailChk(){
 */
 function ageChk(){
 	var date = new Date(); //Date생성자 생성
-	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 selYear변수에 넣는다
-	var selectY = $("#yearBox").val();
-	
-	if(thisY - selectY < 16){
+	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
+	var selectY = $("#yearBox").val(); //선택한 년도
+	if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
 		alert("만14세 미만 아동은 회원가입이 불가능합니다.");
-		location.href = "/";
+		location.href = "/"; //메인페이지로 돌아가기
 	}else{
 		alert("만14세 이상입니다.");
 	}
