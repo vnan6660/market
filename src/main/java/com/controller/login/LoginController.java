@@ -64,15 +64,12 @@ public class LoginController {
 //	- Ajax에서 파라미터를 컨트롤러에 보내면 컨트롤러에선 @RequestBody를 사용하여 파라미터를 받는다.
 	@PostMapping("/login/getJoin")
 	@ResponseBody 
-	public String doJoin(@RequestBody JoinVO vo) { // joinPage() 메서드는
-		int result = loginService.idCheck(vo);
-		if(result == 1) { //id가 이미 있으면
-			return "/login/join"; //회원가입페이지로 이동
-		}else if(result == 0) { //신규회원이면
+	public int doJoin(@RequestBody JoinVO vo) { // joinPage() 메서드는
+		int resultId = loginService.idCheck(vo);
+		if(resultId == 0) { //신규회원이면
 			loginService.doJoin(vo); //회원가입 계속 진행
 		}
-		//redirect: 브라우저에게 다른 URL(길, 방향) 을 지시할 수 있는 것 메인페이지로 이동시켜라
-		return "redirect:/"; 
+		return resultId;
 	}
 	
 	/**
@@ -94,4 +91,31 @@ public class LoginController {
 		int result = loginService.idCheck(vo); // loginService.idCheck(vo)의 값을 result에 담아라
 		return result; //result를 반환해라
 	}
+	
+	/**
+	*회원가입 이메일 중복확인
+	*생성자 : 김혜경
+	*생성일 : 2021.12.07
+	*/
+	@ResponseBody
+	@PostMapping("/login/emailChk")
+	public int emailChk(@RequestBody JoinVO vo) {
+		int result = loginService.emailChk(vo);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

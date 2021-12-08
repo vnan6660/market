@@ -53,6 +53,7 @@ table th{
 }
 
 #idChkBtn{
+	cursor:pointer;
 	margin-left: 10px;
 	background-color:#cfcfcf;
 	border: 0;

@@ -51,6 +51,14 @@ public class LoginDaoImpl implements LoginDao {
 		return result;
 	}
 
+	@Override
+	public int emailChk(JoinVO vo) {
+		//LIST선택이 아니니깐 SelectOne으로
+		//emailChk라는 이름으로 loginMapper에 넘긴다.
+		int result = sqlSession.selectOne("emailChk", vo);
+		return result;
+	}
+
 
 	
 

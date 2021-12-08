@@ -28,4 +28,11 @@ public interface LoginDao {
 	 */
 	int idCheck(JoinVO vo);
 
+	/**
+	*회원가입 이메일 중복확인
+	*생성자 : 김혜경
+	*생성일 : 2021.12.07
+	*/
+	int emailChk(JoinVO vo);
+
 }

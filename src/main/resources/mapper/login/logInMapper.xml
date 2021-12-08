@@ -76,4 +76,13 @@
 		FROM CUSTOMER_INFO
 		WHERE CS_ID = #{csId}
 	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="emailChk" resultType="int">
+	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
+	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
+		SELECT COUNT(CS_EMAIL_ONE||CS_EMAIL_TWO) EMAILCOUNT
+		FROM CUSTOMER_INFO
+		WHERE CS_EMAIL_ONE||CS_EMAIL_TWO = #{csEmailOne}||#{csEmailTwo}
+	</select>
 </mapper>

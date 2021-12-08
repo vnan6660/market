@@ -5,6 +5,15 @@
 */
 
 $(function() {
+	
+	/*if($("#joinBtn").attr("disabled")==false){
+		alert("disabled:false -> disabled설정 풀림");
+		$("#joinBtn").css("background-color","rgba(0, 0, 0, 0.6)");
+	}else{
+		//alert("disabled:true -> disabled설정되어있음");
+		$("#joinBtn").css("background-color","#cfcfcf");
+	}*/
+	
 	attchEvent();
 
 	/**
@@ -16,6 +25,9 @@ $(function() {
 	var selYear = date.getFullYear(); //현재년도를 YYYY로 반환한걸 selYear변수에 넣는다
 	getYears(selYear);// 현재년도를 기준으로 getYears()메서드 호출
 	$('#yearBox').val(selYear);// id가 yearBox인 selector에 현재년도를 넣는다.
+	$("#yearBox").focusout(function(){ //id가 csPs인 selector에서 커서가 사라지면 수행
+		ageChk(); //ageChk()메서드 수행
+	});
 	
 	/**
 	*회원가입 비밀번호 유효성검사 체크
@@ -44,6 +56,7 @@ $(function() {
 	$("#csEmailOne").focusout(function(){ //id가 csEmailOne인 selector에서 커서가 사라지면 수행
 		emailChk(); //emailChk()메서드 수행
 	});
+	
 });
 
 var attchEvent = function() {
@@ -72,6 +85,12 @@ var attchEvent = function() {
 *생성일 : 2021.12.06
 */
 var doJoin = function() {
+	
+	idChk();
+	psChk();
+	csPwConfirm();
+	emailChk(); 
+	
 	var csId = $("#csId").val(); // id가 csId인 selector의 값을 .val()로 가져와 csId라는 변수에 넣는다. (이하 동일)
 	var csPs = $("#csPs").val();
 	var csNm = $("#csNm").val();
@@ -82,11 +101,12 @@ var doJoin = function() {
 	var csEmailTwo = $("#csEmailTwo").val();
 	var csAddrOne = $("#csAddrOne").val();
 	var csAddrTwo = $("#csAddrTwo").val();
-	var csAddrTwo = $("#csAddrTwo").val();
 	var csBirthYear = $("#yearBox").val();
 	var csBirthMonth = $("#month").val();
 	var csBirthDay = $("#day").val();
-
+	
+	
+	
 	var data = {}; // 빈 객체 생성
 	// 위에서 작성한 변수값을 data.속성에 넣는 작업
 	data.csId = csId; 
@@ -103,19 +123,33 @@ var doJoin = function() {
 	data.csBirthMonth = csBirthMonth;
 	data.csBirthDay = csBirthDay;
 
+	if(csId==""||csPs==""||csNm==""||csPhoneOne==""||csPhoneTwo==""||csPhoneThree==""||csEmailOne==""||csEmailTwo==""||csBirthYear==""||csBirthMonth==""||csBirthDay==""){
+		alert("전체 필수입력사항들을 입력해주세요.");
+	}else{
+		$("#joinBtn").removeAttr("disabled","disabled");
+		alert("모든항목완료.");
+	}
+	
 	$.ajax({
 		url: "/login/getJoin", //요청 url
 		type: "POST", //post타입
 		datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
 		contentType: 'application/json', //보내는 데이터의 타입
 		data: JSON.stringify(data), //요청과 함께 보낼 데이터
-		success: function() { //성공했을시 수행하는 function
-			alert("회원가입되었습니다."); //alert으로 회원가입되었습니다라는 문구 띄우기
-			location.href = "/"; //메인페이지로 돌아가라
+		success: function(resultId) { //성공했을시 수행하는 function
+			if(resultId==0){
+				alert("회원가입되었습니다."); //alert으로 회원가입되었습니다라는 문구 띄우기
+				location.href = "/"; //메인페이지로 돌아가라
+			}else{
+				location.href = "/login/login"; //메인페이지로 돌아가라
+			}
+			
+			
 		},
 		error: function() {
 		}
 	});
+	
 }
 
 var wrapValidation = function(idCheck, passCheck) {
@@ -185,38 +219,37 @@ function idChk(){ //idChk function
 	
 	var idOnlyEngNum = /^(?=.*?[a-z])(?=.*?[0-9]).{4,16}$/; //(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, {4,16}$4~16자
 	
-	//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
-	if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
-		$.ajax({
-			url: '/login/idCheck', //요청 url
-			type: "POST", //post타입
-			datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-			contentType: 'application/json', //보내는 데이터의 타입
-			data: JSON.stringify(data), //요청과 함께 보낼 데이터
-			success: function() { //성공했을시 수행하는 function
-				if(data == 0){//cnt가 0이면(DB에 저장된 id개수가 0이면)
-						if($("#csId").val() == ""){ //csId의 내용이 없다면
-							alert("아이디를 입력해주세요");
-							return false;// 아무것도 진행하지 말아라
-						}else{ //csId에 내용이 있다면
-							alert("사용 가능한 아이디입니다.");
-							$("#joinBtn").removeAttr("disabled"); //회원가입버튼 활성화
-							$("#csIdCheck").text("사용 가능한 아이디입니다.").css("color", "green"); //사용가능한 아이디입니다. 표시
-						}
-					}else if(data == 1){//cnt가 0이 아니면
+	if(chkCsId == ""){
+		alert("아이디를 입력해주세요");
+		$("#csIdCheck").text("");
+	}else{
+		//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
+		if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
+			$.ajax({
+				url: '/login/idCheck', //요청 url
+				type: "POST", //post타입
+				datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+				contentType: 'application/json', //보내는 데이터의 타입
+				data: JSON.stringify(data), //요청과 함께 보낼 데이터
+				success: function(result) { //성공했을시 수행하는 function
+					if(result == 0){//cnt가 0이면(DB에 저장된 id개수가 0이면)
+						alert("사용 가능한 아이디입니다.");
+						$("#joinBtn").removeAttr("disabled"); //회원가입버튼 활성화
+						$("#csIdCheck").text("사용 가능한 아이디입니다.").css("color", "green"); //사용가능한 아이디입니다. 표시
+					}else if(result == 1){//cnt가 0이 아니면
 						alert("이미 사용중인 아이디입니다.");
-						$("#joinBtn").attr("disabled","disabled"); //회원가입버튼 비활성화
 						$("#csId").val(""); //id가 csId인 선택자의 내용을 공백으로 설정
 						$("#csIdCheck").text("이미 사용중인 아이디입니다.").css("color", "red");//이미 사용중인 아이디입니다. 표시
 					}
-			},
-			error: function() {
-			}
-		});
-	//정규표현식이 맞지 않으면
-	}else{
-		alert("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요."); //영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.띄움
-		$("#csId").val(""); //id가 csId인 선택자의 내용을 공백으로 설정
+				},
+				error: function() {
+				}
+			});
+		//정규표현식이 맞지 않으면
+		}else{
+			alert("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요."); //영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.띄움
+			$("#csId").val(""); //id가 csId인 선택자의 내용을 공백으로 설정
+		}
 	}
 }
 
@@ -239,7 +272,6 @@ function psChk(){
 		$("#csPwCheck").text("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.").css("color", "red"); //id csPwCheck에 text()의 내용을 넣고 색을 빨간색으로 설정
 		$("#csPs").val("");//id가 csId인 선택자의 내용을 공백으로 설정
 	}
-	
 }
 
 /*
@@ -255,7 +287,6 @@ function csPwConfirm(){
 		$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
 	}else{ //비밀번호가 다르다면	
 		$("#csPwConfirm").text("비밀번호가 다릅니다. 다시 확인해주세요.").css("color", "red");//id csPwConfirm에 text()의 내용을 넣고 색을 빨간색으로 설정
-		$("#joinBtn").attr("disabled","disabled"); //회원가입버튼 비활성화
 	}
 }
 
@@ -267,25 +298,53 @@ function csPwConfirm(){
 function emailChk(){
 	var csEmailOne = $("#csEmailOne").val();
 	var csEmailTwo = $("#csEmailTwo").val();
-	
 	var csEmail = csEmailOne+csEmailTwo;
 	console.log(csEmail);
 	
-	if(csEmail){
-		$("#csEmailChk").text("사용가능한 이메일입니다.");
+	var data = {};
+	data.csEmailOne = csEmailOne;
+	data.csEmailTwo = csEmailTwo;
+	data.csEmail = csEmail;
+	
+	if(csEmailOne=="" || csEmailOne==null){
+		alert("이메일을 입력해주세요.");
 	}else{
-		$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.");
+		$.ajax({
+			url: '/login/emailChk',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			dataType: 'json',
+			success: function(result) {
+				if(result == 0){
+					$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
+				}else if(result == 1){
+					$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
+				}
+			}
+		});
 	}
 }
+
+
 
 /*
 *회원가입 만14세 미만 가입 금지
 *생성자 : 김혜경
 *생성일 : 2021.12.07
 */
-/*function noJoin(){
+function ageChk(){
+	var date = new Date(); //Date생성자 생성
+	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 selYear변수에 넣는다
+	var selectY = $("#yearBox").val();
 	
-}*/
+	if(thisY - selectY < 16){
+		alert("만14세 미만 아동은 회원가입이 불가능합니다.");
+		location.href = "/";
+	}else{
+		alert("만14세 이상입니다.");
+	}
+}
 
 
 

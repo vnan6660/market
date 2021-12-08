@@ -48,4 +48,15 @@ public class LoginServiceImpl implements LoginService {
 		int result = loginDao.idCheck(vo); //loginDao로 넘겨라
 		return result;
 	}
+
+	/**
+	*회원가입 이메일 중복확인
+	*생성자 : 김혜경
+	*생성일 : 2021.12.07
+	*/
+	@Override
+	public int emailChk(JoinVO vo) {
+		int result = loginDao.emailChk(vo); //loginDao로 넘겨라
+		return result;
+	}
 }
