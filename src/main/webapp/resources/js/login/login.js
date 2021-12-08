@@ -187,7 +187,7 @@ var login = function(idCheck, passCheck) {
 	idCheck;
 	passCheck;
 	$.ajax({
-		url: '/get/getLogin',
+		url: '/login/getLogin',
 		type: 'POST',
 		contentType: 'application/json',
 		data: JSON.stringify({
