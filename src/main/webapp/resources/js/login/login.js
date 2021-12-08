@@ -130,6 +130,7 @@ var doJoin = function() {
 	data.csBirthMonth = csBirthMonth;
 	data.csBirthDay = csBirthDay;
 
+	//필수항목들이 비어있지 않을 때 ajax를 수행
 	if(csId!=""&&csPs!=""&&csNm!=""&&csPhoneOne!=""&&csPhoneTwo!=""&&csPhoneThree!=""&&csEmailOne!=""&&csEmailTwo!=""&&csBirthYear!=""&&csBirthMonth!=""&&csBirthDay!=""){
 		$.ajax({
 			url: "/login/getJoin", //요청 url
@@ -178,10 +179,10 @@ var wrapValidation = function(idCheck, passCheck) {
 
 
 /**
-	*로그인 수행
-	*생성자 : 김소연
-	*생성일 : 2021.11.29
-	*/
+*로그인 수행
+*생성자 : 김소연
+*생성일 : 2021.11.29
+*/
 var login = function(idCheck, passCheck) {
 	idCheck;
 	passCheck;
@@ -236,10 +237,10 @@ function idChk(returnId){ //idChk function
 	}else{//id가 입력되어있을때
 		//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
 		if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
-			if( chkCsId.match(pattern) ) {
+			if( chkCsId.match(pattern) ) { //일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
 				alert("공백이 존재합니다.");
-				$("#csId").val("");
-				$("#csIdCheck").text("");
+				$("#csId").val("");//$("#csId")의 값 비우기
+				$("#csIdCheck").text("");//$("#csIdCheck")의 텍스트 지우기
 			}else{
 				$.ajax({
 					url: '/login/idCheck', //요청 url
@@ -285,10 +286,10 @@ function psChk(){
 	var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
 	
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
-	if( chkCsPs.match(pattern) ) {
+	if( chkCsPs.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
 		alert("공백이 존재합니다.");
-		$("#csPs").val("");
-		$("#csPwCheck").text("");
+		$("#csPs").val("");//id가 csPs인 선택자의 내용을 공백으로 설정
+		$("#csPwCheck").text("");//$("#csPwCheck")의 텍스트 지우기
 	}else{
 		//비밀번호가 7자리가 넘고 정규식이 맞으면 비밀번호 통과
 		if(chkCsPs.length > 7 && pwOnlyEngNumSpecial.test(chkCsPs)==true){
@@ -299,8 +300,6 @@ function psChk(){
 			$("#csPs").val("");//id가 csId인 선택자의 내용을 공백으로 설정
 		}
 	}
-
-	
 }
 
 /*
@@ -311,8 +310,6 @@ function psChk(){
 function csPwConfirm(){
 	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	var csPsConfirm = $("#csPsConfirm").val(); //id가 csPsConfirm인 선택자의 값을 csPsConfirm변수에 넣는다
-	
-	if(chkCsPs)
 	
 	if(chkCsPs == csPsConfirm){ //비밀번호가 같다면
 		$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
@@ -329,9 +326,9 @@ function csPwConfirm(){
 function nameChk(){
 	var chkName = $("#csNm").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
-	if( chkName.match(pattern) ) {
+	if( chkName.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
 		alert("공백이 존재합니다.");
-		$("#csNm").val("");
+		$("#csNm").val("");//id가 csNm인 선택자의 내용을 공백으로 설정
 	}
 }
 
@@ -341,33 +338,33 @@ function nameChk(){
 *생성일 : 2021.12.07
 */
 function emailChk(){
-	var csEmailOne = $("#csEmailOne").val();
-	var csEmailTwo = $("#csEmailTwo").val();
-	var csEmail = csEmailOne+csEmailTwo;
-	var data = {};
+	var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
+	var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
+	var data = {};//빈 객체 생성
+	
+	// 위에서 작성한 변수값을 'data.속성'에 넣는 작업
 	data.csEmailOne = csEmailOne;
 	data.csEmailTwo = csEmailTwo;
-	data.csEmail = csEmail;
 	
-	if(csEmailOne=="" || csEmailOne==null){
-		alert("이메일을 입력해주세요.");
-	}else{
+	if(csEmailOne==""){//csEmailOne의 값이 비어있다면
+		alert("이메일을 입력해주세요."); //이메일을 입력해주세요 띄우기
+	}else{//csEmailOne의 값이 비어있지않다면
 		var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
-		if( csEmailOne.match(pattern) ) {
-			alert("이메일에 공백이 존재합니다.");
-			$("#csEmailOne").val("");
-			$("#csEmailChk").text("");
+		if( csEmailOne.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
+			alert("이메일에 공백이 존재합니다.");//이메일에 공백이 존재합니다. 띄우기
+			$("#csEmailOne").val("");//id가 csEmailOne인 선택자의 내용을 공백으로 설정
+			$("#csEmailChk").text("");//$("#csEmailChk")의 텍스트 지우기
 		}else{
 			$.ajax({
-				url: '/login/emailChk',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(data),
-				dataType: 'json',
-				success: function(result) {
-					if(result == 0){
+				url: '/login/emailChk',//요청 url
+				type: 'POST',//post타입
+				contentType: 'application/json',//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+				data: JSON.stringify(data),//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+				dataType: 'json', //요청과 함께 보낼 데이터
+				success: function(result) {//성공했을시 수행하는 function
+					if(result == 0){ //DB에 저장된 이메일개수가 0개면
 						$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
-					}else if(result == 1){
+					}else if(result == 1){//DB에 저장된 이메일이 1개있다면(DB에 있단 소리니깐 존재하는 이메일)
 						$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
 					}
 				}

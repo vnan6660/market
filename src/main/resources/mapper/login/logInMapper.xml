@@ -24,6 +24,7 @@
 	
 	<!-- 회원가입 insert -->
 	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
+	<!-- logInMapper.doJoin -->
 		INSERT INTO CUSTOMER_INFO(
 			CS_NO <!-- 고객번호 -->
 			,CS_GRADE <!-- 고객등급 -->
@@ -64,6 +65,7 @@
 	
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck" resultType="int">
+	<!-- logInMapper.idCheck -->
 	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
 	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
 		SELECT COUNT(*) 
@@ -73,10 +75,11 @@
 	
 	<!-- 이메일 중복체크 -->
 	<select id="emailChk" resultType="int">
-	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
+	<!-- logInMapper.emailChk -->
+	<!-- 이메일 입력 항목이 나뉘어져있어서 ||을 사용해서 이메일을 붙였다. -->
 	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
 		SELECT COUNT(CS_EMAIL_ONE||CS_EMAIL_TWO) EMAILCOUNT
 		FROM CUSTOMER_INFO
-		WHERE CS_EMAIL_ONE||CS_EMAIL_TWO = #{csEmailOne}||#{csEmailTwo}
+		WHERE CS_EMAIL_ONE||CS_EMAIL_TWO = #{csEmailOne}||#{csEmailTwo}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함-->
 	</select>
 </mapper>
