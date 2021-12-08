@@ -35,9 +35,11 @@
 			</div>
 			<input type="hidden" id="ntcNo" value="${noticeOne.ntcNo}">
 			<button id="goNoticeList" class="btnSmallList hover">목록</button>
-			<button id="ntcDelBtn" class="btnSmall hover">삭제</button>
-			<button id="ntcUpdBtn" class="btnSmall hover">수정</button>
-			<button id="ntcUpdDoneBtn" class="btnSmall hover">수정완료</button>
+			<c:if test="${sessionScope.userGrade == '0'}">
+				<button id="ntcDelBtn" class="btnSmall hover">삭제</button>
+				<button id="ntcUpdBtn" class="btnSmall hover">수정</button>
+				<button id="ntcUpdDoneBtn" class="btnSmall hover">수정완료</button>
+			</c:if>
 		</div>
 	</main>
 </body>

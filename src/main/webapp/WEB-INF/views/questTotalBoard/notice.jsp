@@ -58,8 +58,9 @@
 						</tr>
 					</c:forEach>
 				</table>
-
-				<button id="goWriteForm" class="btnSmall hover">글쓰기</button>
+				<c:if test="${sessionScope.userGrade == '0'}">
+					<button id="goWriteForm" class="btnSmall hover">글쓰기</button>
+				</c:if>
 			</div>
 		</div>
 		<div id="pageList">

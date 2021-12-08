@@ -62,7 +62,7 @@ public class NoticeController {
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
 	@GetMapping("/notice/detailNotcie/{ntcNo}")
 	public String detailNotcie(@PathVariable int ntcNo,Model model) {
-		noticeService.plusVcnt(ntcNo);//두번 호출되는 이유? 찾아보기
+		noticeService.plusVcnt(ntcNo);
 		NoticeVO noticeOne = noticeService.getNotcieDetail(ntcNo);
 		 model.addAttribute("noticeOne", noticeOne);
 	
