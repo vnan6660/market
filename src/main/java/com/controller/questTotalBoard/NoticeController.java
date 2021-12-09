@@ -30,7 +30,7 @@ public class NoticeController {
 
 	/* 공지사항 페이지 가기(공지사항목록불러오기) */
 	@GetMapping("/notice/noticePage")
-	public String notice(Model model) {
+	public String noticePage(Model model) {
 
 		SearchVO vo = new SearchVO();
 		int listcount = noticeService.getListCount(vo);

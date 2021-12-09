@@ -27,7 +27,7 @@ public class AuthMgtController {
 
 	/* 권한관리 페이지 가기 */
 	@RequestMapping("/authMgt/authMgtPage")
-	public String authMgt() {
+	public String authMgtPage() {
 		return "/menuTotalMgt/authMgt";
 	}
 

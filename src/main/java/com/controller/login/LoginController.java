@@ -34,15 +34,6 @@ public class LoginController {
 	/* 로그인 페이지 가기 */
 	@RequestMapping("/login/loginPage")
 	public String loginPage() {
-		HttpSession session = request.getSession(false);
-
-		if (session.getAttribute("userId") != null) {
-			System.out.println(session.getAttribute("userGrade"));
-			System.out.println("세션아이디 살아있음");
-		} else {
-			System.out.println(session.getAttribute("userGrade"));
-			System.out.println("세션아이디X");
-		}
 
 		return "/login/login";
 	}
