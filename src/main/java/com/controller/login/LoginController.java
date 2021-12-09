@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +30,6 @@ public class LoginController {
 	
 	@Autowired
 	private HttpServletRequest request;
-	
-	
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
 	
 	/* 로그인 페이지 가기 */
 	@RequestMapping("/login/loginPage")
@@ -104,8 +97,6 @@ public class LoginController {
 	public int doJoin(@RequestBody JoinVO vo) { // joinPage() 메서드는
 		int resultId = loginService.idCheck(vo);
 		if(resultId == 0) { //신규회원이면
-			//비밀번호 암호화 하기
-			vo.setCsPs(bCryptPasswordEncoder.encode(vo.getCsPs()));
 			loginService.doJoin(vo); //회원가입 계속 진행
 		}
 		return resultId;
