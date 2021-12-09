@@ -26,7 +26,7 @@ $(function() {
 	*생성일 : 2021.12.08
 	*/
 	//focusout:커서가 사라지면 수행하는 event
-	$("#csId").focusout(function(){ //id가 csId인 selector에서 커서가 사라지면 수행
+	$("#csId").blur(function(){ //id가 csId인 selector에서 커서가 사라지면 수행
 		idChk(); //idChk()메서드 수행
 	});
 	
@@ -222,7 +222,7 @@ function getYears(selYear) { //getYears함수 파라미터로 selYear를 받는�
 *생성자 : 김혜경
 *생성일 : 2021.12.07
 */
-function idChk(returnId){ //idChk function
+function idChk(){ //idChk function
 	var data = {};// 빈 객체 생성
 	
 	// 위에서 작성한 변수값을 data.속성에 넣는 작업
@@ -233,14 +233,16 @@ function idChk(returnId){ //idChk function
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 	
 	if(chkCsId == ""){//id가 입력되지않았을때
-		alert("아이디를 입력해주세요");
+		$("#csId").focus();
+		$("#csIdCheck").text("아이디를 입력해주세요").css("color", "red"); //사용가능한 아이디입니다. 표시
+		return false;
 	}else{//id가 입력되어있을때
 		//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
 		if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
 			if( chkCsId.match(pattern) ) { //일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-				alert("공백이 존재합니다.");
-				$("#csId").val("");//$("#csId")의 값 비우기
-				$("#csIdCheck").text("");//$("#csIdCheck")의 텍스트 지우기
+				$("#csId").focus();
+				$("#csIdCheck").text("공백이 존재합니다.").css("color", "red"); //사용가능한 아이디입니다. 표시
+				return false;
 			}else{
 				$.ajax({
 					url: '/login/idCheck', //요청 url
@@ -250,13 +252,10 @@ function idChk(returnId){ //idChk function
 					data: JSON.stringify(data), //요청과 함께 보낼 데이터
 					success: function(result) { //성공했을시 수행하는 function
 						if(result == 0){//cnt가 0이면(DB에 저장된 id개수가 0이면)
-							alert("사용 가능한 아이디입니다.");
 							$("#joinBtn").removeAttr("disabled"); //회원가입버튼 활성화
 							$("#csIdCheck").text("사용 가능한 아이디입니다.").css("color", "green"); //사용가능한 아이디입니다. 표시
-							returnId = true;
 						}else if(result == 1){//cnt가 0이 아니면
-							alert("이미 사용중인 아이디입니다.");
-							$("#csId").val(""); //id가 csId인 선택자의 내용을 공백으로 설정
+							$("#csId").focus();
 							$("#csIdCheck").text("이미 사용중인 아이디입니다.").css("color", "red");//이미 사용중인 아이디입니다. 표시
 						}
 					},
@@ -264,14 +263,11 @@ function idChk(returnId){ //idChk function
 					}
 				});
 			}
-			
 		//정규표현식이 맞지 않으면
 		}else{
 			alert("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요."); //영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.띄움
-			$("#csId").val(""); //id가 csId인 선택자의 내용을 공백으로 설정
 		}
 	}
-	return returnId;
 }
 
 /*
@@ -280,24 +276,21 @@ function idChk(returnId){ //idChk function
 *생성일 : 2021.12.07
 */
 function psChk(){
-	
 	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	//(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, (?=.*?[#?!@$%^&*-])특수문자필수 {4,16}$4~16자
 	var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
 	
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 	if( chkCsPs.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-		alert("공백이 존재합니다.");
-		$("#csPs").val("");//id가 csPs인 선택자의 내용을 공백으로 설정
-		$("#csPwCheck").text("");//$("#csPwCheck")의 텍스트 지우기
+		$("#csPs").focus();
+		$("#csPwCheck").text("공백이 존재합니다.").css("color", "red");
 	}else{
 		//비밀번호가 7자리가 넘고 정규식이 맞으면 비밀번호 통과
 		if(chkCsPs.length > 7 && pwOnlyEngNumSpecial.test(chkCsPs)==true){
 			$("#csPwCheck").text("사용 가능한 비밀번입니다.").css("color", "green"); //id csPwCheck에 text()의 내용을 넣고 색을 초록색으로 설정
 		}else{
-			alert("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.")
+			$("#csPs").focus();
 			$("#csPwCheck").text("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.").css("color", "red"); //id csPwCheck에 text()의 내용을 넣고 색을 빨간색으로 설정
-			$("#csPs").val("");//id가 csId인 선택자의 내용을 공백으로 설정
 		}
 	}
 }
@@ -314,6 +307,7 @@ function csPwConfirm(){
 	if(chkCsPs == csPsConfirm){ //비밀번호가 같다면
 		$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
 	}else{ //비밀번호가 다르다면	
+		$("#csPs").focus();
 		$("#csPwConfirm").text("비밀번호가 다릅니다. 다시 확인해주세요.").css("color", "red");//id csPwConfirm에 text()의 내용을 넣고 색을 빨간색으로 설정
 	}
 }
@@ -327,8 +321,10 @@ function nameChk(){
 	var chkName = $("#csNm").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 	if( chkName.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-		alert("공백이 존재합니다.");
-		$("#csNm").val("");//id가 csNm인 선택자의 내용을 공백으로 설정
+		$("#csNm").focus();
+		$("#csNmConfirm").text("공백이 존재합니다.").css("color", "red");
+	}else{
+		$("#csNmConfirm").text("");
 	}
 }
 
@@ -351,9 +347,8 @@ function emailChk(){
 	}else{//csEmailOne의 값이 비어있지않다면
 		var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 		if( csEmailOne.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-			alert("이메일에 공백이 존재합니다.");//이메일에 공백이 존재합니다. 띄우기
-			$("#csEmailOne").val("");//id가 csEmailOne인 선택자의 내용을 공백으로 설정
-			$("#csEmailChk").text("");//$("#csEmailChk")의 텍스트 지우기
+			$("#csEmailOne").focus();
+			$("#csEmailChk").text("공백이 존재합니다.").css("color", "red");
 		}else{
 			$.ajax({
 				url: '/login/emailChk',//요청 url

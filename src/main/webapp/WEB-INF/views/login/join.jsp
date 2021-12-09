@@ -48,7 +48,10 @@
 					</tr>
 					<tr>
 						<th>이름*</th>
-						<td><input id="csNm" name="csNm" type="text"></td>
+						<td>
+							<input id="csNm" name="csNm" type="text">
+							<div id="csNmConfirm"></div>
+						</td>
 					</tr>
 					<tr>
 						<th>주소</th>
