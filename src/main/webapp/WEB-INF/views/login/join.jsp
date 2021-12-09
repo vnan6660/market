@@ -28,7 +28,7 @@
 					<tr>
 						<th>아이디*</th>
 						<td>
-							<input type="text" id="csId" name="csId" placeholder="아이디"> (영문소문자/숫자 조합, 4~16자)<button id="idChkBtn" onclick="idChk()">중복확인</button>
+							<input type="text" id="csId" name="csId" placeholder="아이디"> (영문소문자/숫자 조합, 4~16자)<!-- <button id="idChkBtn" onclick="idChk()">중복확인</button> -->
 							<div id="csIdCheck"></div>
 						</td>
 					</tr>

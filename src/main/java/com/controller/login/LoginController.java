@@ -33,7 +33,7 @@ public class LoginController {
 	
 	/* 로그인 페이지 가기 */
 	@RequestMapping("/login/loginPage")
-	public String authMgt() {
+	public String loginPage() {
 		HttpSession session = request.getSession(false);
 
 		if (session.getAttribute("userId") != null) {
