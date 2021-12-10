@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,9 @@
 		<hr>
 		<div id="csInfoUpperWrap">
 			<div id="ssWrap">
+				<input type="date" id="startDate" name="calander">
+				<input type="date" id="endDate" name="calander">
+				
 				<select id="userGradeSelectWrap">
 					<option value="optCsID">회원</option>
 					<option value="optCsNm">탈퇴</option>
@@ -50,8 +54,26 @@
 						<th>회원구분</th>
 					</tr>
 					
+					<c:forEach items="${csInfoList}" var="vo">
+						<tr class="hover" onclick="goDetail(${vo.csNo})">
+							<td>${vo.csNo}</td>
+							<td>${vo.csId}</td>
+							<td>${vo.csNm}</td>
+							<td><fmt:formatDate value="${vo.createDate}"
+									pattern="yyyy-MM-dd" /></td>
+							<td>${vo.csGrade}</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
+			<div id="pageList">
+			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
+			</c:forEach>
+			<c:if test="${endpage} < ${maxPage}">
+			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
+			</c:if>
+		</div>
 		</div>
 	</main>
 </body>

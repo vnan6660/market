@@ -8,7 +8,7 @@ import lombok.Setter;
 public class JoinVO {
 
 	private String csNo; //고객번호
-	private String csGrade; //고객등급
+	private String csGrade; //고객구분
 	private String csId; //고객아이디
 	private String csPs; //비밀번호
 	private String csNm; //이름

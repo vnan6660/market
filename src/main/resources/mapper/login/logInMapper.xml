@@ -15,8 +15,8 @@
 		resultType="com.vo.login.LoginVO">
 		<!-- logInMapper.selectLogin -->
 		SELECT
-		CS_GRADE as csGrade,<!-- 회원구분 -->
-		CS_ID as csId,<!-- 아이디 -->
+		CS_GRADE as csGrade,<!-- 고객구분 -->
+		CS_ID as csId,<!-- 고객아이디 -->
 		CS_NM as csNm<!-- 이름 -->
 		FROM CUSTOMER_INFO
 		WHERE CS_ID = #{csId} AND CS_PS = #{csPs}

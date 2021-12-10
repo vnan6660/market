@@ -124,7 +124,6 @@ var goPage = function(pageNum) {
 		type: 'GET',
 		data: searchParam,
 		success: function(res) {
-			var page = res.page;
 			var maxPage = res.maxPage;
 			var startpage = res.startpage;
 			var endpage = res.endpage;

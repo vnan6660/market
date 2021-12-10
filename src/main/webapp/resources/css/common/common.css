@@ -65,6 +65,10 @@ button {
 .mr6 {
 	margin-right: 6px;
 }
+
+.mt10 {
+	margin-top: 10px;
+}
 /* ---- side Menu ------- */
 #homeIcon {
 	width: 60px;

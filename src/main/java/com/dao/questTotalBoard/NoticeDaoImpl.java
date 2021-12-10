@@ -57,7 +57,8 @@ public class NoticeDaoImpl implements NoticeDao {
 	public void updateNotice(NoticeVO vo) {
 		sqlSession.update("updateNotice", vo);
 	}
-
+	
+	/* 검색글카운트 */
 	@Override
 	public int selectListCount(SearchVO vo) {
 		return sqlSession.selectOne("selectListCount", vo);

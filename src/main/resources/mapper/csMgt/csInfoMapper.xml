@@ -3,6 +3,62 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.csMgt.CsInfoDaoImpl">
+
+<select id="selectCsInfoCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+		<!-- csInfoMapper.selectCsInfoCount -->
+		SELECT
+		COUNT(*)
+		FROM
+		CUSTOMER_INFO
+	</select>
+
+	<select id="selectCsInfo" resultType="com.vo.csMgt.CsInfoVO">
+		<!-- csInfoMapper.selectCsInfo -->
+		SELECT
+		CS_NO AS csNo,<!-- 고객번호 -->
+		DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade,<!-- 고객등급 -->
+		CS_ID AS csId,<!-- 고객아이디 -->
+		CS_PS AS csPs,<!-- 비밀번호 -->
+		CS_NM AS csNm,<!-- 이름 -->
+		CS_PHONE_ONE AS csPhoneOne,<!-- 핸드폰앞자리 -->
+		CS_PHONE_TWO AS csPhoneTwo,<!-- 핸드폰중간자리 -->
+		CS_PHONE_THREE AS csPhoneThree,<!-- 핸드폰끝자리 -->
+		CS_EMAIL_ONE AS csEmailOne,<!-- 이메일앞자리 -->
+		CS_EMAIL_TWO AS csEmailTwo,<!-- 이메일 뒷자리 -->
+		CREATE_DATE AS createDate,<!-- 생성일 -->
+		CS_ADDR_ONE AS csAddrOne,<!-- 주소 앞부분 -->
+		CS_ADDR_TWO AS csAddrTwo,<!-- 주소 뒷부분 -->
+		CS_BIRTH_YEAR AS csBirthYear, <!-- 생일 년도 -->
+		CS_BIRTH_MONTH AS csBirthMonth,<!-- 생일 월 -->
+		CS_BIRTH_DAY AS csBirthDay <!-- 생일 일 -->
+		FROM
+		CUSTOMER_INFO
+	</select>
+	
+	<select id="selectDetailCsInfo" parameterType="String" resultType="com.vo.csMgt.CsInfoVO">
+	<!-- csInfoMapper.selectDetailCsInfo -->
+	SELECT
+		CS_NO AS csNo,<!-- 고객번호 -->
+		DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade,<!-- 고객등급 -->
+		CS_ID AS csId,<!-- 고객아이디 -->
+		CS_PS AS csPs,<!-- 비밀번호 -->
+		CS_NM AS csNm,<!-- 이름 -->
+		CS_PHONE_ONE AS csPhoneOne,<!-- 핸드폰앞자리 -->
+		CS_PHONE_TWO AS csPhoneTwo,<!-- 핸드폰중간자리 -->
+		CS_PHONE_THREE AS csPhoneThree,<!-- 핸드폰끝자리 -->
+		CS_EMAIL_ONE AS csEmailOne,<!-- 이메일앞자리 -->
+		CS_EMAIL_TWO AS csEmailTwo,<!-- 이메일 뒷자리 -->
+		CREATE_DATE AS createDate,<!-- 생성일 -->
+		CS_ADDR_ONE AS csAddrOne,<!-- 주소 앞부분 -->
+		CS_ADDR_TWO AS csAddrTwo,<!-- 주소 뒷부분 -->
+		CS_BIRTH_YEAR AS csBirthYear, <!-- 생일 년도 -->
+		CS_BIRTH_MONTH AS csBirthMonth,<!-- 생일 월 -->
+		CS_BIRTH_DAY AS csBirthDay <!-- 생일 일 -->
+	FROM
+		CUSTOMER_INFO
+	WHERE
+		CS_NO = #{csNo}
+	</select>
 </mapper>
 
 
