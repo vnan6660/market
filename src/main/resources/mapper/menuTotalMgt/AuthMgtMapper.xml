@@ -8,6 +8,7 @@
 SELECT
 		MU_ID as menuId, <!-- 메뉴아이디 -->
 		MU_NM as menuNm,<!-- 메뉴이름 -->
+		MU_CD as menuCd,<!-- 메뉴코드 -->
 		MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
 		<if test='authSelect.equals("adminOpt")'>
 		ADMIN_YN as adminYn<!-- 관리자메뉴노출여부 -->

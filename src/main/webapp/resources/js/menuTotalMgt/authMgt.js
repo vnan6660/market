@@ -26,7 +26,11 @@ var attachEvent = function() {
 	$('#menuSaveBtn').click(function() {
 		saveOpt($("#authSelect option:selected").val());
 	});
+
 }
+
+
+
 
 //맨위에 있는 체크박스를 클릭시 아래에 있는 체크박스 전체선택또는 전체해제
 var allcheck = function() {
@@ -36,15 +40,25 @@ var allcheck = function() {
 
 
 	if (allcheckStatus == true) {
-		/*맨위에 있는 체크박스가 선택일때 아래에 있는 체크박스들을 전체선택으로 바꿈*/
+		/*맨위에 있는 체크박스가 선택일때 아래에 있는 체크박스들을 disabled 제외하고 전체선택으로 바꿈*/
 		$("input[name = checkbox]").each(function() {
-			$("input[name = checkbox]").prop("checked", true);
+			$("input[name = checkbox]:not(:disabled)").prop("checked", true);
 		});
 	} else {
-		/*맨위에 있는 체크박스가 해제일때 아래에 있는 체크박스들을 전체해제으로 바꿈*/
+		/*맨위에 있는 체크박스가 해제일때 아래에 있는 체크박스들을 disabled 제외하고 전체해제으로 바꿈*/
 		$("input[name = checkbox]").each(function() {
-			$("input[name = checkbox]").prop("checked", false);
+			$("input[name = checkbox]:not(:disabled)").prop("checked", false);
 		});
+	}
+}
+
+var underCheck = function(e) {
+	/*상위메뉴 미체크시 하위메뉴도 같이 미체크로 변경*/
+	if (!e.checked) {
+		if (e.attributes.hasmenuupcd.value == "none") {
+			var hasmenuupcd = e.attributes.hasmenucd.value;
+			$("input[name = checkbox][hasmenuupcd = " + hasmenuupcd + "]:not(:disabled)").prop("checked", false);
+		}
 	}
 }
 
@@ -65,25 +79,36 @@ var getAuthList = function(authSelect) {
 			viewList += "</tr>";
 			$.each(res, function(i, e) {
 				viewList += "<tr>";
+				var hasMenuUpcd = "";
+				var disabledYn = ">";
+				if (e.menuUpCd != null) {
+					hasMenuUpcd = "hasmenucd = 'none' hasmenuupcd = '" + e.menuUpCd + "'";
+				} else {
+					hasMenuUpcd = "hasmenucd = '" + e.menuCd + "'" + "hasmenuupcd = 'none'";
+				}
+				if (e.menuCd == "menuTotalMgt" || e.menuCd == "menuMgt" || e.menuCd == "authMgt") {
+					disabledYn = "disabled = 'disabled'>";
+				}
 				/*관리자 권한 관리일때*/
 				if (e.adminYn != null) {
 					if (e.adminYn == "Y") {
 						/*db값이 Y일떄 체크*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "' checked='checked'></th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd + disabledYn + "</th>";
 					} else {
 						/*db값이 N일떄 체크안함*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'></th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd + disabledYn + "</th>";
 						checkF += 1;
 					}
+
 				}
 				/*사용자 권한 관리일때*/
 				if (e.userYn != null) {
 					if (e.userYn == "Y") {
 						/*db값이 Y일떄 체크*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "' checked='checked'></th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'"+ hasMenuUpcd + disabledYn + "</th>";
 					} else {
 						/*db값이 N일떄 체크안함*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'></th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)"+ hasMenuUpcd + disabledYn + "</th>";
 						checkF += 1;
 					}
 				}
@@ -93,9 +118,9 @@ var getAuthList = function(authSelect) {
 				viewList += "<th>" + rowerText + e.menuNm + "</th>";
 				viewList += "</tr>";
 			});
-			
+
 			$("#authTable").html(viewList);
-			
+
 			if (checkF == 0) {
 				/*리스트를 불러온 후 아래에 있는 체크박스가 전채 선택되었을 떄 맨위의 체크박스를 체크*/
 				$("input[id = allCheck]").attr("checked", true);
@@ -126,6 +151,7 @@ var saveOpt = function(authVal) {
 			contentType: 'application/json',
 			success: function() {
 				alert("저장완료되었습니다");
+				location.reload();
 			}
 		});
 	}
