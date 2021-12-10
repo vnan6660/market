@@ -51,7 +51,7 @@
 	<insert id="setMenuMgt"
 		parameterType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--*menuMgtMapper.setMenuMgt -->
-		INSERT INTO 
+		INSERT INTO
 		MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
 		VALUES
 		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
@@ -67,7 +67,7 @@
 		MU_UPCD = #{menuUpCd},<!-- 메뉴상위코드 -->
 		MU_SN = #{menuSn},<!-- 메뉴정렬순서 -->
 		ADMIN_YN = #{adminYn},<!-- 관리자메뉴노출여부 -->
-		USER_YN	= #{userYn}<!-- 사용자메뉴노출여부 -->
+		USER_YN = #{userYn}<!-- 사용자메뉴노출여부 -->
 		WHERE MU_ID =#{menuId}<!-- 메뉴아이디 -->
 	</update>
 
@@ -77,4 +77,23 @@
 		FROM MENU_MGT
 		WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
 	</delete>
+
+	<update id="updateUnderMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+		<!--*menuMgtMapper.updateUnderMenuMgt -->
+		UPDATE MENU_MGT
+		SET
+		<if test='onlyUserYn.equals("false")'>
+			ADMIN_YN = 'N', USER_YN = 'N'
+		</if>
+		<if test='onlyUserYn.equals("true")'>
+		 	USER_YN = 'N'
+		</if>
+		WHERE
+		MU_UPCD = (
+			select mu_cd
+			from MENU_MGT
+			where MU_ID = #{menuId}<!-- 메뉴아이디 -->
+			and mu_upcd is null
+		)
+	</update>
 </mapper>

@@ -53,5 +53,11 @@ public class MenuMgtDaoImpl implements MenuMgtDao {
 	public void deleteMenuMgt(String menuId) {
 		sqlSession.delete("deleteMenuMgt", menuId);
 	}
+
+	//상위 메뉴의 adminYn 이 'N'인경우 아래의 메뉴의 adminYn,userYn을 'N'로 업데이트
+	@Override
+	public void updateUnderMenuMgt(MenuMgtVO vo) {
+		sqlSession.delete("updateUnderMenuMgt", vo);
+	}
 	
 }

@@ -53,11 +53,23 @@ var allcheck = function() {
 }
 
 var underCheck = function(e) {
-	/*상위메뉴 미체크시 하위메뉴도 같이 미체크로 변경*/
+
 	if (!e.checked) {
+		/*상위메뉴 미체크시 하위메뉴도 같이 미체크로 변경*/
 		if (e.attributes.hasmenuupcd.value == "none") {
-			var hasmenuupcd = e.attributes.hasmenucd.value;
-			$("input[name = checkbox][hasmenuupcd = " + hasmenuupcd + "]:not(:disabled)").prop("checked", false);
+			var hasmenucd = e.attributes.hasmenucd.value;
+			$("input[name = checkbox][hasmenuupcd = " + hasmenucd + "]:not(:disabled)").prop("checked", false);
+		}
+	}
+
+	//상위메뉴가 미체크시 하위메뉴를 체크하면 상위메뉴를 체크해주세요라는 alert창 띄우기
+	if (e.checked) {
+		var hasmenuupcd = e.attributes.hasmenuupcd.value;
+		if (hasmenuupcd != "none") {
+			if ($("input[name = checkbox][hasmenucd = " + hasmenuupcd + "]").is(":checked") == false) {
+				alert("상위메뉴를 체크해주세요");
+			 return e.checked = false;
+			}
 		}
 	}
 }
@@ -105,10 +117,10 @@ var getAuthList = function(authSelect) {
 				if (e.userYn != null) {
 					if (e.userYn == "Y") {
 						/*db값이 Y일떄 체크*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'"+ hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd + disabledYn + "</th>";
 					} else {
 						/*db값이 N일떄 체크안함*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)"+ hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd + disabledYn + "</th>";
 						checkF += 1;
 					}
 				}

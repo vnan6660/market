@@ -12,8 +12,23 @@ $(function() {
 var init = function() {
 	$("#blankTable").show();
 	$("#writeTable").hide();
+
 }
 var attachEvent = function() {
+
+	//관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택
+	$("#adminSelect").change(function() {
+		if($("#adminSelect option:selected").val() == "N"){
+			$("#userSelect").val("N").prop("selected", true);
+		}
+	});
+	
+	//사용자화면 사용여부를 변경시 관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택
+	$("#userSelect").change(function() {
+		if($("#adminSelect option:selected").val() == "N"){
+			$("#userSelect").val("N").prop("selected", true);
+		}
+	});
 
 	//input Type이 number에서 들어오는 값이 숫자가 아닌경우 빈값으로 변경 
 	$("input[type = number]").keyup(function() {
@@ -86,63 +101,6 @@ var attachEvent = function() {
 
 	});
 
-	var alertMesg = function() {
-		alert("코드값이 존재합니다. 다른 코드를 적어주세요");
-	}
-
-	/*메뉴 정보 update 후 다시 원래 페이지로 돌아오기*/
-	var updateMenuInfo = function(menuId) {
-		if (confirm('변경하시겠습니까?')) {
-			$.ajax({
-				url: '/menuMgt/updateMenuMgt',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					"menuId": menuId,
-					"menuNm": $("#menuNm").val(),
-					"menuCd": $("#menuCd").val(),
-					"menuUpCd": $("#menuUpCd option:selected").val(),
-					"menuSn": $("#menuSn").val(),
-					"adminYn": $("#adminSelect option:selected").val(),
-					"userYn": $("#userSelect option:selected").val()
-				}),
-				success: function() {
-					alert("변경되었습니다");
-					location.reload();
-				},
-				error: function() {
-					alert("오류입니다. 관리자에게 문의해주세요");
-				}
-			});
-		}
-	}
-	/*메뉴 정보 insert 후 다시 원래 페이지로 돌아오기*/
-	var saveMenuInfo = function() {
-
-		if (confirm('저장하시겠습니까?')) {
-			$.ajax({
-				url: '/menuMgt/setMenuMgt',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					"menuNm": $("#menuNm").val(),
-					"menuCd": $("#menuCd").val(),
-					"menuUpCd": $("#menuUpCd option:selected").val(),
-					"menuSn": $("#menuSn").val(),
-					"adminYn": $("#adminSelect option:selected").val(),
-					"userYn": $("#userSelect option:selected").val()
-				}),
-				success: function() {
-					alert("저장되었습니다");
-					location.reload();
-				},
-				error: function() {
-					alert("오류입니다. 관리자에게 문의해주세요");
-				}
-			});
-		}
-	}
-
 	/*메뉴 삭제 후 다시 원래 페이지로 돌아오기*/
 	$("#menuDelBtn").click(function() {
 		var menuId = $("#menuId").val();
@@ -164,6 +122,62 @@ var attachEvent = function() {
 	});
 }
 
+
+/*메뉴 정보 insert 후 다시 원래 페이지로 돌아오기*/
+var saveMenuInfo = function() {
+
+	if (confirm('저장하시겠습니까?')) {
+		$.ajax({
+			url: '/menuMgt/setMenuMgt',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				"menuNm": $("#menuNm").val(),
+				"menuCd": $("#menuCd").val(),
+				"menuUpCd": $("#menuUpCd option:selected").val(),
+				"menuSn": $("#menuSn").val(),
+				"adminYn": $("#adminSelect option:selected").val(),
+				"userYn": $("#userSelect option:selected").val()
+			}),
+			success: function() {
+				alert("저장되었습니다");
+				location.reload();
+			},
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
+			}
+		});
+	}
+}
+var alertMesg = function() {
+	alert("코드값이 존재합니다. 다른 코드를 적어주세요");
+}
+/*메뉴 정보 update 후 다시 원래 페이지로 돌아오기*/
+var updateMenuInfo = function(menuId) {
+	if (confirm('변경하시겠습니까?')) {
+		$.ajax({
+			url: '/menuMgt/updateMenuMgt',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				"menuId": menuId,
+				"menuNm": $("#menuNm").val(),
+				"menuCd": $("#menuCd").val(),
+				"menuUpCd": $("#menuUpCd option:selected").val(),
+				"menuSn": $("#menuSn").val(),
+				"adminYn": $("#adminSelect option:selected").val(),
+				"userYn": $("#userSelect option:selected").val()
+			}),
+			success: function() {
+				alert("변경되었습니다");
+				location.reload();
+			},
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
+			}
+		});
+	}
+}
 //메뉴 클릭시 해당 메뉴정보 가져오기와서 오른쪽에table에 내용 뿌리기
 menuClick = function(menuId) {
 

@@ -21,6 +21,8 @@ public class MenuMgtVO {
 	private String adminYn;
 	private String userYn;
 	
+	private String onlyUserYn = "f";
+	
 	List optList;
 	String authSelect;
 

@@ -30,4 +30,7 @@ public interface MenuMgtDao {
 	// 메뉴관리 삭제
 	void deleteMenuMgt(String menuId);
 	
+	//상위 메뉴의 adminYn 이 'N'인경우 아래의 메뉴의 adminYn,userYn을 'N'로 업데이트
+	void updateUnderMenuMgt(MenuMgtVO vo);
+	
 }
