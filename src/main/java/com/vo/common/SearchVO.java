@@ -12,6 +12,8 @@ import lombok.Setter;
 public class SearchVO {
 	
 	private String selectOptVal;
+	private String selectUserGradeOpt;
+	private String selectUserInfoOpt;
 	private String searchVal;
 
 	private int page;

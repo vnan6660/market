@@ -17,7 +17,7 @@ public class MenuMgtVO {
 	private String menuNm;
 	private String menuCd;
 	private String menuUpCd;
-	private String menuSn;
+	private int menuSn;
 	private String adminYn;
 	private String userYn;
 	

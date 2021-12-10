@@ -24,8 +24,8 @@
 				<input type="date" id="endDate" name="calander">
 				
 				<select id="userGradeSelectWrap">
-					<option value="optCsID">회원</option>
-					<option value="optCsNm">탈퇴</option>
+					<option value="optMember">회원</option>
+					<option value="optWithdrawal">탈퇴</option>
 				</select>
 				<select id="userInfoSelectWrap">
 					<option value="optCsID">사용자ID</option>
@@ -66,7 +66,7 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div id="pageList">
+			<div id="pageList" class="mt10">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
 				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
 			</c:forEach>

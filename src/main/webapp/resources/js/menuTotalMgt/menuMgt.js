@@ -14,6 +14,13 @@ var init = function() {
 	$("#writeTable").hide();
 }
 var attachEvent = function() {
+
+	//input Type이 number에서 들어오는 값이 숫자가 아닌경우 빈값으로 변경 
+	$("input[type = number]").keyup(function() {
+		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	});
+
+
 	//새로운 메뉴 만들기 클릭시
 	$("#plusMenu").click(function() {
 
@@ -42,20 +49,41 @@ var attachEvent = function() {
 
 	//저장버튼 클릭시 
 	$("#menuSaveBtn").click(function() {
+		var emptyCheck = 0;
 		var menuId = $("#menuId").val();
 		var menuCd = $("#menuCd").val();
 
-		/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
-		$.ajax({
-			url: '/menuMgt/validationMenuMgt',
-			type: 'GET',
-			success: function(res) {
-				var list = res.filter((ele) => {
-					return ele.menuId == menuId || ele.menuCd == menuCd;
-				})
-				list.length == 0 ? saveMenuInfo() : typeof menuId == 'undefined' || menuId == '' ? alertMesg() : updateMenuInfo(list[0].menuId);
+		$("input[name = valiCheck]").each(function() {
+			if ($(this).val() == "") {
+				$(this).css("border", "1px solid red");
+				emptyCheck += 1;
+				if (emptyCheck == 1) {
+					$(this).focus();
+				}
+			} else {
+				$(this).css("border", "1px solid black");
 			}
 		});
+
+		if (emptyCheck == 0) {
+			/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
+			$.ajax({
+				url: '/menuMgt/validationMenuMgt',
+				type: 'GET',
+				success: function(res) {
+					var list = res.filter((ele) => {
+						return ele.menuId == menuId || ele.menuCd == menuCd;
+					})
+					list.length == 0 ? saveMenuInfo() : typeof menuId == 'undefined' || menuId == '' ? alertMesg() : updateMenuInfo(list[0].menuId);
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		} else {
+			alert("빈값을 채워주세요");
+		}
+
 	});
 
 	var alertMesg = function() {
@@ -79,13 +107,18 @@ var attachEvent = function() {
 					"userYn": $("#userSelect option:selected").val()
 				}),
 				success: function() {
-					location.href = "/menuMgt/menuMgtPage";
+					alert("변경되었습니다");
+					location.reload();
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
 				}
 			});
 		}
 	}
 	/*메뉴 정보 insert 후 다시 원래 페이지로 돌아오기*/
 	var saveMenuInfo = function() {
+
 		if (confirm('저장하시겠습니까?')) {
 			$.ajax({
 				url: '/menuMgt/setMenuMgt',
@@ -100,7 +133,11 @@ var attachEvent = function() {
 					"userYn": $("#userSelect option:selected").val()
 				}),
 				success: function() {
-					location.href = "/menuMgt/menuMgtPage";
+					alert("저장되었습니다");
+					location.reload();
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
 				}
 			});
 		}
@@ -116,7 +153,11 @@ var attachEvent = function() {
 				type: 'GET',
 				data: { "menuId": menuId },
 				success: function() {
-					location.href = "/menuMgt/menuMgtPage";
+					alert("삭제되었습니다");
+					location.reload();
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
 				}
 			});
 		}
@@ -146,6 +187,9 @@ menuClick = function(menuId) {
 				$("#menuUpCd").val(res[0].menuUpCd).prop("selected", true),
 				$("#adminSelect").val(res[0].adminYn).prop("selected", true),
 				$("#userSelect").val(res[0].userYn).prop("selected", true);
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
 }

@@ -20,11 +20,10 @@
 		<div id="newMenuWrap">
 			<ul style="overflow: auto;">
 				<li class="hover"><span><img id="plusBtn" alt="+button"
-						src="/images/plusBtn.svg"></span> <span id="plusMenu">새로운 메뉴
-						만들기</span></li>
+						src="/images/plusBtn.svg"></span> <span id="plusMenu">메뉴 추가</span></li>
 				<c:forEach items="${list}" var="vo">
 					<li class="menuC hover" onclick="menuClick(${vo.menuId})"><c:if
-							test="${vo.menuUpCd != null}">&nbsp;&nbsp; -</c:if> <span>${vo.menuNm}</span>
+							test="${vo.menuUpCd != null}">&nbsp;&nbsp; -</c:if> <span>${vo.menuNm}(${vo.menuSn})</span>
 					</li>
 				</c:forEach>
 			</ul>
@@ -39,16 +38,16 @@
 				</tr>
 				<tr>
 					<td>메뉴명</td>
-					<td><input id="menuNm" type="text"></td>
+					<td><input id="menuNm" name="valiCheck" type="text" maxlength="15"></td>
 				</tr>
 				<tr>
 					<td>메뉴코드</td>
-					<td><input id="menuCd" type="text"></td>
+					<td><input id="menuCd" name="valiCheck" type="text" maxlength="20"></td>
 				</tr>
 				<tr>
 					<td>상위메뉴명</td>
 					<td><select id="menuUpCd">
-							<option value="">없음</option>
+							<option value="">선택</option>
 							<c:forEach items="${option}" var="op">
 								<option value="${op.menuCd}">${op.menuNm}</option>
 							</c:forEach>
@@ -56,7 +55,7 @@
 				</tr>
 				<tr>
 					<td>정렬순서</td>
-					<td><input id="menuSn" type="text"></td>
+					<td><input id="menuSn" name="valiCheck" type="number"></td>
 				</tr>
 				<tr>
 					<td>사용여부</td>

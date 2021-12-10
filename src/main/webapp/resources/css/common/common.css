@@ -62,6 +62,12 @@ button {
 	cursor: pointer;
 }
 
+/*input 타입의 number에서 위아래 버튼 안나오게 하는 css*/
+input[type= number]::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+}
+
+
 .mr6 {
 	margin-right: 6px;
 }

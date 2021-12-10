@@ -43,7 +43,8 @@ public class CsInfoController {
 
 		return "/csMgt/csInfo";
 	}
-
+	
+	/* 고객디테일페이지 가기 */
 	@GetMapping("/csInfo/detailCsInfo/{csNo}")
 	public String detailCsInfo(@PathVariable String csNo, Model model) {
 		/* csNo에 맞는 고객정보 가져오기 */

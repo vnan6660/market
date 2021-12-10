@@ -26,11 +26,12 @@ var goDetail = function(csNo) {
 /*검색과 페이지 정보 같이 넘기기*/
 var goPage = function(pageNum) {
 	searchParam = {};
-	searchParam.selectOptVal = $("#selectWrap option:selected").val();
+	searchParam.selectUserGradeOpt = $("#userGradeSelectWrap option:selected").val();
+	searchParam.selectUserInfoOpt = $("#userInfoSelectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
 
-	$.ajax({
+	/*$.ajax({
 		url: '/notice/searchNotice',
 		type: 'GET',
 		data: searchParam,
@@ -72,7 +73,7 @@ var goPage = function(pageNum) {
 
 			var pageList = "";
 			if (1 < startpage) {
-				/*startpage가 1보다 커야 실행가능*/
+				//startpage가 1보다 커야 실행가능
 				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
 			}
 			for (var num = startpage; num <= endpage; num++) {
@@ -80,7 +81,7 @@ var goPage = function(pageNum) {
 			}
 
 			if (endpage < maxPage) {
-				/*endpage가 maxPage보다 작아야 실행 가능*/
+				//endpage가 maxPage보다 작아야 실행 가능
 				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
 			}
 
@@ -88,5 +89,5 @@ var goPage = function(pageNum) {
 			$("#pageList").html(pageList);
 
 		}
-	});
+	});*/
 }

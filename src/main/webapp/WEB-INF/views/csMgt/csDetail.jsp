@@ -19,7 +19,7 @@
 		<h2>고객정보상세</h2>
 		<hr>
 		<div id="csInfoUpperWrap">
-		<h3 class="mt10">고객정보</h3>
+			<h3 class="mt10">고객정보</h3>
 			<div id="csListWrap">
 				<table id="csInfoTable">
 					<colgroup>
@@ -52,11 +52,14 @@
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td>${csOne.csBirthYear}-${csOne.csBirthMonth}-${csOne.csBirthDay}</td>
+						<td>${csOne.csBirthYear}년${csOne.csBirthMonth}월${csOne.csBirthDay}일</td>
 					</tr>
 				</table>
 			</div>
-		<h3 class="mt10">구매이력</h3>
+			<h3 class="mt10">구매이력</h3>
+			<div id="buyHistoryList">
+			
+			</div>
 		</div>
 	</main>
 </body>
