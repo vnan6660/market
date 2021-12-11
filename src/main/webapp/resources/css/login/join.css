@@ -6,21 +6,16 @@
 @charset "UTF-8";
 @import url("/css/common/common.css");
 
+.join {
+	margin-top: 5% !important;
+	margin-left: 15% !important;
+	margin-right: 15% !important;
+	width: 60% !important;
+}
+
 .join-info{
 	display: flex;
     justify-content: space-between;
-}
-
-.contents-join {
-	position: absolute;
-	margin-top: 5%;
-	margin-left: 15%;
-	margin-right: 15%;
-	width: 60%;
-	display: inline-flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	align-content: stretch;
 }
 
 table {
@@ -61,5 +56,11 @@ table th{
 	color: gray;
 	width: 62px;
     height: 23px;
-    
+}
+.w90{
+	width: 90px;
+}
+
+.w150{
+	width: 150px;
 }

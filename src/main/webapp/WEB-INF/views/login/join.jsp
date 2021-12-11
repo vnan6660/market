@@ -5,16 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main</title>
+<title>회원가입</title>
 <link rel="shortcut icon" href="#">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/login/join.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
-<script type="text/javascript" src="/js/login/login.js"></script>
+<script type="text/javascript" src="/js/login/join.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main class="contents-join">
+	<main id="contents" class="join">
+	<form action="/login/doJoin" method="post" onsubmit="return validation();">
+	<input type="hidden" id="csPhone" name="csPhone">
+	<input type="hidden" id="csEmail" name="csEmail">
 		<div class="table-wrap">
 			<ul class="join-info">
 				<li><h3>기본정보</h3></li>
@@ -49,7 +52,7 @@
 					<tr>
 						<th>이름*</th>
 						<td>
-							<input id="csNm" name="csNm" type="text">
+							<input id="csNm" name="csNm" type="text" maxlength="10">
 							<div id="csNmConfirm"></div>
 						</td>
 					</tr>
@@ -57,15 +60,15 @@
 						<th>주소</th>
 						<td>
 							<ul>
-								<li><input type="text" id="csAddrOne" name="csAddrOne" placeholder="기본 주소"></li>
-								<li><input type="text" id="csAddrTwo" name="csAddrTwo" placeholder="나머지 주소"></li>
+								<li><input type="text" id="csAddrOne" name="csAddrOne" placeholder="기본 주소" maxlength="40"></li>
+								<li><input type="text" id="csAddrTwo" name="csAddrTwo" placeholder="상세 주소" maxlength="40"></li>
 							</ul>
 						</td>
 					</tr>
 					<tr>
 						<th>휴대전화*</th>
 						<td>
-							<select id="csPhoneOne" name="csPhoneOne">
+							<select class="w90" id="csPhoneOne" name="csPhoneOne">
 								<option value="010">010</option>
 								<option value="011">011</option>
 								<option value="016">016</option>
@@ -73,19 +76,24 @@
 								<option value="018">018</option>
 								<option value="019">019</option>
 							</select>
-							- <input type="text" id="csPhoneTwo" name="csPhoneTwo"> - <input type="text" id="csPhoneThree" name="csPhoneThree">
+							- <input type="text" class="w90 phone" id="csPhoneTwo" name="csPhoneTwo" maxlength="4"> 
+							- <input type="text" class="w90 phone" id="csPhoneThree" name="csPhoneThree" maxlength="4">
+							<div id="phoneChk"></div>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일*</th>
 						<td>
-							<input type="text" id="csEmailOne" name="csEmailOne"> @ 
-							<select id="csEmailTwo" name="csEmailTwo">
+							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
+							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput">
+							<select class="w150" id="csEmailTwo" name="csEmailTwo">
+								<option hidden="hidden">선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
 								<option value="gmail.com">gmail.com</option>
 								<option value="hanmail.net">hanmail.net</option>
 								<option value="kakao.com">kakao.com</option>
+								<option value="csEmailWrite" id="csEmailWrite">직접입력</option>
 							</select>
 							<div id="csEmailChk"></div>
 						</td>
@@ -96,9 +104,9 @@
 					<tr>
 						<th>생년월일*</th>
 						<td>
-							<select id="yearBox"></select>
+							<select id="yearBox" name="csBirthYear"></select>
 							년
-							<select id="month">
+							<select id="month" name="csBirthMonth">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -113,7 +121,7 @@
 								<option value="12">12</option>
 							</select>
 							월
-							<select id="day">
+							<select id="day" name="csBirthDay">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -147,15 +155,15 @@
 								<option value="31">31</option>
 							</select>
 							일
-							<div>* 만 14세 미만 아동의 회원가입은 받고 있지 않습니다</div>
+							<div id="ageConfirm"></div>
 						</td>
 					</tr>
 				</table>
 			</div>
-			
 			<div class="join-btn-wrap">
-				<button class="hover" id="joinBtn">회원가입</button>
+				<input id="joinBtn" type="submit" class="hover" value="회원가입">
 			</div>
+		</form>
 	</main>
 </body>
 

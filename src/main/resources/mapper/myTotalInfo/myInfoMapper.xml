@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.myTotalInfo.MyInfoDaoImpl">
+
+	<select id="myInfoPage" parameterType="String" resultType="com.vo.csMgt.CsInfoVO">
+		SELECT
+			CS_NO AS csNo,<!-- 고객번호 -->
+			DECODE(CS_GRADE,'0',<![CDATA['관리자']]>,'1',<![CDATA['회원']]>,<![CDATA['탈퇴']]>)
+			AS csGrade,<!-- 고객등급 -->
+			CS_ID AS csId,<!-- 고객아이디 -->
+			CS_PS AS csPs,<!-- 비밀번호 -->
+			CS_NM AS csNm,<!-- 이름 -->
+			CS_PHONE_ONE AS csPhoneOne,<!-- 핸드폰앞자리 -->
+			CS_PHONE_TWO AS csPhoneTwo,<!-- 핸드폰중간자리 -->
+			CS_PHONE_THREE AS csPhoneThree,<!-- 핸드폰끝자리 -->
+			CS_EMAIL_ONE AS csEmailOne,<!-- 이메일앞자리 -->
+			CS_EMAIL_TWO AS csEmailTwo,<!-- 이메일 뒷자리 -->
+			CREATE_DATE AS createDate,<!-- 생성일 -->
+			CS_ADDR_ONE AS csAddrOne,<!-- 주소 앞부분 -->
+			CS_ADDR_TWO AS csAddrTwo,<!-- 주소 뒷부분 -->
+			CS_BIRTH_YEAR AS csBirthYear, <!-- 생일 년도 -->
+			CS_BIRTH_MONTH AS csBirthMonth,<!-- 생일 월 -->
+			CS_BIRTH_DAY AS csBirthDay <!-- 생일 일 -->
+		FROM CUSTOMER_INFO
+		WHERE CS_ID = #{csId}
+	</select>
+
+</mapper>

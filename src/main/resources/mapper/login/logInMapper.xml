@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- 회원가입 insert -->
-	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
+	<insert id="doJoin" parameterType="map">
 	<!-- logInMapper.doJoin -->
 		INSERT INTO CUSTOMER_INFO(
 			CS_NO <!-- 고객번호 -->
@@ -31,17 +31,14 @@
 			,CS_ID <!-- 고객아이디 -->
 			,CS_PS <!-- 비밀번호 -->
 			,CS_NM <!-- 이름 -->
-			,CS_PHONE_ONE <!-- 핸드폰앞자리 -->
-			,CS_PHONE_TWO <!-- 핸드폰중간자리 -->
-			,CS_PHONE_THREE <!-- 핸드폰끝자리 -->
-			,CS_EMAIL_ONE <!-- 이메일앞자리 -->
-			,CS_EMAIL_TWO <!-- 이메일 뒷자리 -->
-			,CREATE_DATE <!-- 생성일 -->
 			,CS_ADDR_ONE <!-- 주소 앞부분 -->
 			,CS_ADDR_TWO <!-- 주소 뒷부분 -->
 			,CS_BIRTH_YEAR <!-- 생일 년도 -->
 			,CS_BIRTH_MONTH <!-- 생일 월 -->
 			,CS_BIRTH_DAY <!-- 생일 일 -->
+			,CS_PHONE <!-- 휴대폰번호 -->
+			,CS_EMAIL <!-- 이메일 -->
+			,CREATE_DATE <!-- 생성일 -->
 		)
 		VALUES(
 			CUSTOMER_INFO_SEQ.nextval
@@ -49,22 +46,19 @@
 			,#{csId}
 			,#{csPs}
 			,#{csNm}
-			,#{csPhoneOne}
-			,#{csPhoneTwo}
-			,#{csPhoneThree}
-			,#{csEmailOne}
-			,#{csEmailTwo}
-			,SYSDATE
 			,#{csAddrOne}
 			,#{csAddrTwo}
 			,#{csBirthYear}
 			,#{csBirthMonth}
 			,#{csBirthDay}
+			,#{csPhone}
+			,#{csEmail}
+			,SYSDATE
 		)
 	</insert>
 	
 	<!-- 아이디 중복체크 -->
-	<select id="idCheck" resultType="int">
+	<select id="idCheck" parameterType="String" resultType="int">
 	<!-- logInMapper.idCheck -->
 	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
 	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
@@ -78,8 +72,8 @@
 	<!-- logInMapper.emailChk -->
 	<!-- 이메일 입력 항목이 나뉘어져있어서 ||을 사용해서 이메일을 붙였다. -->
 	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
-		SELECT COUNT(CS_EMAIL_ONE||CS_EMAIL_TWO) EMAILCOUNT
+		SELECT COUNT(CS_EMAIL) EMAILCOUNT
 		FROM CUSTOMER_INFO
-		WHERE CS_EMAIL_ONE||CS_EMAIL_TWO = #{csEmailOne}||#{csEmailTwo}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함-->
+		WHERE CS_EMAIL = #{csEmail}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함 -->
 	</select>
 </mapper>

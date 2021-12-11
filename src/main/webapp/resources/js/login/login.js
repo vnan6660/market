@@ -6,6 +6,17 @@
 
 $(function() {
 	attchEvent();
+	//이메일 직접입력 input 처음 로딩됐을때 안보이게
+	$("#csEmailWriteInput").hide();
+	
+	//이메일 뒷부분 선택값이 직접입력이면 input박스 나오게 아니면 숨김
+	$('#csEmailTwo').change(function() {
+		if($("#csEmailTwo").val() == 'csEmailWrite'){
+			$("#csEmailWriteInput").show();
+		}else{
+			$("#csEmailWriteInput").hide();
+		}
+	});
 	
 	/**
 	*회원가입 생년월일 년도 selectBox만들기
@@ -58,6 +69,12 @@ $(function() {
 		emailChk(); //emailChk()메서드 수행
 	});
 	
+	
+	$("#csEmailWrite").on("click", function () {
+		alert("aaaa");
+	    $("body").append("<button name='add'>+</button>");
+	  });
+	
 	/**
 	*회원가입 이름 공백확인
 	*생성자 : 김혜경
@@ -67,7 +84,19 @@ $(function() {
 		nameChk(); //nameChk()메서드 수행
 	});
 	
+	/**
+	*회원가입 전화번호 4자리 체크
+	*생성자 : 김혜경
+	*생성일 : 2021.12.10
+	*/
+	$("#csPhoneTwo, csPhoneThree").focusout(function(){ //id가 csPhoneTwo인 selector에서 커서가 사라지면 수행
+		phoneChkFn(); //phoneChkFn()메서드 수행
+	});
 });
+
+function write(){
+	alert($("#csEmailWriteID option:selected").val());
+}
 
 var attchEvent = function() {
 	/**
@@ -100,15 +129,16 @@ var attchEvent = function() {
 *생성일 : 2021.12.06
 */
 var doJoin = function() {
-	
 	var csId = $("#csId").val(); // id가 csId인 selector의 값을 .val()로 가져와 csId라는 변수에 넣는다. (이하 동일)
 	var csPs = $("#csPs").val();
 	var csNm = $("#csNm").val();
 	var csPhoneOne = $("#csPhoneOne").val();
 	var csPhoneTwo = $("#csPhoneTwo").val();
 	var csPhoneThree = $("#csPhoneThree").val();
+	var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;
 	var csEmailOne = $("#csEmailOne").val();
 	var csEmailTwo = $("#csEmailTwo").val();
+	var csEmail = csEmailOne+csEmailTwo;
 	var csAddrOne = $("#csAddrOne").val();
 	var csAddrTwo = $("#csAddrTwo").val();
 	var csBirthYear = $("#yearBox").val();
@@ -119,36 +149,42 @@ var doJoin = function() {
 	data.csId = csId; 
 	data.csPs = csPs;
 	data.csNm = csNm;
-	data.csPhoneOne = csPhoneOne;
-	data.csPhoneTwo = csPhoneTwo;
-	data.csPhoneThree = csPhoneThree;
-	data.csEmailOne = csEmailOne;
-	data.csEmailTwo = csEmailTwo;
+	data.csPhone = csPhone;
+	data.csEmail = csEmail;
 	data.csAddrOne = csAddrOne;
 	data.csAddrTwo = csAddrTwo;
 	data.csBirthYear = csBirthYear;
 	data.csBirthMonth = csBirthMonth;
 	data.csBirthDay = csBirthDay;
 
+	var date = new Date(); //Date생성자 생성
+	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
+	var selectY = $("#yearBox").val(); //선택한 년도
+
 	//필수항목들이 비어있지 않을 때 ajax를 수행
 	if(csId!=""&&csPs!=""&&csNm!=""&&csPhoneOne!=""&&csPhoneTwo!=""&&csPhoneThree!=""&&csEmailOne!=""&&csEmailTwo!=""&&csBirthYear!=""&&csBirthMonth!=""&&csBirthDay!=""){
-		$.ajax({
-			url: "/login/getJoin", //요청 url
-			type: "POST", //post타입
-			datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-			contentType: 'application/json', //보내는 데이터의 타입
-			data: JSON.stringify(data), //요청과 함께 보낼 데이터
-			success: function(resultId) { //성공했을시 수행하는 function
-				if(resultId==0){
-					alert("회원가입되었습니다."); //alert으로 회원가입되었습니다라는 문구 띄우기
-					location.href = "/"; //메인페이지로 돌아가라
-				}else{
-					location.href = "/login/login"; //메인페이지로 돌아가라
+		if(thisY - selectY < 16){
+			alert("만14세 미만 아동은 회원가입이 불가능합니다.");
+			location.href = "/";
+		}else{
+			$.ajax({
+				url: "/login/getJoin", //요청 url
+				type: "POST", //post타입
+				datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+				contentType: 'application/json', //보내는 데이터의 타입
+				data: JSON.stringify(data), //요청과 함께 보낼 데이터
+				success: function(resultId) { //성공했을시 수행하는 function
+					if(resultId==0){
+						alert("회원가입되었습니다."); //alert으로 회원가입되었습니다라는 문구 띄우기
+						location.href = "/login/loginPage"; //로그인페이지로 돌아가라
+					}else{
+						location.href = "/"; //메인페이지로 돌아가라
+					}
+				},
+				error: function() {
 				}
-			},
-			error: function() {
-			}
-		});
+			});
+		}
 	}else{
 		alert("전체 필수입력사항들을 입력해주세요.");
 	}
@@ -233,14 +269,12 @@ function idChk(){ //idChk function
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 	
 	if(chkCsId == ""){//id가 입력되지않았을때
-		$("#csId").focus();
 		$("#csIdCheck").text("아이디를 입력해주세요").css("color", "red"); //사용가능한 아이디입니다. 표시
 		return false;
 	}else{//id가 입력되어있을때
 		//id길이가 3자리가 넘고 정규표현식이 맞으면(true) ajax수행
 		if(chkCsId.length > 3 && idOnlyEngNum.test(chkCsId)==true){
 			if( chkCsId.match(pattern) ) { //일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-				$("#csId").focus();
 				$("#csIdCheck").text("공백이 존재합니다.").css("color", "red"); //사용가능한 아이디입니다. 표시
 				return false;
 			}else{
@@ -255,7 +289,6 @@ function idChk(){ //idChk function
 							$("#joinBtn").removeAttr("disabled"); //회원가입버튼 활성화
 							$("#csIdCheck").text("사용 가능한 아이디입니다.").css("color", "green"); //사용가능한 아이디입니다. 표시
 						}else if(result == 1){//cnt가 0이 아니면
-							$("#csId").focus();
 							$("#csIdCheck").text("이미 사용중인 아이디입니다.").css("color", "red");//이미 사용중인 아이디입니다. 표시
 						}
 					},
@@ -265,7 +298,7 @@ function idChk(){ //idChk function
 			}
 		//정규표현식이 맞지 않으면
 		}else{
-			alert("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요."); //영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.띄움
+			$("#csIdCheck").text("영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요.").css("color", "red");//"영문소문자/숫자를 사용하여 4~16자의 아이디를 만들어 주세요. 표시
 		}
 	}
 }
@@ -279,17 +312,14 @@ function psChk(){
 	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	//(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, (?=.*?[#?!@$%^&*-])특수문자필수 {4,16}$4~16자
 	var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-	
 	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
 	if( chkCsPs.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-		$("#csPs").focus();
 		$("#csPwCheck").text("공백이 존재합니다.").css("color", "red");
 	}else{
 		//비밀번호가 7자리가 넘고 정규식이 맞으면 비밀번호 통과
 		if(chkCsPs.length > 7 && pwOnlyEngNumSpecial.test(chkCsPs)==true){
 			$("#csPwCheck").text("사용 가능한 비밀번입니다.").css("color", "green"); //id csPwCheck에 text()의 내용을 넣고 색을 초록색으로 설정
 		}else{
-			$("#csPs").focus();
 			$("#csPwCheck").text("영문소문자/숫자/특수문자 조합의 8자~16자 비밀번호를 입력해주세요.").css("color", "red"); //id csPwCheck에 text()의 내용을 넣고 색을 빨간색으로 설정
 		}
 	}
@@ -303,26 +333,28 @@ function psChk(){
 function csPwConfirm(){
 	var chkCsPs = $("#csPs").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
 	var csPsConfirm = $("#csPsConfirm").val(); //id가 csPsConfirm인 선택자의 값을 csPsConfirm변수에 넣는다
-	
-	if(chkCsPs == csPsConfirm){ //비밀번호가 같다면
-		$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
-	}else{ //비밀번호가 다르다면	
-		$("#csPs").focus();
-		$("#csPwConfirm").text("비밀번호가 다릅니다. 다시 확인해주세요.").css("color", "red");//id csPwConfirm에 text()의 내용을 넣고 색을 빨간색으로 설정
+	if(chkCsPs!="" && csPsConfirm!=""){
+			if(chkCsPs == csPsConfirm){ //비밀번호가 같다면
+			$("#csPwConfirm").text("비밀번호가 같습니다.").css("color", "green");//id csPwConfirm에 text()의 내용을 넣고 색을 초록색으로 설정
+		}else{ //비밀번호가 다르다면
+			$("#csPwConfirm").text("비밀번호가 다릅니다. 다시 확인해주세요.").css("color", "red");//id csPwConfirm에 text()의 내용을 넣고 색을 빨간색으로 설정
+		}
 	}
 }
 
 /*
-*회원가입 이름 공백확인
+*회원가입 이름확인
 *생성자 : 김혜경
 *생성일 : 2021.12.08
 */
 function nameChk(){
-	var chkName = $("#csNm").val(); //id가 csPs인 선택자의 값을 chkCsPs변수에 넣는다
-	var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
-	if( chkName.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-		$("#csNm").focus();
-		$("#csNmConfirm").text("공백이 존재합니다.").css("color", "red");
+	var chkName = $("#csNm").val(); //id가 csNm인 선택자의 값을 chkName변수에 넣는다
+	var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/;
+
+	if(chkName==""){
+		$("#csNmConfirm").text("이름을 입력해주세요.").css("color", "red");
+	}else if(!nmOnlyHangulEng.test(chkName)){
+		$("#csNmConfirm").text("잘못된 이름입니다.").css("color", "red");
 	}else{
 		$("#csNmConfirm").text("");
 	}
@@ -334,37 +366,35 @@ function nameChk(){
 *생성일 : 2021.12.07
 */
 function emailChk(){
+	var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; //﻿이메일 체크 정규표현식: 영문 대/소문자, 숫자와 특수기호(_),(-),(.)만 사용 만 가능
 	var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
 	var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
+	var csEmail= csEmailOne+'@'+csEmailTwo;
 	var data = {};//빈 객체 생성
-	
 	// 위에서 작성한 변수값을 'data.속성'에 넣는 작업
-	data.csEmailOne = csEmailOne;
-	data.csEmailTwo = csEmailTwo;
+	data.csEmail = csEmail;
+	console.log(csEmailOne);
 	
 	if(csEmailOne==""){//csEmailOne의 값이 비어있다면
-		alert("이메일을 입력해주세요."); //이메일을 입력해주세요 띄우기
-	}else{//csEmailOne의 값이 비어있지않다면
-		var pattern = /\s/g;// 공백 체크 정규표현식 - 탭, 스페이스
-		if( csEmailOne.match(pattern) ) {//일치하는 내용이 있는지 확인하는 match()함수를 이용해서 공백확인
-			$("#csEmailOne").focus();
-			$("#csEmailChk").text("공백이 존재합니다.").css("color", "red");
-		}else{
-			$.ajax({
-				url: '/login/emailChk',//요청 url
-				type: 'POST',//post타입
-				contentType: 'application/json',//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-				data: JSON.stringify(data),//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-				dataType: 'json', //요청과 함께 보낼 데이터
-				success: function(result) {//성공했을시 수행하는 function
-					if(result == 0){ //DB에 저장된 이메일개수가 0개면
-						$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
-					}else if(result == 1){//DB에 저장된 이메일이 1개있다면(DB에 있단 소리니깐 존재하는 이메일)
-						$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
-					}
+		$("#csEmailChk").text("이메일을 입력해주세요.").css("color", "red");//이메일을 입력해주세요 띄우기
+	}else if(!emailOnly.test(csEmailOne)){
+		$("#csEmailChk").text("잘못된 이메일입니다.").css("color", "red");
+	}else{
+		$("#csEmailChk").text("");
+		$.ajax({
+			url: '/login/emailChk',//요청 url
+			type: 'POST',//post타입
+			contentType: 'application/json',//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+			data: JSON.stringify(data),//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
+			dataType: 'json', //요청과 함께 보낼 데이터
+			success: function(result) {//성공했을시 수행하는 function
+				if(result == 0){ //DB에 저장된 이메일개수가 0개면
+					$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
+				}else if(result == 1){//DB에 저장된 이메일이 1개있다면(DB에 있단 소리니깐 존재하는 이메일)
+					$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
 				}
-			});
-		}
+			}
+		});
 	}
 }
 
@@ -385,7 +415,11 @@ function ageChk(){
 }
 
 
-
+function phoneChkFn(){
+	if($("#csPhoneTwo").length<3||$("#csPhoneThree").length<3){
+		$("#phoneChk").text("4자리의 숫자가 입력되어야 합니다.").css("color","red");
+	}
+}
 
 
 
