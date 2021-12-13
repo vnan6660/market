@@ -17,8 +17,6 @@ $(function(){
 		}
 	});
 	
-		
-		
 	//회원가입 년도 생성
 	function getYears(selYear) { //getYears함수 파라미터로 selYear를 받는다.
 		$("#yearBox option").remove(); //기존option을 삭제함
@@ -136,6 +134,14 @@ function validation(){
 	}else{
 		$("#csPwConfirm").text("");
 	}
+	
+	//3.비밀번호랑 입력값 같은지
+	if(csPsConfirm != csPs){
+		$("#csPwConfirm").text("비밀번호를 다시 확인해주세요").css("color", "red");
+		return false;
+	}else{
+		$("#csPwConfirm").text("");
+	}
 
 	// ================ 이름 ================ //
 	//1. 빈값 안됨
@@ -211,9 +217,17 @@ function validation(){
 		$("#csEmailChk").text("");
 	}
 	
-	//4.이미 사용중인 이메일인지
-	emailChk();
+	//4.이메일 선택이면 도메인을 선택해주세요 띄우기
+	console.log(csEmail);
+	if(csEmailTwo == '선택') {
+		$("#csEmailChk").text("도메인을 선택해주세요.").css("color", "red");
+		return false;
+	}else{
+		csEmailOne = "";
+	}
 	
+	//5.이미 사용중인 이메일인지
+	emailChk();
 	// ================ 생년월일 ================ //
 	//회원가입 만14세 미만 가입 금지
 	var date = new Date(); //Date생성자 생성

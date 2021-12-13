@@ -18,15 +18,6 @@ public class JoinVO {
 	private String csBirthMonth; //생일 월
 	private String csBirthDay; //생일 일
 	private String csPhone; //핸드폰번호
-	
-	
-	
-	private String csEmail; 
-	private String csPhoneOne; 
-	private String csPhoneTwo; 
-	private String csPhoneThree; 
-	private String csEmailOne; 
-	private String csEmailTwo; 
-	private String csEmailWriteInput; 
+	private String csEmail; //이메일
 	
 }

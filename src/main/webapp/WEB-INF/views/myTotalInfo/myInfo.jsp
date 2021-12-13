@@ -45,13 +45,13 @@
 					<tr>
 						<th>휴대전화</th>
 						<td>
-							${csInfo.csPhone} - ${csInfo.csPhone} - ${csInfo.csPhone}
+							${csInfo.csPhone.substring(0,3)} - ${csInfo.csPhone.substring(3,7)} - ${csInfo.csPhone.substring(7,11)}
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
 						<td>
-							${csInfo.csEmail}@${csInfo.csEmail}
+							${csInfo.csEmail}
 						</td>
 					</tr>
 				</table>
@@ -67,7 +67,7 @@
 			</div>
 			
 			<div class="join-btn-wrap">
-				<button class="hover" id="Btn">회원정보수정</button>
+				<button class="hover" id="updateInfoBtn">회원정보수정</button>
 			</div>
 	</main>
 </body>

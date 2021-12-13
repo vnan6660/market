@@ -31,21 +31,21 @@
 					<tr>
 						<th>아이디*</th>
 						<td>
-							<input type="text" id="csId" name="csId" placeholder="아이디"> (영문소문자/숫자 조합, 4~16자)<!-- <button id="idChkBtn" onclick="idChk()">중복확인</button> -->
+							<input type="text" id="csId" name="csId" placeholder="아이디" maxlength="16"> (영문소문자/숫자 조합, 4~16자)
 							<div id="csIdCheck"></div>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호*</th>
 						<td>
-							<input type="password" id="csPs" name="csPs" placeholder="비밀번호"> (영문소문자/숫자/특수문자 조합, 8자~16자)
+							<input type="password" id="csPs" name="csPs" placeholder="비밀번호" maxlength="16"> (영문소문자/숫자/특수문자 조합, 8자~16자)
 							<div id="csPwCheck"></div>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인*</th>
 						<td>
-							<input type="password" id="csPsConfirm" placeholder="비밀번호 확인">
+							<input type="password" id="csPsConfirm" placeholder="비밀번호 확인" maxlength="16">
 							<div id="csPwConfirm"></div>
 						</td>
 					</tr>
@@ -87,13 +87,13 @@
 							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
 							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput">
 							<select class="w150" id="csEmailTwo" name="csEmailTwo">
-								<option hidden="hidden">선택</option>
+								<option value="선택" id="hidden">선택</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
 								<option value="gmail.com">gmail.com</option>
 								<option value="hanmail.net">hanmail.net</option>
 								<option value="kakao.com">kakao.com</option>
-								<option id="csEmailWrite">직접입력</option>
+								<option value="직접입력" id="csEmailWrite">직접입력</option>
 							</select>
 							<div id="csEmailChk"></div>
 						</td>
