@@ -6,16 +6,19 @@
 $(function(){
 	//이메일 직접입력 input 처음 로딩됐을때 안보이게
 	$("#csEmailWriteInput").hide();
-	
+	console.log($("#csEmailWrite").val());
+
 	//이메일 뒷부분 선택값이 직접입력이면 input박스 나오게 아니면 숨김
 	$('#csEmailTwo').change(function() {
-		if($("#csEmailWrite").click()){
-			$("#csEmailWriteInput").show();
-		}else{
+		if($('#csEmailTwo').val() !="직접입력"){
 			$("#csEmailWriteInput").hide();
+		}else{
+			$("#csEmailWriteInput").show();
 		}
 	});
 	
+		
+		
 	//회원가입 년도 생성
 	function getYears(selYear) { //getYears함수 파라미터로 selYear를 받는다.
 		$("#yearBox option").remove(); //기존option을 삭제함
