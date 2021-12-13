@@ -8,7 +8,7 @@ $(function() {
 	attchEvent();
 });
 
-function write(){
+function write() {
 	alert($("#csEmailWriteID option:selected").val());
 }
 
@@ -18,11 +18,23 @@ var attchEvent = function() {
 	*생성자 : 김소연
 	*생성일 : 2021.11.29
 	*/
+
+	//로그인 버튼 누르면 실행
 	$("#loginBtn").click(function() {
 		var idCheck = $("#idCheck").val();
 		var passCheck = $("#passCheck").val();
 		if (wrapValidation(idCheck, passCheck)) {
 			login(idCheck, passCheck);
+		}
+	});
+
+	$("#checkWrap").keypress(function(keyValue) {
+		if (keyValue.keyCode == 13) {
+			var idCheck = $("#idCheck").val();
+			var passCheck = $("#passCheck").val();
+			if (wrapValidation(idCheck, passCheck)) {
+				login(idCheck, passCheck);
+			}
 		}
 	});
 

@@ -9,7 +9,7 @@ $(function() {
 	attachEvent();
 
 	/*detail페이지의 수정을 위한 input박스 숨김*/
-	$("#updSubject, #updText, #ntcUpdDoneBtn").hide();
+	$("#updSubject, #updText, #ntcUpdDoneBtn, #ntcDelBtn").hide();
 });
 
 /*이벤트함수*/
@@ -29,6 +29,7 @@ var attachEvent = function() {
 		var param = {};
 		param.ntcSj = $("#subject").val();
 		param.ntcText = $("#writeText").val();
+		param.ntcWrt = $("#writer").val();
 
 		saveNotice(param);
 
@@ -42,10 +43,10 @@ var attachEvent = function() {
 	/*수정버튼누르기*/
 	$("#ntcUpdBtn").click(function() {
 		$("#orgSubject, #orgText, #ntcUpdBtn").hide();
-		$("#updSubject, #updText, #ntcUpdDoneBtn").show();
+		$("#updSubject, #updText, #ntcUpdDoneBtn, #ntcDelBtn").show();
 	});
 
-	/*수정완료버튼누르면*/
+	/*저장버튼누르면*/
 	$("#ntcUpdDoneBtn").click(function() {
 		updateNotice();
 	});

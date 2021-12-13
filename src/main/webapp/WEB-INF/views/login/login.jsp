@@ -17,8 +17,8 @@
 		<div id="logInWrap">
 		<img id="logoIcon" class="hover" alt="logo" src="/images/logo.png" onclick="goHome()"> 
 			<div id="checkWrap">
-				<input id="idCheck" class="check" /> 
-				<input id="passCheck" class="check" type="password"/>
+				<input id="idCheck" class="check" maxlength="16"/> 
+				<input id="passCheck" class="check" type="password" maxlength="16"/>
 				<span id="signUpBtn" >회원가입</span>
 				<div id="validCheckText"></div>
 			</div>

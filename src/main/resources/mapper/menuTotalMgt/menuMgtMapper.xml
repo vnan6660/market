@@ -8,17 +8,17 @@
 		resultType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!-- menuMgtMapper.selectMenuList -->
 		SELECT
-		MU_ID as menuId, <!-- 메뉴아이디 -->
-		MU_NM as menuNm,<!-- 메뉴이름 -->
-		MU_CD as menuCd,<!-- 메뉴코드 -->
-		MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
-		MU_SN as menuSn,<!-- 메뉴정렬순서 -->
-		ADMIN_YN as adminYn,<!-- 관리자메뉴노출여부 -->
-		USER_YN as userYn<!-- 사용자메뉴노출여부 -->
-		FROM menu_mgt
-		START WITH
+			MU_ID as menuId, <!-- 메뉴아이디 -->
+			MU_NM as menuNm,<!-- 메뉴이름 -->
+			MU_CD as menuCd,<!-- 메뉴코드 -->
+			MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
+			MU_SN as menuSn,<!-- 메뉴정렬순서 -->
+			ADMIN_YN as adminYn,<!-- 관리자메뉴노출여부 -->
+			USER_YN as userYn<!-- 사용자메뉴노출여부 -->
+		  FROM menu_mgt
+		 START WITH
 		MU_UPCD IS NULL
-		CONNECT BY PRIOR MU_CD = MU_UPCD
+	    CONNECT BY PRIOR MU_CD = MU_UPCD
 		ORDER SIBLINGS BY MU_SN
 	</select>
 
@@ -36,25 +36,36 @@
 		resultType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--menuMgtMapper.selectMenuMgt -->
 		SELECT
-		MU_ID as menuId,<!-- 메뉴아이디 -->
-		MU_NM as menuNm,<!-- 메뉴이름 -->
-		MU_CD as menuCd,<!-- 메뉴코드 -->
-		MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
-		MU_SN as menuSn,<!-- 메뉴정렬순서 -->
-		ADMIN_YN as adminYn,<!-- 관리자메뉴노출여부 -->
-		USER_YN as userYn<!-- 사용자메뉴노출여부 -->
-		FROM
-		MENU_MGT
-		WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
+			MU_ID as menuId,<!-- 메뉴아이디 -->
+			MU_NM as menuNm,<!-- 메뉴이름 -->
+			MU_CD as menuCd,<!-- 메뉴코드 -->
+			MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
+			MU_SN as menuSn,<!-- 메뉴정렬순서 -->
+			ADMIN_YN as adminYn,<!-- 관리자메뉴노출여부 -->
+			USER_YN as userYn<!-- 사용자메뉴노출여부 -->
+		  FROM MENU_MGT
+		 WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
 	</select>
 
 	<insert id="setMenuMgt"
 		parameterType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--*menuMgtMapper.setMenuMgt -->
-		INSERT INTO
-		MENU_MGT(MU_ID, MU_NM, MU_CD, MU_UPCD, MU_SN, ADMIN_YN, USER_YN)
+		INSERT INTO MENU_MGT
+		(  MU_ID
+		 , MU_NM
+		 , MU_CD
+		 , MU_UPCD
+		 , MU_SN
+		 , ADMIN_YN
+		 , USER_YN
+		 )
 		VALUES
 		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
+		
+		
+		
+		
+		
 	</insert>
 
 	<update id="updateMenuMgt"

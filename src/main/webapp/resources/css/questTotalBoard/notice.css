@@ -7,9 +7,10 @@
 
 @import url("/css/common/common.css");
 
-#noticeUpperWrap{
+#noticeUpperWrap {
 	height: 400px;
 }
+
 #ssWrap {
 	margin-top: 10px;
 }
@@ -24,7 +25,7 @@
 	height: 1.8em;
 }
 
-input, select {
+input, select{
 	padding: 3px;
 }
 
@@ -35,12 +36,16 @@ input, select {
 #ntcTable {
 	margin-top: 10px;
 	width: 100%;
-	border: 1px solid;
 	text-align: center;
+	border-collapse:collapse;
 }
 
 #ntcTable tr:nth-of-type(1) {
 	background-color: #ccc;
+}
+
+#ntcTable tr{
+	border-bottom: 2px solid #eee;
 }
 
 #writeFrom {
@@ -51,18 +56,36 @@ input, select {
 	margin-top: 15px;
 }
 
+#writeFromData {
+	margin: 20px 0;
+	border-top: 2px solid #ccc;
+	border-bottom: 2px solid #ccc;
+}
+
 #subject {
-	width: 50%;
+	width: 98%;
 	height: 2.5em;
 	margin: 15px;
 }
 
+#updSubject{
+	width: 99%;
+}
+
+#textLine{
+	border-bottom: 1px solid #e7e7e7;
+}
+
 #writeText {
-	width: 50%;
+	width: 98%;
 	height: 300px;
 	padding: 10px;
 	margin: 15px;
 	resize: none;
+}
+
+#updText{
+	width: 100%;
 }
 
 #noticeUl {
@@ -91,14 +114,13 @@ input, select {
 	padding: 1em;
 }
 
-#pageList{
+#pageList {
 	display: flex;
-    flex-direction: row;
-    justify-content: center;
+	flex-direction: row;
+	justify-content: center;
 }
 
-.page{
+.page {
 	border: 2px solid #eee;
-    padding: 0.5em 1em;
+	padding: 0.5em 1em;
 }
-

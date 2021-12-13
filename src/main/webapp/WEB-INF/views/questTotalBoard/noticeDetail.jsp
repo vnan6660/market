@@ -22,14 +22,14 @@
 				<ul id="noticeUl">
 					<li>
 						<span id="orgSubject"><c:out value="${noticeOne.ntcSj}" /></span>
-						<input type="text" id="updSubject" value="<c:out value="${noticeOne.ntcSj}"/>">
+						<input type="text" id="updSubject" maxlength="50" value="<c:out value="${noticeOne.ntcSj}"/>">
 					</li>
 					<li>
 						<span><c:out value="${noticeOne.ntcWrt}" /></span>
 					</li>
 					<li>
 						<span id="orgText"><c:out value="${noticeOne.ntcText}" /></span>
-						<textarea id="updText" rows="20" cols="50"><c:out value="${noticeOne.ntcText}"/></textarea>
+						<textarea id="updText" rows="20" cols="50" maxlength="1000"><c:out value="${noticeOne.ntcText}"/></textarea>
 					</li>
 				</ul>
 			</div>
@@ -38,7 +38,7 @@
 			<c:if test="${sessionScope.userGrade == '0'}">
 				<button id="ntcDelBtn" class="btnSmall hover">삭제</button>
 				<button id="ntcUpdBtn" class="btnSmall hover">수정</button>
-				<button id="ntcUpdDoneBtn" class="btnSmall hover">수정완료</button>
+				<button id="ntcUpdDoneBtn" class="btnSmall hover">저장</button>
 			</c:if>
 		</div>
 	</main>

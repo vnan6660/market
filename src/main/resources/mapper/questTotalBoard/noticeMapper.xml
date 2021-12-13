@@ -9,7 +9,7 @@
 		<!-- noticeMapper.insertNotice -->
 		INSERT INTO NOTICE (NTC_NO, NTC_SJ, NTC_TEXT, NTC_WRT, NTC_REGDATE,
 		NTC_VCNT)
-		VALUES (NOTICE_SEQ.NEXTVAL, #{ntcSj}, #{ntcText} , 'GUEST',
+		VALUES (NOTICE_SEQ.NEXTVAL, #{ntcSj}, #{ntcText} , #{ntcWrt},
 		SYSDATE, '0')
 	</insert>
 
