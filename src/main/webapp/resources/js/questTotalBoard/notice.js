@@ -22,7 +22,7 @@ var attachEvent = function() {
 
 	/*공지사항목록 페이지가기*/
 	$("#goNoticeList").click(function() {
-		location.href = "/notice/noticePage";
+		history.back(-1);
 	});
 
 	/*글쓴것 저장하기*/
@@ -75,6 +75,9 @@ var saveNotice = function(param) {
 			contentType: 'application/json',
 			success: function() {
 				location.href = '/notice/noticePage';
+			},
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
 			}
 		});
 	}
@@ -89,6 +92,9 @@ var deleteNotice = function() {
 			data: { "ntcNo": $("#ntcNo").val() },
 			success: function() {
 				location.href = '/notice/noticePage';
+			},
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
 			}
 		});
 	}
@@ -109,6 +115,9 @@ var updateNotice = function() {
 			contentType: 'application/json',
 			success: function() {
 				location.href = '/notice/detailNotcie/' + ntcNo;
+			},
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
 			}
 		});
 	}
@@ -187,6 +196,9 @@ var goPage = function(pageNum) {
 			$("#ntcTable").html(viewList);
 			$("#pageList").html(pageList);
 
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
 }

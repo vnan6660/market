@@ -22,7 +22,11 @@
 
 #checkWrap {
 	width: 220px;
+	height: 180px;
 	margin-top: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .check {
@@ -38,7 +42,9 @@
 
 #loginBtn {
 	width: 10%;
-	height: 23%;
+	height: 24.2%;
+	margin-left: 6px;
+	margin-top: -20px;
 }
 
 #loginBtn:hover {
