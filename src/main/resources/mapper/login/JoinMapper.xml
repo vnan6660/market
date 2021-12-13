@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.login.JoinDaoImpl">
+	
+	<!-- 회원가입 insert -->
+	<insert id="doJoin" parameterType="map">
+	<!-- JoinMapper.doJoin -->
+		INSERT INTO CUSTOMER_INFO(
+			 CS_NO <!-- 고객번호 -->
+			,CS_GRADE <!-- 고객등급 -->
+			,CS_ID <!-- 고객아이디 -->
+			,CS_PS <!-- 비밀번호 -->
+			,CS_NM <!-- 이름 -->
+			,CS_ADDR_ONE <!-- 주소 앞부분 -->
+			,CS_ADDR_TWO <!-- 주소 뒷부분 -->
+			,CS_BIRTH_YEAR <!-- 생일 년도 -->
+			,CS_BIRTH_MONTH <!-- 생일 월 -->
+			,CS_BIRTH_DAY <!-- 생일 일 -->
+			,CS_PHONE <!-- 휴대폰번호 -->
+			,CS_EMAIL <!-- 이메일 -->
+			,CREATE_DATE <!-- 생성일 -->
+		)
+		VALUES(
+			CUSTOMER_INFO_SEQ.nextval
+			,'1'
+			,#{csId}
+			,#{csPs}
+			,#{csNm}
+			,#{csAddrOne}
+			,#{csAddrTwo}
+			,#{csBirthYear}
+			,#{csBirthMonth}
+			,#{csBirthDay}
+			,#{csPhone}
+			,#{csEmail}
+			,SYSDATE
+		)
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+	<!-- JoinMapper.idCheck -->
+	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
+	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
+		SELECT COUNT(*) 
+		  FROM CUSTOMER_INFO
+		 WHERE CS_ID = #{csId}
+	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="emailChk" resultType="int">
+	<!-- JoinMapper.emailChk -->
+		SELECT COUNT(CS_EMAIL) EMAILCOUNT
+		  FROM CUSTOMER_INFO
+		 WHERE CS_EMAIL = #{csEmail}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함 -->
+	</select>
+</mapper>

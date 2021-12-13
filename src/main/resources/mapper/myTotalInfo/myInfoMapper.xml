@@ -13,11 +13,8 @@
 			CS_ID AS csId,<!-- 고객아이디 -->
 			CS_PS AS csPs,<!-- 비밀번호 -->
 			CS_NM AS csNm,<!-- 이름 -->
-			CS_PHONE_ONE AS csPhoneOne,<!-- 핸드폰앞자리 -->
-			CS_PHONE_TWO AS csPhoneTwo,<!-- 핸드폰중간자리 -->
-			CS_PHONE_THREE AS csPhoneThree,<!-- 핸드폰끝자리 -->
-			CS_EMAIL_ONE AS csEmailOne,<!-- 이메일앞자리 -->
-			CS_EMAIL_TWO AS csEmailTwo,<!-- 이메일 뒷자리 -->
+			CS_PHONE csPhone,<!-- 핸드폰번호 -->
+			CS_EMAIL csEmail,<!-- 이메일 -->
 			CREATE_DATE AS createDate,<!-- 생성일 -->
 			CS_ADDR_ONE AS csAddrOne,<!-- 주소 앞부분 -->
 			CS_ADDR_TWO AS csAddrTwo,<!-- 주소 뒷부분 -->

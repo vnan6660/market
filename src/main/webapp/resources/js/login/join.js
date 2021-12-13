@@ -212,7 +212,7 @@ function validation(){
 	}
 	
 	//4.이미 사용중인 이메일인지
-	//emailChk();
+	emailChk();
 	
 	// ================ 생년월일 ================ //
 	//회원가입 만14세 미만 가입 금지
@@ -226,11 +226,12 @@ function validation(){
 	
 }
 
-
+//회원가입 아이디 중복확인
 function chkId(){
 	var csId = $("#csId").val();
 	var data = {};
 	data.csId = csId; 
+	
 	$.ajax({
 		url: '/login/idCheck', //요청 url
 		type: "POST", //post타입
@@ -250,13 +251,14 @@ function chkId(){
 	});
 }
 
+//회원가입 이메일 중복확인
 function emailChk(){
 	var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
 	var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
 	var csEmail= csEmailOne+'@'+csEmailTwo;
-	alert(csEmail);
 	var data = {};//빈 객체 생성
 	data.csEmail = csEmail; //위에서 작성한 변수값을 'data.속성'에 넣는 작업
+	
 	$.ajax({
 		url: '/login/emailChk',//요청 url
 		type: 'POST',//post타입
