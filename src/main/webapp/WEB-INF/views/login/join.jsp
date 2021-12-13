@@ -93,7 +93,7 @@
 								<option value="gmail.com">gmail.com</option>
 								<option value="hanmail.net">hanmail.net</option>
 								<option value="kakao.com">kakao.com</option>
-								<option value="csEmailWrite" id="csEmailWrite">직접입력</option>
+								<option id="csEmailWrite">직접입력</option>
 							</select>
 							<div id="csEmailChk"></div>
 						</td>

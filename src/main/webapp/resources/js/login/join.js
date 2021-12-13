@@ -4,13 +4,12 @@
 *생성일 : 2021.12.11
 */
 $(function(){
-
 	//이메일 직접입력 input 처음 로딩됐을때 안보이게
 	$("#csEmailWriteInput").hide();
 	
 	//이메일 뒷부분 선택값이 직접입력이면 input박스 나오게 아니면 숨김
 	$('#csEmailTwo').change(function() {
-		if($("#csEmailTwo").val() == 'csEmailWrite'){
+		if($("#csEmailWrite").click()){
 			$("#csEmailWriteInput").show();
 		}else{
 			$("#csEmailWriteInput").hide();
@@ -32,18 +31,7 @@ $(function(){
 	var selYear = date.getFullYear(); //현재년도를 YYYY로 반환한걸 selYear변수에 넣는다
 	getYears(selYear);// 현재년도를 기준으로 getYears()메서드 호출
 	$('#yearBox').val(selYear);// id가 yearBox인 selector에 현재년도를 넣는다.
-	ageChk();
 	
-	//회원가입 만14세 미만 가입 금지
-	function ageChk(){
-		var date = new Date(); //Date생성자 생성
-		var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
-		var selectY = $("#yearBox").val(); //선택한 년도
-		if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
-			$("#ageConfirm").text("*만 14세 미만 아동의 회원가입은 받고 있지 않습니다").css("color", "blue");
-			return false;
-		}
-	}
 });
 
 function validation(){
@@ -52,6 +40,7 @@ function validation(){
 	var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
 	var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/;
 	var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; 
+	var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;
 	var pattern = /\s/g;
 	
 	var csId = $("#csId").val(); // id가 csId인 selector의 값을 .val()로 가져와 csId라는 변수에 넣는다. (이하 동일)
@@ -66,6 +55,9 @@ function validation(){
 	var csEmailWriteInput = $("#csEmailWriteInput").val()
 	var csEmailTwo = $("#csEmailTwo").val();
 	var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;
+	if(csEmailTwo == "직접입력"){
+		csEmail = csEmailOne+'@'+csEmailWriteInput;
+	}
 	
 	//전화번호 속성추가
 	$('input[name=csPhone]').attr('value',csPhone);
@@ -167,6 +159,30 @@ function validation(){
 		$("#csNmConfirm").text("");
 	}
 	
+	// ================ 전화번호 ================ //
+	//1.빈값 안됨
+	if(csPhoneTwo == "" || csPhoneThree == ""){
+		$("#phoneChk").text("전화번호를 입력해주세요").css("color", "red");
+		return false;
+	}else{
+		$("#phoneChk").text("");
+	}
+	
+	//2.전화번호 정규식 맞는지
+	if(!phonelOnly.test(csPhoneTwo) || !phonelOnly.test(csPhoneThree)){
+		$("#phoneChk").text("형식에 알맞은 전화번호를 입력해주세요.").css("color", "red");
+		return false;
+	}else{
+		$("#phoneChk").text("");
+	}
+	
+	//3.공백이 들어갔는지
+	if(csPhoneTwo.match(pattern) || csPhoneThree.match(pattern)) {
+		$("#phoneChk").text("공백이 존재합니다.").css("color", "red");
+		return false;
+	}else{
+		$("#phoneChk").text("");
+	}
 	// ================ 이메일 ================ //
 	//1. 빈값 안됨
 	if(csEmailOne == "" || csEmailTwo == ""){
@@ -194,6 +210,16 @@ function validation(){
 	
 	//4.이미 사용중인 이메일인지
 	//emailChk();
+	
+	// ================ 생년월일 ================ //
+	//회원가입 만14세 미만 가입 금지
+	var date = new Date(); //Date생성자 생성
+	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
+	var selectY = $("#yearBox").val(); //선택한 년도
+	if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
+		$("#ageConfirm").text("*만 14세 미만 아동의 회원가입은 받고 있지 않습니다").css("color", "red");
+		return false;
+	}
 	
 }
 
