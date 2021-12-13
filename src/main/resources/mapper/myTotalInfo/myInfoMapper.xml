@@ -5,7 +5,9 @@
 
 <mapper namespace="com.dao.myTotalInfo.MyInfoDaoImpl">
 
+	<!-- 마이페이지에 뿌려줄 데이터 가져오기 -->
 	<select id="myInfoPage" parameterType="String" resultType="com.vo.csMgt.CsInfoVO">
+	<!-- myInfoMapper.myInfoPage -->
 		SELECT
 			CS_NO AS csNo,<!-- 고객번호 -->
 			DECODE(CS_GRADE,'0',<![CDATA['관리자']]>,'1',<![CDATA['회원']]>,<![CDATA['탈퇴']]>)

@@ -17,4 +17,6 @@ public class MyInfoServiceImpl implements MyInfoService{
 		return myInfoDao.myInfoPage(csId);
 	}
 
+
+
 }

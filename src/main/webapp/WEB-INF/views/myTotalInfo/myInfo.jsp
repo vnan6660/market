@@ -65,7 +65,6 @@
 					</tr>
 				</table>
 			</div>
-			
 			<div class="join-btn-wrap">
 				<button class="hover" id="updateInfoBtn">회원정보수정</button>
 			</div>

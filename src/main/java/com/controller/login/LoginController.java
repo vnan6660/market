@@ -15,8 +15,11 @@ import com.service.login.LoginService;
 import com.vo.login.LoginVO;
 
 /**
- * 로그인 Controller 생성자 : 김소연
+ * 로그인 Controller
+ * 생성자 : 김소연
  * 생성일 : 2021.11.29
+ * 수정자 : 김혜경
+ * 수정일 : 2021.12.13
  */
 @Controller
 public class LoginController {
@@ -51,6 +54,7 @@ public class LoginController {
 			session.setAttribute("userId", loginInfo.getCsId());
 			session.setAttribute("userGrade", loginInfo.getCsGrade());
 			session.setAttribute("userNm", loginInfo.getCsNm());
+			session.setAttribute("userPs", loginInfo.getCsPs());
 		}
 
 		return returnCnt;

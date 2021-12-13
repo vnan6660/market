@@ -15,8 +15,9 @@ public class MyInfoDaoImpl implements MyInfoDao{
 	@Override
 	public CsInfoVO myInfoPage(String csId) {
 		return sqlSession.selectOne("myInfoPage", csId);
-	} 
-	
+	}
+
+
 	
 
 }
