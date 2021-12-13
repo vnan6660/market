@@ -4,6 +4,7 @@
 *공지사항
 */
 var searchParam = {};
+var nowPage = 1;
 
 $(function() {
 	attachEvent();
@@ -60,7 +61,7 @@ var attachEvent = function() {
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(ntcNo) {
-	location.href = '/notice/detailNotcie/'+ntcNo;
+	location.href = '/notice/detailNotcie/' + ntcNo;
 }
 
 /*글작성후 성공하면 글목록에 가기*/
@@ -120,6 +121,8 @@ var goPage = function(pageNum) {
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
 
+	nowPage = pageNum;
+
 	$.ajax({
 		url: '/notice/searchNotice',
 		type: 'GET',
@@ -166,7 +169,14 @@ var goPage = function(pageNum) {
 				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
 			}
 			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ')">' + num + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
+				if (nowPage == num) {
+					pageList += ' style = "background-color: #eee" >' + num
+				} else {
+					pageList += '>' + num
+				}
+
+				pageList += '</span>';
 			}
 
 			if (endpage < maxPage) {

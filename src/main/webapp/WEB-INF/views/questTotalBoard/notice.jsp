@@ -65,7 +65,13 @@
 		</div>
 		<div id="pageList">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+			<c:if test="${cnt == 1}">
+				<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
+			</c:if>
+			<c:if test="${cnt != 1}">
 				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
+			</c:if>
+				
 			</c:forEach>
 			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
 		</div>
