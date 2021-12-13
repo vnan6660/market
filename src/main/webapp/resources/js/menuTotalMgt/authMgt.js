@@ -69,7 +69,7 @@ var underCheck = function(e) {
 		if (hasmenuupcd != "none") {
 			if ($("input[name = checkbox][hasmenucd = " + hasmenuupcd + "]").is(":checked") == false) {
 				alert("상위메뉴를 체크해주세요");
-			 return e.checked = false;
+				return e.checked = false;
 			}
 		}
 	}
@@ -91,25 +91,27 @@ var getAuthList = function(authSelect) {
 			viewList += "<th><h4>메뉴명</h4></th>";
 			viewList += "</tr>";
 			$.each(res, function(i, e) {
-				viewList += "<tr>";
-				var hasMenuUpcd = "";
-				var disabledYn = ">";
-				if (e.menuUpCd != null) {
-					hasMenuUpcd = "hasmenucd = 'none' hasmenuupcd = '" + e.menuUpCd + "'";
-				} else {
-					hasMenuUpcd = "hasmenucd = '" + e.menuCd + "'" + "hasmenuupcd = 'none'";
-				}
+				//메뉴 통합관리를 포함한 하위메뉴는 displayNone
+				var displayNone = "";
 				if (e.menuCd == "menuTotalMgt" || e.menuCd == "menuMgt" || e.menuCd == "authMgt") {
-					disabledYn = "disabled = 'disabled'>";
+					displayNone = " style='display: none;'";
 				}
+				var hasMenuUpcd = "";
+				if (e.menuUpCd != null) {
+					hasMenuUpcd = " hasmenucd = 'none' hasmenuupcd = '" + e.menuUpCd + "'>";
+				} else {
+					hasMenuUpcd = " hasmenucd = '" + e.menuCd + "'" + "hasmenuupcd = 'none'>";
+				}
+				
+				viewList += "<tr" + displayNone + ">";
 				/*관리자 권한 관리일때*/
 				if (e.adminYn != null) {
 					if (e.adminYn == "Y") {
 						/*db값이 Y일떄 체크*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd + "</th>";
 					} else {
 						/*db값이 N일떄 체크안함*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd + "</th>";
 						checkF += 1;
 					}
 
@@ -118,10 +120,10 @@ var getAuthList = function(authSelect) {
 				if (e.userYn != null) {
 					if (e.userYn == "Y") {
 						/*db값이 Y일떄 체크*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this) checked='checked'" + hasMenuUpcd  + "</th>";
 					} else {
 						/*db값이 N일떄 체크안함*/
-						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd + disabledYn + "</th>";
+						viewList += "<th><input type='checkbox' name='checkbox' value='" + e.menuId + "'onChange=underCheck(this)" + hasMenuUpcd  + "</th>";
 						checkF += 1;
 					}
 				}

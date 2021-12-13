@@ -35,13 +35,14 @@
 			<table id="writeTable">
 				<tr>
 					<td><input type="hidden" id="menuId"></td>
+					<td style="text-align: center;"><span style="color: red;"> * </span>표시는 필수 입력사항입니다</td>
 				</tr>
 				<tr>
-					<td>메뉴명</td>
+					<td>메뉴명<span style="color: red;"> * </span></td>
 					<td><input id="menuNm" name="valiCheck" type="text" maxlength="15"></td>
 				</tr>
 				<tr>
-					<td>메뉴코드</td>
+					<td>메뉴코드<span style="color: red;"> * </span></td>
 					<td><input id="menuCd" name="valiCheck" type="text" maxlength="20"></td>
 				</tr>
 				<tr>
@@ -54,7 +55,7 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>정렬순서</td>
+					<td>정렬순서<span style="color: red;"> * </span></td>
 					<td><input id="menuSn" name="valiCheck" type="number"></td>
 				</tr>
 				<tr>

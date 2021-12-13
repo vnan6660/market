@@ -96,7 +96,7 @@ var attachEvent = function() {
 				}
 			});
 		} else {
-			alert("빈값을 채워주세요");
+			alert("필수 사항을 입력해주세요");
 		}
 
 	});

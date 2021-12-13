@@ -28,6 +28,7 @@ var attchEvent = function() {
 		}
 	});
 
+	//Id또는 패스워드 어느 곳이라도 엔터 실행시 로그인 실행
 	$("#checkWrap").keypress(function(keyValue) {
 		if (keyValue.keyCode == 13) {
 			var idCheck = $("#idCheck").val();
