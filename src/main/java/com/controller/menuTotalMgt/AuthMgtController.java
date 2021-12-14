@@ -23,7 +23,7 @@ import com.vo.menuTotalMgt.MenuMgtVO;
 public class AuthMgtController {
 
 	@Autowired
-	AuthMgtService authMgtService;
+	private AuthMgtService authMgtService;
 
 	/* 권한관리 페이지 가기 */
 	@RequestMapping("/authMgt/authMgtPage")
