@@ -59,3 +59,17 @@ label a {
 	background-color: #eee;
 	justify-content: center;
 }
+
+#goodsDetailInfo > input[type=text]{
+	width: 100px;
+	margin-right: 5px;
+}
+
+#goodsListBtn{
+	float: left;
+	margin-left: 22px;
+}
+
+#goodsRegBtn{
+	margin-left: 66%;
+  }

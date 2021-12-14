@@ -39,13 +39,13 @@
 				<tr>
 					<td>상품번호</td>
 					<td>
-						<input type="text">
+						<input type="text" maxlength="25">
 					</td>
 				</tr>
 				<tr>
 					<td>상품이름</td>
 					<td>
-						<input type="text">
+						<input type="text" maxlength="50">
 					</td>
 				</tr>
 				<tr>
@@ -67,17 +67,19 @@
 				</tr>
 				<tr>
 					<td>상세정보</td>
-					<td><input type="text"><input type="text"><input type="text"><input type="text"></td>
+					<td id="goodsDetailInfo"><input type="text" placeholder="쪽"><input type="text" placeholder="mm"><input type="text" placeholder="작가"><input type="text" placeholder="출판사"><input type="text" placeholder="출판일"></td>
 				</tr>
 				<tr>
 					<td>상품설명</td>
-					<td><textarea rows="5" cols="50"></textarea></td>
+					<td><textarea rows="5" cols="50" maxlength="500"></textarea></td>
 				</tr>
 				<tr>
 					<td>상세설명</td>
 					<td><input id="file2" type="file"></td>
 				</tr>
 			</table>
+			<button id="goodsListBtn" class="btnSmallList hover">목록</button>
+			<button id="goodsRegBtn" class="btnSmallList hover">저장</button>
 		</div>
 	</main>
 </body>

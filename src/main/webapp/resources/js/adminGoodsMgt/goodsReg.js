@@ -28,6 +28,7 @@ var attachEvent = function() {
 	});
 
 
+	//상품이미지항목에서 클릭버튼을 눌러서 이미지클릭 후 내용이 변경시
 	$("#file1").change(function(input) {
 
 		//input file태그안에 file이존재하면 실행(이미지 미리보기)
@@ -41,6 +42,11 @@ var attachEvent = function() {
 		}
 		$("#image").show();
 		$("#blankImage").hide();
+	});
+	
+	
+	$("#goodsRegBtn").click(function(){
+		alert("저장버튼 누름");
 	});
 
 
@@ -66,6 +72,6 @@ var getGoodsSeparate = function(goodsGroup) {
 		error: function() {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
-
 	});
 }
+
