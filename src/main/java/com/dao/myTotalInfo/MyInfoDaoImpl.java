@@ -17,6 +17,12 @@ public class MyInfoDaoImpl implements MyInfoDao{
 		return sqlSession.selectOne("myInfoPage", csId);
 	}
 
+	@Override
+	public void doUpdateInfo(CsInfoVO vo) {
+		sqlSession.update("doUpdateInfo", vo);
+	}
+
+
 
 	
 

@@ -17,8 +17,9 @@ import com.service.myTotalInfo.MyInfoService;
 import com.vo.csMgt.CsInfoVO;
 
 /**
- * 마이페이지 Controller 생성자 : 김혜경 생성일 : 2021.12.10
- *
+ * 마이페이지 Controller 
+ * 생성자 : 김혜경 
+ * 생성일 : 2021.12.10
  */
 @Controller
 public class myInfoController {
@@ -58,19 +59,42 @@ public class myInfoController {
 	// 비밀번호 확인페이지에서 세션의 비밀번호와 입력한 비밀번호가 같은지 체크
 	@PostMapping("/myInfo/pwChk")
 	@ResponseBody
-	public int pwChk(@RequestBody Map<String, Object> param) { // myInfoPage() 메서드는
+	public int pwChk(@RequestBody Map<String, Object> param) { // pwChk() 메서드는
 		HttpSession session = request.getSession(); // 세션
 		String csPs = (String) session.getAttribute("userPs"); // 세션의 비밀번호 정보를 가져오세요
-		// String psConfirm = myInfoService.pwChk(csPs);//비밀번호
 
 		int result = 0;
-
 		if (param.get("pwChkInput").equals(csPs)) {
 			result = 1;
 		}
 		
-		System.out.println(result);
-
 		return result;
 	}
+	
+	//회원정보수정 페이지로 이동
+	@GetMapping("/myInfo/updateInfoPage")
+	public String updateInfoPage(Model model) { // updateInfoPage() 메서드는
+
+		HttpSession session = request.getSession();
+		String csId = (String) session.getAttribute("userId");
+
+		CsInfoVO csInfoVO = myInfoService.myInfoPage(csId);
+		model.addAttribute("csInfo", csInfoVO);
+
+		return "/myTotalInfo/updateInfo"; // 실제주소인 /myTotalInfo/updateInfo를 리턴해준다
+	}
+	
+	//회원정보 수정 버튼을 눌렀을 때 회원정보 update시켜라
+	@PostMapping("/myInfo/doUpdateInfo")
+	public String doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
+		myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
+		
+		return "redirect:/myInfo/myInfoPage"; //마이페이지로 이동
+	}
+	
+	
+	
+	
+	
+	
 }

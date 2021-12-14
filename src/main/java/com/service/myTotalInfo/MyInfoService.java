@@ -12,5 +12,8 @@ public interface MyInfoService {
 
 	CsInfoVO myInfoPage(String csId);
 
+	void doUpdateInfo(CsInfoVO vo);
+
+
 
 }

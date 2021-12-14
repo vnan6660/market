@@ -27,4 +27,20 @@
 		WHERE CS_ID = #{csId}
 	</select>
 
+	<!-- 회원정보수정 update -->
+	<update id="doUpdateInfo" parameterType="com.vo.csMgt.CsInfoVO">
+	<!-- myInfoMapper.doUpdateInfo -->
+		UPDATE 	 CUSTOMER_INFO
+		   SET   CS_PS = #{csPs}<!-- 비밀번호 -->
+				,CS_NM = #{csNm}<!-- 이름 -->
+				,CS_PHONE = #{csPhone}<!-- 핸드폰번호 -->
+				,CS_EMAIL = #{csEmail}<!-- 이메일 -->
+				,CS_ADDR_ONE = #{csAddrOne}<!-- 주소 앞부분 -->
+				,CS_ADDR_TWO = #{csAddrTwo}<!-- 주소 뒷부분 -->
+				,CS_BIRTH_YEAR = #{csBirthYear} <!-- 생일 년도 -->
+				,CS_BIRTH_MONTH = #{csBirthMonth}<!-- 생일 월 -->
+				,CS_BIRTH_DAY = #{csBirthDay} <!-- 생일 일 -->
+		WHERE CS_ID = #{csId}
+	
+	</update>
 </mapper>

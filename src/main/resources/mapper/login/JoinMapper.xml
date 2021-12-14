@@ -50,10 +50,10 @@
 	</select>
 	
 	<!-- 이메일 중복체크 -->
-	<select id="emailChk" resultType="int">
+	<select id="emailChk" resultType="int" parameterType="com.vo.login.JoinVO">
 	<!-- JoinMapper.emailChk -->
 		SELECT COUNT(CS_EMAIL) EMAILCOUNT
 		  FROM CUSTOMER_INFO
-		 WHERE CS_EMAIL = #{pwChkInput}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함 -->
+		 WHERE CS_EMAIL = #{csEmail}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함 -->
 	</select>
 </mapper>

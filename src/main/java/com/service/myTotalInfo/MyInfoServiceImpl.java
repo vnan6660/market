@@ -17,6 +17,13 @@ public class MyInfoServiceImpl implements MyInfoService{
 		return myInfoDao.myInfoPage(csId);
 	}
 
+	@Override
+	public void doUpdateInfo(CsInfoVO vo) {
+		myInfoDao.doUpdateInfo(vo);		
+	}
+
+
+
 
 
 }
