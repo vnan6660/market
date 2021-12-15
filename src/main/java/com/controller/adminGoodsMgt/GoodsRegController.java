@@ -43,7 +43,7 @@ public class GoodsRegController {
 	
 	//상품이미지,상세설명의 파일을 포함한 상품등록하기
 	@PostMapping("/goodsReg/setGoodsReg")
-	public String setGoodsReg(GoodsRegVO vo) throws IOException {
+	public String setGoodsReg(GoodsRegVO vo,Model model) throws IOException {
 		
 		if (!"".equals(vo.getGdImgFile().getOriginalFilename())) {
 			System.out.println("상품이미지파일(1) 있음");
@@ -57,7 +57,12 @@ public class GoodsRegController {
 			vo.setGdDetl(vo.getGdDetlFile().getBytes());
 		}
 		
+		System.out.println(vo.getGdDetl());
+		
 		goodsRegService.setGoodsReg(vo);
+		
+		model.addAttribute("doneMsg", "저장되었습니다.");
+		
 		return "redirect:/goodsReg/goodsRegPage";
 		
 	}

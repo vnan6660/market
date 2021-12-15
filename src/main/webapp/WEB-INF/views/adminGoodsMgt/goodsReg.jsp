@@ -77,6 +77,7 @@
 				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
 				<button type="submit" id="goodsRegBtn" class="btnSmallList hover">저장</button>
 			</form>
+			<p>${doneMsg}</p>
 		</div>
 	</main>
 </body>

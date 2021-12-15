@@ -15,9 +15,41 @@ SELECT *
 <!-- 상품이미지,상세설명의 파일을 포함한 상품등록하기 -->
 <insert id="insertGoodsReg" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
 INSERT INTO GOODS_INFO
-(GD_NO,GD_GP,GD_SP,GD_NM,GD_CNT,GD_PAGE,GD_THICK,GD_WR,GD_PB,GD_DC,GD_YN,GD_IMG,GD_DETL)
+		(GD_NO
+		,GD_GP
+		,GD_SP
+		,GD_NM
+		,GD_CNT
+		,GD_PAGE
+		,GD_THICK
+		,GD_WR
+		,GD_PB
+		,GD_DC
+		,GD_YN
+		<if test='gdImg != null'>
+		,GD_IMG
+		</if>
+		<if test='gdDetl != null'>
+		,GD_DETL
+		</if>)
 VALUES
-('3',#{gdGp},#{gdSp},#{gdNm},#{gdCnt},#{gdPage},#{gdThick},#{gdWr},#{gdPb},#{gdDc},'Y',#{gdImg},#{gdDetl})
+	(TO_CHAR(GOODS_INFO_SEQ.NEXTVAL)
+	 ,#{gdGp}
+	 ,#{gdSp}
+	 ,#{gdNm}
+	 ,#{gdCnt}
+	 ,#{gdPage}
+	 ,#{gdThick}
+	 ,#{gdWr}
+	 ,#{gdPb}
+	 ,#{gdDc}
+	 ,'Y'
+	 <if test='gdImg != null'>
+	 ,#{gdImg}
+	 </if>
+	 <if test='gdDetl != null'>
+	 ,#{gdDetl}
+	</if>)
 </insert>
 
 </mapper>
