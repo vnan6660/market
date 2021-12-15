@@ -45,9 +45,9 @@ var attachEvent = function() {
 	});
 	
 	
-	$("#goodsRegBtn").click(function(){
-		alert("저장버튼 누름");
-	});
+	/*$("#goodsRegBtn").click(function(){
+		
+	});*/
 
 
 }

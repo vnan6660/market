@@ -49,6 +49,12 @@ label a {
 	opacity: 0.6;
 }
 
+textarea{
+	width: 600px;
+	height: 300px;
+	resize: none;
+}
+
 #blankImage {
 	display: flex;
 	align-items: center;
