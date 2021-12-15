@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
 
+/**
+ * 물품등록 DaoImpl
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.14
+ */
+
 @Repository
 public class GoodsRegDaoImpl implements GoodsRegDao {
 	

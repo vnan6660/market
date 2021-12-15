@@ -9,6 +9,12 @@ import com.dao.adminGoodsMgt.GoodsRegDao;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
 
+/**
+ * 물품등록 ServiceImpl
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.14
+ */
+
 @Service
 public class GoodsRegServiceImpl implements GoodsRegService {
 

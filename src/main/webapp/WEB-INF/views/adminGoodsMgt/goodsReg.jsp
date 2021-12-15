@@ -18,7 +18,7 @@
 		<h2>상품등록</h2>
 		<hr>
 		<div id="goodsRegWrap">
-			<form action="/goodsReg/setGoodsReg" method="post" enctype="multipart/form-data">
+			<form id="goodsForm">
 				<table>
 					<colgroup>
 						<col width="20%">
@@ -75,9 +75,8 @@
 					</tr>
 				</table>
 				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
-				<button type="submit" id="goodsRegBtn" class="btnSmallList hover">저장</button>
+				<button type="button" id="goodsRegBtn" class="btnSmallList hover">저장</button>
 			</form>
-			<p>${doneMsg}</p>
 		</div>
 	</main>
 </body>

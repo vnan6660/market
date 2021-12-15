@@ -5,6 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 물품등록 VO
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.15
+ */
+
 @Getter
 @Setter
 public class GoodsRegVO {
