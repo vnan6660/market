@@ -56,18 +56,15 @@ public class myInfoController {
 		return "/myTotalInfo/pwChk"; // 실제주소인 /myTotalInfo/pwChk를 리턴해준다
 	}
 
-	// 비밀번호 확인페이지에서 세션의 비밀번호와 입력한 비밀번호가 같은지 체크
+	//비밀번호 확인페이지에서 세션의 비밀번호와 입력한 비밀번호가 같은지 체크
 	@PostMapping("/myInfo/pwChk")
 	@ResponseBody
-	public int pwChk(@RequestBody Map<String, Object> param) { // pwChk() 메서드는
-		HttpSession session = request.getSession(); // 세션
-		String csPs = (String) session.getAttribute("userPs"); // 세션의 비밀번호 정보를 가져오세요
-
+	public int pwChk(@RequestBody Map<String, Object> param) {
 		int result = 0;
-		if (param.get("pwChkInput").equals(csPs)) {
+		int a = myInfoService.pwChk(param);
+		if (a == 1) {
 			result = 1;
 		}
-		
 		return result;
 	}
 	

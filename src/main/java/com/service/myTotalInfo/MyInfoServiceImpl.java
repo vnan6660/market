@@ -1,5 +1,7 @@
 package com.service.myTotalInfo;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,20 @@ public class MyInfoServiceImpl implements MyInfoService{
 	}
 
 	@Override
+	public int pwChk(Map<String, Object> param) {
+		int result = myInfoDao.pwChk(param);
+		return result;
+	}
+	
+	@Override
 	public void doUpdateInfo(CsInfoVO vo) {
 		myInfoDao.doUpdateInfo(vo);		
 	}
 
+
+	
+
+	
 
 
 

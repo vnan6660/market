@@ -8,7 +8,7 @@
 <title>마이페이지</title>
 <link rel="shortcut icon" href="#">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/myTotalInfo/myInfo.css">
+<link rel="stylesheet" href="/css/myTotalInfo/updateInfo.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/myTotalInfo/updateInfo.js"></script>
 </head>
@@ -163,10 +163,10 @@
 					</tr>
 				</table>
 			</div>
-			<div class="join-btn-wrap">
-				<input id="doUpdateInfoBtn" type="submit" class="hover" value="회원정보수정">
-			</div>
 		</form>
+		<div class="updateInfobtn-wrap">
+			<input id="doUpdateInfoBtn" type="submit" class="hover" value="회원정보수정">
+		</div>
 	</main>
 </body>
 

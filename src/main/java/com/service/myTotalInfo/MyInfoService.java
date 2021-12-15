@@ -1,5 +1,7 @@
 package com.service.myTotalInfo;
 
+import java.util.Map;
+
 import com.vo.csMgt.CsInfoVO;
 
 /**
@@ -12,8 +14,10 @@ public interface MyInfoService {
 
 	CsInfoVO myInfoPage(String csId);
 
+	int pwChk(Map<String, Object> param);
+
 	void doUpdateInfo(CsInfoVO vo);
 
-
+	
 
 }

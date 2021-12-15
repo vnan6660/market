@@ -27,6 +27,15 @@
 		WHERE CS_ID = #{csId}
 	</select>
 
+	<!-- 비밀번호 확인페이지 비밀번호 같은지 체크 -->
+	<select id="pwChk" resultType="int" parameterType="map">
+	<!-- myInfoMapper.pwChk -->
+		SELECT COUNT(*)
+		  FROM CUSTOMER_INFO
+		 WHERE CS_PS = #{csPs}
+		   AND CS_ID = #{csId}
+	</select>
+
 	<!-- 회원정보수정 update -->
 	<update id="doUpdateInfo" parameterType="com.vo.csMgt.CsInfoVO">
 	<!-- myInfoMapper.doUpdateInfo -->

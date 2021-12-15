@@ -12,8 +12,9 @@ $(function() {
 		pwChk();
 	});
 
+	//엔터 눌러도 확인버튼 누른것처럼 설정
 	$("#pwChkInput").keypress(function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode == 13) { //keyCode == 13은 엔터
 			pwChk();
 		}
 	});
@@ -36,8 +37,10 @@ function movePage() {
 //세션의 비밀번호 가져와서 내가 쓴 비밀번호가 DB와 맞는지 비교해서 맞으면 1 틀리면 0
 function pwChk() {
 	var pwChkInput = $("#pwChkInput").val();
+	var csId = $("#csId").val();
 	data = {};
-	data.pwChkInput = pwChkInput;
+	data.csPs = pwChkInput;
+	data.csId = csId;
 
 	$.ajax({
 		url: '/myInfo/pwChk', //요청 url
