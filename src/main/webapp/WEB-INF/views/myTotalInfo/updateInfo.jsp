@@ -15,10 +15,10 @@
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents-myinfo" class="info">
-	<form action="/myInfo/doUpdateInfo" method="post" onsubmit="return updateInfo();">
-	<input type="hidden" name="csPhone">	
-	<input type="hidden" name="csEmail">	
-	<input type="hidden" name="csId" value="${csInfo.csId}">	
+	<form id="updateInfoForm" name="updateInfoForm">
+		<input type="hidden" name="csPhone">	
+		<input type="hidden" name="csEmail">	
+		<input type="hidden" name="csId" value="${csInfo.csId}">	
 		<div class="table-wrap">
 			<ul class="myinfo">
 				<li><h3>회원정보수정</h3></li>
@@ -164,7 +164,7 @@
 				</table>
 			</div>
 			<div class="updateInfobtn-wrap">
-				<input id="doUpdateInfoBtn" type="submit" class="hover" value="회원정보수정">
+				<input id="updateInfoBtn" type="button" class="hover" value="회원정보수정">
 			</div>
 		</form>
 	</main>

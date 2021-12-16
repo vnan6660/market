@@ -84,34 +84,37 @@ public class myInfoController {
 	
 //	//회원정보 수정 버튼을 눌렀을 때 회원정보 update시켜라
 //	@PostMapping("/myInfo/doUpdateInfo")
-//	public String doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
-//		myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
-//		
-//		return "redirect:/myInfo/myInfoPage"; //마이페이지로 이동
-//	}
-//	
-//	//회원정보 수정 이메일 중복확인 
 //	@ResponseBody
-//	@PostMapping("/myInfo/infoEmailChk")
-//	public int infoEmailChk(@RequestBody JoinVO vo) {
-//		int result = 0;
-//		result = myInfoService.infoEmailChk(vo);
-//		System.out.println("infoEmailChk:"+result);
-//		return result;
+//	public int doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
+//		int result = myInfoService.infoEmailChk(vo);
+//		if (result == 0) {
+//			myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
+//			return result;
+//		}else {
+//			System.out.println("infoEmailChk:"+result);
+//			return result;
+//		}
+//	
 //	}
+
 	
 	//회원정보 수정 버튼을 눌렀을 때 회원정보 update시켜라
-	@PostMapping("/myInfo/doUpdateInfo")
 	@ResponseBody
-	public int doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
-		int result = myInfoService.infoEmailChk(vo);
-		if (result == 0) {
-			myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
-			return result;
-		}else {
-			System.out.println("infoEmailChk:"+result);
-			return result;
-		}
-	
+	@PostMapping("/myInfo/doUpdateInfo")
+	public String doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
+		myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
+		
+		return "redirect:/myInfo/myInfoPage"; //마이페이지로 이동
 	}
+	
+	//회원정보 수정 이메일 중복확인 
+	@ResponseBody
+	@PostMapping("/myInfo/infoEmailChk")
+	public int infoEmailChk(@RequestBody  CsInfoVO vo) {
+		int result = 0;
+		result = myInfoService.infoEmailChk(vo);
+		System.out.println("infoEmailChk:"+result);
+		return result;
+	}
+	
 }
