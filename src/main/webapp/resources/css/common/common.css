@@ -52,6 +52,14 @@ button {
 	float: right;
 }
 
+.btnXSmall {
+	width: 70px;
+    height: 22px;
+    font-size: small;
+    margin-top: 10px;
+}
+    
+
 .btnSmallList {
 	width: 100px;
 	margin-top: 10px;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.adminGoodsMgt.GoodsListDaoImpl">
+<select id="selectImg" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+select
+	GD_NO as gdNo
+	,GD_GP as gdGp
+	,GD_SP as gdSp
+	,GD_NM as gdNm
+	,GD_CNT as gdCnt
+	,GD_PAGE as gdPage
+	,GD_THICK as gdThick
+	,GD_WR as gdWr
+	,GD_PB as gdPb
+	,GD_DC as gdDc
+	,GD_YN as gdYn
+	,GD_IMG as gdImg
+	,GD_DETL as gdDetl
+  from GOODS_INFO
+</select>
+</mapper>
