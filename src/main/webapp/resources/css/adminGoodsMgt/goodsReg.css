@@ -79,3 +79,21 @@ textarea{
 #goodsRegBtn{
 	margin-left: 66%;
   }
+  
+/* -----물품 상세 ------ */
+
+.img img{
+	max-width:100%;
+	height : 450px;
+}
+
+#goodsUpdBtn{
+	margin-left: 66%;
+}
+
+#goodsDelBtn{
+	margin-left: 56%;
+}
+#goodsUpdDoneBtn{
+	margin-left: 5%;
+}

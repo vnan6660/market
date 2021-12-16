@@ -73,15 +73,15 @@
 						<th>재고</th>
 						<th>개제</th>
 					</tr>
-						<c:forEach items="${eelist}" var="vo">
+						<c:forEach items="${reList}" var="vo">
 						<tr>
 							<td><input type="checkbox"></td>
-							<td>${vo.gdNo}</td>
-							<td class="hover" >${vo.gdGp}</td>
-							<td>${vo.gdSp}</td>
-							<td class="img"><img alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}"></td>
-							<td>${vo.gdNm}</td>
-							<td>${vo.gdCnt}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNo}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGp}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdSp}</td>
+							<td class="img hover" onclick="goDetail(${vo.gdNo})"><img alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}"></td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdCnt}</td>
 							<td>
 								<c:if test="${vo.gdYn == 'Y'}">
 								<input type="checkbox" checked="checked">

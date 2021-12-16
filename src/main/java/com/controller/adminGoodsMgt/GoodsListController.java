@@ -8,10 +8,18 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.service.adminGoodsMgt.GoodsListService;
 import com.vo.adminGoodsMgt.GoodsListVO;
+
+/**
+ * 물품목록 Controller
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.16
+ */
 
 @Controller
 public class GoodsListController {
@@ -19,44 +27,58 @@ public class GoodsListController {
 	@Autowired
 	private GoodsListService goodsListService;
 	
+	//물품목록 페이지가기
 	@RequestMapping("/goodsList/goodsListPage")
 	public String goodsListPage(Model model) throws IOException {
 		
-		List<GoodsListVO> list =  goodsListService.getImg();
-		
-		List<GoodsListVO> test = new ArrayList<GoodsListVO>();
+		//물품목록리스트 가져오기
+		List<GoodsListVO> list =  goodsListService.getGoodsList();
+		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
 		
 		for (int i = 0; i < list.size(); i++) {
+			GoodsListVO vo = new GoodsListVO();
 			
-			GoodsListVO votest = new GoodsListVO();
-			
-			votest.setGdNo(list.get(i).getGdNo());
-			votest.setGdGp(list.get(i).getGdGp());
-			votest.setGdSp(list.get(i).getGdSp());
-			votest.setGdNm(list.get(i).getGdNm());
-			votest.setGdCnt(list.get(i).getGdCnt());
-			votest.setGdPage(list.get(i).getGdPage());
-			votest.setGdThick(list.get(i).getGdThick());
-			votest.setGdWr(list.get(i).getGdWr());
-			votest.setGdPb(list.get(i).getGdPb());
-			votest.setGdYn(list.get(i).getGdYn());
-			
-			
+			vo.setGdNo(list.get(i).getGdNo());
+			vo.setGdGp(list.get(i).getGdGp());
+			vo.setGdSp(list.get(i).getGdSp());
+			vo.setGdNm(list.get(i).getGdNm());
+			vo.setGdCnt(list.get(i).getGdCnt());
+			vo.setGdPage(list.get(i).getGdPage());
+			vo.setGdThick(list.get(i).getGdThick());
+			vo.setGdWr(list.get(i).getGdWr());
+			vo.setGdPb(list.get(i).getGdPb());
+			vo.setGdYn(list.get(i).getGdYn());
 			
 			if (list.get(i).getGdImg() != null) {
 				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
-				votest.setGdImgStr(gdImgStr);
+				vo.setGdImgStr(gdImgStr);
 			}
 			
-			
-			test.add(i,votest);
+			reList.add(i,vo);
 		}
 		
-		
-		
-		model.addAttribute("eelist", test);
-		
+		model.addAttribute("reList", reList);
 		
 		return "/adminGoodsMgt/goodsList";
 	}
+	
+	//물품상세 페이지 가기
+	@GetMapping("/goodsList/detailGoods/{gdNo}")
+	public String detailGoods(@PathVariable String gdNo,Model model) throws IOException {
+		
+		//하나의 물품정보 가져오기
+		GoodsListVO goodsVO = goodsListService.getDetailGoods(gdNo);
+		
+		if(goodsVO.getGdImg() != null) {
+			goodsVO.setGdImgStr( new String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8"));
+		}
+		if(goodsVO.getGdDetl() != null) {
+			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8"));
+		}
+		
+		model.addAttribute("goodsVO", goodsVO);
+		
+		return "/adminGoodsMgt/goodsDetail";
+	}
+	
 }

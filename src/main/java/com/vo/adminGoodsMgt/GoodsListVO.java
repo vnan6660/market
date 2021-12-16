@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 물품등록 VO
+ * 물품목록 VO
  * 생성자 : 김소연 
- * 생성일 : 2021.12.15
+ * 생성일 : 2021.12.16
  */
 
 @Getter

@@ -1,7 +1,7 @@
 /*
 *생성자 : 김소연
 *생성일 : 2021.12.14
-* 상품목록
+* 물품목록
 */
 
 $(function() {
@@ -9,9 +9,6 @@ $(function() {
 	attachEvent();
 });
 
-var convert = function(e){
-	
-}
 var init = function() {
 	getGoodsSeparate("bestBook");
 }
@@ -46,4 +43,9 @@ var getGoodsSeparate = function(goodsGroup) {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
+}
+
+//상품상세 페이지 가기
+var goDetail = function(gdNo){
+	location.href = "/goodsList/detailGoods/"+gdNo;
 }
