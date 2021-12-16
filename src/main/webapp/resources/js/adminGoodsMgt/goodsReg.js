@@ -43,13 +43,27 @@ var attachEvent = function() {
 		$("#image").show();
 		$("#blankImage").hide();
 	});
-	
-	
-	$("#goodsRegBtn").click(function(){
-		alert("저장버튼 누름");
-	});
 
 
+	$('#goodsRegBtn').click(function() {
+		if (confirm('저장하시겠습니까?')) {
+			$.ajax({
+				url: '/goodsReg/setGoodsReg',
+				type: 'POST',
+				enctype: 'multipart/form-data',
+				contentType: false,//false 꼭 작성해야함
+				processData: false,//false 꼭 작성해야함
+				data: new FormData($('#goodsForm')[0]),
+				success: function() {
+					alert("저장되었습니다");
+					location.href = "/goodsReg/goodsRegPage";
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			})
+		}
+	})
 }
 
 
@@ -74,4 +88,3 @@ var getGoodsSeparate = function(goodsGroup) {
 		}
 	});
 }
-
