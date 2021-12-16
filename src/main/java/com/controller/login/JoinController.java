@@ -65,6 +65,7 @@ public class JoinController {
 	@PostMapping("/login/emailChk")
 	public int emailChk(@RequestBody JoinVO vo) {
 		int result = joinService.emailChk(vo);
+		System.out.println(result);
 		return result;
 	}
 

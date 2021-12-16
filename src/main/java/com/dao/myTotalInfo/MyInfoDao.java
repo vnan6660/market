@@ -12,4 +12,6 @@ public interface MyInfoDao {
 	
 	void doUpdateInfo(CsInfoVO vo);
 
+	int infoEmailChk(CsInfoVO vo);
+
 }

@@ -30,4 +30,10 @@ public class MyInfoDaoImpl implements MyInfoDao{
 		sqlSession.update("doUpdateInfo", vo);
 	}
 
+	@Override
+	public int infoEmailChk(CsInfoVO vo) {
+		int result = sqlSession.selectOne("infoEmailChk",vo);
+		return result;
+	}
+
 }

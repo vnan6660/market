@@ -12,7 +12,8 @@
 }
 
 #doUpdateInfoBtn{
-	width: 210%;
+	width: 50%;
+	margin-left: 27%;
     height: 40px;
     border-inline-color: revert;
     border-color: #b1b1b1;

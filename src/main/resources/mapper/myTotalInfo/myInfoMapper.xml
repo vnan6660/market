@@ -50,6 +50,13 @@
 				,CS_BIRTH_MONTH = #{csBirthMonth}<!-- 생일 월 -->
 				,CS_BIRTH_DAY = #{csBirthDay} <!-- 생일 일 -->
 		WHERE CS_ID = #{csId}
-	
 	</update>
+	
+	<!-- 회원정보수정 이메일 중복체크 -->
+	<select id="emailChk" resultType="int" parameterType="com.vo.csMgt.CsInfoVO">
+	<!-- myInfoMapper.emailChk -->
+		SELECT COUNT(*)
+		  FROM CUSTOMER_INFO
+		 WHERE CS_EMAIL = #{csEmail}
+	</select>
 </mapper>

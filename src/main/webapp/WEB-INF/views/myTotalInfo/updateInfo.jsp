@@ -163,10 +163,10 @@
 					</tr>
 				</table>
 			</div>
+			<div class="updateInfobtn-wrap">
+				<input id="doUpdateInfoBtn" type="submit" class="hover" value="회원정보수정">
+			</div>
 		</form>
-		<div class="updateInfobtn-wrap">
-			<input id="doUpdateInfoBtn" type="submit" class="hover" value="회원정보수정">
-		</div>
 	</main>
 </body>
 

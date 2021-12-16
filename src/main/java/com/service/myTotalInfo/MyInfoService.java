@@ -18,6 +18,8 @@ public interface MyInfoService {
 
 	void doUpdateInfo(CsInfoVO vo);
 
+	int infoEmailChk(CsInfoVO vo);
+
 	
 
 }

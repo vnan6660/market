@@ -30,6 +30,12 @@ public class MyInfoServiceImpl implements MyInfoService{
 		myInfoDao.doUpdateInfo(vo);		
 	}
 
+	@Override
+	public int infoEmailChk(CsInfoVO vo) {
+		int result = myInfoDao.infoEmailChk(vo);
+		return result;
+	}
+
 
 	
 

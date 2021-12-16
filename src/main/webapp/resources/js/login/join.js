@@ -6,7 +6,6 @@
 $(function(){
 	//이메일 직접입력 input 처음 로딩됐을때 안보이게
 	$("#csEmailWriteInput").hide();
-	console.log($("#csEmailWrite").val());
 
 	//이메일 뒷부분 선택값이 직접입력이면 input박스 나오게 아니면 숨김
 	$('#csEmailTwo').change(function() {
@@ -192,6 +191,17 @@ function validation(){
 	}else{
 		$("#phoneChk").text("");
 	}
+	
+	// ================ 생년월일 ================ //
+	//회원가입 만14세 미만 가입 금지
+	var date = new Date(); //Date생성자 생성
+	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
+	var selectY = $("#yearBox").val(); //선택한 년도
+	if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
+		$("#ageConfirm").text("*만 14세 미만 아동의 회원가입은 받고 있지 않습니다").css("color", "red");
+		return false;
+	}
+	
 	// ================ 이메일 ================ //
 	//1. 빈값 안됨
 	if(csEmailOne == "" || csEmailTwo == ""){
@@ -218,7 +228,6 @@ function validation(){
 	}
 	
 	//4.이메일 선택이면 도메인을 선택해주세요 띄우기
-	console.log(csEmail);
 	if(csEmailTwo == '선택') {
 		$("#csEmailChk").text("도메인을 선택해주세요.").css("color", "red");
 		return false;
@@ -228,15 +237,7 @@ function validation(){
 	
 	//5.이미 사용중인 이메일인지
 	emailChk();
-	// ================ 생년월일 ================ //
-	//회원가입 만14세 미만 가입 금지
-	var date = new Date(); //Date생성자 생성
-	var thisY = date.getFullYear(); //현재년도를 YYYY로 반환한걸 thisY변수에 넣는다
-	var selectY = $("#yearBox").val(); //선택한 년도
-	if(thisY - selectY < 16){ // 올해 - 선택한년도가 16미만이면
-		$("#ageConfirm").text("*만 14세 미만 아동의 회원가입은 받고 있지 않습니다").css("color", "red");
-		return false;
-	}
+	
 	
 }
 
@@ -253,9 +254,11 @@ function chkId(){
 		contentType: 'application/json', //보내는 데이터의 타입
 		data: JSON.stringify(data), //요청과 함께 보낼 데이터
 		success: function(result) { //성공했을시 수행하는 function
+			console.log($.typeof(result));
+			console.log(typeof(result));
 			if(result == 0){//cnt가 0이면(DB에 저장된 id개수가 0이면)
-				$("#csIdCheck").text("사용 가능한 아이디입니다.").css("color", "green"); //사용가능한 아이디입니다. 표시
-			}else if(result == 1){//cnt가 0이 아니면
+				$("#csIdCheck").text(""); //사용가능한 아이디입니다. 표시
+			}else{//cnt가 0이 아니면
 				$("#csIdCheck").text("이미 사용중인 아이디입니다.").css("color", "red");//이미 사용중인 아이디입니다. 표시
 			}
 		},
@@ -281,7 +284,7 @@ function emailChk(){
 		dataType: 'json', //요청과 함께 보낼 데이터
 		success: function(result) {//성공했을시 수행하는 function
 			if(result == 0){ //DB에 저장된 이메일개수가 0개면
-				$("#csEmailChk").text("사용가능한 이메일입니다.").css("color", "green");
+				$("#csEmailChk").text("");
 			}else if(result == 1){//DB에 저장된 이메일이 1개있다면(DB에 있단 소리니깐 존재하는 이메일)
 				$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
 			}
