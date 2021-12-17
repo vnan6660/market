@@ -34,12 +34,27 @@ $(function(){
 	
 	//수정버튼 눌렀을 시 시행되는 함수
 	$('#joinBtn').click(function() {
-		var data = new FormData($('#doJoinForm')[0]);
-		console.log("JSON.stringify(data) :"+data);
-		console.log("data: "+data);
+		var csPhoneOne = $("#csPhoneOne").val();
+		var csPhoneTwo = $("#csPhoneTwo").val();
+		var csPhoneThree = $("#csPhoneThree").val();
+		var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;
+		var csEmailOne = $("#csEmailOne").val();
+		var csEmailWriteInput = $("#csEmailWriteInput").val()
+		var csEmailTwo = $("#csEmailTwo").val();
+		var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;
+		//전화번호 속성추가
+		$('input[name=csPhone]').attr('value',csPhone);
+		//추가됐는지 확인
+		var get_csPhone = $('input[name=csPhone]').attr('value');
+		console.log("get_csPhone:  "+get_csPhone);
+		
+		//이메일 속성추가
+		$('input[name=csEmail]').attr('value',csEmail);
+		//추가됐는지 확인
+		var get_csEmail = $('input[name=csEmail]').attr('value');
+		console.log("get_csEmail:  "+get_csEmail);
+		
 		validation().then(function(ajaxData){
-			console.log(ajaxData);
-			//alert('4.then실행');
 			if(ajaxData==true){
 				if (confirm('가입하시겠습니까?')) {
 					$.ajax({
@@ -48,7 +63,7 @@ $(function(){
 						enctype: 'multipart/form-data',
 						contentType: false,//false 꼭 작성해야함
 						processData: false,//false 꼭 작성해야함,
-						data: data,
+						data: new FormData($('#doJoinForm')[0]),
 						success: function() {
 							alert("가입되었습니다");
 							location.href = "/login/loginPage";
@@ -94,13 +109,17 @@ function validation(){
 		if(csEmailTwo == "직접입력"){
 			csEmail = csEmailOne+'@'+csEmailWriteInput;
 		}
-		console.log("csPhone: "+csPhone);
-		console.log("csEmail: "+csEmail);
-		
-		//전화번호 속성추가
+		/*//전화번호 속성추가
 		$('input[name=csPhone]').attr('value',csPhone);
+		//추가됐는지 확인
+		var get_csPhone = $('input[name=csPhone]').attr('value');
+		console.log("get_csPhone:  "+get_csPhone);
+		
 		//이메일 속성추가
 		$('input[name=csEmail]').attr('value',csEmail);
+		//추가됐는지 확인
+		var get_csEmail = $('input[name=csEmail]').attr('value');
+		console.log("get_csEmail:  "+get_csEmail);*/
 		
 		// ================ ID ================ //
 		//1. 빈값 안됨
@@ -128,7 +147,6 @@ function validation(){
 		}
 		
 		//4.회원가입 아이디 중복확인
-		//alert("2.chkId()실행")
 		var data = {};
 		data.csId = csId; 
 		
@@ -298,10 +316,7 @@ function validation(){
 		}
 		
 		//5.회원가입 이메일 중복확인
-		//alert('3.emailChk실행');
-		var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
-		var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
-		var csEmail= csEmailOne+'@'+csEmailTwo;
+		var resultVal="";
 		var data = {};//빈 객체 생성
 		data.csEmail = csEmail; //위에서 작성한 변수값을 'data.속성'에 넣는 작업
 		
@@ -329,37 +344,5 @@ function validation(){
 		
 		return true;
 	});
-	
-	
 }
-
-/*//회원가입 아이디 중복확인
-function chkId(){
-	alert("2.chkId()실행")
-	var csId = $("#csId").val();
-	var data = {};
-	data.csId = csId; 
-	
-	$.ajax({
-		url: '/login/idCheck', //요청 url
-		type: "POST", //post타입
-		datatype: 'JSON', //서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-		contentType: 'application/json', //보내는 데이터의 타입
-		data: JSON.stringify(data), //요청과 함께 보낼 데이터
-		success: function(result) { //성공했을시 수행하는 function
-			if(result == 0){//cnt가 0이면(DB에 저장된 id개수가 0이면)
-				$("#csIdCheck").text(""); //사용가능한 아이디입니다. 표시
-				resultVal = true;
-				resolve(resultVal);
-			}else{//cnt가 0이 아니면
-				$("#csIdCheck").text("이미 사용중인 아이디입니다.").css("color", "red");//이미 사용중인 아이디입니다. 표시
-				resultVal = false;
-				resolve(resultVal);
-			}
-		},
-		error: function() {
-			alert("관리자에게 문의하세요");
-		}
-	});
-}*/
 

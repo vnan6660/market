@@ -16,8 +16,8 @@
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents" class="join">
 	<form id="doJoinForm" name="doJoinForm">
-		<input type="hidden" id="csPhone" name="csPhone">
-		<input type="hidden" id="csEmail" name="csEmail">
+		<input type="hidden" id="csPhone" name="csPhone" value="">
+		<input type="hidden" id="csEmail" name="csEmail" value="">
 		<div class="table-wrap">
 			<ul class="join-info">
 				<li><h3>기본정보</h3></li>

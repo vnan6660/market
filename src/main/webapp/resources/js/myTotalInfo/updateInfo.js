@@ -7,7 +7,7 @@ $(function() {
 	// ================ 전화번호 ================ //
 	$("#hideCsPhoneOne").hide();
 	var hideCsPhoneOne = $("#hideCsPhoneOne").val();
-	$('#hideCsPhoneOne').val(hideCsPhoneOne).prop("selected", true);// id가 yearBox인 selector에 현재년도를 넣는다.
+	$('#hideCsPhoneOne').val(hideCsPhoneOne).prop("selected", true);
 
 	// ================ 이메일 ================ //
 	//이메일 직접입력 input 처음 로딩됐을때 안보이게
@@ -128,9 +128,9 @@ function updateInfo() {
 			csEmail = csEmailOne + '@' + csEmailWriteInput;
 		}
 		//전화번호 속성추가
-		$('input[name=csPhone]').attr('value', csPhone);
+		$('input[id=csPhone]').attr('value', csPhone);
 		//이메일 속성추가
-		$('input[name=csEmail]').attr('value', csEmail);
+		$('input[id=csEmail]').attr('value', csEmail);
 	
 		// ================ 비밀번호 ================ //
 		//1. 빈값 안됨
@@ -278,9 +278,6 @@ function updateInfo() {
 		//5.이미 사용중인 이메일인지
 		//alert('2.emailChk실행');
 		var resultVal="";
-		/*var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
-		var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
-		var csEmail = csEmailOne + '@' + csEmailTwo;*/
 		var data = {};//빈 객체 생성
 		data.csEmail = csEmail; //위에서 작성한 변수값을 'data.속성'에 넣는 작업
 		
@@ -312,9 +309,6 @@ function updateInfo() {
 		
 		return true;
 	});
-	
-	
-	
 }
 	
 
