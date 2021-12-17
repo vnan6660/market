@@ -1,5 +1,6 @@
 package com.dao.adminGoodsMgt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,4 +40,21 @@ public class GoodsListDaoImpl implements GoodsListDao {
 		sqlSession.selectOne("updateGoods",vo);
 	}
 
+	//물품 삭제 하기
+	@Override
+	public void deleteGoods(ArrayList<String> delNoList) {
+		sqlSession.delete("deleteGoods",delNoList);
+	}
+
+	//물품 개시 하기(체크된 것은 true)
+	@Override
+	public void showGoodsTrue(ArrayList<String> showNoList) {
+		sqlSession.update("showGoodsTrue",showNoList);
+	}
+
+	//물품 개시 하기(체크되지 않은것은 false)
+	@Override
+	public void showGoodsFalse(ArrayList<String> showNoList) {
+		sqlSession.update("showGoodsFalse",showNoList);
+	}
 }

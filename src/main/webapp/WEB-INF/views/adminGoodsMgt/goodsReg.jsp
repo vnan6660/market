@@ -51,7 +51,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>상품개제</td>
+						<td>상품개시</td>
 						<td>
 							<select id="gdYn" name="gdYn">
 								<option value="Y">Y</option>

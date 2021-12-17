@@ -1,5 +1,6 @@
 package com.service.adminGoodsMgt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,18 @@ public class GoodsListServiceImpl implements GoodsListService {
 		goodsListDao.updateGoods(vo);
 	}
 
+	//물품 삭제 하기
+	@Override
+	public void deleteGoods(ArrayList<String> delNoList) {
+		goodsListDao.deleteGoods(delNoList);
+	}
+
+	//물품 개시 하기
+	@Override
+	public void showGoods(ArrayList<String> showNoList) {
+		if (showNoList != null) {
+			goodsListDao.showGoodsTrue(showNoList);
+		}
+		goodsListDao.showGoodsFalse(showNoList);
+	}
 }

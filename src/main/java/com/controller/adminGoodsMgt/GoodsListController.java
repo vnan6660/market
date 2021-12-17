@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.adminGoodsMgt.GoodsListService;
@@ -58,7 +59,6 @@ public class GoodsListController {
 				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
 				vo.setGdImgStr(gdImgStr);
 			}
-			
 			reList.add(i,vo);
 		}
 		
@@ -92,16 +92,28 @@ public class GoodsListController {
 	public void updateGoods(GoodsRegVO vo) throws IOException {
 		
 		if (!"".equals(vo.getGdImgFile().getOriginalFilename())) {
-			System.out.println("상품이미지파일(1) 있음");
-			System.out.println(vo.getGdImgFile().getOriginalFilename());
 			vo.setGdImg(vo.getGdImgFile().getBytes());
 		}
 		
 		if (!"".equals(vo.getGdDetlFile().getOriginalFilename())) {
-			System.out.println("상세설명이미지파일(2) 있음");
-			System.out.println(vo.getGdDetlFile().getOriginalFilename());
 			vo.setGdDetl(vo.getGdDetlFile().getBytes());
 		}
 		goodsListService.updateGoods(vo);
 	}
+	
+	//물품 삭제 하기
+	@GetMapping("/goodsList/deleteGoods")
+	@ResponseBody
+	public void deleteGoods(@RequestParam(value = "delNoList[]",required = false) ArrayList<String> delNoList) {
+		goodsListService.deleteGoods(delNoList);
+	}
+	
+	// 물품 개시 하기
+	@GetMapping("/goodsList/showGoods")
+	@ResponseBody
+	public void showGoods(@RequestParam(value = "showNoList[]",required = false) ArrayList<String> showNoList) {
+		goodsListService.showGoods(showNoList);
+	}
+	
+	
 }

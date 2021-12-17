@@ -48,8 +48,8 @@
 				<button id="goSearch" class="hover">검색</button>
 			</div>
 			<div>
-			<button id="goDel()" class="btnXSmall hover">상품삭제</button>
-			<button id="goShow()" class="btnXSmall hover">상품개제</button>
+			<button id="goDelBtn" class="btnXSmall hover">상품삭제</button>
+			<button id="goShowBtn" class="btnXSmall hover" style="float: right;">상품개시</button>
 			</div>
 			<div>
 				<table id="goodsListTable">
@@ -64,18 +64,18 @@
 						<col width="5%;">
 					</colgroup>
 					<tr>
-						<th>삭제</th>
+						<th><input type="checkbox" name="allDelCheck"></th>
 						<th>NO</th>
 						<th>상품구분</th>
 						<th>상품분류</th>
 						<th>상품이미지</th>
 						<th>상품이름</th>
 						<th>재고</th>
-						<th>개제</th>
+						<th><input type="checkbox" name="allShowCheck"></th>
 					</tr>
 						<c:forEach items="${reList}" var="vo">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="delCheck" value="${vo.gdNo}"></td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNo}</td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGpNm}</td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdSpNm}</td>
@@ -84,10 +84,10 @@
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdCnt}</td>
 							<td>
 								<c:if test="${vo.gdYn == 'Y'}">
-								<input type="checkbox" checked="checked">
+								<input type="checkbox" name="showCheck" checked="checked" value="${vo.gdNo}">
 								</c:if>
 								<c:if test="${vo.gdYn == 'N'}">
-								<input type="checkbox">
+								<input type="checkbox" name="showCheck" value="${vo.gdNo}">
 								</c:if>
 							</td>
 						</tr>

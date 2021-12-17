@@ -72,4 +72,39 @@
 		</if>
 	WHERE GD_NO = #{gdNo}
 	</update>
+	
+	<!-- 물품 삭제 하기-->
+	<delete id="deleteGoods">
+	<!-- goodsListMapper.deleteGoods -->
+	DELETE 
+	FROM GOODS_INFO
+	WHERE GD_NO IN
+	<foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item}
+	</foreach>
+	</delete>
+	
+	<!-- 물품 개시 하기(체크된 것은 true)-->
+	<update id="showGoodsTrue">
+	<!-- goodsListMapper.showGoodsTrue -->
+	UPDATE GOODS_INFO
+	   SET GD_YN = 'Y'
+     WHERE GD_NO IN
+	<foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item}
+	</foreach>
+	</update>
+	
+	<!-- 물품 개시 하기(체크되지 않은것은 false)-->
+	<update id="showGoodsFalse">
+	<!-- goodsListMapper.showGoodsFalse -->
+	UPDATE GOODS_INFO
+	   SET GD_YN = 'N'
+	<if test="list != null">
+     WHERE GD_NO NOT IN
+		<foreach item="item" collection="list" open="(" separator="," close=")"> 
+			#{item}
+		</foreach>
+	</if>
+	</update>
 </mapper>

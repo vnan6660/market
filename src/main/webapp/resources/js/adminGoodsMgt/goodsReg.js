@@ -17,6 +17,12 @@ var init = function() {
 }
 
 var attachEvent = function() {
+	
+	//목록버튼 누르면 실행
+	$("#goodsListBtn").click(function(){
+		history.back(-1);
+	});
+	
 	//상품구분 selectBox가 변화되면 실행
 	$("#goodsGroup").change(function() {
 

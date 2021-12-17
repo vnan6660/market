@@ -18,6 +18,11 @@ var init = function() {
 
 var attachEvent = function() {
 
+	//목록버튼 누르면 실행
+	$("#goodsListBtn").click(function(){
+		history.back(-1);
+	});
+
 	//수정버튼을 누르면 실행
 	$("#goodsUpdBtn").click(function() {
 		$(".writeForm, #goodsDelBtn, #goodsUpdDoneBtn").show();
@@ -31,16 +36,13 @@ var attachEvent = function() {
 
 		//상품분류에 디테일 정보와 맞는 값 선택되게 하기
 		$("#goodsSeparate").val($("#hdSp").val()).prop("selected", true);
-		
-		//상품개제에 디테일 정보와 맞는 값 선택되게 하기
+
+		//상품개시에 디테일 정보와 맞는 값 선택되게 하기
 		$("#gdYnSelect").val($("#gdYn").text()).prop("selected", true);
 	});
 
 	//수정 완료 버튼을 눌렀을 때 실행
 	$("#goodsUpdDoneBtn").click(function() {
-		$("#file1").change(function() {
-				console.log("파일이바뀜");
-		});
 
 		if (confirm('저장하시겠습니까?')) {
 			$.ajax({
@@ -52,7 +54,7 @@ var attachEvent = function() {
 				data: new FormData($('#goodsForm')[0]),
 				success: function() {
 					alert("저장되었습니다");
-					location.href = "/goodsList/detailGoods/"+$("#gdNo").val();
+					location.href = "/goodsList/detailGoods/" + $("#gdNo").val();
 				},
 				error: function() {
 					alert("오류입니다. 관리자에게 문의해주세요");
@@ -85,6 +87,26 @@ var attachEvent = function() {
 
 		//상품 구분에 맞는 상품분류 값 가져오기
 		getGoodsSeparate(goodsGroup);
+	});
+
+	//삭제버튼을 클릭시 실행
+	$("#goodsDelBtn").click(function() {
+		var delNoList =[$("#gdNo").val()];
+		
+		if (confirm('삭제하시겠습니까?')) {
+			$.ajax({
+				url: '/goodsList/deleteGoods',
+				type: 'GET',
+				data: { "delNoList": delNoList },
+				success: function() {
+					alert("삭제되었습니다");
+					location.href = "/goodsList/goodsListPage";
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		}
 	});
 }
 

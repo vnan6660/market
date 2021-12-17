@@ -1,5 +1,6 @@
 package com.service.adminGoodsMgt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
@@ -22,5 +23,10 @@ public interface GoodsListService {
 	//물품상세 수정 하기
 	void updateGoods(GoodsRegVO vo);
 
+	//물품 삭제 하기
+	void deleteGoods(ArrayList<String> delNoList);
+
+	//물품 개시 하기
+	void showGoods(ArrayList<String> showNoList);
 
 }

@@ -68,7 +68,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>상품개제</td>
+						<td>상품개시</td>
 						
 						<td>
 							<div class="viewForm">

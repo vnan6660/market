@@ -1,5 +1,6 @@
 package com.dao.adminGoodsMgt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
@@ -21,5 +22,14 @@ public interface GoodsListDao {
 
 	//물품상세 수정 하기
 	void updateGoods(GoodsRegVO vo);
+
+	//물품 삭제 하기
+	void deleteGoods(ArrayList<String> delNoList);
+
+	//물품 개시 하기(체크된 것은 true)
+	void showGoodsTrue(ArrayList<String> showNoList);
+	
+	//물품 개시 하기(체크되지 않은것은 false)
+	void showGoodsFalse(ArrayList<String> showNoList);
 
 }
