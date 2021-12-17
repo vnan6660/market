@@ -40,13 +40,19 @@ public class JoinController {
 	}
 
 	//회원가입 수행 
-	@PostMapping(value = "/login/doJoin")
-	public String doJoin(@RequestParam Map<String, Object> param){ // joinPage() 메서드는
-		String csId = (String)param.get("csId");
-		int resultId = joinService.idCheck(csId);
-		if (resultId == 0) { // 신규회원이면
-			joinService.doJoin(param); // 회원가입 계속 진행
-		}
+	@ResponseBody
+	@PostMapping("/login/doJoin")
+	public String doJoin(JoinVO vo){ // joinPage() 메서드는
+//		String csId = vo.getCsId();
+//		int resultId = joinService.idCheck(csId);
+//		if (resultId == 0) { // 신규회원이면
+//			joinService.doJoin(vo); // 회원가입 계속 진행
+//		}
+		System.out.println(vo);
+		System.out.println(vo.getCsPhone());
+		System.out.println(vo.getCsEmail());
+		joinService.doJoin(vo); // 회원가입 진행
+		
 		return "redirect:/login/loginPage";
 	}
 
@@ -65,7 +71,6 @@ public class JoinController {
 	@PostMapping("/login/emailChk")
 	public int emailChk(@RequestBody JoinVO vo) {
 		int result = joinService.emailChk(vo);
-		System.out.println(result);
 		return result;
 	}
 

@@ -1,7 +1,5 @@
 package com.dao.login;
 
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,8 +19,8 @@ public class JoinDaoImpl implements JoinDao {
 
 	//회원가입 수행
 	@Override
-	public void doJoin(Map<String, Object> param) {
-		sqlSession.insert("doJoin", param);
+	public void doJoin(JoinVO vo) {
+		sqlSession.insert("doJoin", vo);
 	}
 	
 	//회원가입 id 중복체크

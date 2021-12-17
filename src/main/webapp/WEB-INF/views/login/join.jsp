@@ -15,9 +15,9 @@
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents" class="join">
-	<form action="/login/doJoin" method="post" onsubmit="return validation();">
-	<input type="hidden" id="csPhone" name="csPhone">
-	<input type="hidden" id="csEmail" name="csEmail">
+	<form id="doJoinForm" name="doJoinForm">
+		<input type="hidden" id="csPhone" name="csPhone">
+		<input type="hidden" id="csEmail" name="csEmail">
 		<div class="table-wrap">
 			<ul class="join-info">
 				<li><h3>기본정보</h3></li>
@@ -161,7 +161,7 @@
 				</table>
 			</div>
 			<div class="join-btn-wrap">
-				<input id="joinBtn" type="submit" class="hover" value="회원가입">
+				<input id="joinBtn" type="button" class="hover" value="회원가입">
 			</div>
 		</form>
 	</main>

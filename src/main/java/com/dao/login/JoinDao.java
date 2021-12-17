@@ -1,7 +1,5 @@
 package com.dao.login;
 
-import java.util.Map;
-
 import com.vo.login.JoinVO;
 
 /**
@@ -12,7 +10,7 @@ import com.vo.login.JoinVO;
 public interface JoinDao {
 
 	//회원가입 수행
-	void doJoin(Map<String, Object> param);
+	void doJoin(JoinVO vo);
 	
 	//회원가입id 중복체크
 	int idCheck(String csId);

@@ -71,31 +71,7 @@ $(function() {
 	var birthDay = $("#hideBirthDay").val();
 	$("#day").val(birthDay).prop("selected", true);
 
-	/*//1.수정버튼을 누르면 updateInfo()실행, 폼 ajax로 넘기기
-	$('#updateInfoBtn').click(function() {
-		if (updateInfo()) { //updateInfo() function이 true이면
-			if (confirm('저장하시겠습니까?')) {
-				$.ajax({
-					url: '/myInfo/doUpdateInfo',
-					type: 'POST',
-					enctype: 'multipart/form-data',
-					contentType: false,//false 꼭 작성해야함
-					processData: false,//false 꼭 작성해야함,
-					data: new FormData($('#updateInfoForm')[0]),
-					success: function() {
-						alert("수정되었습니다");
-						location.href = "/myInfo/myInfoPage";
-					},
-					error: function() {
-						alert("오류입니다. 관리자에게 문의해주세요");
-					}
-				});
-			}
-		}
-	});*/
-	
-	
-	
+	//수정버튼 눌렀을 시 시행되는 함수
 	$('#updateInfoBtn').click(function() {
 		updateInfo().then(function(ajaxData){
 			console.log(ajaxData);
@@ -121,18 +97,11 @@ $(function() {
 				}else{//수정하시겠습니까 취소
 					alert("취소되었습니다");
 				}
-			}else{
-				//alert("alsdkfjlskdfjls");
 			}
-			
 		});
 	});
-	
 });//레디펑션 마침
 
-
-
-//2.updateInfo()메서드
 function updateInfo() {
 	return new Promise(function(resolve, reject){
 		//alert("1.updateInfo실행");
@@ -307,13 +276,13 @@ function updateInfo() {
 		}
 	
 		//5.이미 사용중인 이메일인지
+		//alert('2.emailChk실행');
 		var resultVal="";
-		var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
+		/*var csEmailOne = $("#csEmailOne").val(); //id가 csEmailOne인 값의 내용을 csEmailOne변수에 넣는다.
 		var csEmailTwo = $("#csEmailTwo").val(); //id가 csEmailTwo인 값의 내용을 csEmailTwo변수에 넣는다.
-		var csEmail = csEmailOne + '@' + csEmailTwo;
+		var csEmail = csEmailOne + '@' + csEmailTwo;*/
 		var data = {};//빈 객체 생성
 		data.csEmail = csEmail; //위에서 작성한 변수값을 'data.속성'에 넣는 작업
-		//alert('2.emailChk실행');
 		
 		$.ajax({
 			url: '/myInfo/infoEmailChk',//요청 url
@@ -341,31 +310,11 @@ function updateInfo() {
 			}
 		});
 		
-		
-		/*$.ajax({
-			url: '/myInfo/infoEmailChk',//요청 url
-			type: 'POST',//post타입
-			contentType: 'application/json',//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-			data: JSON.stringify(data),//서버에서 어떤 타입(json, html, text...)을 받을 것인지를 의미. json(key:value)형태의 데이터타입을 사용
-			dataType: 'json', //요청과 함께 보낼 데이터
-			success: function(result) {//성공했을시 수행하는 function
-				if (result == 0) { //DB에 저장된 이메일개수가 0개면
-					$("#csEmailChk").text("");
-					resultVal = true;
-					resolve(resultVal);
-				} else {//DB에 저장된 이메일이 1개있다면(DB에 있단 소리니깐 존재하는 이메일)
-					$("#csEmailChk").text("존재하는 이메일입니다. 다시 입력해주세요.").css("color", "red");
-					resultVal = false;
-					resolve(resultVal);
-				}
-			},
-			error: function() {
-				alert("관리자에게 문의하세요");
-			}
-		});*/
-	
 		return true;
 	});
+	
+	
+	
 }
 	
 

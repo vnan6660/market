@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.myTotalInfo.MyInfoService;
 import com.vo.csMgt.CsInfoVO;
-import com.vo.login.JoinVO;
 
 /**
  * 마이페이지 Controller 
@@ -81,22 +80,6 @@ public class myInfoController {
 
 		return "/myTotalInfo/updateInfo"; // 실제주소인 /myTotalInfo/updateInfo를 리턴해준다
 	}
-	
-//	//회원정보 수정 버튼을 눌렀을 때 회원정보 update시켜라
-//	@PostMapping("/myInfo/doUpdateInfo")
-//	@ResponseBody
-//	public int doUpdateInfo(CsInfoVO vo) { // doUpdateInfo() 메서드는
-//		int result = myInfoService.infoEmailChk(vo);
-//		if (result == 0) {
-//			myInfoService.doUpdateInfo(vo);//id에 맞게 update시키게 파라미터로 넣어줌
-//			return result;
-//		}else {
-//			System.out.println("infoEmailChk:"+result);
-//			return result;
-//		}
-//	
-//	}
-
 	
 	//회원정보 수정 버튼을 눌렀을 때 회원정보 update시켜라
 	@ResponseBody
