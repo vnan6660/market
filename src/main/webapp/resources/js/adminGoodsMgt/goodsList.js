@@ -11,19 +11,23 @@ $(function() {
 
 var init = function() {
 
+	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
 }
 
 var attachEvent = function() {
 
+	//물품등록 버튼 클릭시 실행
 	$("#goRegForm").click(function() {
 		location.href = "/goodsReg/goodsRegPage";
 	});
 
+	//상품삭제버튼 클릭시 실행
 	$("#goDelBtn").click(function() {
 		goDeleteGoods();
 	});
 	
+	//상품개시버튼 클릭시 실행
 	$("#goShowBtn").click(function(){
 		goShowGoods();
 	});

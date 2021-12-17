@@ -8,16 +8,7 @@ $(function() {
 	attchEvent();
 });
 
-function write() {
-	alert($("#csEmailWriteID option:selected").val());
-}
-
 var attchEvent = function() {
-	/**
-	*로그인 버튼 클릭시 수행
-	*생성자 : 김소연
-	*생성일 : 2021.11.29
-	*/
 
 	//로그인 버튼 누르면 실행
 	$("#loginBtn").click(function() {
@@ -41,16 +32,12 @@ var attchEvent = function() {
 
 	//회원가입페이지로 이동
 	$("#signUpBtn").click(function() { //id가 csEmailOne인 selector를 클릭하면 수행
-		location.href = "/login/joinPage"; //  /login/joinPage의 주소로 가라
+		location.href = "/login/joinPage"; //  /login/joinPage의 주소로 이동
 	});
 
 }
 
-/**
-	*로그인 validation check
-	*생성자 : 김소연
-	*생성일 : 2021.11.29
-	*/
+//로그인 validation check
 var wrapValidation = function(idCheck, passCheck) {
 	var returnVal = false;
 
@@ -70,15 +57,8 @@ var wrapValidation = function(idCheck, passCheck) {
 	return returnVal;
 }
 
-
-/**
-*로그인 수행
-*생성자 : 김소연
-*생성일 : 2021.11.29
-*/
+//로그인 수행
 var login = function(idCheck, passCheck) {
-	idCheck;
-	passCheck;
 	$.ajax({
 		url: '/login/getLogin',
 		type: 'POST',

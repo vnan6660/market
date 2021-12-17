@@ -13,6 +13,7 @@ var init = function() {
 	//작성폼,삭제버튼,저장 버튼 숨기기
 	$(".writeForm, #goodsDelBtn, #goodsUpdDoneBtn,#file1, #image").hide();
 
+	//상품구분,상품분류의 코드에 맞게 이름 가져와서 넣기
 	injectGpSpNm();
 }
 
@@ -25,7 +26,9 @@ var attachEvent = function() {
 
 	//수정버튼을 누르면 실행
 	$("#goodsUpdBtn").click(function() {
+		//수정하는 폼, 삭제버튼, 저장 버튼은 보이기
 		$(".writeForm, #goodsDelBtn, #goodsUpdDoneBtn").show();
+		//값보여주는 폼, 수정 버튼은 숨김
 		$(".viewForm, #goodsUpdBtn").hide();
 
 		//상품구분에 디테일 정보와 맞는 값 선택되게 하기
@@ -82,6 +85,7 @@ var attachEvent = function() {
 
 	//상품 구분값의 selectBox의 선택값이 변할때 실행
 	$("#goodsGroup").change(function() {
+		
 		//상품구분 selected된 값
 		var goodsGroup = $("#goodsGroup option:selected").val();
 
@@ -91,6 +95,8 @@ var attachEvent = function() {
 
 	//삭제버튼을 클릭시 실행
 	$("#goodsDelBtn").click(function() {
+		
+		//상품 번호의 값
 		var delNoList =[$("#gdNo").val()];
 		
 		if (confirm('삭제하시겠습니까?')) {
@@ -113,10 +119,14 @@ var attachEvent = function() {
 
 //상품구분,상품분류의 코드에 맞게 이름 가져와서 넣기
 var injectGpSpNm = function() {
+	//숨겨진 상품 구분값
 	var hdGp = $("#hdGp").val();
+	//숨겨진 상품 분류값
 	var hdSp = $("#hdSp").val();
-
+	
+	//viewGp에 넣어질 값
 	var viewGpNm;
+	//viewSp에 넣어질 값
 	var viewSpNm;
 
 	$.ajax({
