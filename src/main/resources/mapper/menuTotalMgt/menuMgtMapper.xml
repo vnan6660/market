@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.menuTotalMgt.MenuMgtDaoImpl">
 
-	<select id="selectMenuList"
-		resultType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- 메뉴관리 메뉴리스트 불러오기 -->
+	<select id="selectMenuList" resultType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!-- menuMgtMapper.selectMenuList -->
 		SELECT
 			MU_ID as menuId, <!-- 메뉴아이디 -->
@@ -15,25 +15,24 @@
 			MU_SN as menuSn,<!-- 메뉴정렬순서 -->
 			ADMIN_YN as adminYn,<!-- 관리자메뉴노출여부 -->
 			USER_YN as userYn<!-- 사용자메뉴노출여부 -->
-		  FROM menu_mgt
-		 START WITH
-		MU_UPCD IS NULL
-	    CONNECT BY PRIOR MU_CD = MU_UPCD
-		ORDER SIBLINGS BY MU_SN
+		  FROM MENU_MGT
+		 START WITH MU_UPCD IS NULL
+	   CONNECT BY PRIOR MU_CD = MU_UPCD
+		 ORDER SIBLINGS BY MU_SN
 	</select>
 
-	<select id="selectUpCd"
-		resultType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- 메뉴관리 상위코드 불러오기 -->
+	<select id="selectUpCd" resultType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--menuMgtMapper.selectUpCd -->
 		SELECT
-		MU_NM as menuNm,<!-- 메뉴이름 -->
-		MU_CD as menuCd <!-- 메뉴코드 -->
-		FROM MENU_MGT
-		WHERE MU_UPCD IS NULL
+		    MU_NM as menuNm,<!-- 메뉴이름 -->
+		    MU_CD as menuCd <!-- 메뉴코드 -->
+		  FROM MENU_MGT
+		 WHERE MU_UPCD IS NULL
 	</select>
 
-	<select id="selectMenuMgt" parameterType="string"
-		resultType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- 메뉴관리 하나의 메뉴정보 가져오기 -->
+	<select id="selectMenuMgt" parameterType="string" resultType="com.vo.menuTotalMgt.MenuMgtVO">
 		<!--menuMgtMapper.selectMenuMgt -->
 		SELECT
 			MU_ID as menuId,<!-- 메뉴아이디 -->
@@ -47,9 +46,9 @@
 		 WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
 	</select>
 
-	<insert id="setMenuMgt"
-		parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--*menuMgtMapper.setMenuMgt -->
+	<!-- 메뉴관리 입력 -->
+	<insert id="setMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+		<!--menuMgtMapper.setMenuMgt -->
 		INSERT INTO MENU_MGT
 		(  MU_ID
 		 , MU_NM
@@ -60,51 +59,55 @@
 		 , USER_YN
 		 )
 		VALUES
-		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL),#{menuNm},#{menuCd},#{menuUpCd},#{menuSn},#{adminYn},#{userYn})
-		
-		
-		
-		
-		
+		(TO_CHAR(MENU_MGT_SEQ.NEXTVAL)
+		,#{menuNm}
+		,#{menuCd}
+		,#{menuUpCd}
+		,#{menuSn}
+		,#{adminYn}
+		,#{userYn}
+		)
 	</insert>
 
-	<update id="updateMenuMgt"
-		parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--*menuMgtMapper.updateMenuMgt -->
+	<!-- 메뉴관리 업데이트 -->
+	<update id="updateMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+		<!--menuMgtMapper.updateMenuMgt -->
 		UPDATE MENU_MGT
-		SET
-		MU_NM = #{menuNm}, <!-- 메뉴이름 -->
-		MU_CD = #{menuCd},<!-- 메뉴코드 -->
-		MU_UPCD = #{menuUpCd},<!-- 메뉴상위코드 -->
-		MU_SN = #{menuSn},<!-- 메뉴정렬순서 -->
-		ADMIN_YN = #{adminYn},<!-- 관리자메뉴노출여부 -->
-		USER_YN = #{userYn}<!-- 사용자메뉴노출여부 -->
-		WHERE MU_ID =#{menuId}<!-- 메뉴아이디 -->
+		   SET
+		    MU_NM = #{menuNm}, <!-- 메뉴이름 -->
+		    MU_CD = #{menuCd},<!-- 메뉴코드 -->
+		    MU_UPCD = #{menuUpCd},<!-- 메뉴상위코드 -->
+		    MU_SN = #{menuSn},<!-- 메뉴정렬순서 -->
+		    ADMIN_YN = #{adminYn},<!-- 관리자메뉴노출여부 -->
+		    USER_YN = #{userYn}<!-- 사용자메뉴노출여부 -->
+		 WHERE MU_ID =#{menuId}<!-- 메뉴아이디 -->
 	</update>
 
+    <!-- 메뉴관리 삭제 -->
 	<delete id="deleteMenuMgt" parameterType="string">
-		<!--*menuMgtMapper.deleteMenuMgt -->
+		<!--menuMgtMapper.deleteMenuMgt -->
 		DELETE
 		FROM MENU_MGT
 		WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
 	</delete>
 
+	<!-- 상위 메뉴의 adminYn 이 'N'인경우 아래의 메뉴의 adminYn,userYn을 'N'로 업데이트 -->
 	<update id="updateUnderMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--*menuMgtMapper.updateUnderMenuMgt -->
+		<!--menuMgtMapper.updateUnderMenuMgt -->
 		UPDATE MENU_MGT
-		SET
+		   SET
 		<if test='onlyUserYn.equals("false")'>
-			ADMIN_YN = 'N', USER_YN = 'N'
+		 ADMIN_YN = 'N', USER_YN = 'N'
 		</if>
 		<if test='onlyUserYn.equals("true")'>
-		 	USER_YN = 'N'
+		  USER_YN = 'N'
 		</if>
 		WHERE
-		MU_UPCD = (
-			select mu_cd
-			from MENU_MGT
-			where MU_ID = #{menuId}<!-- 메뉴아이디 -->
-			and mu_upcd is null
-		)
+		   MU_UPCD = (
+			SELECT MU_CD
+			FROM MENU_MGT
+			WHERE MU_ID = #{menuId}
+			AND MU_UPCD IS NULL
+			)
 	</update>
 </mapper>

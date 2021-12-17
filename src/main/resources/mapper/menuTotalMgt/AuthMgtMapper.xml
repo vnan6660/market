@@ -3,57 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.menuTotalMgt.AuthMgtDaoImpl">
-<select id="selectAuthMgtList" parameterType="String" resultType="com.vo.menuTotalMgt.MenuMgtVO">
-<!-- AuthMgyMapper.selectAuthMgtList -->
-SELECT
-		MU_ID as menuId, <!-- 메뉴아이디 -->
-		MU_NM as menuNm,<!-- 메뉴이름 -->
-		MU_CD as menuCd,<!-- 메뉴코드 -->
-		MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
+
+	<!-- selectBox에 맞는 권한목록 불러오기 -->
+	<select id="selectAuthMgtList" parameterType="String" resultType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- AuthMgyMapper.selectAuthMgtList -->
+		SELECT
+		 MU_ID as menuId, <!-- 메뉴아이디 -->
+		 MU_NM as menuNm,<!-- 메뉴이름 -->
+		 MU_CD as menuCd,<!-- 메뉴코드 -->
+	   MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
 		<if test='authSelect.equals("adminOpt")'>
 		ADMIN_YN as adminYn<!-- 관리자메뉴노출여부 -->
 		</if>
 		<if test='authSelect.equals("userOpt")'>
 		USER_YN as userYn<!-- 사용자메뉴노출여부 -->
 		</if>
-		FROM menu_mgt
-		START WITH
-		MU_UPCD IS NULL
-		CONNECT BY PRIOR MU_CD = MU_UPCD
-		ORDER SIBLINGS BY MU_SN
-</select>
+		 FROM MENU_MGT
+		 START WITH MU_UPCD IS NULL
+		 CONNECT BY PRIOR MU_CD = MU_UPCD
+		 ORDER SIBLINGS BY MU_SN
+	</select>
 
-<update id="updateAuthMgtListTrue" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-<!-- AuthMgyMapper.updateAuthMgtListTrue -->
-UPDATE menu_mgt
+	<!-- check박스 true업데이트 -->
+	<update id="updateAuthMgtListTrue" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- AuthMgyMapper.updateAuthMgtListTrue -->
+	UPDATE MENU_MGT
 	<if test='authSelect.equals("adminOpt")'>
-		SET	ADMIN_YN = 'Y'<!-- 관리자메뉴노출여부 -->
+	   SET ADMIN_YN = 'Y'<!-- 관리자메뉴노출여부 -->
 	</if>
 	<if test='authSelect.equals("userOpt")'>
-		SET	USER_YN = 'Y'<!-- 사용자메뉴노출여부 -->
+	   SET USER_YN = 'Y'<!-- 사용자메뉴노출여부 -->
 	</if>
+	 WHERE MU_ID IN
+		<foreach item="item" collection="optList" open="(" separator="," close=")"> 
+			#{item}
+		</foreach>
+	</update>
 	
-WHERE mu_id IN
-	<foreach item="item" collection="optList" open="(" separator="," close=")"> 
-		#{item}
-	</foreach>
-</update>
-<update id="updateAuthMgtListFalse" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-<!-- AuthMgyMapper.updateAuthMgtListFalse -->
-UPDATE menu_mgt
+	<!-- check박스 false업데이트 -->		
+	<update id="updateAuthMgtListFalse" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
+	<!-- AuthMgyMapper.updateAuthMgtListFalse -->
+	 UPDATE MENU_MGT
 	<if test='authSelect.equals("adminOpt")'>
 		SET	ADMIN_YN = 'N'<!-- 관리자메뉴노출여부 -->
 	</if>
 	<if test='authSelect.equals("userOpt")'>
 		SET	USER_YN = 'N'<!-- 사용자메뉴노출여부 -->
 	</if>
-<if test="optList.size != 0">
-	WHERE mu_id NOT IN
-	<foreach item="item" collection="optList" open="(" separator="," close=")"> 
-		#{item}
-	</foreach>
-</if>	
-
-</update>
+	<if test="optList.size != 0">
+	  WHERE MU_ID NOT IN
+		<foreach item="item" collection="optList" open="(" separator="," close=")"> 
+			#{item}
+		</foreach>
+	</if>	
+	</update>
 
 </mapper>

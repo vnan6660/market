@@ -8,23 +8,23 @@
 	<select id="selectGoodsList" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	<!-- goodsListMapper.selectGoodsList -->
 	SELECT
-        a.GD_NO as gdNo
-		,a.GD_GP as gdGp
-		,a.GD_SP as gdSp
-		,a.GD_NM as gdNm
-		,a.GD_CNT as gdCnt
-		,a.GD_PAGE as gdPage
-		,a.GD_THICK as gdThick
-		,a.GD_WR as gdWr
-		,a.GD_PB as gdPb
-		,a.GD_DC as gdDc
-		,a.GD_YN as gdYn
-		,a.GD_IMG as gdImg
-        ,b.cm_grnm as gdGpNm
-        ,c.cm_grnm as gdSpNm
-	FROM GOODS_INFO a 
-	left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD= a.GD_GP
-	left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+      a.GD_NO as gdNo<!-- 상품번호 -->
+	 ,a.GD_GP as gdGp<!-- 상품구분 -->
+	 ,a.GD_SP as gdSp<!-- 상품분류 -->
+	 ,a.GD_NM as gdNm<!-- 상품이름 -->
+	 ,a.GD_CNT as gdCnt<!-- 상품재고 -->
+	 ,a.GD_PAGE as gdPage<!-- 상품페이지 -->
+	 ,a.GD_THICK as gdThick<!-- 상품두께 -->
+     ,a.GD_WR as gdWr<!-- 상품작가 -->
+	 ,a.GD_PB as gdPb<!-- 상품출판사 -->
+	 ,a.GD_DC as gdDc<!-- 상픔설명 -->
+	 ,a.GD_YN as gdYn<!-- 상품개시 -->
+	 ,a.GD_IMG as gdImg<!-- 상품이미지배열 -->
+     ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
+     ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
+	 FROM GOODS_INFO a 
+	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD= a.GD_GP
+	 left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
 	ORDER BY a.GD_NO DESC
 	</select>
 	
@@ -32,19 +32,19 @@
 	<select id="selectDetailGoods" parameterType="String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	<!-- goodsListMapper.selectDetailGoods -->
 	SELECT
-		GD_NO as gdNo
-		,GD_GP as gdGp
-		,GD_SP as gdSp
-		,GD_NM as gdNm
-		,GD_CNT as gdCnt
-		,GD_PAGE as gdPage
-		,GD_THICK as gdThick
-		,GD_WR as gdWr
-		,GD_PB as gdPb
-		,GD_DC as gdDc
-		,GD_YN as gdYn
-		,GD_IMG as gdImg
-		,GD_DETL as gdDetl
+		GD_NO as gdNo<!-- 상품번호 -->
+		,GD_GP as gdGp<!-- 상품구분 -->
+		,GD_SP as gdSp<!-- 상품분류 -->
+		,GD_NM as gdNm<!-- 상품이름 -->
+		,GD_CNT as gdCnt<!-- 상품재고 -->
+		,GD_PAGE as gdPage<!-- 상품페이지 -->
+		,GD_THICK as gdThick<!-- 상품두께 -->
+		,GD_WR as gdWr<!-- 상품작가 -->
+		,GD_PB as gdPb<!-- 상품출판사 -->
+		,GD_DC as gdDc<!-- 상픔설명 -->
+		,GD_YN as gdYn<!-- 상품개시 -->
+		,GD_IMG as gdImg<!-- 상품이미지배열 -->
+		,GD_DETL as gdDetl<!-- 상세설명배열 -->
 	  FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
 	</select>
@@ -53,23 +53,23 @@
 	<update id="updateGoods" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
 	<!-- goodsListMapper.updateGoods -->
 	UPDATE GOODS_INFO
-	SET
-		GD_GP = #{gdGp}
-		,GD_SP = #{gdSp}
-		,GD_NM = #{gdNm}
-		,GD_CNT = #{gdCnt}
-		,GD_PAGE = #{gdPage}
-		,GD_THICK = #{gdThick}
-		,GD_WR = #{gdWr}
-		,GD_PB = #{gdPb}
-		,GD_DC = #{gdDc}
-		,GD_YN = #{gdYn}
-		<if test='gdImg != null'>
-		,GD_IMG = #{gdImg}
-		</if>
-		<if test='gdDetl != null'>
-		,GD_DETL = #{gdDetl}
-		</if>
+	   SET
+	    GD_GP = #{gdGp}
+	   ,GD_SP = #{gdSp}
+	   ,GD_NM = #{gdNm}
+	   ,GD_CNT = #{gdCnt}
+	   ,GD_PAGE = #{gdPage}
+	   ,GD_THICK = #{gdThick}
+	   ,GD_WR = #{gdWr}
+	   ,GD_PB = #{gdPb}
+	   ,GD_DC = #{gdDc}
+	   ,GD_YN = #{gdYn}
+	<if test='gdImg != null'>
+	   ,GD_IMG = #{gdImg}
+	</if>
+	<if test='gdDetl != null'>
+	   ,GD_DETL = #{gdDetl}
+	</if>
 	WHERE GD_NO = #{gdNo}
 	</update>
 	
@@ -77,8 +77,8 @@
 	<delete id="deleteGoods">
 	<!-- goodsListMapper.deleteGoods -->
 	DELETE 
-	FROM GOODS_INFO
-	WHERE GD_NO IN
+	  FROM GOODS_INFO
+	 WHERE GD_NO IN
 	<foreach item="item" collection="list" open="(" separator="," close=")"> 
 		#{item}
 	</foreach>

@@ -5,16 +5,18 @@
 
 <mapper namespace="com.dao.adminGoodsMgt.GoodsRegDaoImpl">
 
-<!-- 상품 구분에 해당하는 상품 분류 가지고 오기 -->
-<select id="selectGoodsSeparate" parameterType="String" resultType="com.vo.common.CmmnVO">
-SELECT *
-  FROM CMCD_MGT
- WHERE CM_UPCD = #{goodsGroup}
-</select>
+	<!-- 상품 구분에 해당하는 상품 분류 가지고 오기 -->
+	<select id="selectGoodsSeparate" parameterType="String" resultType="com.vo.common.CmmnVO">
+	<!-- goodsRegMapper.selectGoodsSeparate -->
+	SELECT *
+	  FROM CMCD_MGT
+	 WHERE CM_UPCD = #{goodsGroup}
+	</select>
 
-<!-- 상품이미지,상세설명의 파일을 포함한 상품등록하기 -->
-<insert id="insertGoodsReg" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
-INSERT INTO GOODS_INFO
+	<!-- 상품이미지,상세설명의 파일을 포함한 상품등록하기 -->
+	<insert id="insertGoodsReg" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
+	<!-- goodsRegMapper.insertGoodsReg -->
+	INSERT INTO GOODS_INFO
 		(GD_NO
 		,GD_GP
 		,GD_SP
@@ -32,24 +34,24 @@ INSERT INTO GOODS_INFO
 		<if test='gdDetl != null'>
 		,GD_DETL
 		</if>)
-VALUES
-	(TO_CHAR(GOODS_INFO_SEQ.NEXTVAL)
-	 ,#{gdGp}
-	 ,#{gdSp}
-	 ,#{gdNm}
-	 ,#{gdCnt}
-	 ,#{gdPage}
-	 ,#{gdThick}
-	 ,#{gdWr}
-	 ,#{gdPb}
-	 ,#{gdDc}
-	 ,#{gdYn}
-	 <if test='gdImg != null'>
-	 ,#{gdImg}
-	 </if>
-	 <if test='gdDetl != null'>
-	 ,#{gdDetl}
-	</if>)
-</insert>
+	VALUES
+		(TO_CHAR(GOODS_INFO_SEQ.NEXTVAL)
+		 ,#{gdGp}
+		 ,#{gdSp}
+		 ,#{gdNm}
+		 ,#{gdCnt}
+		 ,#{gdPage}
+		 ,#{gdThick}
+		 ,#{gdWr}
+		 ,#{gdPb}
+		 ,#{gdDc}
+		 ,#{gdYn}
+		 <if test='gdImg != null'>
+		 ,#{gdImg}
+		 </if>
+		 <if test='gdDetl != null'>
+		 ,#{gdDetl}
+		</if>)
+	</insert>
 
 </mapper>

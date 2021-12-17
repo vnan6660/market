@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 public class LoginVO {
 
-	private String csNo;
-	private String csGrade;
-	private String csId;
-	private String csPs;
-	private String csNm;
+	private String csNo;//고객번호
+	private String csGrade;//고객구분
+	private String csId;//고객아이디
+	private String csPs;//비밀번호
+	private String csNm;//이름
 }

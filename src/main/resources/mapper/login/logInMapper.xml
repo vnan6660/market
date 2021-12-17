@@ -3,16 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.login.LoginDaoImpl">
-	<select id="selectLoginCnt" parameterType="com.vo.login.LoginVO"
-		resultType="int">
-		<!-- logInMapper.selectLoginCnt -->
+
+	<!-- 로그인하는 아이디 비밀번호체크 -->
+	<select id="selectLoginCnt" parameterType="com.vo.login.LoginVO" resultType="int">
+	<!-- logInMapper.selectLoginCnt -->
 		SELECT COUNT(*)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_ID = #{csId} AND CS_PS = #{csPs}
 	</select>
 
-	<select id="selectLogin" parameterType="com.vo.login.LoginVO"
-		resultType="com.vo.login.LoginVO">
+	<!-- 로그인 정보 가져오기 -->
+	<select id="selectLogin" parameterType="com.vo.login.LoginVO" resultType="com.vo.login.LoginVO">
 		<!-- logInMapper.selectLogin -->
 		SELECT
 			CS_GRADE as csGrade,<!-- 고객구분 -->

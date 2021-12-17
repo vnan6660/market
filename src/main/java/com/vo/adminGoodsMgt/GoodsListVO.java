@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GoodsListVO {
 	
-	private String gdNo;//상품번호(나중에 문자열 숫자열 섞어서 넣기)
+	private String gdNo;//상품번호
 	private String gdGp;//상품구분
 	private String gdSp;//상품분류
 	private String gdNm;//상품이름
@@ -27,15 +27,15 @@ public class GoodsListVO {
 	private String gdWr;//상품작가
 	private String gdPb;//상품출판사
 	private String gdDc;//상픔설명
-	private String gdYn;//상품개제
+	private String gdYn;//상품개시
 	private String gdGpNm;//상품구분이름
 	private String gdSpNm;//상품분류이름
 	
 	private MultipartFile gdImgFile; //상품이미지(BLOB)
 	private MultipartFile gdDetlFile;//상세설명(BLOB)
 	
-	private byte[] gdImg;
-	private byte[] gdDetl;
+	private byte[] gdImg;//상품이미지배열
+	private byte[] gdDetl;//상세설명배열
 	
 	private String gdImgStr;
 	private String gdDetlStr;
