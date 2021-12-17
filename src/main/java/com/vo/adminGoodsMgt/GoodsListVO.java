@@ -28,6 +28,9 @@ public class GoodsListVO {
 	private String gdPb;//상품출판사
 	private String gdDc;//상픔설명
 	private String gdYn;//상품개제
+	private String gdGpNm;//상품구분이름
+	private String gdSpNm;//상품분류이름
+	
 	private MultipartFile gdImgFile; //상품이미지(BLOB)
 	private MultipartFile gdDetlFile;//상세설명(BLOB)
 	

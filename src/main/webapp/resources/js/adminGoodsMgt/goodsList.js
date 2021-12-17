@@ -10,6 +10,7 @@ $(function() {
 });
 
 var init = function() {
+	
 	getGoodsSeparate("bestBook");
 }
 
@@ -20,7 +21,6 @@ var attachEvent = function() {
 	});
 
 }
-
 
 //상품 구분에 맞는 상품분류 값 가져오기
 var getGoodsSeparate = function(goodsGroup) {

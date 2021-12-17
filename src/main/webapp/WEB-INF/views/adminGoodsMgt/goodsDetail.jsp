@@ -28,7 +28,9 @@
 						<td>상품구분/상품분류</td>
 						<td>
 							<div class="viewForm">
-							<c:out value="${goodsVO.gdGp}"></c:out>/<c:out value="${goodsVO.gdSp}"></c:out>
+							<input id="hdGp" type="hidden" value="${goodsVO.gdGp}">
+							<input id="hdSp" type="hidden" value="${goodsVO.gdSp}">
+							<span id="viewGp"></span><span>/</span><span id="viewSp"></span>
 							</div>
 							<div class="writeForm">
 								<select id="goodsGroup" name="gdGp">
@@ -50,7 +52,7 @@
 								<c:out value="${goodsVO.gdNm}"></c:out>
 							</div>
 							<div class="writeForm">
-								<input type="text" name="gdNm" maxlength="50">
+								<input type="text" name="gdNm" maxlength="50" value="${goodsVO.gdNm}">
 							</div>
 						</td>
 					</tr>
@@ -61,7 +63,7 @@
 								<c:out value="${goodsVO.gdCnt}"></c:out>
 							</div>
 							<div class="writeForm">
-								<input type="number" name="gdCnt">
+								<input type="number" name="gdCnt" value="${goodsVO.gdCnt}">
 							</div>
 						</td>
 					</tr>
@@ -84,21 +86,25 @@
 					<tr>
 						<td>상세정보</td>
 						<td id="goodsDetailInfo">
-							<div class="viewForm"></div>
+							<div class="viewForm">
+							<p>${goodsVO.gdPage}쪽,${goodsVO.gdThick}mm,${goodsVO.gdWr}작가,${goodsVO.gdPb}출판사</p>
+							</div>
 							<div class="writeForm">
-								<input type="text" name="gdPage" placeholder="쪽">
-								<input type="text" name="gdThick" placeholder="mm">
-								<input type="text" name="gdWr" placeholder="작가">
-								<input type="text" name="gdPb" placeholder="출판사">
+								<input type="text" name="gdPage" placeholder="쪽" value="${goodsVO.gdPage}">
+								<input type="text" name="gdThick" placeholder="mm" value="${goodsVO.gdThick}">
+								<input type="text" name="gdWr" placeholder="작가" value="${goodsVO.gdWr}">
+								<input type="text" name="gdPb" placeholder="출판사" value="${goodsVO.gdPb}">
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>상품설명</td>
 						<td>
-							<div class="viewForm"></div>
+							<div class="viewForm">
+							<c:out value="${goodsVO.gdDc}"></c:out>
+							</div>
 							<div class="writeForm">
-								<textarea name="gdDc" rows="5" cols="50" maxlength="500"></textarea>
+								<textarea name="gdDc" rows="5" cols="50" maxlength="500">${goodsVO.gdDc}</textarea>
 							</div>
 						</td>
 					</tr>

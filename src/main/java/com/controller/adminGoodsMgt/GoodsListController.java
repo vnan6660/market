@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.service.adminGoodsMgt.GoodsListService;
 import com.vo.adminGoodsMgt.GoodsListVO;
@@ -40,7 +41,9 @@ public class GoodsListController {
 			
 			vo.setGdNo(list.get(i).getGdNo());
 			vo.setGdGp(list.get(i).getGdGp());
+			vo.setGdGpNm(list.get(i).getGdGpNm());
 			vo.setGdSp(list.get(i).getGdSp());
+			vo.setGdSpNm(list.get(i).getGdSpNm());
 			vo.setGdNm(list.get(i).getGdNm());
 			vo.setGdCnt(list.get(i).getGdCnt());
 			vo.setGdPage(list.get(i).getGdPage());
@@ -80,5 +83,7 @@ public class GoodsListController {
 		
 		return "/adminGoodsMgt/goodsDetail";
 	}
+	
+	
 	
 }

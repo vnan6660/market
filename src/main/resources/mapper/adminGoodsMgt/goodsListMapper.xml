@@ -8,20 +8,24 @@
 	<select id="selectGoodsList" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	<!-- goodsListMapper.selectGoodsList -->
 	SELECT
-		GD_NO as gdNo
-		,GD_GP as gdGp
-		,GD_SP as gdSp
-		,GD_NM as gdNm
-		,GD_CNT as gdCnt
-		,GD_PAGE as gdPage
-		,GD_THICK as gdThick
-		,GD_WR as gdWr
-		,GD_PB as gdPb
-		,GD_DC as gdDc
-		,GD_YN as gdYn
-		,GD_IMG as gdImg
-	  FROM GOODS_INFO
-	  ORDER BY GD_NO DESC
+        a.GD_NO as gdNo
+		,a.GD_GP as gdGp
+		,a.GD_SP as gdSp
+		,a.GD_NM as gdNm
+		,a.GD_CNT as gdCnt
+		,a.GD_PAGE as gdPage
+		,a.GD_THICK as gdThick
+		,a.GD_WR as gdWr
+		,a.GD_PB as gdPb
+		,a.GD_DC as gdDc
+		,a.GD_YN as gdYn
+		,a.GD_IMG as gdImg
+        ,b.cm_grnm as gdGpNm
+        ,c.cm_grnm as gdSpNm
+	FROM GOODS_INFO a 
+	left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD= a.GD_GP
+	left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+	ORDER BY a.GD_NO DESC
 	</select>
 	
 	<!-- 하나의 물품정보 가져오기 -->

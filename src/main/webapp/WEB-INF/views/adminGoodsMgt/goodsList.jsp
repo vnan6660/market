@@ -77,8 +77,8 @@
 						<tr>
 							<td><input type="checkbox"></td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNo}</td>
-							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGp}</td>
-							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdSp}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGpNm}</td>
+							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdSpNm}</td>
 							<td class="img hover" onclick="goDetail(${vo.gdNo})"><img alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}"></td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</td>
 							<td class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdCnt}</td>
