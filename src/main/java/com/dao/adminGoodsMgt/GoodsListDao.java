@@ -3,6 +3,7 @@ package com.dao.adminGoodsMgt;
 import java.util.List;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.adminGoodsMgt.GoodsRegVO;
 
 /**
  * 물품목록 Dao
@@ -17,5 +18,8 @@ public interface GoodsListDao {
 
 	//하나의 물품정보 가져오기
 	GoodsListVO selectDetailGoods(String gdNo);
+
+	//물품상세 수정 하기
+	void updateGoods(GoodsRegVO vo);
 
 }

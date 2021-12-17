@@ -68,6 +68,21 @@
 						</td>
 					</tr>
 					<tr>
+						<td>상품개제</td>
+						
+						<td>
+							<div class="viewForm">
+									<span id="gdYn">${goodsVO.gdYn}</span>
+								</div>
+							<div class="writeForm">
+								<select id="gdYnSelect" name="gdYn">
+									<option value="Y">Y</option>
+									<option value="N">N</option>
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<td>상품이미지</td>
 						<td id="img1Wrap">
 							<div class="viewForm img">
@@ -78,8 +93,16 @@
 									<a>클릭</a>
 								</label>
 								<input id="file1" name="gdImgFile" type="file">
-								<span id="blankImage">파일이 없습니다.<br/> 등록해 주세요</span>
+								<!-- 상세에 원래 파일이 없을경우-->
+								<c:if test="${goodsVO.gdImgStr == null}">
+									<span id="blankImage">파일이 없습니다.<br/> 등록해 주세요</span>
+								</c:if>
+								<!-- 상세에 원래 파일이 있는경우-->
+								<c:if test="${goodsVO.gdImgStr != null}">
+									<img id="orginImg" alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}" width="250px;" height="250px;">
+								</c:if>
 								<img id="image" src="" alt="이미지" width="250px;" height="250px;"/>
+								
 							</div>
 						</td>
 					</tr>
@@ -120,6 +143,7 @@
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" id="gdNo" name="gdNo" value="${goodsVO.gdNo}">
 				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
 				
 				<button type="button" id="goodsDelBtn" class="btnSmallList hover">삭제</button>

@@ -48,4 +48,28 @@
 	  FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
 	</select>
+	
+	<!-- 물품상세 수정 하기 -->
+	<update id="updateGoods" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
+	<!-- goodsListMapper.updateGoods -->
+	UPDATE GOODS_INFO
+	SET
+		GD_GP = #{gdGp}
+		,GD_SP = #{gdSp}
+		,GD_NM = #{gdNm}
+		,GD_CNT = #{gdCnt}
+		,GD_PAGE = #{gdPage}
+		,GD_THICK = #{gdThick}
+		,GD_WR = #{gdWr}
+		,GD_PB = #{gdPb}
+		,GD_DC = #{gdDc}
+		,GD_YN = #{gdYn}
+		<if test='gdImg != null'>
+		,GD_IMG = #{gdImg}
+		</if>
+		<if test='gdDetl != null'>
+		,GD_DETL = #{gdDetl}
+		</if>
+	WHERE GD_NO = #{gdNo}
+	</update>
 </mapper>

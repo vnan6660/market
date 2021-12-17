@@ -51,6 +51,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td>상품개제</td>
+						<td>
+							<select id="gdYn" name="gdYn">
+								<option value="Y">Y</option>
+								<option value="N">N</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<td>상품이미지</td>
 						<td id="img1Wrap">
 							<label for="file1">

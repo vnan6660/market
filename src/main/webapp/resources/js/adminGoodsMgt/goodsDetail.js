@@ -31,6 +31,35 @@ var attachEvent = function() {
 
 		//상품분류에 디테일 정보와 맞는 값 선택되게 하기
 		$("#goodsSeparate").val($("#hdSp").val()).prop("selected", true);
+		
+		//상품개제에 디테일 정보와 맞는 값 선택되게 하기
+		$("#gdYnSelect").val($("#gdYn").text()).prop("selected", true);
+	});
+
+	//수정 완료 버튼을 눌렀을 때 실행
+	$("#goodsUpdDoneBtn").click(function() {
+		$("#file1").change(function() {
+				console.log("파일이바뀜");
+		});
+
+		if (confirm('저장하시겠습니까?')) {
+			$.ajax({
+				url: '/goodsList/updateGoods',
+				type: 'POST',
+				enctype: 'multipart/form-data',
+				contentType: false,//false 꼭 작성해야함
+				processData: false,//false 꼭 작성해야함
+				data: new FormData($('#goodsForm')[0]),
+				success: function() {
+					alert("저장되었습니다");
+					location.href = "/goodsList/detailGoods/"+$("#gdNo").val();
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			})
+		}
+
 	});
 
 	//상품이미지항목에서 클릭버튼을 눌러서 이미지클릭 후 내용이 변경시
@@ -46,7 +75,7 @@ var attachEvent = function() {
 			reader.readAsDataURL(input.currentTarget.files[0]);
 		}
 		$("#image").show();
-		$("#blankImage").hide();
+		$("#blankImage ,#orginImg").hide();
 	});
 
 	//상품 구분값의 selectBox의 선택값이 변할때 실행

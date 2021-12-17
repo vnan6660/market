@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.adminGoodsMgt.GoodsListDao;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.adminGoodsMgt.GoodsRegVO;
 
 /**
  * 물품목록 ServiceImpl
@@ -30,6 +31,12 @@ public class GoodsListServiceImpl implements GoodsListService {
 	@Override
 	public GoodsListVO getDetailGoods(String gdNo) {
 		return  goodsListDao.selectDetailGoods(gdNo);
+	}
+
+	//물품상세 수정 하기
+	@Override
+	public void updateGoods(GoodsRegVO vo) {
+		goodsListDao.updateGoods(vo);
 	}
 
 }

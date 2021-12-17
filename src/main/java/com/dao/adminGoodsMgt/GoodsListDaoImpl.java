@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.adminGoodsMgt.GoodsRegVO;
 
 /**
  * 물품목록 DaoImpl
@@ -30,6 +31,12 @@ public class GoodsListDaoImpl implements GoodsListDao {
 	@Override
 	public GoodsListVO selectDetailGoods(String gdNo) {
 		return sqlSession.selectOne("selectDetailGoods",gdNo);
+	}
+
+	//물품상세 수정 하기
+	@Override
+	public void updateGoods(GoodsRegVO vo) {
+		sqlSession.selectOne("updateGoods",vo);
 	}
 
 }

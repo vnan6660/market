@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.adminGoodsMgt.GoodsListService;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.adminGoodsMgt.GoodsRegVO;
 
 /**
  * 물품목록 Controller
@@ -84,6 +86,22 @@ public class GoodsListController {
 		return "/adminGoodsMgt/goodsDetail";
 	}
 	
-	
-	
+	//물품상세 수정 하기
+	@PostMapping("/goodsList/updateGoods")
+	@ResponseBody
+	public void updateGoods(GoodsRegVO vo) throws IOException {
+		
+		if (!"".equals(vo.getGdImgFile().getOriginalFilename())) {
+			System.out.println("상품이미지파일(1) 있음");
+			System.out.println(vo.getGdImgFile().getOriginalFilename());
+			vo.setGdImg(vo.getGdImgFile().getBytes());
+		}
+		
+		if (!"".equals(vo.getGdDetlFile().getOriginalFilename())) {
+			System.out.println("상세설명이미지파일(2) 있음");
+			System.out.println(vo.getGdDetlFile().getOriginalFilename());
+			vo.setGdDetl(vo.getGdDetlFile().getBytes());
+		}
+		goodsListService.updateGoods(vo);
+	}
 }
