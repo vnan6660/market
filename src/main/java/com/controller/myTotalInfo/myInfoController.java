@@ -96,7 +96,6 @@ public class myInfoController {
 	public int infoEmailChk(@RequestBody  CsInfoVO vo) {
 		int result = 0;
 		result = myInfoService.infoEmailChk(vo);
-		System.out.println("infoEmailChk:"+result);
 		return result;
 	}
 	

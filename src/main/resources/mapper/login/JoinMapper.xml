@@ -6,7 +6,7 @@
 	
 	<!-- 회원가입 insert -->
 	<insert id="doJoin" parameterType="map">
-	<!-- JoinMapper.doJoin -->
+	/* JoinMapper.doJoin */
 		INSERT INTO CUSTOMER_INFO(
 			 CS_NO <!-- 고객번호 -->
 			,CS_GRADE <!-- 고객등급 -->
@@ -41,17 +41,17 @@
 	
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck"  resultType="int" parameterType="String">
-	<!-- JoinMapper.idCheck -->
 	<!-- CUSTOMER_INFO에 있는 #{csId}로 넘어온 id의 모든개수선택 -->
 	<!-- id가 있으면 1, 없으면 0(0일때 회원가입이 진행된다.) -->
+	/* JoinMapper.idCheck */
 		SELECT COUNT(*) 
 		  FROM CUSTOMER_INFO
 		 WHERE CS_ID = #{csId}
 	</select>
 	
 	<!-- 이메일 중복체크 -->
-	<select id="infoEmailChk" resultType="int" parameterType="com.vo.login.JoinVO">
-	<!-- JoinMapper.infoEmailChk -->
+	<select id="emailChk" resultType="int" parameterType="com.vo.login.JoinVO">
+	/* JoinMapper.emailChk */
 		SELECT COUNT(*)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_EMAIL = #{csEmail}<!-- 변수로 들어온 이메일과 테이블에 저장된 이메일이 같은 값을 조건으로 함 -->

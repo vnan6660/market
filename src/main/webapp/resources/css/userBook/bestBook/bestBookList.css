@@ -1,0 +1,50 @@
+/**
+*생성자 : 김혜경
+*생성일 : 2021.12.06
+*로그인
+*/
+@charset "UTF-8";
+@import url("/css/common/common.css");
+
+input, select{
+	padding: 5px;
+}
+
+#contents-bestBook-list {
+	position: absolute;
+	margin: 5% auto;
+	margin-left: 13%;
+    margin-right: 20%;
+	padding: 15px;
+	width: 60%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: stretch;
+}
+.flex{
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrap-select>select{
+	width: 200px;
+	height: 35px;
+	margin-top: 10px;
+}
+.wrap-search>input{
+	width: 350px;
+	height: 35px;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+.wrap-search>button{
+	width: 100px;
+	height: 35px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.bestBook-list-wrap{
+	margin-top: 50px;
+}

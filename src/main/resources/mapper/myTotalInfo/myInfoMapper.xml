@@ -7,7 +7,7 @@
 
 	<!-- 마이페이지에 뿌려줄 데이터 가져오기 -->
 	<select id="myInfoPage" parameterType="String" resultType="com.vo.csMgt.CsInfoVO">
-	<!-- myInfoMapper.myInfoPage -->
+	/* myInfoMapper.myInfoPage */
 		SELECT
 			CS_NO AS csNo,<!-- 고객번호 -->
 			DECODE(CS_GRADE,'0',<![CDATA['관리자']]>,'1',<![CDATA['회원']]>,<![CDATA['탈퇴']]>)
@@ -29,7 +29,7 @@
 
 	<!-- 비밀번호 확인페이지 비밀번호 같은지 체크 -->
 	<select id="pwChk" resultType="int" parameterType="map">
-	<!-- myInfoMapper.pwChk -->
+	/* myInfoMapper.pwChk */
 		SELECT COUNT(*)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_PS = #{csPs}
@@ -38,7 +38,7 @@
 
 	<!-- 회원정보수정 update -->
 	<update id="doUpdateInfo" parameterType="com.vo.csMgt.CsInfoVO">
-	<!-- myInfoMapper.doUpdateInfo -->
+	/* myInfoMapper.doUpdateInfo */
 		UPDATE 	 CUSTOMER_INFO
 		   SET   CS_PS = #{csPs}<!-- 비밀번호 -->
 				,CS_NM = #{csNm}<!-- 이름 -->
@@ -53,10 +53,11 @@
 	</update>
 	
 	<!-- 회원정보수정 이메일 중복체크 -->
-	<select id="emailChk" resultType="int" parameterType="com.vo.csMgt.CsInfoVO">
-	<!-- myInfoMapper.emailChk -->
+	<select id="infoEmailChk" resultType="int" parameterType="com.vo.csMgt.CsInfoVO">
+	/* myInfoMapper.infoEmailChk */
 		SELECT COUNT(*)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_EMAIL = #{csEmail}
+		   AND CS_ID != #{csId}
 	</select>
 </mapper>

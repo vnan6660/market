@@ -16,9 +16,10 @@
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents-myinfo" class="info">
 	<form id="updateInfoForm" name="updateInfoForm">
-		<input type="hidden" name="csPhone">	
-		<input type="hidden" name="csEmail">	
-		<input type="hidden" name="csId" value="${csInfo.csId}">	
+		<input type="hidden" id="csPhone" name="csPhone">	
+		<input type="hidden" id="csEmail" name="csEmail">	
+		<input type="hidden" id="csId" name="csId" value="${csInfo.csId}">	
+		<input type="hidden" id="csGrade" name="csGrade" value="${csInfo.csGrade}">	
 		<div class="table-wrap">
 			<ul class="myinfo">
 				<li><h3>회원정보수정</h3></li>
