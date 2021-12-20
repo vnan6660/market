@@ -40,12 +40,17 @@ public class JoinController {
 	}
 
 	//회원가입 수행 
-	@ResponseBody
-	@PostMapping("/login/doJoin")
-	public String doJoin(JoinVO vo){ // joinPage() 메서드는
-		joinService.doJoin(vo); // 회원가입 진행
+	@PostMapping(value = "/login/doJoin")
+	public String doJoin(@RequestParam Map<String, Object> param){ // joinPage() 메서드는
 		
-		return "redirect:/login/loginPage";
+		System.out.println(param);
+		/*----------------------------------------------------*/
+		String csId = (String)param.get("csId");
+		int resultId = joinService.idCheck(csId);
+		if (resultId == 0) { // 신규회원이면
+			joinService.doJoin(param); // 회원가입 계속 진행
+		}
+		return "redirect:/login/welcomePage"; //회원가입 환영페이지로 이동
 	}
 
 	//회원가입 id 중복체크
@@ -64,6 +69,12 @@ public class JoinController {
 	public int emailChk(@RequestBody JoinVO vo) {
 		int result = joinService.emailChk(vo);
 		return result;
+	}
+	
+	//회원가입 welcome페이지
+	@RequestMapping(value = "/login/welcomePage")
+	public String welcomePage() { // joinPage() 메서드는
+		return "/login/welcome"; // /login/join를 리턴해준다
 	}
 
 }

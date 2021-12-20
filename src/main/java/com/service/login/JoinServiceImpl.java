@@ -21,8 +21,8 @@ public class JoinServiceImpl implements JoinService {
 	
 	//회원가입 수행
 	@Override
-	public void doJoin(JoinVO vo) {
-		joinDao.doJoin(vo);
+	public void doJoin(Map<String, Object> param) {
+		joinDao.doJoin(param);
 	}
 
 	//회원가입 id 중복체크
@@ -38,5 +38,7 @@ public class JoinServiceImpl implements JoinService {
 		 int result = joinDao.emailChk(vo); //loginDao로 넘겨라
         return result;
 	}
+
+	
 	
 }

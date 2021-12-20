@@ -5,7 +5,7 @@
 <mapper namespace="com.dao.login.JoinDaoImpl">
 	
 	<!-- 회원가입 insert -->
-	<insert id="doJoin" parameterType="com.vo.login.JoinVO">
+	<insert id="doJoin" parameterType="map">
 	<!-- JoinMapper.doJoin -->
 		INSERT INTO CUSTOMER_INFO(
 			 CS_NO <!-- 고객번호 -->

@@ -64,3 +64,43 @@ table th{
 .w150{
 	width: 150px;
 }
+/* ///////////welcome페이지//////////////// */
+#contents-welcome{
+	position: absolute;
+    margin: 5% auto;
+    padding: 15px;
+    padding-top: 10%;
+    width: 90%;
+    display: inline-flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+.flex{
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.w100{
+	width: 100px;
+}
+
+.btnCss{
+	color: #262626;
+	background: #eaeaea;
+    width: 500px;
+    height: 40px;
+    border-inline-color: revert;
+    border-color: #b1b1b1;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    margin-bottom: 30px;
+}
+
+#welcomeTxt{
+    margin-bottom: 60px;
+}
