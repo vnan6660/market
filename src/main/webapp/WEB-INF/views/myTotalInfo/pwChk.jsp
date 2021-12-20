@@ -28,7 +28,7 @@
 					
 					<tr>
 						<th>비밀번호</th>
-						<td><input type="password" id="pwChkInput"></td>
+						<td><input type="password" id="pwChkInput" maxlength="16"></td>
 					</tr>
 				</table>
 			</div>

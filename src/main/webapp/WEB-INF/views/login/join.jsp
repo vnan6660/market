@@ -60,8 +60,8 @@
 						<th>주소</th>
 						<td>
 							<ul>
-								<li><input type="text" id="csAddrOne" name="csAddrOne" placeholder="기본 주소" maxlength="40"></li>
-								<li><input type="text" id="csAddrTwo" name="csAddrTwo" placeholder="상세 주소" maxlength="40"></li>
+								<li><input type="text" id="csAddrOne" name="csAddrOne" placeholder="기본 주소" maxlength="30" style="width:307px"></li>
+								<li><input type="text" id="csAddrTwo" name="csAddrTwo" placeholder="상세 주소" maxlength="30" style="width:307px"></li>
 							</ul>
 						</td>
 					</tr>
@@ -85,7 +85,7 @@
 						<th>이메일*</th>
 						<td>
 							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
-							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput">
+							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput" maxlength="15">
 							<select class="w150" id="csEmailTwo" name="csEmailTwo">
 								<option value="선택" id="hidden">선택</option>
 								<option value="naver.com">naver.com</option>

@@ -58,8 +58,8 @@
 						<th>주소</th>
 						<td>
 							<ul>
-								<li><input type="text" value="${csInfo.csAddrOne}" id="csAddrOne" name="csAddrOne" placeholder="기본 주소" maxlength="40" ></li>
-								<li><input type="text" value="${csInfo.csAddrTwo}" id="csAddrTwo" name="csAddrTwo" placeholder="상세 주소" maxlength="40"></li>
+								<li><input type="text" value="${csInfo.csAddrOne}" id="csAddrOne" name="csAddrOne" placeholder="기본 주소" maxlength="30" style="width:307px" ></li>
+								<li><input type="text" value="${csInfo.csAddrTwo}" id="csAddrTwo" name="csAddrTwo" placeholder="상세 주소" maxlength="30" style="width:307px"></li>
 							</ul>
 						</td>
 					</tr>
@@ -85,7 +85,7 @@
 						<td>
 							<input type="hidden" id="hiddenEmail" value="${csInfo.csEmail}">
 							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
-							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput">
+							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput" maxlength="15">
 							<select class="w150" id="csEmailTwo" name="csEmailTwo">
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
