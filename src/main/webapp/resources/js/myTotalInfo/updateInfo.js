@@ -108,24 +108,24 @@ function updateInfo() {
 		var returnValue = false;
 	
 		//유효성검사
-		var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-		var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/;
-		var emailOnly = /^[a-zA-Z0-9_\.\-]+$/;
-		var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;
-		var pattern = /\s/g;
-		var csPs = $("#csPs").val();
-		var csPsConfirm = $("#csPsConfirm").val();
-		var csNm = $("#csNm").val();
-		var csPhoneOne = $("#csPhoneOne").val();
-		var csPhoneTwo = $("#csPhoneTwo").val();
-		var csPhoneThree = $("#csPhoneThree").val();
-		var csPhone = csPhoneOne + csPhoneTwo + csPhoneThree;
-		var csEmailOne = $("#csEmailOne").val();
-		var csEmailWriteInput = $("#csEmailWriteInput").val()
-		var csEmailTwo = $("#csEmailTwo").val();
-		var csEmail = csEmailOne + '@' + csEmailWriteInput + csEmailTwo;
-		if (csEmailTwo == "직접입력") {
-			csEmail = csEmailOne + '@' + csEmailWriteInput;
+		var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/; //영소문자, 특수문자만
+		var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/; //한글과 영어만
+		var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; //영어 대,소문자 (.)(_)(-)특수문자만
+		var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;//숫자만
+		var pattern = /\s/g; //공백확인
+		var csPs = $("#csPs").val();//비밀번호
+		var csPsConfirm = $("#csPsConfirm").val();//비밀번호확인
+		var csNm = $("#csNm").val();//이름
+		var csPhoneOne = $("#csPhoneOne").val();//핸드폰번호 앞자리
+		var csPhoneTwo = $("#csPhoneTwo").val();//핸드폰번호 중간자리
+		var csPhoneThree = $("#csPhoneThree").val();//핸드폰번호 뒷자리
+		var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;//핸드폰번호 전체
+		var csEmailOne = $("#csEmailOne").val();//이메일 앞자리
+		var csEmailWriteInput = $("#csEmailWriteInput").val()//직접 입력한 이메일 도메인
+		var csEmailTwo = $("#csEmailTwo").val();//선택한 도메인
+		var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;//이메일 전체
+		if(csEmailTwo == "직접입력"){
+			csEmail = csEmailOne+'@'+csEmailWriteInput;
 		}
 		//전화번호 속성추가
 		$('input[id=csPhone]').attr('value', csPhone);

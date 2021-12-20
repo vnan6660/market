@@ -35,41 +35,35 @@ $(function(){
 	
 });
 
-
+//회원가입을 하기위한 검증들을 모아놓은 함수
 var validation = function (){
 		//유효성검사
 		var idOnlyEngNum = /^(?=.*?[a-z])(?=.*?[0-9]).{4,16}$/; //(?=.*?[a-z])영문소문자필수, (?=.*?[0-9])숫자필수, {4,16}$4~16자
-		var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-		var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/;
-		var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; 
-		var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;
-		var pattern = /\s/g;
-		var csId = $("#csId").val(); // id가 csId인 selector의 값을 .val()로 가져와 csId라는 변수에 넣는다. (이하 동일)
-		var csPs = $("#csPs").val();
-		var csPsConfirm = $("#csPsConfirm").val();
-		var csNm = $("#csNm").val();
-		var csPhoneOne = $("#csPhoneOne").val();
-		var csPhoneTwo = $("#csPhoneTwo").val();
-		var csPhoneThree = $("#csPhoneThree").val();
-		var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;
-		var csEmailOne = $("#csEmailOne").val();
-		var csEmailWriteInput = $("#csEmailWriteInput").val()
-		var csEmailTwo = $("#csEmailTwo").val();
-		var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;
+		var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/; //영소문자, 특수문자만
+		var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/; //한글과 영어만
+		var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; //영어 대,소문자 (.)(_)(-)특수문자만
+		var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;//숫자만
+		var pattern = /\s/g; //공백확인
+		var csId = $("#csId").val(); //아이디
+		var csPs = $("#csPs").val();//비밀번호
+		var csPsConfirm = $("#csPsConfirm").val();//비밀번호확인
+		var csNm = $("#csNm").val();//이름
+		var csPhoneOne = $("#csPhoneOne").val();//핸드폰번호 앞자리
+		var csPhoneTwo = $("#csPhoneTwo").val();//핸드폰번호 중간자리
+		var csPhoneThree = $("#csPhoneThree").val();//핸드폰번호 뒷자리
+		var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;//핸드폰번호 전체
+		var csEmailOne = $("#csEmailOne").val();//이메일 앞자리
+		var csEmailWriteInput = $("#csEmailWriteInput").val()//직접 입력한 이메일 도메인
+		var csEmailTwo = $("#csEmailTwo").val();//선택한 도메인
+		var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;//이메일 전체
 		if(csEmailTwo == "직접입력"){
 			csEmail = csEmailOne+'@'+csEmailWriteInput;
 		}
 		//전화번호 속성추가
 		$('input[name=csPhone]').attr('value',csPhone);
-		//추가됐는지 확인
-		var get_csPhone = $('input[name=csPhone]').attr('value');
-		console.log("get_csPhone:  "+get_csPhone);
 		
 		//이메일 속성추가
 		$('input[name=csEmail]').attr('value',csEmail);
-		//추가됐는지 확인
-		var get_csEmail = $('input[name=csEmail]').attr('value');
-		console.log("get_csEmail:  "+get_csEmail);
 		
 		// ================ ID ================ //
 		//1. 빈값 안됨
@@ -290,33 +284,3 @@ var validation = function (){
 			}
 		});
 }
-
-///////////////////////////////////////////////////////////////////
-///////////////////////////AJAX모음/////////////////////////////////
-/*
-validation().then(function(ajaxData){
-	if(ajaxData==true){
-		if (confirm('가입하시겠습니까?')) {
-			$.ajax({
-				url: '/login/doJoin',
-				type: 'POST',
-				enctype: 'multipart/form-data',
-				contentType: false,//false 꼭 작성해야함
-				processData: false,//false 꼭 작성해야함,
-				data: new FormData($('#doJoinForm')[0]),
-				success: function() {
-					alert("가입되었습니다");
-					location.href = "/login/loginPage";
-					resolve();
-				},
-				error: function() {
-					alert("오류입니다. 관리자에게 문의해주세요");
-				}
-			});
-		}else{//수정하시겠습니까 취소
-			alert("취소되었습니다");
-		}
-	}
-});
-		
-*/
