@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
+import com.vo.common.CmmnVO;
 
 /**
  * 물품목록 DaoImpl
@@ -28,6 +29,19 @@ public class GoodsListDaoImpl implements GoodsListDao {
 		return sqlSession.selectList("selectGoodsList");
 	}
 
+	/* 상품 구분에 해당하는 상품 분류 가지고 오기 */
+	@Override
+	public List<CmmnVO> selectGoodsSeparate(String goodsGroup) {
+		
+		return sqlSession.selectList("selectGoodsSeparate", goodsGroup);
+	}
+
+	//상품이미지,상세설명의 파일을 포함한 상품등록하기
+	@Override
+	public void insertGoodsReg(GoodsRegVO vo) {
+		sqlSession.insert("insertGoodsReg", vo);
+	}
+	
 	//하나의 물품정보 가져오기
 	@Override
 	public GoodsListVO selectDetailGoods(String gdNo) {
@@ -57,4 +71,5 @@ public class GoodsListDaoImpl implements GoodsListDao {
 	public void showGoodsFalse(ArrayList<String> showNoList) {
 		sqlSession.update("showGoodsFalse",showNoList);
 	}
+
 }

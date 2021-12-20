@@ -87,20 +87,20 @@
 						<td>상품이미지<span style="color: red;"> * </span></td>
 						<td id="img1Wrap">
 							<div class="viewForm img">
-								<img alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}">
+								<img alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}" onerror="this.style.display='none'">
 							</div>
 							<div class="writeForm">
 								<label for="file1">
 									<a>클릭</a>
 								</label>
-								<input id="file1" name="gdImgFile" type="file">
+								<input id="file1" name="gdImgFile" type="file" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)">
 								<!-- 상세에 원래 파일이 없을경우-->
 								<c:if test="${goodsVO.gdImgStr == null}">
 									<span id="blankImage">파일이 없습니다.<br/> 등록해 주세요</span>
 								</c:if>
 								<!-- 상세에 원래 파일이 있는경우-->
 								<c:if test="${goodsVO.gdImgStr != null}">
-									<img id="orginImg" alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}" width="250px;" height="250px;">
+									<img id="orginImg" alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}" width="250px;" height="250px;" onerror="this.style.display='none'">
 								</c:if>
 								<img id="image" src="" alt="이미지" width="250px;" height="250px;"/>
 								
@@ -136,10 +136,10 @@
 						<td>상세설명</td>
 						<td>
 							<div class="viewForm img">
-								<img alt="이미지없음" src="data:image/png;base64,${goodsVO.gdDetlStr}">
+								<img src="data:image/png;base64,${goodsVO.gdDetlStr}" onerror="this.style.display='none'">
 							</div>
 							<div class="writeForm">
-								<input id="file2" name="gdDetlFile" type="file">
+								<input id="file2" name="gdDetlFile" type="file" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)">
 							</div>
 						</td>
 					</tr>

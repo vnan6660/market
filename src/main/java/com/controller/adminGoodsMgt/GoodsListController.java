@@ -3,6 +3,7 @@ package com.controller.adminGoodsMgt;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.service.adminGoodsMgt.GoodsListService;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
+import com.vo.common.CmmnVO;
 
 /**
  * 물품목록 Controller
@@ -65,6 +67,44 @@ public class GoodsListController {
 		model.addAttribute("reList", reList);
 		
 		return "/adminGoodsMgt/goodsList";
+	}
+	
+	/* 물품 등록 페이지 이동 */
+	@RequestMapping("/goodsReg/goodsRegPage")
+	public String goodsRegPage() {
+
+		
+		return "/adminGoodsMgt/goodsReg";
+	}
+
+	@GetMapping("/goodsReg/goodsSeparate")
+	@ResponseBody
+	public List<CmmnVO> goodsSeparate(@RequestParam Map<String, Object> param, Model model) {
+
+		String goodsGroup = String.valueOf(param.get("goodsGroup"));
+		List<CmmnVO> separate = goodsListService.getGoodsSeparate(goodsGroup);
+
+		return separate;
+
+	}
+	
+	//상품이미지,상세설명의 파일을 포함한 상품등록하기
+	@PostMapping("/goodsReg/setGoodsReg")
+	@ResponseBody
+	public void setGoodsReg(GoodsRegVO vo) throws IOException {
+		
+		if (!"".equals(vo.getGdImgFile().getOriginalFilename())) {
+			System.out.println("상품이미지파일(1) 있음");
+			System.out.println(vo.getGdImgFile().getOriginalFilename());
+			vo.setGdImg(vo.getGdImgFile().getBytes());
+		}
+		
+		if (!"".equals(vo.getGdDetlFile().getOriginalFilename())) {
+			System.out.println("상세설명이미지파일(2) 있음");
+			System.out.println(vo.getGdDetlFile().getOriginalFilename());
+			vo.setGdDetl(vo.getGdDetlFile().getBytes());
+		}
+		goodsListService.setGoodsReg(vo);
 	}
 	
 	//물품상세 페이지 가기

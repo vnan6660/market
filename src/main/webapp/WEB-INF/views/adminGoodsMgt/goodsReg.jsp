@@ -66,7 +66,7 @@
 							<label for="file1">
 								<a>클릭</a>
 							</label>
-							<input id="file1" name="gdImgFile" type="file" accept=".jpg, .png">
+							<input id="file1" name="gdImgFile" type="file" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)">
 							<span id="blankImage">파일이 없습니다.<br/> 등록해 주세요</span>
 							<img id="image" src="" alt="이미지" width="250px;" height="250px;"/>
 						</td>
@@ -86,7 +86,7 @@
 					</tr>
 					<tr>
 						<td>상세설명</td>
-						<td><input id="file2" name="gdDetlFile" type="file"></td>
+						<td><input id="file2" name="gdDetlFile" type="file" multiple="multiple" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)"></td>
 					</tr>
 				</table>
 				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>

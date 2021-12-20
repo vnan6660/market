@@ -51,25 +51,54 @@ var attachEvent = function() {
 	});
 
 
+	//저장버튼 클릭시 실행
 	$('#goodsRegBtn').click(function() {
-		if (confirm('저장하시겠습니까?')) {
-			$.ajax({
-				url: '/goodsReg/setGoodsReg',
-				type: 'POST',
-				enctype: 'multipart/form-data',
-				contentType: false,//false 꼭 작성해야함
-				processData: false,//false 꼭 작성해야함
-				data: new FormData($('#goodsForm')[0]),
-				success: function() {
-					alert("저장되었습니다");
-					location.href = "/goodsReg/goodsRegPage";
-				},
-				error: function() {
-					alert("오류입니다. 관리자에게 문의해주세요");
-				}
-			})
+		var reqirefileCheck = $("input[name = gdImgFile]").val();
+		var emptyCheck = 0;
+
+		if (!reqirefileCheck) {
+			alert("상품이미지를 첨부해 주세요");
+			return false;
 		}
+
+		$("input").each(function(i,e) {
+
+			if (e.name != 'gdDetlFile' && $(this).val() == "") {
+				emptyCheck += 1;
+				if (emptyCheck == 1) {
+					$(this).focus();
+				}
+				return alert("필수 입력사항을 입력해주세요");
+			}
+		});
+
+		//빈값이 없을 경우에만 실행
+		if (emptyCheck == 0) {
+			if (confirm('저장하시겠습니까?')) {
+				$.ajax({
+					url: '/goodsReg/setGoodsReg',
+					type: 'POST',
+					enctype: 'multipart/form-data',
+					contentType: false,//false 꼭 작성해야함
+					processData: false,//false 꼭 작성해야함
+					data: new FormData($('#goodsForm')[0]),
+					success: function() {
+						alert("저장되었습니다");
+						location.href = "/goodsReg/goodsRegPage";
+					},
+					error: function() {
+						alert("오류입니다. 관리자에게 문의해주세요");
+					}
+				})
+			}
+		}
+
 	})
+
+	//input Type이 number에서 들어오는 값이 숫자가 아닌경우 빈값으로 변경 
+	$("input[type = number]").keyup(function() {
+		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	});
 }
 
 
@@ -99,5 +128,26 @@ var getGoodsSeparate = function(goodsGroup) {
 var maxLengthCheck = function(object) {
 	if (object.value.length > object.maxLength) {
 		object.value = object.value.slice(0, object.maxLength);
+	}
+}
+
+//파일타입체크
+var chkFileType = function(obj) {
+	var file_kind = obj.value.lastIndexOf('.');
+	var file_name = obj.value.substring(file_kind + 1, obj.length);
+	var file_type = file_name.toLowerCase();
+
+	var checkFileType = new Array();
+
+	checkFileType = ['jpg', 'png', 'jpeg'];
+
+
+	//checkFileType 에서 맞는 fileType이 없어서 -1이 반환될때 실행 
+	if (checkFileType.indexOf(file_type) == -1) {
+		alert('이미지 파일만 선택할 수 있습니다.');
+		var parent_Obj = obj.parentNode
+		var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
+		$("input[name = " + obj.name + "]").val("");
+		return false;
 	}
 }

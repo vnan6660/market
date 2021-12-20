@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dao.adminGoodsMgt.GoodsListDao;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
+import com.vo.common.CmmnVO;
 
 /**
  * 물품목록 ServiceImpl
@@ -28,6 +29,19 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDao.selectGoodsList();
 	}
 
+	/* 상품 구분에 해당하는 상품 분류 가지고 오기 */
+	@Override
+	public List<CmmnVO> getGoodsSeparate(String goodsGroup) {
+		return goodsListDao.selectGoodsSeparate(goodsGroup);
+	}
+	
+	//상품이미지,상세설명의 파일을 포함한 상품등록하기
+	@Override
+	public void setGoodsReg(GoodsRegVO vo) {
+		goodsListDao.insertGoodsReg(vo);
+		
+	}
+	
 	//하나의 물품정보 가져오기
 	@Override
 	public GoodsListVO getDetailGoods(String gdNo) {
@@ -54,4 +68,5 @@ public class GoodsListServiceImpl implements GoodsListService {
 		}
 		goodsListDao.showGoodsFalse(showNoList);
 	}
+	
 }

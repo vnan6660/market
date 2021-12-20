@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
+import com.vo.common.CmmnVO;
 
 /**
  * 물품목록 Dao
@@ -17,6 +18,12 @@ public interface GoodsListDao {
 	//물품목록리스트 가져오기
 	List<GoodsListVO> selectGoodsList();
 
+	//상품 구분에 해당하는 상품 분류 가지고 오기
+	List<CmmnVO> selectGoodsSeparate(String goodsGroup);
+	
+	//상품이미지,상세설명의 파일을 포함한 상품등록하기
+	void insertGoodsReg(GoodsRegVO vo);
+	
 	//하나의 물품정보 가져오기
 	GoodsListVO selectDetailGoods(String gdNo);
 
