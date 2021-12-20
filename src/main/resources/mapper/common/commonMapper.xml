@@ -6,7 +6,7 @@
  
 	 <!-- 공통코드 가져오기 -->
 	 <select id="selectCmmnCd" resultType="com.vo.common.CmmnVO">
-		<!-- commonMapper.selectCmmnCd -->
+	 /*  commonMapper.selectCmmnCd */
 		SELECT *
 		  FROM CMCD_MGT
 	 </select>

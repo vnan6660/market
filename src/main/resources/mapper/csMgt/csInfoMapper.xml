@@ -13,7 +13,7 @@
 
 	<!-- 고객정보 가져오기 -->
 	<select id="selectCsInfo" resultType="com.vo.csMgt.CsInfoVO">
-	<!-- csInfoMapper.selectCsInfo -->
+	 /*  csInfoMapper.selectCsInfo */
 		SELECT
 			CS_NO AS csNo,<!-- 고객번호 -->
 			DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade,<!-- 고객등급 -->
@@ -36,7 +36,7 @@
 	
 	<!-- csNo에 맞는 고객정보 가져오기 -->
 	<select id="selectDetailCsInfo" parameterType="String" resultType="com.vo.csMgt.CsInfoVO">
-	<!-- csInfoMapper.selectDetailCsInfo -->
+	/*  csInfoMapper.selectDetailCsInfo */
 	SELECT
 		CS_NO AS csNo,<!-- 고객번호 -->
 		DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade,<!-- 고객등급 -->

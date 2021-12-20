@@ -6,7 +6,7 @@
 
 	<!-- selectBox에 맞는 권한목록 불러오기 -->
 	<select id="selectAuthMgtList" parameterType="String" resultType="com.vo.menuTotalMgt.MenuMgtVO">
-	<!-- AuthMgyMapper.selectAuthMgtList -->
+	/*  AuthMgtMapper.selectAuthMgtList */
 		SELECT
 		 MU_ID as menuId, <!-- 메뉴아이디 -->
 		 MU_NM as menuNm,<!-- 메뉴이름 -->
@@ -26,7 +26,7 @@
 
 	<!-- check박스 true업데이트 -->
 	<update id="updateAuthMgtListTrue" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-	<!-- AuthMgyMapper.updateAuthMgtListTrue -->
+	/*  AuthMgtMapper.updateAuthMgtListTrue */
 	UPDATE MENU_MGT
 	<if test='authSelect.equals("adminOpt")'>
 	   SET ADMIN_YN = 'Y'<!-- 관리자메뉴노출여부 -->
@@ -42,7 +42,7 @@
 	
 	<!-- check박스 false업데이트 -->		
 	<update id="updateAuthMgtListFalse" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-	<!-- AuthMgyMapper.updateAuthMgtListFalse -->
+	/*  AuthMgtMapper.updateAuthMgtListFalse */
 	 UPDATE MENU_MGT
 	<if test='authSelect.equals("adminOpt")'>
 		SET	ADMIN_YN = 'N'<!-- 관리자메뉴노출여부 -->

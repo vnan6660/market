@@ -176,3 +176,10 @@ var getGoodsSeparate = function(goodsGroup) {
 		}
 	});
 }
+
+//input이 numberType일때의 길이 체크
+var maxLengthCheck = function(object) {
+	if (object.value.length > object.maxLength) {
+		object.value = object.value.slice(0, object.maxLength);
+	}
+}

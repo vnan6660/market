@@ -79,6 +79,12 @@ textarea{
 #goodsRegBtn{
 	margin-left: 66%;
   }
+
+
+#essential{
+	text-align: end;
+    margin: 3% 3% 0 0;
+}
   
 /* -----물품 상세 ------ */
 

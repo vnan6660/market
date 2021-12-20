@@ -1,5 +1,7 @@
 package com.vo.adminGoodsMgt;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
@@ -30,12 +32,12 @@ public class GoodsListVO {
 	private String gdYn;//상품개시
 	private String gdGpNm;//상품구분이름
 	private String gdSpNm;//상품분류이름
+	private Date gdRegdate;//상품생성날짜
+	private byte[] gdImg;//상품이미지(BLOB)
+	private byte[] gdDetl;//상세설명(BLOB)
 	
-	private MultipartFile gdImgFile; //상품이미지(BLOB)
-	private MultipartFile gdDetlFile;//상세설명(BLOB)
-	
-	private byte[] gdImg;//상품이미지배열
-	private byte[] gdDetl;//상세설명배열
+	private MultipartFile gdImgFile; 
+	private MultipartFile gdDetlFile;
 	
 	private String gdImgStr;
 	private String gdDetlStr;

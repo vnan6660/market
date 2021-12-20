@@ -6,7 +6,7 @@
 <mapper namespace="com.dao.adminGoodsMgt.GoodsListDaoImpl">
 	<!-- 물품목록리스트 가져오기 -->
 	<select id="selectGoodsList" resultType="com.vo.adminGoodsMgt.GoodsListVO">
-	<!-- goodsListMapper.selectGoodsList -->
+	/* goodsListMapper.selectGoodsList */
 	SELECT
       a.GD_NO as gdNo<!-- 상품번호 -->
 	 ,a.GD_GP as gdGp<!-- 상품구분 -->
@@ -19,20 +19,20 @@
 	 ,a.GD_PB as gdPb<!-- 상품출판사 -->
 	 ,a.GD_DC as gdDc<!-- 상픔설명 -->
 	 ,a.GD_YN as gdYn<!-- 상품개시 -->
-	 ,a.GD_IMG as gdImg<!-- 상품이미지배열 -->
+	 ,a.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
      ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
      ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
 	 FROM GOODS_INFO a 
-	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD= a.GD_GP
+	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
 	 left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
-	ORDER BY a.GD_NO DESC
+	ORDER BY a.GD_REGDATE DESC
 	</select>
 	
 	<!-- 하나의 물품정보 가져오기 -->
 	<select id="selectDetailGoods" parameterType="String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
-	<!-- goodsListMapper.selectDetailGoods -->
+	/* goodsListMapper.selectDetailGoods */
 	SELECT
-		GD_NO as gdNo<!-- 상품번호 -->
+		 GD_NO as gdNo<!-- 상품번호 -->
 		,GD_GP as gdGp<!-- 상품구분 -->
 		,GD_SP as gdSp<!-- 상품분류 -->
 		,GD_NM as gdNm<!-- 상품이름 -->
@@ -43,15 +43,15 @@
 		,GD_PB as gdPb<!-- 상품출판사 -->
 		,GD_DC as gdDc<!-- 상픔설명 -->
 		,GD_YN as gdYn<!-- 상품개시 -->
-		,GD_IMG as gdImg<!-- 상품이미지배열 -->
-		,GD_DETL as gdDetl<!-- 상세설명배열 -->
+		,GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
+		,GD_DETL as gdDetl<!-- 상세설명(BLOB) -->
 	  FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
 	</select>
 	
 	<!-- 물품상세 수정 하기 -->
 	<update id="updateGoods" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
-	<!-- goodsListMapper.updateGoods -->
+	/* goodsListMapper.updateGoods */
 	UPDATE GOODS_INFO
 	   SET
 	    GD_GP = #{gdGp}
@@ -75,7 +75,7 @@
 	
 	<!-- 물품 삭제 하기-->
 	<delete id="deleteGoods">
-	<!-- goodsListMapper.deleteGoods -->
+	/* goodsListMapper.deleteGoods */
 	DELETE 
 	  FROM GOODS_INFO
 	 WHERE GD_NO IN
@@ -86,7 +86,7 @@
 	
 	<!-- 물품 개시 하기(체크된 것은 true)-->
 	<update id="showGoodsTrue">
-	<!-- goodsListMapper.showGoodsTrue -->
+	/* goodsListMapper.showGoodsTrue */
 	UPDATE GOODS_INFO
 	   SET GD_YN = 'Y'
      WHERE GD_NO IN
@@ -97,7 +97,7 @@
 	
 	<!-- 물품 개시 하기(체크되지 않은것은 false)-->
 	<update id="showGoodsFalse">
-	<!-- goodsListMapper.showGoodsFalse -->
+	/* goodsListMapper.showGoodsFalse */
 	UPDATE GOODS_INFO
 	   SET GD_YN = 'N'
 	<if test="list != null">

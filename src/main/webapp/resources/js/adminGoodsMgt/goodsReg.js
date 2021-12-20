@@ -17,12 +17,12 @@ var init = function() {
 }
 
 var attachEvent = function() {
-	
+
 	//목록버튼 누르면 실행
-	$("#goodsListBtn").click(function(){
+	$("#goodsListBtn").click(function() {
 		history.back(-1);
 	});
-	
+
 	//상품구분 selectBox가 변화되면 실행
 	$("#goodsGroup").change(function() {
 
@@ -93,4 +93,11 @@ var getGoodsSeparate = function(goodsGroup) {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
+}
+
+//input이 numberType일때의 길이 체크
+var maxLengthCheck = function(object) {
+	if (object.value.length > object.maxLength) {
+		object.value = object.value.slice(0, object.maxLength);
+	}
 }

@@ -6,7 +6,7 @@
 
 	<!-- 메뉴관리 메뉴리스트 불러오기 -->
 	<select id="selectMenuList" resultType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!-- menuMgtMapper.selectMenuList -->
+	/*  menuMgtMapper.selectMenuList */
 		SELECT
 			MU_ID as menuId, <!-- 메뉴아이디 -->
 			MU_NM as menuNm,<!-- 메뉴이름 -->
@@ -23,7 +23,7 @@
 
 	<!-- 메뉴관리 상위코드 불러오기 -->
 	<select id="selectUpCd" resultType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--menuMgtMapper.selectUpCd -->
+		/*  menuMgtMapper.selectUpCd */
 		SELECT
 		    MU_NM as menuNm,<!-- 메뉴이름 -->
 		    MU_CD as menuCd <!-- 메뉴코드 -->
@@ -33,7 +33,7 @@
 
 	<!-- 메뉴관리 하나의 메뉴정보 가져오기 -->
 	<select id="selectMenuMgt" parameterType="string" resultType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--menuMgtMapper.selectMenuMgt -->
+		/*  menuMgtMapper.selectMenuMgt */
 		SELECT
 			MU_ID as menuId,<!-- 메뉴아이디 -->
 			MU_NM as menuNm,<!-- 메뉴이름 -->
@@ -48,7 +48,7 @@
 
 	<!-- 메뉴관리 입력 -->
 	<insert id="setMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--menuMgtMapper.setMenuMgt -->
+	/*  menuMgtMapper.setMenuMgt */
 		INSERT INTO MENU_MGT
 		(  MU_ID
 		 , MU_NM
@@ -71,7 +71,7 @@
 
 	<!-- 메뉴관리 업데이트 -->
 	<update id="updateMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--menuMgtMapper.updateMenuMgt -->
+	/*  menuMgtMapper.updateMenuMgt */
 		UPDATE MENU_MGT
 		   SET
 		    MU_NM = #{menuNm}, <!-- 메뉴이름 -->
@@ -85,7 +85,7 @@
 
     <!-- 메뉴관리 삭제 -->
 	<delete id="deleteMenuMgt" parameterType="string">
-		<!--menuMgtMapper.deleteMenuMgt -->
+	/*  menuMgtMapper.deleteMenuMgt */
 		DELETE
 		FROM MENU_MGT
 		WHERE MU_ID = #{menuId} <!-- 메뉴아이디 -->
@@ -93,7 +93,7 @@
 
 	<!-- 상위 메뉴의 adminYn 이 'N'인경우 아래의 메뉴의 adminYn,userYn을 'N'로 업데이트 -->
 	<update id="updateUnderMenuMgt" parameterType="com.vo.menuTotalMgt.MenuMgtVO">
-		<!--menuMgtMapper.updateUnderMenuMgt -->
+		/*  menuMgtMapper.updateUnderMenuMgt */
 		UPDATE MENU_MGT
 		   SET
 		<if test='onlyUserYn.equals("false")'>

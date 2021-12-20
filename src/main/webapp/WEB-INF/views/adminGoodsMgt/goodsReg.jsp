@@ -19,13 +19,14 @@
 		<hr>
 		<div id="goodsRegWrap">
 			<form id="goodsForm">
+				<div id="essential"><span style="color: red;"> * </span>표시는 필수 입력사항입니다</div>
 				<table>
 					<colgroup>
-						<col width="20%">
-						<col width="80%">
+						<col width="30%">
+						<col width="70%">
 					</colgroup>
 					<tr>
-						<td>상품구분/상품분류</td>
+						<td>상품구분/상품분류<span style="color: red;"> * </span></td>
 						<td>
 							<select id="goodsGroup" name="gdGp">
 								<option value="bestBook">베스트도서</option>
@@ -39,19 +40,19 @@
 					</tr>
 					
 					<tr>
-						<td>상품이름</td>
+						<td>상품이름<span style="color: red;"> * </span></td>
 						<td>
-							<input type="text" name="gdNm" maxlength="50">
+							<input type="text" name="gdNm" maxlength="30">
 						</td>
 					</tr>
 					<tr>
-						<td>재고</td>
+						<td>재고<span style="color: red;"> * </span></td>
 						<td>
-							<input type="number" name="gdCnt">
+							<input type="number" name="gdCnt" maxlength="15" oninput="maxLengthCheck(this)">
 						</td>
 					</tr>
 					<tr>
-						<td>상품개시</td>
+						<td>상품개시<span style="color: red;"> * </span></td>
 						<td>
 							<select id="gdYn" name="gdYn">
 								<option value="Y">Y</option>
@@ -60,23 +61,28 @@
 						</td>
 					</tr>
 					<tr>
-						<td>상품이미지</td>
+						<td>상품이미지<span style="color: red;"> * </span></td>
 						<td id="img1Wrap">
 							<label for="file1">
 								<a>클릭</a>
 							</label>
-							<input id="file1" name="gdImgFile" type="file">
+							<input id="file1" name="gdImgFile" type="file" accept=".jpg, .png">
 							<span id="blankImage">파일이 없습니다.<br/> 등록해 주세요</span>
 							<img id="image" src="" alt="이미지" width="250px;" height="250px;"/>
 						</td>
 					</tr>
 					<tr>
-						<td>상세정보</td>
-						<td id="goodsDetailInfo"><input type="text" name="gdPage" placeholder="쪽"><input type="text" name="gdThick" placeholder="mm"><input type="text" name="gdWr" placeholder="작가"><input type="text" name="gdPb" placeholder="출판사"></td>
+						<td>상세정보<span style="color: red;"> * </span></td>
+						<td id="goodsDetailInfo">
+							<input type="number" name="gdPage" placeholder="쪽" maxlength="25" oninput="maxLengthCheck(this)">쪽
+							<input type="number" name="gdThick" placeholder="mm" maxlength="25" oninput="maxLengthCheck(this)">mm
+							<input type="text" name="gdWr" placeholder="작가" maxlength="16">작가
+							<input type="text" name="gdPb" placeholder="출판사" maxlength="16">출판사
+						</td>
 					</tr>
 					<tr>
-						<td>상품설명</td>
-						<td><textarea name="gdDc" rows="5" cols="50" maxlength="500"></textarea></td>
+						<td>상품설명<span style="color: red;"> * </span></td>
+						<td><textarea name="gdDc" rows="5" cols="50" maxlength="1300"></textarea></td>
 					</tr>
 					<tr>
 						<td>상세설명</td>

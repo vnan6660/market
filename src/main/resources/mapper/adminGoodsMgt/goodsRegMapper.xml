@@ -7,7 +7,7 @@
 
 	<!-- 상품 구분에 해당하는 상품 분류 가지고 오기 -->
 	<select id="selectGoodsSeparate" parameterType="String" resultType="com.vo.common.CmmnVO">
-	<!-- goodsRegMapper.selectGoodsSeparate -->
+	/* goodsRegMapper.selectGoodsSeparate */
 	SELECT *
 	  FROM CMCD_MGT
 	 WHERE CM_UPCD = #{goodsGroup}
@@ -15,7 +15,7 @@
 
 	<!-- 상품이미지,상세설명의 파일을 포함한 상품등록하기 -->
 	<insert id="insertGoodsReg" parameterType="com.vo.adminGoodsMgt.GoodsRegVO">
-	<!-- goodsRegMapper.insertGoodsReg -->
+	/*  goodsRegMapper.insertGoodsReg */
 	INSERT INTO GOODS_INFO
 		(GD_NO
 		,GD_GP
@@ -33,7 +33,8 @@
 		</if>
 		<if test='gdDetl != null'>
 		,GD_DETL
-		</if>)
+		</if>
+		,GD_REGDATE)
 	VALUES
 		(TO_CHAR(GOODS_INFO_SEQ.NEXTVAL)
 		 ,#{gdGp}
@@ -51,7 +52,8 @@
 		 </if>
 		 <if test='gdDetl != null'>
 		 ,#{gdDetl}
-		</if>)
+		</if>
+		 ,sysdate)
 	</insert>
 
 </mapper>

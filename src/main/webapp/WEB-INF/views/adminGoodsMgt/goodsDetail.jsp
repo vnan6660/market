@@ -19,13 +19,14 @@
 		<hr>
 		<div id="goodsRegWrap">
 			<form id="goodsForm">
+				<div id="essential"><span style="color: red;"> * </span>표시는 필수 입력사항입니다</div>
 				<table>
 					<colgroup>
-						<col width="20%">
-						<col width="80%">
+						<col width="25%">
+						<col width="75%">
 					</colgroup>
 					<tr>
-						<td>상품구분/상품분류</td>
+						<td>상품구분/상품분류<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
 							<input id="hdGp" type="hidden" value="${goodsVO.gdGp}">
@@ -46,29 +47,29 @@
 					</tr>
 					
 					<tr>
-						<td>상품이름</td>
+						<td>상품이름<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
 								<c:out value="${goodsVO.gdNm}"></c:out>
 							</div>
 							<div class="writeForm">
-								<input type="text" name="gdNm" maxlength="50" value="${goodsVO.gdNm}">
+								<input type="text" name="gdNm" maxlength="30" value="${goodsVO.gdNm}">
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td>재고</td>
+						<td>재고<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
 								<c:out value="${goodsVO.gdCnt}"></c:out>
 							</div>
 							<div class="writeForm">
-								<input type="number" name="gdCnt" value="${goodsVO.gdCnt}">
+								<input type="number" name="gdCnt" maxlength="15" oninput="maxLengthCheck(this)" value="${goodsVO.gdCnt}">
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td>상품개시</td>
+						<td>상품개시<span style="color: red;"> * </span></td>
 						
 						<td>
 							<div class="viewForm">
@@ -83,7 +84,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>상품이미지</td>
+						<td>상품이미지<span style="color: red;"> * </span></td>
 						<td id="img1Wrap">
 							<div class="viewForm img">
 								<img alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}">
@@ -107,27 +108,27 @@
 						</td>
 					</tr>
 					<tr>
-						<td>상세정보</td>
+						<td>상세정보<span style="color: red;"> * </span></td>
 						<td id="goodsDetailInfo">
 							<div class="viewForm">
 							<p>${goodsVO.gdPage}쪽,${goodsVO.gdThick}mm,${goodsVO.gdWr}작가,${goodsVO.gdPb}출판사</p>
 							</div>
 							<div class="writeForm">
-								<input type="text" name="gdPage" placeholder="쪽" value="${goodsVO.gdPage}">
-								<input type="text" name="gdThick" placeholder="mm" value="${goodsVO.gdThick}">
-								<input type="text" name="gdWr" placeholder="작가" value="${goodsVO.gdWr}">
-								<input type="text" name="gdPb" placeholder="출판사" value="${goodsVO.gdPb}">
+								<input type="number" name="gdPage" placeholder="쪽" maxlength="25" oninput="maxLengthCheck(this)" value="${goodsVO.gdPage}">쪽
+								<input type="number" name="gdThick" placeholder="mm" maxlength="25" oninput="maxLengthCheck(this)" value="${goodsVO.gdThick}">mm
+								<input type="text" name="gdWr" placeholder="작가" maxlength="16" value="${goodsVO.gdWr}"> 작가
+								<input type="text" name="gdPb" placeholder="출판사" maxlength="16" value="${goodsVO.gdPb}">출판사
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td>상품설명</td>
+						<td>상품설명<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
-							<c:out value="${goodsVO.gdDc}"></c:out>
+							<div><c:out value="${goodsVO.gdDc}"></c:out></div>
 							</div>
 							<div class="writeForm">
-								<textarea name="gdDc" rows="5" cols="50" maxlength="500">${goodsVO.gdDc}</textarea>
+								<textarea name="gdDc" rows="5" cols="50" maxlength="1300">${goodsVO.gdDc}</textarea>
 							</div>
 						</td>
 					</tr>
