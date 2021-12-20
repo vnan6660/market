@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="debug">
+
+	<Appenders>
+		<!-- 콜솔 -->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n" />
+		</Console>
+
+		<!--추가된 부분 -->
+		<Console name="console-infolog"
+			class="org.apache.log4j.ConsoleAppender">
+			<layout class="org.apache.log4j.PatternLayout">
+				<param name="ConversionPattern" value="%d %5p %m%n" />
+			</layout>
+		</Console>
+		<!-- -->
+	</Appenders>
+
+	<loggers>
+		<root level="debug" additivity="true">
+			<AppenderRef ref="console" />
+		</root>
+	</loggers>
+
+	<logger name="com.main.controller">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="org.springframework.beans">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="org.springframework.context">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<!-- 추가된 부분 -->
+	<!-- Query Loggers -->
+	<Logger name="jdbc.sqlonly" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="console-infolog" />
+	</Logger>
+	<!-- -->
+
+	<Logger name="java.sql">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+	</Logger>
+
+	<Logger name="jdbc.sqltiming">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+	</Logger>
+</configuration>
