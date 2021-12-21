@@ -50,11 +50,8 @@ public class GoodsListController {
 			vo.setGdSp(list.get(i).getGdSp());
 			vo.setGdSpNm(list.get(i).getGdSpNm());
 			vo.setGdNm(list.get(i).getGdNm());
+			vo.setGdPrice(list.get(i).getGdPrice());
 			vo.setGdCnt(list.get(i).getGdCnt());
-			vo.setGdPage(list.get(i).getGdPage());
-			vo.setGdThick(list.get(i).getGdThick());
-			vo.setGdWr(list.get(i).getGdWr());
-			vo.setGdPb(list.get(i).getGdPb());
 			vo.setGdYn(list.get(i).getGdYn());
 			
 			if (list.get(i).getGdImg() != null) {

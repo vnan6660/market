@@ -51,11 +51,13 @@ var attachEvent = function() {
 		$("input").each(function(i, e) {
 
 			if (e.name != 'gdDetlFile' && $(this).val() == "") {
-				emptyCheck += 1;
+				if (e.name != 'gdImgFile') {
+					emptyCheck += 1;
+				}
 				if (emptyCheck == 1) {
 					$(this).focus();
+					return alert("필수 입력사항을 입력해주세요");
 				}
-				return alert("필수 입력사항을 입력해주세요");
 			}
 		});
 

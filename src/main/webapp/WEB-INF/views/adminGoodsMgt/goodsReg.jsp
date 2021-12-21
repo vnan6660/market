@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +39,17 @@
 							</select>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>상품이름<span style="color: red;"> * </span></td>
 						<td>
 							<input type="text" name="gdNm" maxlength="30">
+						</td>
+					</tr>
+					<tr>
+						<td>상품가격<span style="color: red;"> * </span></td>
+						<td>
+							<input type="number" name="gdPrice" maxlength="15" oninput="maxLengthCheck(this)">
+							<span>원</span>
 						</td>
 					</tr>
 					<tr>

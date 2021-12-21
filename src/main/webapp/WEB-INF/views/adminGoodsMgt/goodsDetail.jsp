@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +56,21 @@
 							<div class="writeForm">
 								<input type="text" name="gdNm" maxlength="30" value="${goodsVO.gdNm}">
 							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>상품가격<span style="color: red;"> * </span></td>
+						<td>
+							<div class="viewForm">
+								<fmt:formatNumber value="${goodsVO.gdPrice}" pattern="#,###"/>
+								<span>원</span>
+							</div>
+							<div class="writeForm">
+								<input type="number" name="gdPrice" maxlength="15" oninput="maxLengthCheck(this)" value="${goodsVO.gdPrice}">
+								<span>원</span>
+							</div>
+						
+							
 						</td>
 					</tr>
 					<tr>

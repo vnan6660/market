@@ -19,6 +19,7 @@
 	 ,a.GD_PB as gdPb<!-- 상품출판사 -->
 	 ,a.GD_DC as gdDc<!-- 상픔설명 -->
 	 ,a.GD_YN as gdYn<!-- 상품개시 -->
+	 ,a.GD_PRICE as gdPrice<!-- 상품가격 -->
 	 ,a.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
      ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
      ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
@@ -51,6 +52,7 @@
 		,GD_PB
 		,GD_DC
 		,GD_YN
+		,GD_PRICE
 		<if test='gdImg != null'>
 		,GD_IMG
 		</if>
@@ -70,6 +72,7 @@
 		 ,#{gdPb}
 		 ,#{gdDc}
 		 ,#{gdYn}
+		 ,#{gdPrice}
 		 <if test='gdImg != null'>
 		 ,#{gdImg}
 		 </if>
@@ -94,6 +97,7 @@
 		,GD_PB as gdPb<!-- 상품출판사 -->
 		,GD_DC as gdDc<!-- 상픔설명 -->
 		,GD_YN as gdYn<!-- 상품개시 -->
+		,GD_PRICE as gdPrice<!-- 상품가격 -->
 		,GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
 		,GD_DETL as gdDetl<!-- 상세설명(BLOB) -->
 	  FROM GOODS_INFO
@@ -115,6 +119,7 @@
 	   ,GD_PB = #{gdPb}
 	   ,GD_DC = #{gdDc}
 	   ,GD_YN = #{gdYn}
+	   ,GD_PRICE = #{gdPrice}
 	<if test='gdImg != null'>
 	   ,GD_IMG = #{gdImg}
 	</if>
