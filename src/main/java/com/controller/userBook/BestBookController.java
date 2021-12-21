@@ -2,7 +2,9 @@ package com.controller.userBook;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.userBook.BestBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.common.SearchVO;
+import com.vo.questTotalBoard.NoticeVO;
 
 /**
  * 베스트도서 Controller 
@@ -94,7 +99,26 @@ public class BestBookController {
 	
 	
 	
-	
+	/* 베스트도서 검색 */
+//	@GetMapping("/bestBook/searchBestBook")
+//	@ResponseBody
+//	public Map<String, Object> searchBestBook(SearchVO vo) {
+//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//
+//		int listcount = bestBookService.getListCount(vo);
+//
+//		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+//
+//		List<NoticeVO> bestBookList = bestBookService.getNoticeList(searchVO);
+//
+//		resultMap.put("bestBookList", bestBookList);
+//		resultMap.put("maxPage", searchVO.getMaxpage());
+//		resultMap.put("page", searchVO.getPage());
+//		resultMap.put("startpage", searchVO.getStartpage());
+//		resultMap.put("endpage", searchVO.getEndpage());
+//
+//		return resultMap;
+//	}
 	
 	
 	

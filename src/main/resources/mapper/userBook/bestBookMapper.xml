@@ -50,4 +50,38 @@
 	 FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
 	</select>
+	
+	
+	<!-- 검색글카운트 -->
+	<select id="getListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  bestBookMapper.getListCount */
+		SELECT COUNT(*)
+		  FROM GOODS_INFO
+		 WHERE 1 = 1
+		<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
+			AND GD_GP = 'optAll'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("special")'>
+			AND GD_GP = 'child'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("general")'>
+			AND GD_GP = 'general'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("foreign")'>
+			AND GD_GP = 'foreign'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("child")'>
+			AND GD_GP = 'child'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("magazine")'>
+			AND GD_GP = 'magazine'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("it")'>
+			AND GD_GP = 'it'
+		</if>
+		<if test='selectOptValOne != null and selectOptValOne.equals("exam")'>
+			AND GD_GP = 'exam'
+		</if>
+		AND (GD_NM || GD_WR || GD_PB LIKE'%'||#{searchVal}||'%')
+	</select>
 </mapper>

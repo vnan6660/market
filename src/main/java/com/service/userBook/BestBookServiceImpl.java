@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.userBook.BestBookDao;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.common.SearchVO;
 
 
 /**
@@ -26,11 +27,12 @@ public class BestBookServiceImpl implements BestBookService {
 		return bestBookDao.getBestBook();
 	}
 
-	//선택된 베스트 도서 정보 가져오기
 	@Override
 	public GoodsListVO getBestDtl(String gdNo) {
 		return bestBookDao.getBestDtl(gdNo);
 	}
+
+
 
 	
 	

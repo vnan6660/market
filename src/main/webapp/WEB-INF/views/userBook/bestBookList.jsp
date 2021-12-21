@@ -17,14 +17,39 @@
 <main id="contents-bestBook-list" class="join">
 	<h2>베스트 도서</h2>
 	<hr>
-	
 	<!-- 본문리스트 -->
-	<div>
+	<div class="contents-wrap">
 		<!-- select, 검색 -->
-		<div class="wrap-select-search flex">
+		<div class="flex h30" id="ssWrap">
+			<div id="dateWrap">
+				<input type="date" id="startDt">
+				<p style="display: inline;"> ~ </p>
+				<input type="date" id="endDt" class="mr10">
+			</div>
+			<div id="selectWrap">
+				<!-- <select id="goodsGroup">
+					<option value="optAll">전체</option>
+					<option value="bestBook">베스트도서</option>
+				</select> -->
+			
+				<select id="goodsSeparate">
+				</select>
+			
+				<select class="mr10" id="goodsNmNbrm">
+					<option value="optAll">전체</option>
+					<option value="gdsName">상품이름</option>
+					<!-- <option value="gdsNmbr">상품번호</option> -->
+				</select>
+			</div>
+			<div id="searchWrap">
+				<input type="search"  class="mr5" id="searchVal" placeholder="검색어를 입력해주세요" />
+			</div>
+			<button id="goSearch" class="hover">검색</button>
+		</div>
+		<!-- <div class="wrap-select-search flex">
 			<div class="wrap-select">
 				<select id="goodsGroup">
-					<option value="">전체</option>
+					<option value="optAll">전체</option>
 					<option value="special">전문서적</option>
 					<option value="general">일반서적</option>
 					<option value="foreign">외국어</option>
@@ -38,7 +63,7 @@
 				<input type="search" id="searchVal" placeholder="검색어를 입력해주세요" />
 				<button id="goSearch" class="hover">검색</button>
 			</div>
-		</div>
+		</div> -->
 		
 		<!-- 상품리스트 박스 -->
 		<div class="bestBook-list-wrap">
@@ -51,10 +76,11 @@
 						</td>
 						<td valign="top" width="800px">
 							<ul>
-								<li class="li"><span id="imgNm" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
-								<li class="li"><span class="hover gdInfo" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
-								<li class="li"><span id="gdDc" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
-								<li class="li"><span id="imgPrice" class="hover" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
+								<li class="li"><span hidden id="gdGp" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGp}</span></li>
+								<li class="li"><span id="imgNm" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
+								<li class="li"><span class="hover f12" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo f12" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
+								<li class="li"><span id="gdDc" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
+								<li class="li"><span id="imgPrice" class="hover f14" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
 							</ul>
 						</td>
 						<td width="150px">
@@ -66,9 +92,18 @@
 			</div>
 		</div>
 	</div>
-	
 	<!-- 페이징 -->
-	<div>
+	<div id="pageList">
+		<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+		<c:if test="${cnt == 1}">
+			<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
+		</c:if>
+		<c:if test="${cnt != 1}">
+			<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
+		</c:if>
+			
+		</c:forEach>
+		<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
 	</div>
 </main>
 </body>

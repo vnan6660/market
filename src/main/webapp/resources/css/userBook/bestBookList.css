@@ -10,6 +10,23 @@ input, select{
 	padding: 5px;
 }
 
+.flex{
+	display: flex;
+	align-items: center;
+}
+
+.h30{
+	height: 30px;
+}
+
+.mr10{
+	margin-right: 10px;
+}
+
+.mr5{
+	margin-right: 5px;
+}
+
 #contents-bestBook-list {
 	position: absolute;
 	margin: 5% auto;
@@ -22,29 +39,34 @@ input, select{
 	flex-direction: column;
 	align-content: stretch;
 }
-.flex{
-	display: flex;
-	justify-content: space-between;
+
+#ssWrap{
+	margin-top: 10px;
+}
+#dateWrap>input{
+	width: 126px;
+	height: 25px;
+	font-size: 12px;
+}
+#goodsSeparate{
+	height: 25px;
+	font-size: 12px;
+}
+#goodsNmNbrm{
+	height: 25px;
+	font-size: 12px;
+}
+#searchWrap>input{
+	height: 25px;
+	font-size: 12px;
+}
+#goSearch{
+	width: 37px;
+    height: 25px;
+	font-size: 12px;
 }
 
-.wrap-select>select{
-	width: 150px;
-	height: 35px;
-	margin-top: 10px;
-}
-.wrap-search>input{
-	width: 350px;
-	height: 35px;
-	margin-top: 10px;
-	margin-left: 50px;
-}
-.wrap-search>button{
-	width: 100px;
-	height: 35px;
-	margin-top: 10px;
-	margin-left: 10px;
-}
-
+/* /////////////////////////////// */
 .bestBook-list-wrap{
 	margin-top: 50px;
 }
@@ -59,8 +81,8 @@ input, select{
 }
 
 #img {
-	width: 180px;
-    height: 250px;
+	width: 100px;
+    height: 133px;
 	object-fit: cover;
 }
 
@@ -72,13 +94,12 @@ input, select{
 	height: 20px;
 	color: #3774B1;
 	font-weight: bold;
-	font-size: 16px;
 }
-.gdInfo{
-	font-size: 12px;
-}
-#gdDc{
+.f14{
 	font-size: 14px;
+}
+.f12{
+	font-size: 12px;
 }
 
 #imgPrice{
