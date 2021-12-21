@@ -60,7 +60,7 @@ input, select{
 
 #img {
 	width: 180px;
-    height: 231px;
+    height: 250px;
 	object-fit: cover;
 }
 
@@ -72,10 +72,24 @@ input, select{
 	height: 20px;
 	color: #3774B1;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 16px;
+}
+.gdInfo{
+	font-size: 12px;
+}
+#gdDc{
+	font-size: 14px;
+}
+
+#imgPrice{
+	color: #e45374;
 }
 
 #cartBtn{
 	width: 100% !important;
 	background-color: darkolivegreen;
+}
+
+.li{
+	margin-bottom: 10px;	
 }

@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>page</title>
 <link rel="shortcut icon" href="#">
-<script src="webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/userBook/bestBook/bestBookList.css">
+<script src="/webjars/jquery/3.4.1/jquery.js"></script>
+<link rel="stylesheet" href="/css/userBook/bestBookList.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/userBook/bestBook.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
@@ -49,13 +51,13 @@
 						</td>
 						<td valign="top" width="800px">
 							<ul>
-								<li><span id="imgNm" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
-								<li><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
-								<li><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
-								<li><span id="imgPrice" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdPrice}원</span></li>
+								<li class="li"><span id="imgNm" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
+								<li class="li"><span class="hover gdInfo" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
+								<li class="li"><span id="gdDc" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
+								<li class="li"><span id="imgPrice" class="hover" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
 							</ul>
 						</td>
-						<td>
+						<td width="150px">
 							<button id="cartBtn">장바구니</button>
 						</td>
 					</tr>

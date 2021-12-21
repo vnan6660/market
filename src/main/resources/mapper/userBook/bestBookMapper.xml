@@ -26,7 +26,28 @@
 	 FROM GOODS_INFO a 
 	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
 	 left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+	WHERE a.GD_YN = 'Y'
 	ORDER BY a.GD_REGDATE DESC
 	</select>
 
+	<!-- 선택된 베스트 도서 정보 가져오기 -->
+	<select id="getBestDtl" parameterType="String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	/* bestBookMapper.getBestDtl */
+	SELECT
+	      GD_NO as gdNo<!-- 상품번호 -->
+		 ,GD_GP as gdGp<!-- 상품구분 -->
+		 ,GD_SP as gdSp<!-- 상품분류 -->
+		 ,GD_NM as gdNm<!-- 상품이름 -->
+		 ,GD_CNT as gdCnt<!-- 상품재고 -->
+		 ,GD_PAGE as gdPage<!-- 상품페이지 -->
+		 ,GD_THICK as gdThick<!-- 상품두께 -->
+	     ,GD_WR as gdWr<!-- 상품작가 -->
+		 ,GD_PB as gdPb<!-- 상품출판사 -->
+		 ,GD_DC as gdDc<!-- 상픔설명 -->
+		 ,GD_YN as gdYn<!-- 상품개시 -->
+		 ,GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
+		 ,GD_PRICE as gdPrice<!-- 상품가격 -->
+	 FROM GOODS_INFO
+	 WHERE GD_NO = #{gdNo}
+	</select>
 </mapper>

@@ -1,16 +1,15 @@
-package com.controller.userBook.bestBook;
+package com.controller.userBook;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.service.userBook.BestBookService;
@@ -62,11 +61,28 @@ public class BestBookController {
 		
 		model.addAttribute("reList", reList);
 		
-		return "/userBook/bestBook/bestBookList";
+		return "/userBook/bestBookList";
 	}
 	
 	
-	
+	// 베스트도서 상세 페이지 연결
+	@GetMapping("/bestBook/bestBookDetail/{gdNo}")
+	public String getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
+		
+		//하나의 물품정보 가져오기
+		GoodsListVO goodsVO = bestBookService.getBestDtl(gdNo);
+		
+		if(goodsVO.getGdImg() != null) {
+			goodsVO.setGdImgStr( new String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8"));
+		}
+		if(goodsVO.getGdDetl() != null) {
+			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8"));
+		}
+		
+		model.addAttribute("goodsVO", goodsVO);
+		
+		return "/userBook/bestBookDetail";
+	}
 	
 	
 	

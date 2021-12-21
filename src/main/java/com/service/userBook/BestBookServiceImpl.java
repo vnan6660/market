@@ -26,6 +26,12 @@ public class BestBookServiceImpl implements BestBookService {
 		return bestBookDao.getBestBook();
 	}
 
+	//선택된 베스트 도서 정보 가져오기
+	@Override
+	public GoodsListVO getBestDtl(String gdNo) {
+		return bestBookDao.getBestDtl(gdNo);
+	}
+
 	
 	
 
