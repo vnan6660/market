@@ -28,7 +28,7 @@ input, select{
 }
 
 .wrap-select>select{
-	width: 200px;
+	width: 150px;
 	height: 35px;
 	margin-top: 10px;
 }
@@ -47,4 +47,35 @@ input, select{
 
 .bestBook-list-wrap{
 	margin-top: 50px;
+}
+
+.flexTable{
+    display: flex;
+    flex-direction: column;
+}
+
+#bestBookTable{
+	margin-bottom: 20px;
+}
+
+#img {
+	width: 180px;
+    height: 231px;
+	object-fit: cover;
+}
+
+#imgNm{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 380px;
+	height: 20px;
+	color: #3774B1;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#cartBtn{
+	width: 100% !important;
+	background-color: darkolivegreen;
 }

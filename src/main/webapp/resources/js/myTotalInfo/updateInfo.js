@@ -73,7 +73,6 @@ $(function() {
 
 	//수정버튼 눌렀을 시 시행되는 함수
 	$('#updateInfoBtn').click(function() {
-		console.log('00');
 		if(!updateInfo()) return; //updateInfo()가 false면 return;
 		if(!emailCheck()) return; //emailCheck()가 false면 return;
 		
@@ -86,7 +85,6 @@ $(function() {
 				processData: false,//false 꼭 작성해야함,
 				data: new FormData($('#updateInfoForm')[0]),
 				success: function() {
-					console.log('33');
 					alert("수정되었습니다");
 					location.href = "/myInfo/myInfoPage";
 				},
@@ -141,7 +139,6 @@ function emailCheck() {
 }	
 
 function updateInfo() {
-	console.log('11updateInfo()');
 	var returnValue = false;
 
 	//유효성검사

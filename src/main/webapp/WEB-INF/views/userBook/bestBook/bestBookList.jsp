@@ -21,13 +21,15 @@
 		<!-- select, 검색 -->
 		<div class="wrap-select-search flex">
 			<div class="wrap-select">
-				<select>
-					<option>선택</option>
-				</select>
-				<select id="goodsNmNbrm">
+				<select id="goodsGroup">
 					<option value="">전체</option>
-					<option value="gdsName">상품이름</option>
-					<option value="gdsNmbr">상품번호</option>
+					<option value="special">전문서적</option>
+					<option value="general">일반서적</option>
+					<option value="foreign">외국어</option>
+					<option value="child">아동</option>
+					<option value="magazine">잡지</option>
+					<option value="it">IT</option>
+					<option value="exam">수험서</option>
 				</select>
 			</div>
 			<div class="wrap-search flex">
@@ -38,52 +40,30 @@
 		
 		<!-- 상품리스트 박스 -->
 		<div class="bestBook-list-wrap">
-			<div class="flex">
-				<div>
-					<img src="/images/bestBook/k962835911_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k962835911_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k962835911_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k962835911_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-			</div>
-			<div class="flex">
-				<div>
-					<img src="/images/bestBook/k472835717_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k472835717_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k472835717_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
-				<div>
-					<img src="/images/bestBook/k472835717_1.jpg">
-					<div>상품이름</div>
-					<div>4500원</div>
-				</div>
+			<div class="flexTable">
+			<c:forEach items="${reList}" var="vo">
+				<table id="bestBookTable">
+					<tr>
+						<td width="200px">
+							<img id="img" class="img hover" onclick="goDetail(${vo.gdNo})" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
+						</td>
+						<td valign="top" width="800px">
+							<ul>
+								<li><span id="imgNm" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
+								<li><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
+								<li><span class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
+								<li><span id="imgPrice" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdPrice}원</span></li>
+							</ul>
+						</td>
+						<td>
+							<button id="cartBtn">장바구니</button>
+						</td>
+					</tr>
+				</table>
+			</c:forEach>
 			</div>
 		</div>
-		
+	</div>
 	
 	<!-- 페이징 -->
 	<div>
