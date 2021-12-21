@@ -12,6 +12,8 @@ import lombok.Setter;
  * 물품목록 VO
  * 생성자 : 김소연 
  * 생성일 : 2021.12.16
+ * 수정자 : 김혜경
+ * 생성일 : 2021.12.21
  */
 
 @Getter
@@ -33,6 +35,7 @@ public class GoodsListVO {
 	private String gdGpNm;//상품구분이름
 	private String gdSpNm;//상품분류이름
 	private Date gdRegdate;//상품생성날짜
+	private String gdPrice;//상품가격
 	private byte[] gdImg;//상품이미지(BLOB)
 	private byte[] gdDetl;//상세설명(BLOB)
 	

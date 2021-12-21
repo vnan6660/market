@@ -11,6 +11,8 @@ import lombok.Setter;
  * 물품등록 VO
  * 생성자 : 김소연 
  * 생성일 : 2021.12.15
+ * 수정자 : 김혜경
+ * 생성일 : 2021.12.21
  */
 
 @Getter
@@ -31,6 +33,7 @@ public class GoodsRegVO {
 	private byte[] gdImg;//상품이미지(BLOB)
 	private byte[] gdDetl;//상세설명(BLOB)
 	private Date gdRegdate;//상품생성날짜
+	private String gdPrice;//상품가격
 	private MultipartFile gdImgFile; 
 	private MultipartFile gdDetlFile;
 	
