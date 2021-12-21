@@ -18,14 +18,14 @@ var attachEvent = function() {
 
 	//관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택
 	$("#adminSelect").change(function() {
-		if($("#adminSelect option:selected").val() == "N"){
+		if ($("#adminSelect option:selected").val() == "N") {
 			$("#userSelect").val("N").prop("selected", true);
 		}
 	});
-	
+
 	//사용자화면 사용여부를 변경시 관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택
 	$("#userSelect").change(function() {
-		if($("#adminSelect option:selected").val() == "N"){
+		if ($("#adminSelect option:selected").val() == "N") {
 			$("#userSelect").val("N").prop("selected", true);
 		}
 	});
@@ -64,21 +64,9 @@ var attachEvent = function() {
 
 	//저장버튼 클릭시 
 	$("#menuSaveBtn").click(function() {
-		var emptyCheck = 0;
+		var emptyCheck = valiCheck();
 		var menuId = $("#menuId").val();
 		var menuCd = $("#menuCd").val();
-
-		$("input[name = valiCheck]").each(function() {
-			if ($(this).val() == "") {
-				$(this).css("border", "1px solid red");
-				emptyCheck += 1;
-				if (emptyCheck == 1) {
-					$(this).focus();
-				}
-			} else {
-				$(this).css("border", "1px solid black");
-			}
-		});
 
 		if (emptyCheck == 0) {
 			/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
@@ -207,3 +195,27 @@ menuClick = function(menuId) {
 		}
 	});
 }
+
+//input이 numberType일때의 길이 체크
+var maxLengthCheck = function(object) {
+	if (object.value.length > object.maxLength) {
+		object.value = object.value.slice(0, object.maxLength);
+	}
+}
+
+//input 빈값 체크
+var valiCheck = function() {
+	var emptyCheck = 0;
+	$("input[name = valiCheck]").each(function() {
+		if ($(this).val() == "") {
+			$(this).css("border", "1px solid red");
+			emptyCheck += 1;
+			if (emptyCheck == 1) {
+				$(this).focus();
+			}
+		} else {
+			$(this).css("border", "1px solid black");
+		}
+	});
+	return emptyCheck;
+};

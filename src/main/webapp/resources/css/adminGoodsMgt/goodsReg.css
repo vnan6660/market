@@ -66,7 +66,7 @@ textarea {
 	justify-content: center;
 }
 
-#goodsDetailInfo>input[type=text] {
+#goodsDetailInfo> input {
 	width: 100px;
 	margin-right: 5px;
 }
@@ -82,7 +82,9 @@ textarea {
 
 #essential {
 	text-align: end;
-	margin: 3% 3% 0 0;
+	width: 230px;
+	margin-top: 3%;
+	margin-left: 690px;
 }
 
 /* -----물품 상세 ------ */

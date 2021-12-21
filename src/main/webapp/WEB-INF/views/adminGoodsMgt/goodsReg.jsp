@@ -21,10 +21,10 @@
 		<div id="goodsRegWrap">
 			<form id="goodsForm">
 				<div id="essential"><span style="color: red;"> * </span>표시는 필수 입력사항입니다</div>
-				<table>
+				<table style="width:900px;table-layout: fixed">
 					<colgroup>
-						<col width="30%">
-						<col width="70%">
+						<col style="width:200px">
+						<col style="width:700px">
 					</colgroup>
 					<tr>
 						<td>상품구분/상품분류<span style="color: red;"> * </span></td>

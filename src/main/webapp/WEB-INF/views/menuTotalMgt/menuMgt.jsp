@@ -56,7 +56,7 @@
 				</tr>
 				<tr>
 					<td>정렬순서<span style="color: red;"> * </span></td>
-					<td><input id="menuSn" name="valiCheck" type="number"></td>
+					<td><input id="menuSn" name="valiCheck" type="number" maxlength="15" oninput="maxLengthCheck(this)"></td>
 				</tr>
 				<tr>
 					<td>사용여부</td>
