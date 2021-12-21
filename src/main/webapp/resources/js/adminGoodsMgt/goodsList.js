@@ -19,14 +19,14 @@ var init = function() {
 
 	//서버시간 가져오기
 	getServerTime();
-	
+
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDt").attr('value',curDate.toISOString().substring(0, 10));
-	$("#endDt").attr('value',curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
 }
 
 var attachEvent = function() {
-	
+
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
@@ -47,55 +47,12 @@ var attachEvent = function() {
 	$("#goShowBtn").click(function() {
 		goShowGoods();
 	});
-
-	//맨위에 있는 전체삭제 체크박스를 클릭했을 때 실행
-	$("input[name = allDelCheck]").change(function() {
-		//전체삭제 체크박스의 현재상태
-		var allDelCheckStatus = $("input[name = allDelCheck]").is(":checked");
-
-		//전체삭제 체크박스가 체크되어있을 때 실행
-		if (allDelCheckStatus == true) {
-			$("input[name = delCheck]").each(function() {
-				$("input[name = delCheck]").prop("checked", true);
-			});
-		}
-
-		//전체삭제 체크박스가 해제되어있을 때 실행
-		if (allDelCheckStatus == false) {
-			$("input[name = delCheck]").each(function() {
-				$("input[name = delCheck]").prop("checked", false);
-			});
-		}
-
-	});
-
-	//맨위에 있는 전체개시 체크박스를 클릭했을 때 실행
-	$("input[name = allShowCheck]").change(function() {
-		//전체개시 체크박스의 현재상태
-		var allShowCheckStatus = $("input[name = allShowCheck]").is(":checked");
-
-		//전체개시 체크박스가 체크되어있을 때 실행
-		if (allShowCheckStatus == true) {
-			$("input[name = showCheck]").each(function() {
-				$("input[name = showCheck]").prop("checked", true);
-			});
-		}
-
-		//전체개시 체크박스가 해제되어있을 때 실행
-		if (allShowCheckStatus == false) {
-			$("input[name = showCheck]").each(function() {
-				$("input[name = showCheck]").prop("checked", false);
-			});
-		}
-
-	});
-
 }
 
 
 var getServerTime = function() {
 	var xmlHttp;
-	
+
 	if (window.XMLHttpRequest) {
 		//익스플로러 7과 그 이상의 버전, 크롬, 파이어폭스, 사파리, 오페라
 		xmlHttp = new XMLHttpRequest;
@@ -105,17 +62,57 @@ var getServerTime = function() {
 	} else {
 		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	
-	xmlHttp.open('HEAD',window.location.href.toString(),false);
-	xmlHttp.setRequestHeader('Content-Type','text/html');
+
+	xmlHttp.open('HEAD', window.location.href.toString(), false);
+	xmlHttp.setRequestHeader('Content-Type', 'text/html');
 	xmlHttp.send('');
-	
+
 	var serverDate = xmlHttp.getResponseHeader('Date');
-	
+
 	curDate = new Date(serverDate);
 }
+//맨위에 있는 전체삭제 체크박스를 클릭했을 때 실행
+var allDelCheck = function() {
 
+	//전체삭제 체크박스의 현재상태
+	var allDelCheckStatus = $("input[name = allDelCheck]").is(":checked");
 
+	//전체삭제 체크박스가 체크되어있을 때 실행
+	if (allDelCheckStatus == true) {
+		$("input[name = delCheck]").each(function() {
+			$("input[name = delCheck]").prop("checked", true);
+		});
+	}
+
+	//전체삭제 체크박스가 해제되어있을 때 실행
+	if (allDelCheckStatus == false) {
+		$("input[name = delCheck]").each(function() {
+			$("input[name = delCheck]").prop("checked", false);
+		});
+	}
+
+}
+
+//맨위에 있는 전체개시 체크박스를 클릭했을 때 실행
+var allShowCheck = function() {
+
+	//전체개시 체크박스의 현재상태
+	var allShowCheckStatus = $("input[name = allShowCheck]").is(":checked");
+
+	//전체개시 체크박스가 체크되어있을 때 실행
+	if (allShowCheckStatus == true) {
+		$("input[name = showCheck]").each(function() {
+			$("input[name = showCheck]").prop("checked", true);
+		});
+	}
+
+	//전체개시 체크박스가 해제되어있을 때 실행
+	if (allShowCheckStatus == false) {
+		$("input[name = showCheck]").each(function() {
+			$("input[name = showCheck]").prop("checked", false);
+		});
+	}
+}
 
 //상품 구분에 맞는 상품분류 값 가져오기
 var getGoodsSeparate = function(goodsGroup) {
@@ -198,9 +195,14 @@ var goShowGoods = function() {
 	}
 }
 
+//천단위 콤마 펑션
+var addComma = function(e) {
+	e = e.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return e;
+}
 
 
-/*검색과 페이지 정보 같이 넘기기*/
+//검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum) {
 	searchParam = {};
 	searchParam.startDt = $("#startDt").val();
@@ -235,7 +237,7 @@ var goPage = function(pageNum) {
 			viewList += "<col width='5%;'>";
 			viewList += "</colgroup>";
 			viewList += "<tr>";
-			viewList += "<th><input type='checkbox' name='allDelCheck'></th>";
+			viewList += "<th><input type='checkbox' name='allDelCheck' onchange='allDelCheck()'></th>";
 			viewList += "<th>NO</th>";
 			viewList += "<th>상품구분</th>";
 			viewList += "<th>상품분류</th>";
@@ -243,26 +245,26 @@ var goPage = function(pageNum) {
 			viewList += "<th>상품이름</th>";
 			viewList += "<th>상품가격</th>";
 			viewList += "<th>재고</th>";
-			viewList += "<th><input type='checkbox' name='allShowCheck'></th>";
+			viewList += "<th><input type='checkbox' name='allShowCheck' onchange='allShowCheck()'></th>";
 			viewList += "</tr>";
 
 			$.each(reList, function(i, e) {
 
 				viewList += "<tr>";
-				viewList += "<td><input type='checkbox' name='delCheck' value='"+e.gdNo+"'></td>";
+				viewList += "<td><input type='checkbox' name='delCheck' value='" + e.gdNo + "'></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNo + "</td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdGpNm + "</td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
-				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64,"+e.gdImg+"'></td>";
+				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>"+e.gdPrice+"<span>원</span></td>";
+				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice + "<span>원</span></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
-				
-				if(e.gdYn == 'Y'){
-					viewList +=	"<td><input type='checkbox' name='showCheck' checked='checked' value='"+e.gdNo+"'></td>";
+
+				if (e.gdYn == 'Y') {
+					viewList += "<td><input type='checkbox' name='showCheck' checked='checked' value='" + e.gdNo + "'></td>";
 				}
-				if(e.gdYn == 'N'){
-					viewList +=	"<td><input type='checkbox' name='showCheck' value='"+e.gdNo+"'></td>";
+				if (e.gdYn == 'N') {
+					viewList += "<td><input type='checkbox' name='showCheck' value='" + e.gdNo + "'></td>";
 				}
 				viewList += "</tr>";
 			});
@@ -290,6 +292,8 @@ var goPage = function(pageNum) {
 
 			$("#goodsListTable").html(viewList);
 			$("#pageList").html(pageList);
+
+			$("#gdPriceComma").text(addComma($("#gdPriceComma").text()));
 
 		},
 		error: function() {

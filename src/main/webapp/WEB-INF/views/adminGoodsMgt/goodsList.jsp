@@ -66,7 +66,7 @@
 						<col width="5%;">
 					</colgroup>
 					<tr>
-						<th><input type="checkbox" name="allDelCheck"></th>
+						<th><input type="checkbox" name="allDelCheck" onchange="allDelCheck()"></th>
 						<th>NO</th>
 						<th>상품구분</th>
 						<th>상품분류</th>
@@ -74,7 +74,7 @@
 						<th>상품이름</th>
 						<th>상품가격</th>
 						<th>재고</th>
-						<th><input type="checkbox" name="allShowCheck"></th>
+						<th><input type="checkbox" name="allShowCheck" onchange="allShowCheck()"></th>
 					</tr>
 						<c:forEach items="${reList}" var="vo">
 						<tr>
