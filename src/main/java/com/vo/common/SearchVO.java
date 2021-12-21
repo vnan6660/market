@@ -1,6 +1,9 @@
 package com.vo.common;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +14,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchVO {
 	
-	private String selectOptVal;
-	private String selectUserGradeOpt;
-	private String selectUserInfoOpt;
+	private Date startDt;
+	private Date endDt;
+	private String selectOptValOne;
+	private String selectOptValTwo;
+	private String selectOptValThree;
 	private String searchVal;
 
 	private int page;
@@ -24,9 +29,14 @@ public class SearchVO {
 	private int startCount;
 	private int endCount;
 	
-	public SearchVO(String searchVal,String selectOptVal,int page, int listcount) {
+	@Builder
+	public SearchVO(Date startDt,Date endDt,String selectOptValOne,String selectOptValTwo,String selectOptValThree,String searchVal,int page, int listcount) {
+		this.startDt = startDt;
+		this.endDt = endDt;
+		this.selectOptValOne = selectOptValOne;
+		this.selectOptValTwo = selectOptValTwo;
+		this.selectOptValThree = selectOptValThree;
 		this.searchVal = searchVal;
-		this.selectOptVal = selectOptVal;
 		this.page = page;
 		this.startCount = (this.page- 1) * this.limit + 1;// 페이지가 1 이면 1 
 		this.endCount =  this.page * this.limit;  // 페이지가 1 이면 10

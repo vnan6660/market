@@ -31,15 +31,16 @@ public class CsInfoController {
 
 		/* 고객정보 검색글카운트 */
 		int listCount = csInfoService.getcsInfoCount(vo);
-		SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1, listCount);
+		//SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1, listCount);
 
 		/* 고객정보 가져오기 */
-		List<CsInfoVO> list = csInfoService.getCsInfo();
-		model.addAttribute("csInfoList", list);
-		model.addAttribute("maxPage", searchVO.getMaxpage());
-		model.addAttribute("page", searchVO.getPage());
-		model.addAttribute("startpage", searchVO.getStartpage());
-		model.addAttribute("endpage", searchVO.getEndpage());
+		/*
+		 * List<CsInfoVO> list = csInfoService.getCsInfo();
+		 * model.addAttribute("csInfoList", list); model.addAttribute("maxPage",
+		 * searchVO.getMaxpage()); model.addAttribute("page", searchVO.getPage());
+		 * model.addAttribute("startpage", searchVO.getStartpage());
+		 * model.addAttribute("endpage", searchVO.getEndpage());
+		 */
 
 		return "/csMgt/csInfo";
 	}

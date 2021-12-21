@@ -19,8 +19,8 @@ var init = function() {
 	getServerTime();
 	
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDate").attr('value',curDate.toISOString().substring(0, 10));
-	$("#endDate").attr('value',curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value',curDate.toISOString().substring(0, 10));
+	$("#endDt").attr('value',curDate.toISOString().substring(0, 10));
 }
 
 var attachEvent = function() {

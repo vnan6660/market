@@ -126,7 +126,7 @@ var updateNotice = function() {
 /*검색과 페이지 정보 같이 넘기기*/
 var goPage = function(pageNum) {
 	searchParam = {};
-	searchParam.selectOptVal = $("#selectWrap option:selected").val();
+	searchParam.selectOptValOne = $("#selectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
 

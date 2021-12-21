@@ -34,7 +34,8 @@ public class NoticeController {
 
 		SearchVO vo = new SearchVO();
 		int listcount = noticeService.getListCount(vo);
-		SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1, listcount);
+		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
+		//SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1, listcount);
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 		model.addAttribute("noticeList", noticeList);
@@ -93,7 +94,8 @@ public class NoticeController {
 
 		int listcount = noticeService.getListCount(vo);
 
-		SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), vo.getPage(), listcount);
+		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		//SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), vo.getPage(), listcount);
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 

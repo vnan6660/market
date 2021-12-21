@@ -40,19 +40,19 @@
 				FROM
 				NOTICE
 				WHERE 1 = 1
-				<if test='selectOptVal != null and selectOptVal.equals("optAll")'>
+				<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
 					AND(NTC_SJ LIKE '%'||#{searchVal}||'%'
 					OR NTC_WRT LIKE
 					'%'||#{searchVal}||'%'
 					OR NTC_TEXT LIKE '%'||#{searchVal}||'%')
 				</if>
-				<if test='selectOptVal != null and selectOptVal.equals("optSj")'>
+				<if test='selectOptValOne != null and selectOptValOne.equals("optSj")'>
 					AND(NTC_SJ LIKE '%'||#{searchVal}||'%')
 				</if>
-				<if test='selectOptVal != null and selectOptVal.equals("optWrt")'>
+				<if test='selectOptValOne != null and selectOptValOne.equals("optWrt")'>
 					AND(NTC_WRT LIKE '%'||#{searchVal}||'%')
 				</if>
-				<if test='selectOptVal != null and selectOptVal.equals("optText")'>
+				<if test='selectOptValOne != null and selectOptValOne.equals("optText")'>
 					AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
 				</if>
 				ORDER BY NTC_NO DESC
@@ -96,19 +96,19 @@
 		SELECT COUNT(*)
 		  FROM NOTICE
 		 WHERE 1 = 1
-		<if test='selectOptVal != null and selectOptVal.equals("optAll")'>
+		<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
 			AND(NTC_SJ LIKE '%'||#{searchVal}||'%'
 			OR NTC_WRT LIKE
 			'%'||#{searchVal}||'%'
 			OR NTC_TEXT LIKE '%'||#{searchVal}||'%')
 		</if>
-		<if test='selectOptVal != null and selectOptVal.equals("optSj")'>
+		<if test='selectOptValOne != null and selectOptValOne.equals("optSj")'>
 			AND(NTC_SJ LIKE '%'||#{searchVal}||'%')
 		</if>
-		<if test='selectOptVal != null and selectOptVal.equals("optWrt")'>
+		<if test='selectOptValOne != null and selectOptValOne.equals("optWrt")'>
 			AND(NTC_WRT LIKE '%'||#{searchVal}||'%')
 		</if>
-		<if test='selectOptVal != null and selectOptVal.equals("optText")'>
+		<if test='selectOptValOne != null and selectOptValOne.equals("optText")'>
 			AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
 		</if>
 	</select>

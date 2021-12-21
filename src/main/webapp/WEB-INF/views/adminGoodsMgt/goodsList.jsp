@@ -21,9 +21,9 @@
 		<div>
 			<div id="ssWrap">
 				<div id="dateWrap">
-					<input type="date" id="startDate">
+					<input type="date" id="startDt">
 					<p style="display: inline;"> ~ </p>
-					<input type="date" id="endDate">
+					<input type="date" id="endDt">
 				</div>
 				<div id="selectWrap">
 					<select id="goodsGroup">
