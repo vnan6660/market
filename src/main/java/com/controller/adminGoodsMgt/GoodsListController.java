@@ -2,6 +2,7 @@ package com.controller.adminGoodsMgt;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.service.adminGoodsMgt.GoodsListService;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
+import com.vo.common.SearchVO;
 
 /**
  * 물품목록 Controller
@@ -36,9 +38,12 @@ public class GoodsListController {
 	//물품목록 페이지가기
 	@RequestMapping("/goodsList/goodsListPage")
 	public String goodsListPage(Model model) throws IOException {
+		SearchVO svo = new SearchVO();
+		int listcount = goodsListService.getGoodsListCount(svo);
+		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
 		
 		//물품목록리스트 가져오기
-		List<GoodsListVO> list =  goodsListService.getGoodsList();
+		List<GoodsListVO> list =  goodsListService.getGoodsList(searchVO);
 		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
 		
 		for (int i = 0; i < list.size(); i++) {
@@ -46,13 +51,13 @@ public class GoodsListController {
 			
 			vo.setGdNo(list.get(i).getGdNo());
 			vo.setGdGp(list.get(i).getGdGp());
-			vo.setGdGpNm(list.get(i).getGdGpNm());
 			vo.setGdSp(list.get(i).getGdSp());
-			vo.setGdSpNm(list.get(i).getGdSpNm());
 			vo.setGdNm(list.get(i).getGdNm());
-			vo.setGdPrice(list.get(i).getGdPrice());
 			vo.setGdCnt(list.get(i).getGdCnt());
 			vo.setGdYn(list.get(i).getGdYn());
+			vo.setGdPrice(list.get(i).getGdPrice());
+			vo.setGdGpNm(list.get(i).getGdGpNm());
+			vo.setGdSpNm(list.get(i).getGdSpNm());
 			
 			if (list.get(i).getGdImg() != null) {
 				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
@@ -62,6 +67,10 @@ public class GoodsListController {
 		}
 		
 		model.addAttribute("reList", reList);
+		model.addAttribute("maxPage", searchVO.getMaxpage());
+		model.addAttribute("page", searchVO.getPage());
+		model.addAttribute("startpage", searchVO.getStartpage());
+		model.addAttribute("endpage", searchVO.getEndpage());
 		
 		return "/adminGoodsMgt/goodsList";
 	}
@@ -147,6 +156,27 @@ public class GoodsListController {
 	@ResponseBody
 	public void showGoods(@RequestParam(value = "showNoList[]",required = false) ArrayList<String> showNoList) {
 		goodsListService.showGoods(showNoList);
+	}
+	
+	/*물품목록 검색 */
+	@GetMapping("/goodsList/searchGoodsList")
+	@ResponseBody
+	public Map<String, Object> searchNotice(SearchVO vo) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int listcount = goodsListService.getGoodsListCount(vo);
+
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+
+		List<GoodsListVO> reList = goodsListService.getGoodsList(searchVO);
+
+		resultMap.put("reList", reList);
+		resultMap.put("maxPage", searchVO.getMaxpage());
+		resultMap.put("page", searchVO.getPage());
+		resultMap.put("startpage", searchVO.getStartpage());
+		resultMap.put("endpage", searchVO.getEndpage());
+
+		return resultMap;
 	}
 	
 	

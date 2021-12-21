@@ -6,6 +6,7 @@ import java.util.List;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
+import com.vo.common.SearchVO;
 
 /**
  * 물품목록 Service
@@ -16,7 +17,7 @@ import com.vo.common.CmmnVO;
 public interface GoodsListService {
 
 	//물품목록리스트 가져오기
-	List<GoodsListVO> getGoodsList();
+	List<GoodsListVO> getGoodsList(SearchVO searchVO);
 	
 	// 상품 구분에 해당하는 상품 분류 가지고 오기
 	List<CmmnVO> getGoodsSeparate(String goodsGroup);
@@ -35,5 +36,8 @@ public interface GoodsListService {
 
 	//물품 개시 하기
 	void showGoods(ArrayList<String> showNoList);
+
+	//검색글카운트
+	int getGoodsListCount(SearchVO vo);
 
 }

@@ -5,28 +5,62 @@
 
 <mapper namespace="com.dao.adminGoodsMgt.GoodsListDaoImpl">
 	<!-- 물품목록리스트 가져오기 -->
-	<select id="selectGoodsList" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	<select id="selectGoodsList" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	/* goodsListMapper.selectGoodsList */
-	SELECT
-      a.GD_NO as gdNo<!-- 상품번호 -->
-	 ,a.GD_GP as gdGp<!-- 상품구분 -->
-	 ,a.GD_SP as gdSp<!-- 상품분류 -->
-	 ,a.GD_NM as gdNm<!-- 상품이름 -->
-	 ,a.GD_CNT as gdCnt<!-- 상품재고 -->
-	 ,a.GD_PAGE as gdPage<!-- 상품페이지 -->
-	 ,a.GD_THICK as gdThick<!-- 상품두께 -->
-     ,a.GD_WR as gdWr<!-- 상품작가 -->
-	 ,a.GD_PB as gdPb<!-- 상품출판사 -->
-	 ,a.GD_DC as gdDc<!-- 상픔설명 -->
-	 ,a.GD_YN as gdYn<!-- 상품개시 -->
-	 ,a.GD_PRICE as gdPrice<!-- 상품가격 -->
-	 ,a.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
-     ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
-     ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
-	 FROM GOODS_INFO a 
-	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
-	 left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
-	ORDER BY a.GD_REGDATE DESC
+	SELECT *
+	  FROM
+	  (SELECT
+	    ROWNUM as rnum,gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm
+		FROM
+		(SELECT
+	      a.GD_NO as gdNo<!-- 상품번호 -->
+		 ,a.GD_GP as gdGp<!-- 상품구분 -->
+		 ,a.GD_SP as gdSp<!-- 상품분류 -->
+		 ,a.GD_NM as gdNm<!-- 상품이름 -->
+		 ,a.GD_CNT as gdCnt<!-- 상품재고 -->
+		 ,a.GD_YN as gdYn<!-- 상품개시 -->
+		 ,a.GD_PRICE as gdPrice<!-- 상품가격 -->
+		 ,a.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
+	     ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
+	     ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
+		  FROM GOODS_INFO a 
+		   left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
+		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+		  WHERE 1 = 1
+		 	<if test='startDt != null and endDt != null'>
+				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+			</if>
+			<if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+					AND GD_GP IN ('bestBook','newBook','localBook','foreignBook')
+				</if>
+				<if test='!selectOptValOne.equals("optAll")'>
+					AND GD_GP = #{selectOptValOne}
+				</if>
+			</if>
+			<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
+				</if>
+				<if test='!selectOptValTwo.equals("optAll")'>
+					AND GD_SP = #{selectOptValTwo}
+				</if>
+			</if>
+			<if test='selectOptValThree != null'>
+				<if test='selectOptValThree.equals("optAll")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%'
+						OR GD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsName")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsNmbr")'>
+					AND(GD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+			</if>
+		 ORDER BY GD_REGDATE DESC,GD_NO DESC
+		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 	
 	<!-- 상품 구분에 해당하는 상품 분류 가지고 오기 -->
@@ -167,4 +201,43 @@
 		</foreach>
 	</if>
 	</update>
+	
+	<!-- 검색글카운트 -->
+	<select id="selectGoodsListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  goodsListMapper.selectGoodsListCount */
+		SELECT COUNT(*)
+		  FROM GOODS_INFO
+		 WHERE 1 = 1
+		<if test='startDt != null and endDt != null'>
+				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+		</if>
+		<if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+					AND GD_GP IN ('bestBook','newBook','localBook','foreignBook')
+				</if>
+				<if test='!selectOptValOne.equals("optAll")'>
+					AND GD_GP = #{selectOptValOne}
+				</if>
+			</if>
+			<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
+				</if>
+				<if test='!selectOptValTwo.equals("optAll")'>
+					AND GD_SP = #{selectOptValTwo}
+				</if>
+			</if>
+			<if test='selectOptValThree != null'>
+				<if test='selectOptValThree.equals("optAll")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%'
+						OR GD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsName")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsNmbr")'>
+					AND(GD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+			</if>
+	</select>
 </mapper>

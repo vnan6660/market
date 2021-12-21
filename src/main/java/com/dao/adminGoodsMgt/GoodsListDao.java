@@ -6,6 +6,7 @@ import java.util.List;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
+import com.vo.common.SearchVO;
 
 /**
  * 물품목록 Dao
@@ -16,7 +17,7 @@ import com.vo.common.CmmnVO;
 public interface GoodsListDao {
 
 	//물품목록리스트 가져오기
-	List<GoodsListVO> selectGoodsList();
+	List<GoodsListVO> selectGoodsList(SearchVO searchVO);
 
 	//상품 구분에 해당하는 상품 분류 가지고 오기
 	List<CmmnVO> selectGoodsSeparate(String goodsGroup);
@@ -38,5 +39,8 @@ public interface GoodsListDao {
 	
 	//물품 개시 하기(체크되지 않은것은 false)
 	void showGoodsFalse(ArrayList<String> showNoList);
+
+	//검색글카운트
+	int selectGoodsListCount(SearchVO vo);
 
 }

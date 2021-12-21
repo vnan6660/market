@@ -37,8 +37,7 @@
 				NTC_WRT AS ntcWrt, <!--작성자 -->
 				NTC_REGDATE AS ntcRegDate, <!--생성일자 -->
 				NTC_VCNT AS ntcVcnt <!--조회수 -->
-				FROM
-				NOTICE
+				FROM NOTICE
 				WHERE 1 = 1
 				<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
 					AND(NTC_SJ LIKE '%'||#{searchVal}||'%'

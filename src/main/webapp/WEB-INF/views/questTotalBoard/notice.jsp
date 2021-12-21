@@ -71,9 +71,10 @@
 			<c:if test="${cnt != 1}">
 				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
 			</c:if>
-				
 			</c:forEach>
+			<c:if test="${endpage < maxPage}">
 			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
+			</c:if>
 		</div>
 	</main>
 </body>

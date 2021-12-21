@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchVO {
 	
-	private Date startDt;
-	private Date endDt;
+	private String startDt;
+	private String endDt;
 	private String selectOptValOne;
 	private String selectOptValTwo;
 	private String selectOptValThree;
@@ -30,7 +30,7 @@ public class SearchVO {
 	private int endCount;
 	
 	@Builder
-	public SearchVO(Date startDt,Date endDt,String selectOptValOne,String selectOptValTwo,String selectOptValThree,String searchVal,int page, int listcount) {
+	public SearchVO(String startDt,String endDt,String selectOptValOne,String selectOptValTwo,String selectOptValThree,String searchVal,int page, int listcount) {
 		this.startDt = startDt;
 		this.endDt = endDt;
 		this.selectOptValOne = selectOptValOne;

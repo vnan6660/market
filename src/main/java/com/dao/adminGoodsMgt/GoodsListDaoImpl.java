@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
+import com.vo.common.SearchVO;
 
 /**
  * 물품목록 DaoImpl
@@ -25,8 +26,8 @@ public class GoodsListDaoImpl implements GoodsListDao {
 	
 	//물품목록리스트 가져오기
 	@Override
-	public List<GoodsListVO> selectGoodsList() {
-		return sqlSession.selectList("selectGoodsList");
+	public List<GoodsListVO> selectGoodsList(SearchVO searchVO) {
+		return sqlSession.selectList("selectGoodsList",searchVO);
 	}
 
 	/* 상품 구분에 해당하는 상품 분류 가지고 오기 */
@@ -70,6 +71,12 @@ public class GoodsListDaoImpl implements GoodsListDao {
 	@Override
 	public void showGoodsFalse(ArrayList<String> showNoList) {
 		sqlSession.update("showGoodsFalse",showNoList);
+	}
+
+	//검색글카운트
+	@Override
+	public int selectGoodsListCount(SearchVO vo) {
+		return sqlSession.selectOne("selectGoodsListCount", vo);
 	}
 
 }

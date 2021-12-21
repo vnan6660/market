@@ -83,6 +83,17 @@ input[type= number]::-webkit-inner-spin-button{
 .mt10 {
 	margin-top: 10px;
 }
+
+#pageList {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.page {
+	border: 2px solid #eee;
+	padding: 0.5em 1em;
+}
 /* ---- side Menu ------- */
 #homeIcon {
 	width: 60px;

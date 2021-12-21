@@ -4,6 +4,8 @@
 * 물품목록
 */
 var curDate;
+var searchParam = {};
+var nowPage = 1;
 
 $(function() {
 	init();
@@ -24,6 +26,12 @@ var init = function() {
 }
 
 var attachEvent = function() {
+	
+	/*검색쿼리작성하기*/
+	$("#goSearch").click(function() {
+		/*페이지가 1페이지인 검색함수*/
+		goPage(1);
+	});
 
 	//물품등록 버튼 클릭시 실행
 	$("#goRegForm").click(function() {
@@ -121,7 +129,7 @@ var getGoodsSeparate = function(goodsGroup) {
 			"goodsGroup": goodsGroup
 		},
 		success: function(res) {
-			$("#goodsSeparate").append("<option value=''>전체</option>");
+			$("#goodsSeparate").append("<option value='optAll'>전체</option>");
 			res.filter(function(e, i) {
 				return $("#goodsSeparate").append("<option value='" + res[i].cmGrcd + "'>" + res[i].cmGrnm + "</option>");
 			});
@@ -188,4 +196,104 @@ var goShowGoods = function() {
 			}
 		});
 	}
+}
+
+
+
+/*검색과 페이지 정보 같이 넘기기*/
+var goPage = function(pageNum) {
+	searchParam = {};
+	searchParam.startDt = $("#startDt").val();
+	searchParam.endDt = $("#endDt").val();
+	searchParam.selectOptValOne = $("#goodsGroup option:selected").val();
+	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();
+	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();
+	searchParam.searchVal = $("#searchVal").val();
+	searchParam.page = pageNum;
+
+	nowPage = pageNum;
+
+	$.ajax({
+		url: '/goodsList/searchGoodsList',
+		type: 'GET',
+		data: searchParam,
+		success: function(res) {
+			var maxPage = res.maxPage;
+			var startpage = res.startpage;
+			var endpage = res.endpage;
+			var reList = res.reList;
+			var viewList = "";
+			viewList += "<colgroup>";
+			viewList += "<col width='5%;'>";
+			viewList += "<col width='5%;'>";
+			viewList += "<col width='10%;'>";
+			viewList += "<col width='10%;'>";
+			viewList += "<col width='20%;'>";
+			viewList += "<col width='20%;'>";
+			viewList += "<col width='10%;'>";
+			viewList += "<col width='10%;'>";
+			viewList += "<col width='5%;'>";
+			viewList += "</colgroup>";
+			viewList += "<tr>";
+			viewList += "<th><input type='checkbox' name='allDelCheck'></th>";
+			viewList += "<th>NO</th>";
+			viewList += "<th>상품구분</th>";
+			viewList += "<th>상품분류</th>";
+			viewList += "<th>상품이미지</th>";
+			viewList += "<th>상품이름</th>";
+			viewList += "<th>상품가격</th>";
+			viewList += "<th>재고</th>";
+			viewList += "<th><input type='checkbox' name='allShowCheck'></th>";
+			viewList += "</tr>";
+
+			$.each(reList, function(i, e) {
+
+				viewList += "<tr>";
+				viewList += "<td><input type='checkbox' name='delCheck' value='"+e.gdNo+"'></td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNo + "</td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdGpNm + "</td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
+				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64,"+e.gdImg+"'></td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>"+e.gdPrice+"<span>원</span></td>";
+				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
+				
+				if(e.gdYn == 'Y'){
+					viewList +=	"<td><input type='checkbox' name='showCheck' checked='checked' value='"+e.gdNo+"'></td>";
+				}
+				if(e.gdYn == 'N'){
+					viewList +=	"<td><input type='checkbox' name='showCheck' value='"+e.gdNo+"'></td>";
+				}
+				viewList += "</tr>";
+			});
+
+			var pageList = "";
+			if (1 < startpage) {
+				/*startpage가 1보다 커야 실행가능*/
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+			}
+			for (var num = startpage; num <= endpage; num++) {
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
+				if (nowPage == num) {
+					pageList += ' style = "background-color: #eee" >' + num
+				} else {
+					pageList += '>' + num
+				}
+
+				pageList += '</span>';
+			}
+
+			if (endpage < maxPage) {
+				/*endpage가 maxPage보다 작아야 실행 가능*/
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
+			}
+
+			$("#goodsListTable").html(viewList);
+			$("#pageList").html(pageList);
+
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
 }

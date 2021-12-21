@@ -10,6 +10,7 @@ import com.dao.adminGoodsMgt.GoodsListDao;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.adminGoodsMgt.GoodsRegVO;
 import com.vo.common.CmmnVO;
+import com.vo.common.SearchVO;
 
 /**
  * 물품목록 ServiceImpl
@@ -25,8 +26,8 @@ public class GoodsListServiceImpl implements GoodsListService {
 	
 	//물품목록리스트 가져오기
 	@Override
-	public List<GoodsListVO> getGoodsList() {
-		return goodsListDao.selectGoodsList();
+	public List<GoodsListVO> getGoodsList(SearchVO searchVO) {
+		return goodsListDao.selectGoodsList(searchVO);
 	}
 
 	/* 상품 구분에 해당하는 상품 분류 가지고 오기 */
@@ -67,6 +68,12 @@ public class GoodsListServiceImpl implements GoodsListService {
 			goodsListDao.showGoodsTrue(showNoList);
 		}
 		goodsListDao.showGoodsFalse(showNoList);
+	}
+
+	//검색글카운트
+	@Override
+	public int getGoodsListCount(SearchVO vo) {
+		return goodsListDao.selectGoodsListCount(vo);
 	}
 	
 }

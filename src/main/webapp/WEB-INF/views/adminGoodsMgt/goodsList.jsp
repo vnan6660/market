@@ -27,7 +27,7 @@
 				</div>
 				<div id="selectWrap">
 					<select id="goodsGroup">
-						<option value="">전체</option>
+						<option value="optAll">전체</option>
 						<option value="bestBook">베스트도서</option>
 						<option value="newBook">신간도서</option>
 						<option value="localBook">국내도서</option>
@@ -38,7 +38,7 @@
 					</select>
 				
 					<select id="goodsNmNbrm">
-						<option value="">전체</option>
+						<option value="optAll">전체</option>
 						<option value="gdsName">상품이름</option>
 						<option value="gdsNmbr">상품번호</option>
 					</select>
@@ -100,7 +100,7 @@
 					<button id="goRegForm" class="btnSmall hover">물품등록</button>
 			</div>
 		</div>
-		<%-- <div id="pageList">
+		<div id="pageList">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
 			<c:if test="${cnt == 1}">
 				<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
@@ -108,10 +108,12 @@
 			<c:if test="${cnt != 1}">
 				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
 			</c:if>
-				
 			</c:forEach>
-			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
-		</div> --%>
+			<c:if test="${endpage < maxPage}">
+				<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
+			</c:if>
+			
+		</div>
 	</main>
 </body>
 </html>
