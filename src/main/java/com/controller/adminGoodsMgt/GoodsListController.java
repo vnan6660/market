@@ -69,11 +69,10 @@ public class GoodsListController {
 	/* 물품 등록 페이지 이동 */
 	@RequestMapping("/goodsReg/goodsRegPage")
 	public String goodsRegPage() {
-
-		
 		return "/adminGoodsMgt/goodsReg";
 	}
 
+	
 	@GetMapping("/goodsReg/goodsSeparate")
 	@ResponseBody
 	public List<CmmnVO> goodsSeparate(@RequestParam Map<String, Object> param, Model model) {
@@ -91,15 +90,12 @@ public class GoodsListController {
 	public void setGoodsReg(GoodsRegVO vo) throws IOException {
 		
 		if (!"".equals(vo.getGdImgFile().getOriginalFilename())) {
-			System.out.println("상품이미지파일(1) 있음");
-			System.out.println(vo.getGdImgFile().getOriginalFilename());
 			vo.setGdImg(vo.getGdImgFile().getBytes());
 		}
 		
 		if (!"".equals(vo.getGdDetlFile().getOriginalFilename())) {
-			System.out.println("상세설명이미지파일(2) 있음");
-			System.out.println(vo.getGdDetlFile().getOriginalFilename());
 			vo.setGdDetl(vo.getGdDetlFile().getBytes());
+			vo.setGdDetlNm(vo.getGdDetlFile().getOriginalFilename());
 		}
 		goodsListService.setGoodsReg(vo);
 	}
@@ -134,6 +130,7 @@ public class GoodsListController {
 		
 		if (!"".equals(vo.getGdDetlFile().getOriginalFilename())) {
 			vo.setGdDetl(vo.getGdDetlFile().getBytes());
+			vo.setGdDetlNm(vo.getGdDetlFile().getOriginalFilename());
 		}
 		goodsListService.updateGoods(vo);
 	}

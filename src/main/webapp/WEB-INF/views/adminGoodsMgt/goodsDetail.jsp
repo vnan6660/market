@@ -155,7 +155,10 @@
 								<img src="data:image/png;base64,${goodsVO.gdDetlStr}" onerror="this.style.display='none'">
 							</div>
 							<div class="writeForm">
-								<input id="file2" name="gdDetlFile" type="file" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)">
+								<label for="file2" id="gdDetlLabel">
+									<input id="file2Btn" type="button" value="파일 선택"><span style="margin-left: 8px; font-size: 13px;">${goodsVO.gdDetlNm}</span>
+								</label>
+								<input id="file2" name="gdDetlFile" type="file" accept=".jpg, .png, .jpeg" onchange="chkFileType(this)" style="display: none;">
 							</div>
 						</td>
 					</tr>

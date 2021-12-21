@@ -38,6 +38,7 @@ public class GoodsListVO {
 	private String gdPrice;//상품가격
 	private byte[] gdImg;//상품이미지(BLOB)
 	private byte[] gdDetl;//상세설명(BLOB)
+	private String gdDetlNm;//상세설명파일이름
 	
 	private MultipartFile gdImgFile; 
 	private MultipartFile gdDetlFile;

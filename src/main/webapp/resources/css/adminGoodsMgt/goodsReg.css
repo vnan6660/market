@@ -49,7 +49,7 @@ label a {
 	opacity: 0.6;
 }
 
-textarea{
+textarea {
 	width: 600px;
 	height: 300px;
 	resize: none;
@@ -66,40 +66,47 @@ textarea{
 	justify-content: center;
 }
 
-#goodsDetailInfo > input[type=text]{
+#goodsDetailInfo>input[type=text] {
 	width: 100px;
 	margin-right: 5px;
 }
 
-#goodsListBtn{
+#goodsListBtn {
 	float: left;
 	margin-left: 22px;
 }
 
-#goodsRegBtn{
+#goodsRegBtn {
 	margin-left: 66%;
-  }
+}
 
-
-#essential{
+#essential {
 	text-align: end;
-    margin: 3% 3% 0 0;
+	margin: 3% 3% 0 0;
 }
-  
+
 /* -----물품 상세 ------ */
-
-.img img{
-	max-width:100%;
-	height : 450px;
+.img img {
+	max-width: 100%;
+	height: 450px;
 }
 
-#goodsUpdBtn{
+#goodsUpdBtn {
 	margin-left: 72%;
 }
 
-#goodsDelBtn{
+#goodsDelBtn {
 	margin-left: 56%;
 }
-#goodsUpdDoneBtn{
+
+#goodsUpdDoneBtn {
 	margin-left: 5%;
+}
+
+#gdDetlLabel {
+	position: static;
+}
+
+#file2Btn {
+	padding: 1px 6px;
 }

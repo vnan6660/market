@@ -19,6 +19,18 @@ var init = function() {
 
 var attachEvent = function() {
 
+	$("#file2Btn").click(function(e) {
+		e.preventDefault();
+		$("#gdDetlLabel").click();
+
+	});
+	
+	$("#file2").change(function(){
+		$("#file2Btn").hide();
+		$("#file2Btn").siblings().hide();
+		$("#file2").show();
+	});
+
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {
 		history.back(-1);
@@ -42,6 +54,10 @@ var attachEvent = function() {
 
 		//상품개시에 디테일 정보와 맞는 값 선택되게 하기
 		$("#gdYnSelect").val($("#gdYn").text()).prop("selected", true);
+
+		//상세설명에 이미지 파일이 없을시
+		gdDetailFileExist();
+
 	});
 
 	//수정 완료 버튼을 눌렀을 때 실행
@@ -226,5 +242,12 @@ var chkFileType = function(obj) {
 		var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
 		$("input[name = " + obj.name + "]").val("");
 		return false;
+	}
+}
+
+var gdDetailFileExist = function() {
+	var fiel2Exist = $("#file2").parents(".writeForm").siblings(".viewForm").children();
+	if (fiel2Exist.attr('src').substring(22) == "") {
+
 	}
 }

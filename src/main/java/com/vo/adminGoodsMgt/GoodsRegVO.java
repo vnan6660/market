@@ -32,11 +32,10 @@ public class GoodsRegVO {
 	private String gdYn;//상품개제
 	private byte[] gdImg;//상품이미지(BLOB)
 	private byte[] gdDetl;//상세설명(BLOB)
+	private String gdDetlNm;//상세설명파일이름
 	private Date gdRegdate;//상품생성날짜
 	private String gdPrice;//상품가격
 	private MultipartFile gdImgFile; 
 	private MultipartFile gdDetlFile;
-	
-	
 	
 }

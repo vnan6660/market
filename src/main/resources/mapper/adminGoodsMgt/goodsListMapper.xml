@@ -58,6 +58,7 @@
 		</if>
 		<if test='gdDetl != null'>
 		,GD_DETL
+		,GD_DETLNM
 		</if>
 		,GD_REGDATE)
 	VALUES
@@ -78,6 +79,7 @@
 		 </if>
 		 <if test='gdDetl != null'>
 		 ,#{gdDetl}
+		 ,#{gdDetlNm}
 		</if>
 		 ,sysdate)
 	</insert>
@@ -100,6 +102,7 @@
 		,GD_PRICE as gdPrice<!-- 상품가격 -->
 		,GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
 		,GD_DETL as gdDetl<!-- 상세설명(BLOB) -->
+		,GD_DETLNM as gdDetlNm<!-- 상세설명파일이름 -->
 	  FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
 	</select>
@@ -125,6 +128,7 @@
 	</if>
 	<if test='gdDetl != null'>
 	   ,GD_DETL = #{gdDetl}
+	   ,GD_DETLNM = #{gdDetlNm}
 	</if>
 	WHERE GD_NO = #{gdNo}
 	</update>
