@@ -33,6 +33,7 @@
 		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
 		  WHERE 1 = 1
 		  AND GD_YN = 'Y'
+		  AND GD_GP = #{selectOptValOne}
 			<if test='selectOptValTwo != null'>
 				<if test='selectOptValTwo.equals("optAll")'>
 					AND GD_SP IN ('special','general','foreign','child','magazine','it','exam')
@@ -43,8 +44,7 @@
 			</if>
 			<if test='selectOptValThree != null'>
 				<if test='selectOptValThree.equals("optAll")'>
-					AND(GD_NM LIKE '%'||#{searchVal}||'%'
-						OR GD_NO LIKE '%'||#{searchVal}||'%')
+					AND(GD_NM LIKE '%'||#{searchVal}||'%')
 				</if>
 				<if test='selectOptValThree.equals("gdsName")'>
 					AND(GD_NM LIKE '%'||#{searchVal}||'%')
@@ -62,6 +62,7 @@
 		  FROM GOODS_INFO
 		 WHERE 1 = 1
 		 AND GD_YN = 'Y'
+		 AND GD_GP = #{selectOptValOne}
 		<if test='selectOptValTwo != null'>
 			<if test='selectOptValTwo.equals("optAll")'>
 				AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
@@ -72,8 +73,7 @@
 		</if>
 		<if test='selectOptValThree != null'>
 			<if test='selectOptValThree.equals("optAll")'>
-				AND(GD_NM LIKE '%'||#{searchVal}||'%'
-					OR GD_NO LIKE '%'||#{searchVal}||'%')
+				AND(GD_NM LIKE '%'||#{searchVal}||'%')
 			</if>
 			<if test='selectOptValThree.equals("gdsName")'>
 				AND(GD_NM LIKE '%'||#{searchVal}||'%')

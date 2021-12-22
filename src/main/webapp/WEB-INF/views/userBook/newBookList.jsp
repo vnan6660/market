@@ -8,7 +8,7 @@
 <title>page</title>
 <link rel="shortcut icon" href="#">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/userBook/newBookList.css">
+<link rel="stylesheet" href="/css/userBook/bookList.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/userBook/newBook.js"></script>
 </head>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.service.userBook.BestBookService;
 import com.service.userBook.NewBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.SearchVO;
@@ -27,17 +28,17 @@ import com.vo.common.SearchVO;
 public class NewBookController {
 
 	@Autowired
-	private NewBookService newBookService;
+	private BestBookService bestBookService;
 
 	// 신간도서 페이지
 	@RequestMapping("/newBook/newBookPage")
-	public String newBookPage(Model model) throws IOException{
-		SearchVO svo = new SearchVO();
-		int listcount = newBookService.getNbListCount(svo);
-		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
+	public String bestBookPage(Model model) throws IOException{
+		SearchVO svo = SearchVO.builder().selectOptValOne("newBook").build();
+		int listcount = bestBookService.getBbListCount(svo);
+		SearchVO searchVO = SearchVO.builder().selectOptValOne("newBook").page(1).listcount(listcount).build();
 		
 		//베스트 도서 이미지 리스트 가져오기
-		List<GoodsListVO> list =  newBookService.getNbList(searchVO);
+		List<GoodsListVO> list =  bestBookService.getBestBook(searchVO);
 		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
 		
 		for (int i = 0; i < list.size(); i++) {
@@ -74,22 +75,18 @@ public class NewBookController {
 		return "/userBook/newBookList";
 	}
 	
-
-	
-	
-	
 	// 신간도서 검색
 	@GetMapping("/newBook/searchNewBook")
 	@ResponseBody
-	public Map<String, Object> searchNewBook(SearchVO vo) {
+	public Map<String, Object> searchNotice(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
+		vo.setSelectOptValOne("newBook");
 		//검색한 결과의 수를 가져오기
-		int listcount = newBookService.getNbListCount(vo);
+		int listcount = bestBookService.getBbListCount(vo);
 
-		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne("newBook").selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
 
-		List<GoodsListVO> reList = newBookService.getNbList(searchVO);
+		List<GoodsListVO> reList = bestBookService.getBestBook(searchVO);
 
 		resultMap.put("reList", reList);
 		resultMap.put("maxPage", searchVO.getMaxpage());

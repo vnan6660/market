@@ -6,7 +6,7 @@ import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.SearchVO;
 
 /**
- * 회원가입 Service
+ * 베스트도서 Service
  * 생성자 : 김혜경 
  * 생성일 : 2021.12.13
  */

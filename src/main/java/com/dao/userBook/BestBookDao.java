@@ -3,7 +3,6 @@ package com.dao.userBook;
 import java.util.List;
 
 import com.vo.adminGoodsMgt.GoodsListVO;
-import com.vo.common.CmmnVO;
 import com.vo.common.SearchVO;
 
 public interface BestBookDao {

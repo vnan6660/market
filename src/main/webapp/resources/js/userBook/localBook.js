@@ -20,13 +20,13 @@ $(function(){
 var init = function() {
 
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
-	getGoodsSeparate("newBook");
+	getGoodsSeparate("localBook");
 
 }
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
-	location.href = "/newBook/newBookDetail/" + gdNo;
+	location.href = "/localBook/localBookDetail/" + gdNo;
 }
 
 //상품 구분에 맞는 상품분류 값 가져오기
@@ -64,7 +64,7 @@ var goPage = function(pageNum) {
 	nowPage = pageNum;
 
 	$.ajax({
-		url: '/newBook/searchNewBook',
+		url: '/localBook/searchLocalBook',
 		type: 'GET',
 		data: searchParam,
 		success: function(res) {

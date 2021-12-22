@@ -11,7 +11,7 @@ $(function(){
 	//검색
 	$("#goSearch").click(function() {
 		//페이지가 1페이지인 검색함수
-		goPage(1);
+		goPage(1,1);
 	});
 	
 });

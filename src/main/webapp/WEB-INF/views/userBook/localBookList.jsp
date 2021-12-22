@@ -10,12 +10,12 @@
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/userBook/bookList.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
-<script type="text/javascript" src="/js/userBook/bestBook.js"></script>
+<script type="text/javascript" src="/js/userBook/localBook.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 <main id="contents-bestBook-list" class="join">
-	<h2>베스트 도서</h2>
+	<h2>국내 도서</h2>
 	<hr>
 	<!-- 본문리스트 -->
 	<div class="contents-wrap">

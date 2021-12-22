@@ -30,12 +30,13 @@ public class BestBookController {
 	@Autowired
 	private BestBookService bestBookService;
 
+	
 	// 베스트도서 페이지
 	@RequestMapping("/bestBook/bestBookPage")
 	public String bestBookPage(Model model) throws IOException{
-		SearchVO svo = new SearchVO();
+		SearchVO svo = SearchVO.builder().selectOptValOne("bestBook").build();
 		int listcount = bestBookService.getBbListCount(svo);
-		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
+		SearchVO searchVO = SearchVO.builder().selectOptValOne("bestBook").page(1).listcount(listcount).build();
 		
 		//베스트 도서 이미지 리스트 가져오기
 		List<GoodsListVO> list =  bestBookService.getBestBook(searchVO);
@@ -76,19 +77,16 @@ public class BestBookController {
 	}
 	
 
-	
-	
-	
 	// 베스트도서 검색
 	@GetMapping("/bestBook/searchBestBook")
 	@ResponseBody
 	public Map<String, Object> searchNotice(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
+		vo.setSelectOptValOne("bestBook");
 		//검색한 결과의 수를 가져오기
 		int listcount = bestBookService.getBbListCount(vo);
 
-		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne("bestBook").selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
 
 		List<GoodsListVO> reList = bestBookService.getBestBook(searchVO);
 
