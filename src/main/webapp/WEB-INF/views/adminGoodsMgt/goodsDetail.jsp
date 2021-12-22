@@ -141,7 +141,7 @@
 						<td>상품설명<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
-							<div><c:out value="${goodsVO.gdDc}"></c:out></div>
+							<div style="width:100%; word-wrap:break-word;">${goodsVO.gdDc}</div>
 							</div>
 							<div class="writeForm">
 								<textarea name="gdDc" rows="5" cols="50" maxlength="1300">${goodsVO.gdDc}</textarea>
@@ -165,10 +165,10 @@
 				</table>
 				<input type="hidden" id="gdNo" name="gdNo" value="${goodsVO.gdNo}">
 				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
-				
+				<button type="button" id="goodsUpdDoneBtn" class="btnSmallList hover">저장</button>
 				<button type="button" id="goodsDelBtn" class="btnSmallList hover">삭제</button>
 				<button type="button" id="goodsUpdBtn" class="btnSmallList hover">수정</button>
-				<button type="button" id="goodsUpdDoneBtn" class="btnSmallList hover">저장</button>
+				
 			</form>
 		</div>
 	</main>

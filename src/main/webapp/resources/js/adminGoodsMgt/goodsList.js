@@ -199,7 +199,7 @@ var goShowGoods = function() {
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	if (tfNum == 0) {
+	if (tfNum != 0) {
 		searchParam.startDt = $("#startDt").val();
 		searchParam.endDt = $("#endDt").val();
 	}
@@ -253,7 +253,7 @@ var goPage = function(pageNum, tfNum) {
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
 				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
-				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" +    e.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
+				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
 
 				if (e.gdYn == 'Y') {
