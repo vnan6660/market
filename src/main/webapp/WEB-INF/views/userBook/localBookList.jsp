@@ -37,7 +37,7 @@
 		</div>
 		
 		<!-- 상품리스트 박스 -->
-		<div class="bestBook-list-wrap">
+		<div class="bestBook-list-wrap" style="width:900px;table-layout: fixed">
 			<div class="flexTable">
 				<table id="bestBookTable">
 					<colgroup>
