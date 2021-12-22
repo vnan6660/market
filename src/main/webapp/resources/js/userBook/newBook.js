@@ -1,8 +1,9 @@
 /*
 *생성자 : 김혜경
-*생성일 : 2021.12.21
-* 베스트도서 js
+*생성일 : 2021.12.22
+*신간도서 js
 */
+
 var searchParam = {};
 var nowPage = 1;
 $(function(){
@@ -19,13 +20,13 @@ $(function(){
 var init = function() {
 
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
-	getGoodsSeparate("bestBook");
+	getGoodsSeparate("newBook");
 
 }
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
-	location.href = "/bestBook/bestBookDetail/" + gdNo;
+	location.href = "/newBook/newBookDetail/" + gdNo;
 }
 
 //상품 구분에 맞는 상품분류 값 가져오기
@@ -63,7 +64,7 @@ var goPage = function(pageNum) {
 	nowPage = pageNum;
 
 	$.ajax({
-		url: '/bestBook/searchBestBook',
+		url: '/newBook/searchNewBook',
 		type: 'GET',
 		data: searchParam,
 		success: function(res) {

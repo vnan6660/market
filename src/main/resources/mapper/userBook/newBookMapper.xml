@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dao.userBook.BestBookDaoImpl">
+<mapper namespace="com.dao.userBook.NewBookDaoImpl">
 	<!-- 베스트 도서 이미지 리스트 가져오기 -->
-	<select id="getBestBook" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
-	/* bestBookMapper.getBestBook */
+	<select id="getNbList" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	/* newBookMapper.getNbList */
 	SELECT *
 	  FROM
 	  (SELECT
@@ -33,6 +33,7 @@
 		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
 		  WHERE 1 = 1
 		  AND GD_YN = 'Y'
+		  AND GD_GP = 'newBook'
 			<if test='selectOptValTwo != null'>
 				<if test='selectOptValTwo.equals("optAll")'>
 					AND GD_SP IN ('special','general','foreign','child','magazine','it','exam')
@@ -56,12 +57,13 @@
 	</select>
 
 	<!-- 검색한 결과의 수를 가져오기 -->
-	<select id="getBbListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
-	/*  bestBookMapper.getBbListCount */
+	<select id="getNbListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  newBookMapper.getNbListCount */
 		SELECT COUNT(*)
 		  FROM GOODS_INFO
 		 WHERE 1 = 1
 		 AND GD_YN = 'Y'
+		 AND GD_GP = 'newBook'
 		<if test='selectOptValTwo != null'>
 			<if test='selectOptValTwo.equals("optAll")'>
 				AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
@@ -83,24 +85,4 @@
 	
 	
 	
-	<!-- 선택된 베스트 도서 정보 가져오기 -->
-	<select id="getBestDtl" parameterType="String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
-	/* bestBookMapper.getBestDtl */
-	SELECT
-	      GD_NO as gdNo<!-- 상품번호 -->
-		 ,GD_GP as gdGp<!-- 상품구분 -->
-		 ,GD_SP as gdSp<!-- 상품분류 -->
-		 ,GD_NM as gdNm<!-- 상품이름 -->
-		 ,GD_CNT as gdCnt<!-- 상품재고 -->
-		 ,GD_PAGE as gdPage<!-- 상품페이지 -->
-		 ,GD_THICK as gdThick<!-- 상품두께 -->
-	     ,GD_WR as gdWr<!-- 상품작가 -->
-		 ,GD_PB as gdPb<!-- 상품출판사 -->
-		 ,GD_DC as gdDc<!-- 상픔설명 -->
-		 ,GD_YN as gdYn<!-- 상품개시 -->
-		 ,GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
-		 ,GD_PRICE as gdPrice<!-- 상품가격 -->
-	 FROM GOODS_INFO
-	 WHERE GD_NO = #{gdNo}
-	</select>
 </mapper>
