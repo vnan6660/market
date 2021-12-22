@@ -5,10 +5,15 @@
 
 <mapper namespace="com.dao.userBook.BestBookDaoImpl">
 	<!-- 베스트 도서 이미지 리스트 가져오기 -->
-	<select id="getBestBook" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	<select id="getBestBook" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	/* bestBookMapper.getBestBook */
-	SELECT
-	      a.GD_NO as gdNo<!-- 상품번호 -->
+	SELECT *
+	  FROM
+	  (SELECT
+	    ROWNUM as rnum,gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm,gdWr,gdPb,gdDc
+		FROM
+		(SELECT
+ 		  a.GD_NO as gdNo<!-- 상품번호 -->
 		 ,a.GD_GP as gdGp<!-- 상품구분 -->
 		 ,a.GD_SP as gdSp<!-- 상품분류 -->
 		 ,a.GD_NM as gdNm<!-- 상품이름 -->
@@ -23,13 +28,65 @@
 		 ,a.GD_PRICE as gdPrice<!-- 상품가격 -->
 	     ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
 	     ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
-	 FROM GOODS_INFO a 
-	 left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
-	 left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
-	WHERE a.GD_YN = 'Y'
-	ORDER BY a.GD_REGDATE DESC
+		   FROM GOODS_INFO a 
+		   left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
+		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+		  WHERE 1 = 1
+		 	<if test='startDt != null and endDt != null'>
+				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+			</if>
+			<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
+				</if>
+				<if test='!selectOptValTwo.equals("optAll")'>
+					AND GD_SP = #{selectOptValTwo}
+				</if>
+			</if>
+			<if test='selectOptValThree != null'>
+				<if test='selectOptValThree.equals("optAll")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%'
+						OR GD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsName")'>
+					AND(GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+			</if>
+		 ORDER BY GD_REGDATE DESC,GD_NO DESC
+		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 
+	<!-- 검색한 결과의 수를 가져오기 -->
+	<select id="getBbListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  bestBookMapper.getBbListCount */
+		SELECT COUNT(*)
+		  FROM GOODS_INFO
+		 WHERE 1 = 1
+		<if test='startDt != null and endDt != null'>
+				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+		</if>
+		<if test='selectOptValTwo != null'>
+			<if test='selectOptValTwo.equals("optAll")'>
+				AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
+			</if>
+			<if test='!selectOptValTwo.equals("optAll")'>
+				AND GD_SP = #{selectOptValTwo}
+			</if>
+		</if>
+		<if test='selectOptValThree != null'>
+			<if test='selectOptValThree.equals("optAll")'>
+				AND(GD_NM LIKE '%'||#{searchVal}||'%'
+					OR GD_NO LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValThree.equals("gdsName")'>
+				AND(GD_NM LIKE '%'||#{searchVal}||'%')
+			</if>
+		</if>
+	</select>
+	
+	
+	
 	<!-- 선택된 베스트 도서 정보 가져오기 -->
 	<select id="getBestDtl" parameterType="String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	/* bestBookMapper.getBestDtl */
@@ -49,39 +106,5 @@
 		 ,GD_PRICE as gdPrice<!-- 상품가격 -->
 	 FROM GOODS_INFO
 	 WHERE GD_NO = #{gdNo}
-	</select>
-	
-	
-	<!-- 검색글카운트 -->
-	<select id="getListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
-	/*  bestBookMapper.getListCount */
-		SELECT COUNT(*)
-		  FROM GOODS_INFO
-		 WHERE 1 = 1
-		<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
-			AND GD_GP = 'optAll'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("special")'>
-			AND GD_GP = 'child'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("general")'>
-			AND GD_GP = 'general'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("foreign")'>
-			AND GD_GP = 'foreign'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("child")'>
-			AND GD_GP = 'child'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("magazine")'>
-			AND GD_GP = 'magazine'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("it")'>
-			AND GD_GP = 'it'
-		</if>
-		<if test='selectOptValOne != null and selectOptValOne.equals("exam")'>
-			AND GD_GP = 'exam'
-		</if>
-		AND (GD_NM || GD_WR || GD_PB LIKE'%'||#{searchVal}||'%')
 	</select>
 </mapper>

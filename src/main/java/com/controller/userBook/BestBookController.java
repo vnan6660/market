@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.service.userBook.BestBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.SearchVO;
-import com.vo.questTotalBoard.NoticeVO;
 
 /**
  * 베스트도서 Controller 
@@ -31,12 +30,15 @@ public class BestBookController {
 	@Autowired
 	private BestBookService bestBookService;
 
-	// 베스트도서 페이지 연결
+	// 베스트도서 페이지
 	@RequestMapping("/bestBook/bestBookPage")
 	public String bestBookPage(Model model) throws IOException{
-
+		SearchVO svo = new SearchVO();
+		int listcount = bestBookService.getBbListCount(svo);
+		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
+		
 		//베스트 도서 이미지 리스트 가져오기
-		List<GoodsListVO> list =  bestBookService.getBestBook();
+		List<GoodsListVO> list =  bestBookService.getBestBook(searchVO);
 		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
 		
 		for (int i = 0; i < list.size(); i++) {
@@ -65,11 +67,43 @@ public class BestBookController {
 		}
 		
 		model.addAttribute("reList", reList);
+		model.addAttribute("maxPage", searchVO.getMaxpage());
+		model.addAttribute("page", searchVO.getPage());
+		model.addAttribute("startpage", searchVO.getStartpage());
+		model.addAttribute("endpage", searchVO.getEndpage());
 		
 		return "/userBook/bestBookList";
 	}
 	
+
 	
+	
+	
+	// 베스트도서 검색
+	@GetMapping("/bestBook/searchBestBook")
+	@ResponseBody
+	public Map<String, Object> searchNotice(SearchVO vo) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		//검색한 결과의 수를 가져오기
+		int listcount = bestBookService.getBbListCount(vo);
+
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+
+		List<GoodsListVO> reList = bestBookService.getBestBook(searchVO);
+
+		resultMap.put("reList", reList);
+		resultMap.put("maxPage", searchVO.getMaxpage());
+		resultMap.put("page", searchVO.getPage());
+		resultMap.put("startpage", searchVO.getStartpage());
+		resultMap.put("endpage", searchVO.getEndpage());
+
+		return resultMap;
+	}
+	
+	
+	
+	//상세페이지//
 	// 베스트도서 상세 페이지 연결
 	@GetMapping("/bestBook/bestBookDetail/{gdNo}")
 	public String getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
@@ -88,39 +122,6 @@ public class BestBookController {
 		
 		return "/userBook/bestBookDetail";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/* 베스트도서 검색 */
-//	@GetMapping("/bestBook/searchBestBook")
-//	@ResponseBody
-//	public Map<String, Object> searchBestBook(SearchVO vo) {
-//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//
-//		int listcount = bestBookService.getListCount(vo);
-//
-//		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
-//
-//		List<NoticeVO> bestBookList = bestBookService.getNoticeList(searchVO);
-//
-//		resultMap.put("bestBookList", bestBookList);
-//		resultMap.put("maxPage", searchVO.getMaxpage());
-//		resultMap.put("page", searchVO.getPage());
-//		resultMap.put("startpage", searchVO.getStartpage());
-//		resultMap.put("endpage", searchVO.getEndpage());
-//
-//		return resultMap;
-//	}
-	
-	
 	
 	
 

@@ -27,18 +27,12 @@
 				<input type="date" id="endDt" class="mr10">
 			</div>
 			<div id="selectWrap">
-				<!-- <select id="goodsGroup">
-					<option value="optAll">전체</option>
-					<option value="bestBook">베스트도서</option>
-				</select> -->
-			
 				<select id="goodsSeparate">
 				</select>
 			
 				<select class="mr10" id="goodsNmNbrm">
 					<option value="optAll">전체</option>
 					<option value="gdsName">상품이름</option>
-					<!-- <option value="gdsNmbr">상품번호</option> -->
 				</select>
 			</div>
 			<div id="searchWrap">
@@ -46,49 +40,35 @@
 			</div>
 			<button id="goSearch" class="hover">검색</button>
 		</div>
-		<!-- <div class="wrap-select-search flex">
-			<div class="wrap-select">
-				<select id="goodsGroup">
-					<option value="optAll">전체</option>
-					<option value="special">전문서적</option>
-					<option value="general">일반서적</option>
-					<option value="foreign">외국어</option>
-					<option value="child">아동</option>
-					<option value="magazine">잡지</option>
-					<option value="it">IT</option>
-					<option value="exam">수험서</option>
-				</select>
-			</div>
-			<div class="wrap-search flex">
-				<input type="search" id="searchVal" placeholder="검색어를 입력해주세요" />
-				<button id="goSearch" class="hover">검색</button>
-			</div>
-		</div> -->
 		
 		<!-- 상품리스트 박스 -->
 		<div class="bestBook-list-wrap">
 			<div class="flexTable">
-			<c:forEach items="${reList}" var="vo">
 				<table id="bestBookTable">
+					<colgroup>
+						<col width="20%;">
+						<col width="70%;">
+						<col width="10%;">
+					</colgroup>
+					<c:forEach items="${reList}" var="vo">
 					<tr>
 						<td width="200px">
 							<img id="img" class="img hover" onclick="goDetail(${vo.gdNo})" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
 						</td>
 						<td valign="top" width="800px">
 							<ul>
-								<li class="li"><span hidden id="gdGp" class="hover" onclick="goDetail(${vo.gdNo})">${vo.gdGp}</span></li>
 								<li class="li"><span id="imgNm" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
 								<li class="li"><span class="hover f12" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo f12" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
 								<li class="li"><span id="gdDc" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
-								<li class="li"><span id="imgPrice" class="hover f14" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
+								<li class="li"><span class="hover f14 imgPrice" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
 							</ul>
 						</td>
 						<td width="150px">
 							<button id="cartBtn">장바구니</button>
 						</td>
 					</tr>
+				</c:forEach>
 				</table>
-			</c:forEach>
 			</div>
 		</div>
 	</div>
