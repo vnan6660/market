@@ -7,6 +7,7 @@
 var curDate;
 var searchParam = {};
 var nowPage = 1;
+
 $(function() {
 	init();
 	attachEvent();
@@ -118,6 +119,81 @@ var goPage = function(pageNum, tfNum) {
 		}
 	});
 }
+
+var goPageOdHistory = function(pageNum) {
+	searchParam = {};
+	searchParam.selectOptValOne = $("#csNo").val();
+	searchParam.page = pageNum;
+
+	$.ajax({
+		url: '/csInfo/searchOdHistoryList',
+		type: 'GET',
+		data: searchParam,
+		success: function(res) {
+			var maxPage = res.maxPage;
+			var startpage = res.startpage;
+			var endpage = res.endpage;
+			var odInfoList = res.odInfoList;
+			var viewList = "";
+			viewList += "<colgroup>";
+			viewList += "<col style='width:100px'>";
+			viewList += "<col style='width:200px'>";
+			viewList += "<col style='width:150px'>";
+			viewList += "<col style='width:150px'>";
+			viewList += "<col style='width:150px'>";
+			viewList += "<col style='width:150px'>";
+			viewList += "/colgroup";
+			viewList += "<tr>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>NO</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>주문번호</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>상품이름</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>주문날짜</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>배송날짜</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>발송상태</th>";
+			viewList += "</tr>";
+
+			$.each(odInfoList, function(i, e) {
+				var odDate = new Date(e.odDate);
+				var trDate = new Date(e.trDate);
+
+				viewList += "<tr>";
+				viewList += "<td>" + e.odNo + "</td>";
+				viewList += "<td>" + e.odNo + "</td>";
+				viewList += "<td>" + e.gdNm + "</td>";
+				viewList += "<td>" + odDate.getFullYear().toString() + "-" + ("0" + (odDate.getMonth() + 1)).slice(-2) + "-" + ("0" + odDate.getDate()).slice(-2) + "</td>";
+				viewList += "<td>" + trDate.getFullYear().toString() + "-" + ("0" + (trDate.getMonth() + 1)).slice(-2) + "-" + ("0" + trDate.getDate()).slice(-2) + "</td>";
+				viewList += "<td>" + e.odStage + "</td>";
+				viewList += "</tr>";
+			});
+
+			var pageList = "";
+			if (1 < startpage) {
+				/*startpage가 1보다 커야 실행가능*/
+				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+			}
+			for (var num = startpage; num <= endpage; num++) {
+				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + num + ')"'
+				if (nowPage == num) {
+					pageList += ' style = "background-color: #eee" >' + num
+				} else {
+					pageList += '>' + num
+				}
+
+				pageList += '</span>';
+			}
+
+			if (endpage < maxPage) {
+				/*endpage가 maxPage보다 작아야 실행 가능*/
+				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+			}
+
+			$("#buyHistoryTable").html(viewList);
+			$("#pageList").html(pageList);
+			
+		}
+	});
+}
+
 
 var getServerTime = function() {
 	var xmlHttp;

@@ -116,6 +116,41 @@
 	WHERE
 		CS_NO = #{csNo}
 	</select>
+	
+	<!-- csNo에 맞는 구매이력가져오기 -->
+	<select id="selectOrderHistory" parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
+	/*  csInfoMapper.selectOrderHistory */
+	SELECT *
+	  FROM
+	  (SELECT
+	   ROWNUM as rnum,odNo,trNo,csNo,odCnt,odAmt,odDate,odStage,gdNm,trDate
+	   FROM
+		(SELECT
+	    	o.OD_NO AS odNo
+	        ,o.TR_NO AS trNo
+	    	,o.CS_NO AS csNo
+	   		,o.OD_CNT AS odCnt
+	    	,o.OD_AMT AS odAmt
+	    	,o.OD_DATE AS odDate
+	    	,DECODE(o.OD_STAGE,'100',<![CDATA['대기중']]>,'200',<![CDATA['주문완료']]>,'300',<![CDATA['주문취소']]>,'400',<![CDATA['배송중']]>,'500',<![CDATA['배송완료']]>) AS odStage
+	   		,g.GD_NM AS gdNm
+	   		,t.TR_DATE AS trDate
+	 	FROM ORDER_INFO o
+	 	LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
+	 	LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
+		WHERE o.CS_NO = #{selectOptValOne}
+		ORDER BY OD_DATE DESC,OD_NO DESC
+	  )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	)WHERE rnum <![CDATA[>=]]> #{startCount}
+	</select>
+	
+	<!-- 고객 구매이력 카운트 -->
+	<select id="selectOdHistoryCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  csInfoMapper.selectOdHistoryCount */
+	SELECT COUNT(*)
+	  FROM ORDER_INFO
+	 WHERE CS_NO = #{selectOptValOne}
+	</select>
 </mapper>
 
 

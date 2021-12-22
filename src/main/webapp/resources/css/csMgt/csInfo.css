@@ -7,6 +7,10 @@
 
 @import url("/css/common/common.css");
 
+h3 {
+	margin-left: 5.8em;
+}
+
 input, select {
 	padding: 3px;
 }
@@ -24,12 +28,11 @@ select {
 	margin: 10px 0;
 }
 
-
-#dateWrap{
+#dateWrap {
 	display: inline-block;
 }
 
-#dateWrap input{
+#dateWrap input {
 	width: 130px;
 	height: 24px;
 }
@@ -55,18 +58,16 @@ select {
 	margin-top: 10px;
 	width: 100%;
 	text-align: center;
-	border-collapse:collapse;
+	border-collapse: collapse;
 }
 
 #csInfoTable tr:nth-of-type(1) {
 	background-color: #ccc;
 }
 
-#csInfoTable tr{
+#csInfoTable tr {
 	border-bottom: 2px solid #eee;
 }
-
-
 
 #csInfoDetailTable, #buyHistoryTable {
 	border: 1px solid #ddd;
@@ -89,13 +90,13 @@ select {
 
 #csInfoDetailTable tr>td:nth-of-type(2)::before {
 	/*공백 유니코드*/
-	content:'\00a0';
+	content: '\00a0';
 }
 
-#buyHistoryTable tr td{
+#buyHistoryTable tr td {
 	text-align: center;
 }
 
-#buyHistoryTable tr:nth-of-type(1) td{
+#buyHistoryTable tr:nth-of-type(1) td {
 	background-color: #eaeaea;
 }

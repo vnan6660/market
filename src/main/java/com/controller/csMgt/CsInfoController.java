@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.service.csMgt.CsInfoService;
 import com.vo.common.SearchVO;
 import com.vo.csMgt.CsInfoVO;
+import com.vo.orderInfo.OrderInfoVO;
 
 /**
  * 고객정보 Controller 생성자 : 김소연 생성일 : 2021.12.22
@@ -25,17 +26,16 @@ public class CsInfoController {
 	@Autowired
 	private CsInfoService csInfoService;
 
-	/* 고객정보페이지 가기 */
+	//고객정보페이지 가기 
 	@RequestMapping("/csInfo/csInfoPage")
 	public String csInfoPage(Model model) {
 
-		// 아직 객체만 만들어놓고 js에서 값넘기지 않았음(검색정보X,페이지만)
 		SearchVO vo = new SearchVO();
-		/* 고객정보 검색글카운트 */
+		//고객정보 검색글카운트
 		int listCount = csInfoService.getcsInfoCount(vo);
 		SearchVO searchVO = SearchVO.builder().page(1).listcount(listCount).build();
 		
-		/* 고객정보 가져오기 */
+		//고객정보 가져오기
 		List<CsInfoVO> csInfoList = csInfoService.getCsInfo(searchVO);
 		model.addAttribute("csInfoList", csInfoList);
 		model.addAttribute("maxPage", searchVO.getMaxpage());
@@ -46,17 +46,54 @@ public class CsInfoController {
 		return "/csMgt/csInfo";
 	}
 
-	/* 고객디테일페이지 가기 */
+	//고객디테일페이지 가기
 	@GetMapping("/csInfo/detailCsInfo/{csNo}")
 	public String detailCsInfo(@PathVariable String csNo, Model model) {
-		/* csNo에 맞는 고객정보 가져오기 */
+		//csNo에 맞는 고객정보 가져오기
 		CsInfoVO csOne = csInfoService.getDetailCsInfo(csNo);
+		
+		SearchVO svo = new SearchVO();
+		svo.setSelectOptValOne(csNo);
+		
+		//고객 구매이력 카운트
+		int listCount = csInfoService.getOdHistoryCount(svo);
+		SearchVO vo = SearchVO.builder().selectOptValOne(csNo).page(1).listcount(listCount).build();
+		//구매이력가져오기
+		List <OrderInfoVO> odInfoList = csInfoService.getOrderHistory(vo); 
 
 		model.addAttribute("csOne", csOne);
+		model.addAttribute("csNo", vo.getSelectOptValOne());
+		model.addAttribute("odInfoList", odInfoList);
+		model.addAttribute("maxPage", vo.getMaxpage());
+		model.addAttribute("page", vo.getPage());
+		model.addAttribute("startpage", vo.getStartpage());
+		model.addAttribute("endpage", vo.getEndpage());
 		return "/csMgt/csDetail";
 	}
 	
-	/*고객 목록 검색 */
+	//고객 구매이력 가져오기(페이지)
+	@GetMapping("/csInfo/searchOdHistoryList")
+	@ResponseBody
+	public Map<String, Object> searchOdHistoryList(SearchVO vo) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		//고객 구매이력 카운트
+		int listCount = csInfoService.getOdHistoryCount(vo);
+		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).page(vo.getPage()).listcount(listCount).build();
+		
+		//구매이력가져오기
+		List <OrderInfoVO> odInfoList = csInfoService.getOrderHistory(searchVO); 
+
+		resultMap.put("odInfoList", odInfoList);
+		resultMap.put("maxPage", searchVO.getMaxpage());
+		resultMap.put("page", searchVO.getPage());
+		resultMap.put("startpage", searchVO.getStartpage());
+		resultMap.put("endpage", searchVO.getEndpage());
+
+		return resultMap;
+	}
+	
+	//고객 목록 검색
 	@GetMapping("/csInfo/searchCsInfoList")
 	@ResponseBody
 	public Map<String, Object> searchCsInfoList(SearchVO vo) {
@@ -76,4 +113,5 @@ public class CsInfoController {
 
 		return resultMap;
 	}
+	
 }

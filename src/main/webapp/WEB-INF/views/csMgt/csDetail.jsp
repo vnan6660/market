@@ -67,6 +67,7 @@
 			</div>
 			<h3 class="mt10">구매이력</h3>
 			<div id="buyHistoryList">
+				<input id="csNo" type="hidden" value="${csNo}">
 				<table id="buyHistoryTable" style="width:900px;table-layout: fixed">
 					<colgroup>
 						<col style="width:100px">
@@ -84,30 +85,32 @@
 						<td>배송날짜</td>
 						<td>발송상태</td>
 					</tr>
+					<c:forEach items="${odInfoList}" var="od">
 					<tr>
-						<td>1</td>
-						<td>주문번호테스트1111</td>
-						<td>무엇일까</td>
-						<td>0000-00-00</td>
-						<td> - </td>
-						<td>발송완료</td>
+						<td>${od.odNo}</td>
+						<td>${od.odNo}</td>
+						<td>${od.gdNm}</td>
+						<td><fmt:formatDate value="${od.odDate}" pattern="yyyy-MM-dd" /></td>
+						<td><fmt:formatDate value="${od.trDate}" pattern="yyyy-MM-dd" /></td>
+						<td>${od.odStage}</td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
-		</div>
-		<div id="pageList">
+			<div id="pageList">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
 			<c:if test="${cnt == 1}">
-				<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
+				<span class="page mr6" onclick="goPageOdHistory(${cnt})" style="background-color: #eee">${cnt}</span>
 			</c:if>
 			<c:if test="${cnt != 1}">
-				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
+				<span class="page mr6" onclick="goPageOdHistory(${cnt})">${cnt}</span>
 			</c:if>
 			</c:forEach>
 			<c:if test="${endpage < maxPage}">
-				<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
+				<span class="page mr6" onclick="goPageOdHistory(${endpage}+1)">&gt;&gt;</span>
 			</c:if>
 			
+		</div>
 		</div>
 	</main>
 </body>
