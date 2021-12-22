@@ -14,6 +14,8 @@ $(function(){
 		goPage(1);
 	});
 	
+	
+	
 });
 
 var init = function() {
@@ -80,12 +82,6 @@ var getGoodsSeparate = function(goodsGroup) {
 	});
 }
 
-//천단위 콤마 펑션
-var addComma = function(e) {
-	e = e.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	return e;
-}
-
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum) {
 	searchParam = {};
@@ -120,9 +116,13 @@ var goPage = function(pageNum) {
 				viewList += "<td  valign='top' class='hover' onclick='goDetail(" + e.gdNo + ")'>" 
 								+"<ul>"
 									+"<li class='hover li'>" + "<span id='imgNm' class='hover f14'>" + e.gdNm + "</span>" + "</li>"
-									+"<li class='hover li'>" + "<span class='hover f12'>" + e.gdWr + "(지은이)" + "  |  " + "</span>" + "<span class='hover f12'>" + e.gdPb + "</span>" + "</li>"
+									+"<li class='hover li'>" + "<span class='hover f12'>" + e.gdWr + "(지은이)" + "  |  " + "</span>" + "<span class='hover f12'>" + e.gdPb + "(출판사)"  +"</span>" + "</li>"
 									+"<li class='hover li'>" + "<span id='gdDc' class='hover f14'>" + e.gdDc + "</span>" + "</li>"
-									+"<li class='hover li imgPrice' id='gdPriceComma'>" + "<span class='hover f14'>"+ e.gdPrice + "원" + "</span>" + "</li>"
+									+"<c:if test='${vo.gdPrice} >= 1000'>"
+										+"<li class='hover li imgPrice f14' >" + "<span class='hover' id='gdPriceComma'>"
+										+ e.gdPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "원" 
+										+ "</span>" + "</li>"
+									+"</c:if>"
 								+"</ul>"
 							+"</td>";
 				viewList += "<td class='hover'>" + "<button id='cartBtn'>장바구니</button></td>";
@@ -158,9 +158,6 @@ var goPage = function(pageNum) {
 
 			$("#bestBookTable").html(viewList);
 			$("#pageList").html(pageList);
-
-			$("#gdPriceComma").text(addComma($("#gdPriceComma").text()));
-
 
 		},
 		error: function() {

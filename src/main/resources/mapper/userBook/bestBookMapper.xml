@@ -32,12 +32,13 @@
 		   left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
 		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
 		  WHERE 1 = 1
+		  AND GD_YN = 'Y'
 		 	<if test='startDt != null and endDt != null'>
 				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 			</if>
 			<if test='selectOptValTwo != null'>
 				<if test='selectOptValTwo.equals("optAll")'>
-					AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')
+					AND GD_SP IN ('special','general','foreign','child','magazine','it','exam')
 				</if>
 				<if test='!selectOptValTwo.equals("optAll")'>
 					AND GD_SP = #{selectOptValTwo}
@@ -63,6 +64,7 @@
 		SELECT COUNT(*)
 		  FROM GOODS_INFO
 		 WHERE 1 = 1
+		 AND GD_YN = 'Y'
 		<if test='startDt != null and endDt != null'>
 				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 		</if>

@@ -46,24 +46,24 @@
 			<div class="flexTable">
 				<table id="bestBookTable">
 					<colgroup>
-						<col width="20%;">
-						<col width="70%;">
-						<col width="10%;">
+						<col width="200px;">
+						<col width="800px;">
+						<col width="150px;">
 					</colgroup>
 					<c:forEach items="${reList}" var="vo">
 					<tr>
-						<td width="200px">
+						<td>
 							<img id="img" class="img hover" onclick="goDetail(${vo.gdNo})" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
 						</td>
-						<td valign="top" width="800px">
+						<td valign="top" class='hover' onclick="goDetail(${vo.gdNo})">
 							<ul>
-								<li class="li"><span id="imgNm" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdNm}</span></li>
-								<li class="li"><span class="hover f12" onclick="goDetail(${vo.gdNo})">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo f12" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
-								<li class="li"><span id="gdDc" class="hover f14" onclick="goDetail(${vo.gdNo})">${vo.gdDc}</span></li>
-								<li class="li"><span class="hover f14 imgPrice" onclick="goDetail(${vo.gdNo})"><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
+								<li class="li hover"><span id="imgNm" class="hover f14">${vo.gdNm}</span></li>
+								<li class="li hover"><span class="hover f12">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo f12" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
+								<li class="li hover"><span id="gdDc" class="hover f14">${vo.gdDc}</span></li>
+								<li class="li hover f14 imgPrice"><span><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
 							</ul>
 						</td>
-						<td width="150px">
+						<td >
 							<button id="cartBtn">장바구니</button>
 						</td>
 					</tr>
