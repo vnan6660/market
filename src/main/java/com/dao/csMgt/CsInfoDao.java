@@ -16,7 +16,7 @@ public interface CsInfoDao {
 	int selectCsInfoCount(SearchVO vo);
 	
 	/* 고객정보 가져오기 */
-	List<CsInfoVO> selectCsInfo();
+	List<CsInfoVO> selectCsInfo(SearchVO searchVO);
 
 	/* csNo에 맞는 고객정보 가져오기 */
 	CsInfoVO selectDetailCsInfo(String csNo);

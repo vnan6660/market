@@ -40,6 +40,7 @@ public class GoodsListController {
 	public String goodsListPage(Model model) throws IOException {
 		SearchVO svo = new SearchVO();
 		int listcount = goodsListService.getGoodsListCount(svo);
+		
 		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
 		
 		//물품목록리스트 가져오기

@@ -16,7 +16,7 @@ public interface CsInfoService {
 	int getcsInfoCount(SearchVO vo);
 	
 	/* 고객정보 가져오기 */
-	List<CsInfoVO> getCsInfo();
+	List<CsInfoVO> getCsInfo(SearchVO searchVO);
 
 	/* csNo에 맞는 고객정보 가져오기 */
 	CsInfoVO getDetailCsInfo(String csNo);

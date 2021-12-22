@@ -30,7 +30,7 @@ var attachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
-		goPage(1);
+		goPage(1, 1);
 	});
 
 	//물품등록 버튼 클릭시 실행
@@ -195,18 +195,14 @@ var goShowGoods = function() {
 	}
 }
 
-//천단위 콤마 펑션
-var addComma = function(e) {
-	e = e.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	return e;
-}
-
 
 //검색과 페이지 정보 같이 넘기기
-var goPage = function(pageNum) {
+var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	searchParam.startDt = $("#startDt").val();
-	searchParam.endDt = $("#endDt").val();
+	if (tfNum == 0) {
+		searchParam.startDt = $("#startDt").val();
+		searchParam.endDt = $("#endDt").val();
+	}
 	searchParam.selectOptValOne = $("#goodsGroup option:selected").val();
 	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();
 	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();
@@ -257,7 +253,7 @@ var goPage = function(pageNum) {
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
 				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
-				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice + "<span>원</span></td>";
+				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
 
 				if (e.gdYn == 'Y') {
@@ -272,10 +268,10 @@ var goPage = function(pageNum) {
 			var pageList = "";
 			if (1 < startpage) {
 				/*startpage가 1보다 커야 실행가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
 			}
 			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
 				if (nowPage == num) {
 					pageList += ' style = "background-color: #eee" >' + num
 				} else {
@@ -287,7 +283,7 @@ var goPage = function(pageNum) {
 
 			if (endpage < maxPage) {
 				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
 			}
 
 			$("#goodsListTable").html(viewList);

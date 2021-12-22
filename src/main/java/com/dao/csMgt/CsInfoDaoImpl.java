@@ -28,8 +28,8 @@ public class CsInfoDaoImpl implements CsInfoDao {
 	
 	/* 고객정보 가져오기 */
 	@Override
-	public List<CsInfoVO> selectCsInfo() {
-		return sqlSession.selectList("selectCsInfo");
+	public List<CsInfoVO> selectCsInfo(SearchVO searchVO) {
+		return sqlSession.selectList("selectCsInfo",searchVO);
 	}
 
 	/* csNo에 맞는 고객정보 가져오기 */

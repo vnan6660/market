@@ -24,8 +24,18 @@ select {
 	margin: 10px 0;
 }
 
+
+#dateWrap{
+	display: inline-block;
+}
+
+#dateWrap input{
+	width: 130px;
+	height: 24px;
+}
+
 #csInfoUpperWrap {
-	height: 400px;
+	height: 900px;
 }
 
 #goSearch {
@@ -44,21 +54,48 @@ select {
 #csInfoTable {
 	margin-top: 10px;
 	width: 100%;
-	border: 1px solid;
 	text-align: center;
+	border-collapse:collapse;
 }
 
 #csInfoTable tr:nth-of-type(1) {
 	background-color: #ccc;
 }
 
-#pageList {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
+#csInfoTable tr{
+	border-bottom: 2px solid #eee;
 }
 
-.page {
-	border: 2px solid #eee;
-	padding: 0.5em 1em;
+
+
+#csInfoDetailTable, #buyHistoryTable {
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	margin: 3% 10%;
+}
+
+#csInfoDetailTable tr, #buyHistoryTable tr {
+	border-top: 1px solid #ddd;
+}
+
+#csInfoDetailTable td {
+	padding: 10px;
+}
+
+#csInfoDetailTable tr>td:nth-of-type(1) {
+	background-color: #eaeaea;
+	text-align: center;
+}
+
+#csInfoDetailTable tr>td:nth-of-type(2)::before {
+	/*공백 유니코드*/
+	content:'\00a0';
+}
+
+#buyHistoryTable tr td{
+	text-align: center;
+}
+
+#buyHistoryTable tr:nth-of-type(1) td{
+	background-color: #eaeaea;
 }

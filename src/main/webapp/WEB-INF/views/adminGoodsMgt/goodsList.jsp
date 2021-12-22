@@ -103,14 +103,14 @@
 		<div id="pageList">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
 			<c:if test="${cnt == 1}">
-				<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
+				<span class="page mr6" onclick="goPage(${cnt},0)" style="background-color: #eee">${cnt}</span>
 			</c:if>
 			<c:if test="${cnt != 1}">
-				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
+				<span class="page mr6" onclick="goPage(${cnt},0)">${cnt}</span>
 			</c:if>
 			</c:forEach>
 			<c:if test="${endpage < maxPage}">
-				<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
+				<span class="page mr6" onclick="goPage(${endpage}+1,0)">&gt;&gt;</span>
 			</c:if>
 			
 		</div>

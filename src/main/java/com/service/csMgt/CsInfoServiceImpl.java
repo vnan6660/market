@@ -28,8 +28,8 @@ public class CsInfoServiceImpl implements CsInfoService {
 	
 	/* 고객정보 가져오기 */
 	@Override
-	public List<CsInfoVO> getCsInfo() {
-		return csInfoDao.selectCsInfo();
+	public List<CsInfoVO> getCsInfo(SearchVO searchVO) {
+		return csInfoDao.selectCsInfo(searchVO);
 	}
 
 	/* csNo에 맞는 고객정보 가져오기 */

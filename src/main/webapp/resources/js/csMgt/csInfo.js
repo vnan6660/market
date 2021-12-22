@@ -1,12 +1,28 @@
 /**
 *생성자 : 김소연
-*생성일 : 2021.12.09
+*생성일 : 2021.12.22
 *고객정보
 */
 
+var curDate;
+var searchParam = {};
+var nowPage = 1;
 $(function() {
+	init();
 	attachEvent();
 });
+
+
+var init = function() {
+	//서버시간 가져오기
+	getServerTime();
+
+	//가져온 서버시간  startDate와 endDate에 넣기
+	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
+}
+
+
 
 /*이벤트함수*/
 var attachEvent = function() {
@@ -14,25 +30,29 @@ var attachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
-		goPage(1);
+		goPage(1, 1);
 	});
 }
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(csNo) {
-	location.href = '/csInfo/detailCsInfo/'+csNo;
+	location.href = '/csInfo/detailCsInfo/' + csNo;
 }
 
 /*검색과 페이지 정보 같이 넘기기*/
-var goPage = function(pageNum) {
+var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	searchParam.selectUserGradeOpt = $("#userGradeSelectWrap option:selected").val();
-	searchParam.selectUserInfoOpt = $("#userInfoSelectWrap option:selected").val();
+	if (tfNum == 0) {
+		searchParam.startDt = $("#startDt").val();
+		searchParam.endDt = $("#endDt").val();
+	}
+	searchParam.selectOptValOne = $("#userGradeSelectWrap option:selected").val();
+	searchParam.selectOptValTwo = $("#userInfoSelectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
 
-	/*$.ajax({
-		url: '/notice/searchNotice',
+	$.ajax({
+		url: '/csInfo/searchCsInfoList',
 		type: 'GET',
 		data: searchParam,
 		success: function(res) {
@@ -63,7 +83,7 @@ var goPage = function(pageNum) {
 				var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
 
 				viewList += "<tr>";
-				viewList += "<td>" + e.ntcNo + "</td>";
+				viewList += "<td>" + e.csNo + "</td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.csNo + ")'>" + e.csId + "</td>";
 				viewList += "<td>" + e.csNm + "</td>";
 				viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
@@ -73,21 +93,50 @@ var goPage = function(pageNum) {
 
 			var pageList = "";
 			if (1 < startpage) {
-				//startpage가 1보다 커야 실행가능
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+				/*startpage가 1보다 커야 실행가능*/
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
 			}
 			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ')">' + num + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
+				if (nowPage == num) {
+					pageList += ' style = "background-color: #eee" >' + num
+				} else {
+					pageList += '>' + num
+				}
+
+				pageList += '</span>';
 			}
 
 			if (endpage < maxPage) {
-				//endpage가 maxPage보다 작아야 실행 가능
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
+				/*endpage가 maxPage보다 작아야 실행 가능*/
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
 			}
 
-			$("#ntcTable").html(viewList);
+			$("#csInfoTable").html(viewList);
 			$("#pageList").html(pageList);
 
 		}
-	});*/
+	});
+}
+
+var getServerTime = function() {
+	var xmlHttp;
+
+	if (window.XMLHttpRequest) {
+		//익스플로러 7과 그 이상의 버전, 크롬, 파이어폭스, 사파리, 오페라
+		xmlHttp = new XMLHttpRequest;
+	} else if (window.ActiveXObject) {
+		//익스플로러 5,6(익스플로러 구형버전)
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlHttp.open('HEAD', window.location.href.toString(), false);
+	xmlHttp.setRequestHeader('Content-Type', 'text/html');
+	xmlHttp.send('');
+
+	var serverDate = xmlHttp.getResponseHeader('Date');
+
+	curDate = new Date(serverDate);
 }

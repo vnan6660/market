@@ -20,14 +20,19 @@
 		<hr>
 		<div id="csInfoUpperWrap">
 			<div id="ssWrap">
-				<input type="date" id="startDate" name="calander">
-				<input type="date" id="endDate" name="calander">
+				<div id="dateWrap">
+					<input type="date" id="startDt">
+					<p style="display: inline;"> ~ </p>
+					<input type="date" id="endDt">
+				</div>
 				
 				<select id="userGradeSelectWrap">
+					<option value="optAll">전체</option>
 					<option value="optMember">회원</option>
 					<option value="optWithdrawal">탈퇴</option>
 				</select>
 				<select id="userInfoSelectWrap">
+					<option value="optAll">전체</option>
 					<option value="optCsID">사용자ID</option>
 					<option value="optCsNm">사용자이름</option>
 				</select>
@@ -67,13 +72,18 @@
 				</table>
 			</div>
 			<div id="pageList" class="mt10">
-			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
-				<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
-			</c:forEach>
-			<c:if test="${endpage} < ${maxPage}">
-			<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
-			</c:if>
-		</div>
+				<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+				<c:if test="${cnt == 1}">
+					<span class="page mr6" onclick="goPage(${cnt},0)" style="background-color: #eee">${cnt}</span>
+				</c:if>
+				<c:if test="${cnt != 1}">
+					<span class="page mr6" onclick="goPage(${cnt},0)">${cnt}</span>
+				</c:if>
+				</c:forEach>
+				<c:if test="${endpage < maxPage}">
+					<span class="page mr6" onclick="goPage(${endpage}+1,0)">&gt;&gt;</span>
+				</c:if>
+		 	</div>
 		</div>
 	</main>
 </body>
