@@ -1,6 +1,10 @@
 package com.controller.adminGoodsMgt;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,10 +42,18 @@ public class GoodsListController {
 	//물품목록 페이지가기
 	@RequestMapping("/goodsList/goodsListPage")
 	public String goodsListPage(Model model) throws IOException {
-		SearchVO svo = new SearchVO();
-		int listcount = goodsListService.getGoodsListCount(svo);
 		
-		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
+		 //현재월 첫번째 일자
+		 String startDt= LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ISO_DATE);
+		 
+		 //현재 일자
+		 String endDt = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+		
+		
+		SearchVO svo = SearchVO.builder().startDt(startDt).endDt(endDt).build();
+		
+		int listcount = goodsListService.getGoodsListCount(svo);
+		SearchVO searchVO = SearchVO.builder().startDt(startDt).endDt(endDt).page(1).listcount(listcount).build();
 		
 		//물품목록리스트 가져오기
 		List<GoodsListVO> list =  goodsListService.getGoodsList(searchVO);

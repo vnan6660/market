@@ -1,5 +1,8 @@
 package com.controller.csMgt;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +32,16 @@ public class CsInfoController {
 	//고객정보페이지 가기 
 	@RequestMapping("/csInfo/csInfoPage")
 	public String csInfoPage(Model model) {
-
-		SearchVO vo = new SearchVO();
+		 //현재월 첫번째 일자
+		 String startDt= LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ISO_DATE);
+		 //현재 일자
+		 String endDt = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+		 
+		 SearchVO vo = SearchVO.builder().startDt(startDt).endDt(endDt).build();
+		
 		//고객정보 검색글카운트
 		int listCount = csInfoService.getcsInfoCount(vo);
-		SearchVO searchVO = SearchVO.builder().page(1).listcount(listCount).build();
+		SearchVO searchVO = SearchVO.builder().startDt(startDt).endDt(endDt).page(1).listcount(listCount).build();
 		
 		//고객정보 가져오기
 		List<CsInfoVO> csInfoList = csInfoService.getCsInfo(searchVO);
