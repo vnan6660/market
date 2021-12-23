@@ -180,6 +180,7 @@ var goDeleteGoods = function() {
 
 
 var goShowGoods = function() {
+	var nonShowNoList = [];
 	var showNoList = [];
 
 	$("input[name = showCheck]").each(function(i, e) {
@@ -187,13 +188,20 @@ var goShowGoods = function() {
 		if (e.checked == true) {
 			showNoList.push(e.value);
 		}
+		//개시체크박스에 체크해제되어있는 것만
+		if(e.checked == false){
+			nonShowNoList.push(e.value);
+		}
 	});
 
 	if (confirm('개시하시겠습니까?')) {
 		$.ajax({
 			url: '/goodsList/showGoods',
 			type: 'GET',
-			data: { "showNoList": showNoList },
+			data: {
+				"showNoList": showNoList,
+				"nonShowNoList": nonShowNoList
+			},
 			success: function() {
 				alert("개시정보가 변경되었습니다");
 				location.href = "/goodsList/goodsListPage";
@@ -298,8 +306,6 @@ var goPage = function(pageNum, tfNum) {
 
 			$("#goodsListTable").html(viewList);
 			$("#pageList").html(pageList);
-
-			$("#gdPriceComma").text(addComma($("#gdPriceComma").text()));
 
 		},
 		error: function() {
