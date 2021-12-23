@@ -156,7 +156,14 @@ var goPage = function(pageNum) {
 			viewList += "<th>작성일</th>";
 			viewList += "<th>조회</th>";
 			viewList += "</tr>";
-
+			if (noticeList.length ==  0) {
+				
+					viewList += "<tr>";
+					viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
+					viewList += "</tr>";
+					
+					$("#pageList").html("");
+			} else {
 			$.each(noticeList, function(i, e) {
 				var date = new Date(e.ntcRegDate);
 				var year = date.getFullYear().toString();
@@ -193,8 +200,10 @@ var goPage = function(pageNum) {
 				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
 			}
 
-			$("#ntcTable").html(viewList);
 			$("#pageList").html(pageList);
+			
+			}
+			$("#ntcTable").html(viewList);
 
 		},
 		error: function() {

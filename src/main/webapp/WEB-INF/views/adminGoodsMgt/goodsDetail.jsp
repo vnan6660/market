@@ -163,11 +163,13 @@
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" id="gdNo" name="gdNo" value="${goodsVO.gdNo}">
-				<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
-				<button type="button" id="goodsUpdDoneBtn" class="btnSmallList hover">저장</button>
-				<button type="button" id="goodsDelBtn" class="btnSmallList hover">삭제</button>
-				<button type="button" id="goodsUpdBtn" class="btnSmallList hover">수정</button>
+				<div style="width:977px;table-layout: fixed">
+					<input type="hidden" id="gdNo" name="gdNo" value="${goodsVO.gdNo}">
+					<button type="button" id="goodsListBtn" class="btnSmallList hover">목록</button>
+					<button type="button" id="goodsUpdDoneBtn" class="btnSmallList hover">저장</button>
+					<button type="button" id="goodsDelBtn" class="btnSmallList hover">삭제</button>
+					<button type="button" id="goodsUpdBtn" class="btnSmallList hover">수정</button>
+				</div>
 				
 			</form>
 		</div>

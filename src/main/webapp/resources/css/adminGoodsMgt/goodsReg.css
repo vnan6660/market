@@ -10,13 +10,13 @@
 #goodsRegWrap {
 	width: 80%;
 	height: 600px;
-	margin: 0 0 0 8%;
+	margin: 0 0 0 15%;
 }
 
 table {
 	border: 1px solid #ddd;
 	border-collapse: collapse;
-	margin: 3%;
+	margin-top: 30px;
 }
 
 tr {
@@ -73,7 +73,6 @@ textarea {
 
 #goodsListBtn {
 	float: left;
-	margin-left: 28px;
 }
 
 #goodsRegBtn {
@@ -84,7 +83,7 @@ textarea {
 	text-align: end;
 	width: 230px;
 	margin-top: 3%;
-	margin-left: 690px;
+	margin-left: 670px;
 }
 
 /* -----물품 상세 ------ */
@@ -94,8 +93,7 @@ textarea {
 }
 
 #goodsUpdBtn {
-	float: right;
-    margin-right: 55px;
+    margin-left: 33px;
 }
 
 #goodsDelBtn {

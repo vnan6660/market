@@ -261,11 +261,10 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<th>재고</th>";
 			viewList += "<th><input type='checkbox' name='allShowCheck' onchange='allShowCheck()'></th>";
 			viewList += "</tr>";
-
 			if (reList.length ==  0) {
 				
 					viewList += "<tr>";
-					viewList += "<td>데이터가 존재하지 않습니다</td>";
+					viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
 					viewList += "</tr>";
 					
 					$("#pageList").html("");
