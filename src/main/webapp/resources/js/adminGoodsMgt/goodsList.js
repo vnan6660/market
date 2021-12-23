@@ -189,7 +189,7 @@ var goShowGoods = function() {
 			showNoList.push(e.value);
 		}
 		//개시체크박스에 체크해제되어있는 것만
-		if(e.checked == false){
+		if (e.checked == false) {
 			nonShowNoList.push(e.value);
 		}
 	});
@@ -262,50 +262,61 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<th><input type='checkbox' name='allShowCheck' onchange='allShowCheck()'></th>";
 			viewList += "</tr>";
 
-			$.each(reList, function(i, e) {
+			if (reList.length ==  0) {
+				
+					viewList += "<tr>";
+					viewList += "<td>데이터가 존재하지 않습니다</td>";
+					viewList += "</tr>";
+					
+					$("#pageList").html("");
+			} else {
+				$.each(reList, function(i, e) {
 
-				viewList += "<tr>";
-				viewList += "<td><input type='checkbox' name='delCheck' value='" + e.gdNo + "'></td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNo + "</td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdGpNm + "</td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
-				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
-				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
+					viewList += "<tr>";
+					viewList += "<td><input type='checkbox' name='delCheck' value='" + e.gdNo + "'></td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNo + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdGpNm + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
+					viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
+					viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
 
-				if (e.gdYn == 'Y') {
-					viewList += "<td><input type='checkbox' name='showCheck' checked='checked' value='" + e.gdNo + "'></td>";
+					if (e.gdYn == 'Y') {
+						viewList += "<td><input type='checkbox' name='showCheck' checked='checked' value='" + e.gdNo + "'></td>";
+					}
+					if (e.gdYn == 'N') {
+						viewList += "<td><input type='checkbox' name='showCheck' value='" + e.gdNo + "'></td>";
+					}
+					viewList += "</tr>";
+				});
+
+				var pageList = "";
+				if (1 < startpage) {
+					/*startpage가 1보다 커야 실행가능*/
+					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
 				}
-				if (e.gdYn == 'N') {
-					viewList += "<td><input type='checkbox' name='showCheck' value='" + e.gdNo + "'></td>";
-				}
-				viewList += "</tr>";
-			});
+				for (var num = startpage; num <= endpage; num++) {
+					pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
+					if (nowPage == num) {
+						pageList += ' style = "background-color: #eee" >' + num
+					} else {
+						pageList += '>' + num
+					}
 
-			var pageList = "";
-			if (1 < startpage) {
-				/*startpage가 1보다 커야 실행가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
-			}
-			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
-				if (nowPage == num) {
-					pageList += ' style = "background-color: #eee" >' + num
-				} else {
-					pageList += '>' + num
+					pageList += '</span>';
 				}
 
-				pageList += '</span>';
-			}
+				if (endpage < maxPage) {
+					/*endpage가 maxPage보다 작아야 실행 가능*/
+					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+				}
 
-			if (endpage < maxPage) {
-				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+				$("#pageList").html(pageList);
 			}
 
 			$("#goodsListTable").html(viewList);
-			$("#pageList").html(pageList);
+
 
 		},
 		error: function() {
