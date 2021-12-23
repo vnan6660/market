@@ -84,46 +84,52 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<th>가입날짜</th>";
 			viewList += "<th>회원구분</th>";
 			viewList += "</tr>";
-
-			$.each(csInfoList, function(i, e) {
-				var date = new Date(e.createDate);
-				var year = date.getFullYear().toString();
-				var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
-				var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+			if (csInfoList.length == 0) {
 
 				viewList += "<tr>";
-				viewList += "<td>" + e.csNo + "</td>";
-				viewList += "<td class='hover' onclick='goDetail(" + e.csNo + ")'>" + e.csId + "</td>";
-				viewList += "<td>" + e.csNm + "</td>";
-				viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
-				viewList += "<td>" + e.csGrade + "</td>";
+				viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
 				viewList += "</tr>";
-			});
 
-			var pageList = "";
-			if (1 < startpage) {
-				/*startpage가 1보다 커야 실행가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
-			}
-			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
-				if (nowPage == num) {
-					pageList += ' style = "background-color: #eee" >' + num
-				} else {
-					pageList += '>' + num
+				$("#pageList").html("");
+			} else {
+				$.each(csInfoList, function(i, e) {
+					var date = new Date(e.createDate);
+					var year = date.getFullYear().toString();
+					var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+					var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+
+					viewList += "<tr>";
+					viewList += "<td>" + e.csNo + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + e.csNo + ")'>" + e.csId + "</td>";
+					viewList += "<td>" + e.csNm + "</td>";
+					viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
+					viewList += "<td>" + e.csGrade + "</td>";
+					viewList += "</tr>";
+				});
+
+				var pageList = "";
+				if (1 < startpage) {
+					/*startpage가 1보다 커야 실행가능*/
+					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
+				}
+				for (var num = startpage; num <= endpage; num++) {
+					pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
+					if (nowPage == num) {
+						pageList += ' style = "background-color: #eee" >' + num
+					} else {
+						pageList += '>' + num
+					}
+
+					pageList += '</span>';
 				}
 
-				pageList += '</span>';
+				if (endpage < maxPage) {
+					/*endpage가 maxPage보다 작아야 실행 가능*/
+					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+				}
+				$("#pageList").html(pageList);
 			}
-
-			if (endpage < maxPage) {
-				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
-			}
-
 			$("#csInfoTable").html(viewList);
-			$("#pageList").html(pageList);
-
 		}
 	});
 }
@@ -159,45 +165,51 @@ var goPageOdHistory = function(pageNum) {
 			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>배송날짜</th>";
 			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>발송상태</th>";
 			viewList += "</tr>";
-
-			$.each(odInfoList, function(i, e) {
-				var odDate = new Date(e.odDate);
-				var trDate = new Date(e.trDate);
+			if (odInfoList.length == 0) {
 
 				viewList += "<tr>";
-				viewList += "<td>" + e.odNo + "</td>";
-				viewList += "<td>" + e.odNo + "</td>";
-				viewList += "<td>" + e.gdNm + "</td>";
-				viewList += "<td>" + odDate.getFullYear().toString() + "-" + ("0" + (odDate.getMonth() + 1)).slice(-2) + "-" + ("0" + odDate.getDate()).slice(-2) + "</td>";
-				viewList += "<td>" + trDate.getFullYear().toString() + "-" + ("0" + (trDate.getMonth() + 1)).slice(-2) + "-" + ("0" + trDate.getDate()).slice(-2) + "</td>";
-				viewList += "<td>" + e.odStage + "</td>";
+				viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
 				viewList += "</tr>";
-			});
 
-			var pageList = "";
-			if (1 < startpage) {
-				/*startpage가 1보다 커야 실행가능*/
-				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
-			}
-			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + num + ')"'
-				if (nowPage == num) {
-					pageList += ' style = "background-color: #eee" >' + num
-				} else {
-					pageList += '>' + num
+				$("#pageList").html("");
+			} else {
+				$.each(odInfoList, function(i, e) {
+					var odDate = new Date(e.odDate);
+					var trDate = new Date(e.trDate);
+
+					viewList += "<tr>";
+					viewList += "<td>" + e.odNo + "</td>";
+					viewList += "<td>" + e.odNo + "</td>";
+					viewList += "<td>" + e.gdNm + "</td>";
+					viewList += "<td>" + odDate.getFullYear().toString() + "-" + ("0" + (odDate.getMonth() + 1)).slice(-2) + "-" + ("0" + odDate.getDate()).slice(-2) + "</td>";
+					viewList += "<td>" + trDate.getFullYear().toString() + "-" + ("0" + (trDate.getMonth() + 1)).slice(-2) + "-" + ("0" + trDate.getDate()).slice(-2) + "</td>";
+					viewList += "<td>" + e.odStage + "</td>";
+					viewList += "</tr>";
+				});
+
+				var pageList = "";
+				if (1 < startpage) {
+					/*startpage가 1보다 커야 실행가능*/
+					pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+				}
+				for (var num = startpage; num <= endpage; num++) {
+					pageList += '<span class="page mr6" onclick="goPageOdHistory(' + num + ')"'
+					if (nowPage == num) {
+						pageList += ' style = "background-color: #eee" >' + num
+					} else {
+						pageList += '>' + num
+					}
+
+					pageList += '</span>';
 				}
 
-				pageList += '</span>';
+				if (endpage < maxPage) {
+					/*endpage가 maxPage보다 작아야 실행 가능*/
+					pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+				}
+				$("#pageList").html(pageList);
 			}
-
-			if (endpage < maxPage) {
-				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPageOdHistory(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
-			}
-
 			$("#buyHistoryTable").html(viewList);
-			$("#pageList").html(pageList);
-
 		}
 	});
 }
