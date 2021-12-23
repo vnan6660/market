@@ -63,11 +63,14 @@ public class GoodsListServiceImpl implements GoodsListService {
 
 	//물품 개시 하기
 	@Override
-	public void showGoods(ArrayList<String> showNoList) {
-		if (showNoList != null) {
+	public void showGoods(ArrayList<String> showNoList, ArrayList<String> nonShowNoList) {
+		if(showNoList != null) {
 			goodsListDao.showGoodsTrue(showNoList);
 		}
-		goodsListDao.showGoodsFalse(showNoList);
+		
+		if(nonShowNoList != null) {
+			goodsListDao.showGoodsFalse(nonShowNoList);
+		}
 	}
 
 	//검색글카운트

@@ -84,7 +84,7 @@ var attachEvent = function() {
 					data: new FormData($('#goodsForm')[0]),
 					success: function() {
 						alert("저장되었습니다");
-						location.href = "/goodsReg/goodsRegPage";
+						location.href = "/goodsList/goodsListPage";
 					},
 					error: function() {
 						alert("오류입니다. 관리자에게 문의해주세요");

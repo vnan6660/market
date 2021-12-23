@@ -194,12 +194,10 @@
 	/* goodsListMapper.showGoodsFalse */
 	UPDATE GOODS_INFO
 	   SET GD_YN = 'N'
-	<if test="list != null">
-     WHERE GD_NO NOT IN
-		<foreach item="item" collection="list" open="(" separator="," close=")"> 
-			#{item}
-		</foreach>
-	</if>
+     WHERE GD_NO IN
+	<foreach item="item" collection="list" open="(" separator="," close=")"> 
+		#{item}
+	</foreach>
 	</update>
 	
 	<!-- 검색글카운트 -->

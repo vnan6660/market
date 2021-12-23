@@ -73,7 +73,7 @@ textarea {
 
 #goodsListBtn {
 	float: left;
-	margin-left: 22px;
+	margin-left: 28px;
 }
 
 #goodsRegBtn {
@@ -94,15 +94,18 @@ textarea {
 }
 
 #goodsUpdBtn {
-	margin-left: 72%;
+	float: right;
+    margin-right: 55px;
 }
 
 #goodsDelBtn {
-	margin-left: 56%;
+	float: right;
+	margin-right: 50px;
 }
 
 #goodsUpdDoneBtn {
-	margin-left: 5%;
+	float: right;
+    margin-right: 55px;
 }
 
 #gdDetlLabel {

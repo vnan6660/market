@@ -38,7 +38,7 @@ public interface GoodsListDao {
 	void showGoodsTrue(ArrayList<String> showNoList);
 	
 	//물품 개시 하기(체크되지 않은것은 false)
-	void showGoodsFalse(ArrayList<String> showNoList);
+	void showGoodsFalse(ArrayList<String> nonShowNoList);
 
 	//검색글카운트
 	int selectGoodsListCount(SearchVO vo);

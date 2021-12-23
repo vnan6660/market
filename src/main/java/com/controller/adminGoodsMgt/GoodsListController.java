@@ -155,8 +155,8 @@ public class GoodsListController {
 	// 물품 개시 하기
 	@GetMapping("/goodsList/showGoods")
 	@ResponseBody
-	public void showGoods(@RequestParam(value = "showNoList[]",required = false) ArrayList<String> showNoList) {
-		goodsListService.showGoods(showNoList);
+	public void showGoods(@RequestParam(value = "showNoList[]",required = false) ArrayList<String> showNoList,@RequestParam(value = "nonShowNoList[]",required = false) ArrayList<String> nonShowNoList) {
+		goodsListService.showGoods(showNoList,nonShowNoList);
 	}
 	
 	/*물품목록 검색 */

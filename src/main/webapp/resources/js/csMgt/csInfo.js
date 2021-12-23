@@ -18,8 +18,11 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
+	//달력시간 해당월1일로 셋팅
+	var startDate = new Date(curDate);
+	startDate.setDate(1);
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
 }
 
@@ -33,6 +36,11 @@ var attachEvent = function() {
 		/*페이지가 1페이지인 검색함수*/
 		goPage(1, 1);
 	});
+
+	//목록클릭시 고객정보 전페이지가기
+	$("#goCsInfoList").click(function() {
+		history.back(-1);
+	});
 }
 
 /*글번호에 맞는 Detail 페이지 가기*/
@@ -43,7 +51,7 @@ var goDetail = function(csNo) {
 /*검색과 페이지 정보 같이 넘기기*/
 var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	if (tfNum == 0) {
+	if (tfNum != 0) {
 		searchParam.startDt = $("#startDt").val();
 		searchParam.endDt = $("#endDt").val();
 	}
@@ -144,12 +152,12 @@ var goPageOdHistory = function(pageNum) {
 			viewList += "<col style='width:150px'>";
 			viewList += "/colgroup";
 			viewList += "<tr>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>NO</th>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>주문번호</th>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>상품이름</th>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>주문날짜</th>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>배송날짜</th>";
-			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 600;'>발송상태</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>NO</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>주문번호</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>상품이름</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>주문날짜</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>배송날짜</th>";
+			viewList += "<th style='background-color:#eaeaea;text-align:center;font-weight: 500;'>발송상태</th>";
 			viewList += "</tr>";
 
 			$.each(odInfoList, function(i, e) {
@@ -189,7 +197,7 @@ var goPageOdHistory = function(pageNum) {
 
 			$("#buyHistoryTable").html(viewList);
 			$("#pageList").html(pageList);
-			
+
 		}
 	});
 }

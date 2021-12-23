@@ -20,8 +20,12 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
+	//달력시간 해당월1일로 셋팅
+	var startDate = new Date(curDate);
+	startDate.setDate(1);
+
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
 }
 
@@ -153,23 +157,30 @@ var goDeleteGoods = function() {
 	});
 
 	if (confirm('삭제하시겠습니까?')) {
-		$.ajax({
-			url: '/goodsList/deleteGoods',
-			type: 'GET',
-			data: { "delNoList": delNoList },
-			success: function() {
-				alert("삭제되었습니다");
-				location.href = "/goodsList/goodsListPage";
-			},
-			error: function() {
-				alert("오류입니다. 관리자에게 문의해주세요");
-			}
-		});
+		if (delNoList.length != 0) {
+			$.ajax({
+				url: '/goodsList/deleteGoods',
+				type: 'GET',
+				data: { "delNoList": delNoList },
+				success: function() {
+					alert("삭제되었습니다");
+					location.href = "/goodsList/goodsListPage";
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		} else {
+			alert("삭제할 항목이 존재하지 않습니다");
+		}
 	}
+
+
 }
 
 
 var goShowGoods = function() {
+	var nonShowNoList = [];
 	var showNoList = [];
 
 	$("input[name = showCheck]").each(function(i, e) {
@@ -177,13 +188,20 @@ var goShowGoods = function() {
 		if (e.checked == true) {
 			showNoList.push(e.value);
 		}
+		//개시체크박스에 체크해제되어있는 것만
+		if(e.checked == false){
+			nonShowNoList.push(e.value);
+		}
 	});
 
 	if (confirm('개시하시겠습니까?')) {
 		$.ajax({
 			url: '/goodsList/showGoods',
 			type: 'GET',
-			data: { "showNoList": showNoList },
+			data: {
+				"showNoList": showNoList,
+				"nonShowNoList": nonShowNoList
+			},
 			success: function() {
 				alert("개시정보가 변경되었습니다");
 				location.href = "/goodsList/goodsListPage";
@@ -199,7 +217,7 @@ var goShowGoods = function() {
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	if (tfNum == 0) {
+	if (tfNum != 0) {
 		searchParam.startDt = $("#startDt").val();
 		searchParam.endDt = $("#endDt").val();
 	}
@@ -253,7 +271,7 @@ var goPage = function(pageNum, tfNum) {
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdSpNm + "</td>";
 				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdNm + "</td>";
-				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" +    e.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
+				viewList += "<td class='hover' id='gdPriceComma'  onclick='goDetail(" + e.gdNo + ")'>" + e.gdPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<span>원</span></td>";
 				viewList += "<td class='hover' onclick='goDetail(" + e.gdNo + ")'>" + e.gdCnt + "</td>";
 
 				if (e.gdYn == 'Y') {
@@ -288,8 +306,6 @@ var goPage = function(pageNum, tfNum) {
 
 			$("#goodsListTable").html(viewList);
 			$("#pageList").html(pageList);
-
-			$("#gdPriceComma").text(addComma($("#gdPriceComma").text()));
 
 		},
 		error: function() {

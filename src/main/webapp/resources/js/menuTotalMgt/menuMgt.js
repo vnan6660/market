@@ -69,15 +69,31 @@ var attachEvent = function() {
 		var menuCd = $("#menuCd").val();
 
 		if (emptyCheck == 0) {
-			/*저장버튼을 클리했을 때 success시 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
+			/*저장버튼을 클리했을 때 success시 기존 메뉴들과 비교해서 menuId 또는 menuCd가 있는지 조회해서 있으면 update,없으면 insert로*/
 			$.ajax({
 				url: '/menuMgt/validationMenuMgt',
 				type: 'GET',
 				success: function(res) {
-					var list = res.filter((ele) => {
-						return ele.menuId == menuId || ele.menuCd == menuCd;
+					var idDuplList = res.filter((ele) => {
+						return ele.menuId == menuId;
 					})
-					list.length == 0 ? saveMenuInfo() : typeof menuId == 'undefined' || menuId == '' ? alertMesg() : updateMenuInfo(list[0].menuId);
+					var cdDuplList = res.filter((ele) => {
+						return ele.menuCd == menuCd;
+					})
+
+					//메뉴Id값이 중복되지 않는경우 실행(저장)
+					if (idDuplList.length == 0) {
+
+						//코드값이 중복되는지 확인하여 없으면 save 있으면 메세지 띄우기
+						cdDuplList.length == 0 ? saveMenuInfo() : alertMesg();
+					}
+
+					//메뉴Id값이 중복되는 경우 실행(수정)
+					if (idDuplList.length != 0) {
+
+						//코드값이 중복되는지 확인하여 없으면 update 있으면 메세지 띄우기
+						cdDuplList.length == 0 ? updateMenuInfo(idDuplList[0].menuId) : alertMesg();
+					}
 				},
 				error: function() {
 					alert("오류입니다. 관리자에게 문의해주세요");

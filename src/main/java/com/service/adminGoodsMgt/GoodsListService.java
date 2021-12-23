@@ -35,7 +35,7 @@ public interface GoodsListService {
 	void deleteGoods(ArrayList<String> delNoList);
 
 	//물품 개시 하기
-	void showGoods(ArrayList<String> showNoList);
+	void showGoods(ArrayList<String> showNoList, ArrayList<String> nonShowNoList);
 
 	//검색글카운트
 	int getGoodsListCount(SearchVO vo);
