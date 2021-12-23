@@ -19,11 +19,11 @@
 		<hr>
 		<div id="ntcWriteWrap">
 			<div id="writeFromData">
-				<input id="subject" placeholder="제목을 입력하세요" maxlength="50">
+				<input id="subject" placeholder="제목을 입력하세요" maxlength="33">
 				<div id="textLine">
 				<input type="hidden" id="writer" value="${sessionScope.userNm}">
 				</div>
-				<textarea id="writeText" placeholder="내용을 입력하세요" maxlength="1000"></textarea>
+				<textarea id="writeText" placeholder="내용을 입력하세요" maxlength="330"></textarea>
 			</div>
 			<button id="goNoticeList" class="btnSmallList hover">목록</button>
 			<button id="saveWriteFrom" class="btnSmall">저장</button>

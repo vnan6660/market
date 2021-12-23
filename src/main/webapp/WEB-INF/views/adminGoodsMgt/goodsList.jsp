@@ -26,6 +26,7 @@
 					<input type="date" id="endDt">
 				</div>
 				<div id="selectWrap">
+					<h5>상품구분</h5>
 					<select id="goodsGroup">
 						<option value="optAll">전체</option>
 						<option value="bestBook">베스트도서</option>
@@ -33,7 +34,8 @@
 						<option value="localBook">국내도서</option>
 						<option value="foreignBook">외국도서</option>
 					</select>
-				
+					
+					<h5>상품분류</h5>
 					<select id="goodsSeparate">
 					</select>
 				

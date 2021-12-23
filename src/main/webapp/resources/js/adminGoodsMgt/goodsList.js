@@ -20,8 +20,12 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
+	//달력시간 해당월1일로 셋팅
+	var startDate = new Date(curDate);
+	startDate.setDate(1);
+
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
 }
 
@@ -153,19 +157,25 @@ var goDeleteGoods = function() {
 	});
 
 	if (confirm('삭제하시겠습니까?')) {
-		$.ajax({
-			url: '/goodsList/deleteGoods',
-			type: 'GET',
-			data: { "delNoList": delNoList },
-			success: function() {
-				alert("삭제되었습니다");
-				location.href = "/goodsList/goodsListPage";
-			},
-			error: function() {
-				alert("오류입니다. 관리자에게 문의해주세요");
-			}
-		});
+		if (delNoList.length != 0) {
+			$.ajax({
+				url: '/goodsList/deleteGoods',
+				type: 'GET',
+				data: { "delNoList": delNoList },
+				success: function() {
+					alert("삭제되었습니다");
+					location.href = "/goodsList/goodsListPage";
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		} else {
+			alert("삭제할 항목이 존재하지 않습니다");
+		}
 	}
+
+
 }
 
 

@@ -48,7 +48,7 @@
 					<tr>
 						<td>상품가격<span style="color: red;"> * </span></td>
 						<td>
-							<input type="number" name="gdPrice" maxlength="15" oninput="maxLengthCheck(this)">
+							<input type="number" name="gdPrice" maxlength="10" oninput="maxLengthCheck(this)">
 							<span>원</span>
 						</td>
 					</tr>

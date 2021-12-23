@@ -97,7 +97,7 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div id="pageList">
+			<div id="pageList" style="width: 900px; margin: 3% 10%;">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
 			<c:if test="${cnt == 1}">
 				<span class="page mr6" onclick="goPageOdHistory(${cnt})" style="background-color: #eee">${cnt}</span>
@@ -109,8 +109,8 @@
 			<c:if test="${endpage < maxPage}">
 				<span class="page mr6" onclick="goPageOdHistory(${endpage}+1)">&gt;&gt;</span>
 			</c:if>
-			
 		</div>
+		<button id="goCsInfoList" class="btnSmallList hover">목록</button>
 		</div>
 	</main>
 </body>

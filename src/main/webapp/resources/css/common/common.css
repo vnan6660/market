@@ -30,6 +30,10 @@ h2 {
 	margin-bottom: 5px;
 }
 
+h5 {
+	display: inline-block;
+}
+
 a:link {
 	color: #000;
 }
@@ -54,11 +58,10 @@ button {
 
 .btnXSmall {
 	width: 70px;
-    height: 22px;
-    font-size: small;
-    margin-top: 10px;
+	height: 22px;
+	font-size: small;
+	margin-top: 10px;
 }
-    
 
 .btnSmallList {
 	width: 100px;
@@ -71,10 +74,9 @@ button {
 }
 
 /*input 타입의 number에서 위아래 버튼 안나오게 하는 css*/
-input[type= number]::-webkit-inner-spin-button{
+input[type=number]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
-
 
 .mr6 {
 	margin-right: 6px;

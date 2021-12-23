@@ -66,7 +66,7 @@
 								<span>원</span>
 							</div>
 							<div class="writeForm">
-								<input type="number" name="gdPrice" maxlength="15" oninput="maxLengthCheck(this)" value="${goodsVO.gdPrice}">
+								<input type="number" name="gdPrice" maxlength="10" oninput="maxLengthCheck(this)" value="${goodsVO.gdPrice}">
 								<span>원</span>
 							</div>
 						

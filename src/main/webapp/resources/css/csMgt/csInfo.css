@@ -100,3 +100,7 @@ select {
 #buyHistoryTable tr:nth-of-type(1) td {
 	background-color: #eaeaea;
 }
+
+#goCsInfoList {
+	margin-left: 110px;
+}

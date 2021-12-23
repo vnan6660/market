@@ -18,8 +18,11 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
+	//달력시간 해당월1일로 셋팅
+	var startDate = new Date(curDate);
+	startDate.setDate(1);
 	//가져온 서버시간  startDate와 endDate에 넣기
-	$("#startDt").attr('value', curDate.toISOString().substring(0, 10));
+	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
 }
 
@@ -32,6 +35,11 @@ var attachEvent = function() {
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
 		goPage(1, 1);
+	});
+
+	//목록클릭시 고객정보 전페이지가기
+	$("#goCsInfoList").click(function() {
+		history.back(-1);
 	});
 }
 
@@ -189,7 +197,7 @@ var goPageOdHistory = function(pageNum) {
 
 			$("#buyHistoryTable").html(viewList);
 			$("#pageList").html(pageList);
-			
+
 		}
 	});
 }
