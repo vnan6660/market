@@ -114,3 +114,12 @@ input, select{
 .li{
 	margin-bottom: 10px;	
 }
+
+.overflowHidden{
+   display: block;
+   color: black;
+   width: 630px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}

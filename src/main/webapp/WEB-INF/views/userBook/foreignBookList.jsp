@@ -27,7 +27,9 @@
 			
 				<select class="mr10" id="goodsNmNbrm">
 					<option value="optAll">전체</option>
-					<option value="gdsName">상품이름</option>
+					<option value="gdsName">도서이름</option>
+					<option value="gdsWr">지은이</option>
+					<option value="gdsPb">출판사</option>
 				</select>
 			</div>
 			<div id="searchWrap">
@@ -52,9 +54,32 @@
 						</td>
 						<td valign="top" class='hover' onclick="goDetail(${vo.gdNo})">
 							<ul>
+								<c:choose>
+							        <c:when test="${vo.gdSp eq 'exam'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[수험서]</span></li>
+							        </c:when> 
+							        <c:when test="${vo.gdSp eq 'child'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[아동]</span></li>
+							        </c:when>
+							        <c:when test="${vo.gdSp eq 'foreign'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[외국어]</span></li>
+							        </c:when>
+							        <c:when test="${vo.gdSp eq 'general'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[일반서적]</span></li>
+							        </c:when>
+							        <c:when test="${vo.gdSp eq 'magazine'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[잡지]</span></li>
+							        </c:when>
+							        <c:when test="${vo.gdSp eq 'special'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[전문서적]</span></li>
+							        </c:when>
+							        <c:when test="${vo.gdSp eq 'it'}">
+							          <li class=" hover"><span id="gdSp" class="hover f12">[ IT ]</span></li>
+							        </c:when>       
+							    </c:choose>
 								<li class="li hover"><span id="imgNm" class="hover f14">${vo.gdNm}</span></li>
 								<li class="li hover"><span class="hover f12">${vo.gdWr}(지은이)   |   </span><span class="hover gdInfo f12" onclick="goDetail(${vo.gdNo})">${vo.gdPb}(출판사)</span></li>
-								<li class="li hover"><span id="gdDc" class="hover f14">${vo.gdDc}</span></li>
+								<li class="li hover"><span id="gdDc" class="hover f14 overflowHidden" >${vo.gdDc}</span></li>
 								<li class="li hover f14 imgPrice"><span><fmt:formatNumber value="${vo.gdPrice}" pattern="#,###"/>원</span></li>
 							</ul>
 						</td>

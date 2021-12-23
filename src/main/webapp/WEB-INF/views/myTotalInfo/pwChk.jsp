@@ -16,7 +16,7 @@
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents-pwChk" class="info">
 	<input type="hidden" id="csId" name="csId" value="${csInfo.csId}">	
-		<div class="table-wrap">
+		<div class="table-wrap" style="width:750px;table-layout: fixed">
 			<ul class="myinfo">
 				<li><h3>비밀번호 확인</h3></li>
 			</ul>
@@ -27,20 +27,20 @@
 					</tr>
 					
 					<tr>
-						<th>비밀번호</th>
+						<th>비밀번호*</th>
 						<td><input type="password" id="pwChkInput" maxlength="16"></td>
 					</tr>
 				</table>
 			</div>
 			<ul class="flex">
 				<li>
-					<div class="btn-wrap">
-						<button class="hover w100 btnCss" id="pwChkBtn">확인</button>
+					<div>
+						<button class="hover ml100 btnCss" id="pwChkBtn">확인</button>
 					</div>
 				</li>
 				<li>
-					<div class="join-btn-wrap">
-						<button class="hover w100 btnCss" id="pwChkBtnCancle">취소</button>
+					<div>
+						<button class="hover ml100 btnCss" id="pwChkBtnCancle">취소</button>
 					</div>
 				</li>
 			</ul>

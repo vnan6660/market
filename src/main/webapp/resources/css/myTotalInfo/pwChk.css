@@ -20,31 +20,20 @@
 
 .flex{
 	display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: stretch;
-    justify-content: space-evenly;
+	margin-left: 110px;
 }
 
 .w100{
 	width: 100px;
 }
-
-.join-btn-wrap{
-	margin: 0 auto;
+.ml100{
+	margin-left: 100px;
 }
-
 .btnCss{
-	color: #262626;
-	background: #eaeaea;
-	width: 135%;
-	width: 210%;
-    height: 40px;
-    border-inline-color: revert;
-    border-color: #b1b1b1;
-    border-bottom-style: solid;
-    border-right-style: solid;
+	width: 110px;
+	color: rgb(86, 86, 86);
+	background-color:#eaeaea;
     border-width: 1px;
     margin-right:10px;
+    
 }
-

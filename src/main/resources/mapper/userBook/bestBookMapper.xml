@@ -49,6 +49,12 @@
 				<if test='selectOptValThree.equals("gdsName")'>
 					AND(GD_NM LIKE '%'||#{searchVal}||'%')
 				</if>
+				<if test='selectOptValThree.equals("gdsWr")'>
+					AND(GD_WR LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValThree.equals("gdsPb")'>
+					AND(GD_PB LIKE '%'||#{searchVal}||'%')
+				</if>
 			</if>
 		 ORDER BY GD_REGDATE DESC,GD_NO DESC
 		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
@@ -77,6 +83,12 @@
 			</if>
 			<if test='selectOptValThree.equals("gdsName")'>
 				AND(GD_NM LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValThree.equals("gdsWr")'>
+				AND(GD_WR LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValThree.equals("gdsPb")'>
+				AND(GD_PB LIKE '%'||#{searchVal}||'%')
 			</if>
 		</if>
 	</select>

@@ -1,0 +1,55 @@
+/**
+*생성자 : 김혜경
+*생성일 : 2021.12.06
+*로그인
+*/
+@charset "UTF-8";
+@import url("/css/common/common.css");
+
+hr{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.flex{
+	display: flex;
+}
+
+.mr20{
+	margin-right: 20px;
+}
+
+.mb10{
+	margin-bottom: 10px;
+}
+
+.f15{
+	font-size: 15px;
+}
+
+#contentsWrap {
+	position: absolute;
+	margin: 5% auto;
+	margin-left: 13%;
+    margin-right: 20%;
+	padding: 15px;
+	width: 60%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: stretch;
+}
+
+#img {
+	width: 200px;
+    height: 270px;
+	object-fit: cover;
+	background-color: olive;
+}
+
+#goCart{
+	 width: 70px;
+}
+#goBuy{
+	width: 70px;
+}

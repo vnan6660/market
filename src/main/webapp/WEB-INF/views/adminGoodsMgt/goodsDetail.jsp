@@ -141,7 +141,7 @@
 						<td>상품설명<span style="color: red;"> * </span></td>
 						<td>
 							<div class="viewForm">
-							<div><c:out value="${goodsVO.gdDc}"></c:out></div>
+							<div style="width:100%; word-break:break-all;word-wrap:break-word;"><c:out value="${goodsVO.gdDc}"></c:out></div>
 							</div>
 							<div class="writeForm">
 								<textarea name="gdDc" rows="5" cols="50" maxlength="1300">${goodsVO.gdDc}</textarea>

@@ -8,16 +8,54 @@
 <title>page</title>
 <link rel="shortcut icon" href="#">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/userBook/bestBookList.css">
+<link rel="stylesheet" href="/css/userBook/bookDetail.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/userBook/bestBook.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-<main id="contents-bestBook-list" class="join">
-	<h2>베스트 도서</h2>
-	<hr>
-	
+<main id="contentsWrap" class="join">
+<h2>베스트 도서</h2>
+<hr>
+	<div class="detailWrap">
+		<!-- 도서이미지 -->
+		<div>
+			<ul class="flex">
+				<li class="mr20" id="img">
+					
+				</li>
+				<li>
+					<h3 class="mb10">${goodsVO.gdNm}</h3>
+					<div class="mb10">
+						<span>판매가</span> <span>${goodsVO.gdPrice}원</span>
+					</div>
+					<div>
+						<span><button id="goCart">장바구니</button></span>
+						<span><button id="goBuy">바로구매</button></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<hr>
+		<!-- 상세정보 -->
+		<h4>상세정보</h4>
+		<div class="f15">총 페이지: ${goodsVO.gdPage}쪽</div>
+		<div class="f15">책 두께: ${goodsVO.gdThick}mm</div>
+		<div class="f15">작가: ${goodsVO.gdWr}</div>
+		<div class="f15">출판사: ${goodsVO.gdPb}</div>
+		
+		<hr>
+		<!-- 상품설명 -->
+		<h4>상품설명</h4>
+		<div class="f15">
+		<c:if test=""></c:if>
+			${goodsVO.gdDc}
+		</div>		
+		<hr>
+		<!-- 상세설명 -->
+		<h4>상세설명</h4>
+		<div class="f15">${goodsVO.gdDetl}</div>
+	</div>
 	
 	
 </main>

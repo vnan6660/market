@@ -26,11 +26,11 @@
 			</ul>
 				<table>
 					<tr>
-						<th>회원구분*</th>
+						<th>회원구분</th>
 						<td>${csInfo.csGrade}</td>
 					</tr>
 					<tr>
-						<th>아이디*</th>
+						<th>아이디</th>
 						<td>${csInfo.csId}</td>
 					</tr>
 					<tr>
@@ -102,7 +102,7 @@
 				<h3>추가정보</h3>
 				<table>
 					<tr>
-						<th>생년월일*</th>
+						<th>생년월일</th>
 						<td>
 							<select id="yearBox" name="csBirthYear">
 								<option id="hideBirthYear">${csInfo.csBirthYear}</option>

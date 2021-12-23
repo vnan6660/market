@@ -80,11 +80,26 @@ var goPage = function(pageNum) {
 			viewList += "</colgroup>";
 
 			$.each(reList, function(i, e) {
-
+				if(e.gdSp == 'exam'){
+					e.gdSp = '수험서';
+				}else if(e.gdSp == 'child'){
+					e.gdSp = '아동';
+				}else if(e.gdSp == 'foreign'){
+					e.gdSp = '외국어';
+				}else if(e.gdSp == 'general'){
+					e.gdSp = '일반서적';
+				}else if(e.gdSp == 'magazine'){
+					e.gdSp = '잡지';
+				}else if(e.gdSp == 'special'){
+					e.gdSp = '전문서적';
+				}else if(e.gdSp == 'it'){
+					e.gdSp = ' IT ';
+				}
 				viewList += "<tr>";
 				viewList += "<td class='img hover' onclick='goDetail(" + e.gdNo + ")'><img id='img' alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></td>";
 				viewList += "<td  valign='top' class='hover' onclick='goDetail(" + e.gdNo + ")'>" 
 								+"<ul>"
+									+"<li class='hover'>" + "<span class='hover f12'>" + "["+ e.gdSp +"]"+ "</span>" + "</li>"
 									+"<li class='hover li'>" + "<span id='imgNm' class='hover f14'>" + e.gdNm + "</span>" + "</li>"
 									+"<li class='hover li'>" + "<span class='hover f12'>" + e.gdWr + "(지은이)" + "  |  " + "</span>" + "<span class='hover f12'>" + e.gdPb + "(출판사)"  +"</span>" + "</li>"
 									+"<li class='hover li'>" + "<span id='gdDc' class='hover f14'>" + e.gdDc + "</span>" + "</li>"
