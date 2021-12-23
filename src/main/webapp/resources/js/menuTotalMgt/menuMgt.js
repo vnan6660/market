@@ -92,7 +92,11 @@ var attachEvent = function() {
 					if (idDuplList.length != 0) {
 
 						//코드값이 중복되는지 확인하여 없으면 update 있으면 메세지 띄우기
-						cdDuplList.length == 0 ? updateMenuInfo(idDuplList[0].menuId) : alertMesg();
+						if (cdDuplList.length == 0) {
+							updateMenuInfo(idDuplList[0].menuId);
+						} else {
+							cdDuplList[0].menuId == menuId ?updateMenuInfo(idDuplList[0].menuId) : alertMesg;						
+						}
 					}
 				},
 				error: function() {
