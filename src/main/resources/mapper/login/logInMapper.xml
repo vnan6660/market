@@ -19,7 +19,8 @@
 			CS_GRADE as csGrade,<!-- 고객구분 -->
 			CS_ID as csId,<!-- 고객아이디 -->
 			CS_NM as csNm,<!-- 이름 -->
-			CS_PS as csPs<!-- 비밀번호 -->
+			CS_PS as csPs,<!-- 비밀번호 -->
+			CS_NO as csNo<!-- 비밀번호 -->
 		 FROM CUSTOMER_INFO
 		WHERE CS_ID = #{csId} AND CS_PS = #{csPs}
 	</select>

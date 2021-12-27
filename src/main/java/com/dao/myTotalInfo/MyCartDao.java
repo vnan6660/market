@@ -1,24 +1,17 @@
-package com.service.myTotalInfo;
+package com.dao.myTotalInfo;
 
 import com.vo.cart.CartVO;
 
-/**
- * 장바구니 Controller 
- * 생성자 : 김혜경 
- * 생성일 : 2021.12.27
- */
-public interface MyCartService {
-	
+public interface MyCartDao {
+
+
 	//장바구니에 담긴 상품개수 확인
 	int cartCount(String gdNo, String csNo);
-
+	
 	//장바구니에 물건이 없으면 insert
 	void insertCart(CartVO cartVo);
 
 	//장바구니에 물건이 있으면 update
 	void updateCart(CartVO cartVo);
-
-	
-	
 
 }

@@ -38,7 +38,7 @@
 					<thead>
 						<tr>
 							<th>
-								<input type="checkbox">
+								<input type="checkbox" checked="checked">
 							</th>
 							<th>
 								상품이미지
@@ -60,7 +60,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<input type="checkbox">
+								<input type="checkbox" checked="checked">
 							</td>
 							<td>
 								<div id="img"></div>

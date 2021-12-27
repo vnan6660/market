@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.myTotalInfo.MyCartDaoImpl">
+
+	<!-- 장바구니에 담긴 상품 개수 확인 -->
+	<select id="cartCount" resultType="int" >
+	/* myCartMapper.cartCount */
+		SELECT COUNT(*)
+		  FROM CART
+		 WHERE CS_NO = #{csNo}
+		   AND GD_NO = #{gdNo}
+	</select>
+	
+	<!-- 장바구니에 물건이 없으면 insert -->
+	<insert id="insertCart">
+	/* myCartMapper.insertCart */
+	INSERT INTO CART
+		 VALUES (
+		 		CART_SEQ.nextval
+		 	 	,#{csNo}
+		 		,#{gdNo}
+		 )
+	</insert>
+	
+	<!-- 장바구니에 물건이 있으면 update -->
+	<update id="updateCart">
+	/* myCartMapper.updateCart */
+		UPDATE CART
+		   SET GD_NO = #{gdNo}
+		 WHERE CS_NO = #{csNo}
+	</update>
+	
+</mapper>

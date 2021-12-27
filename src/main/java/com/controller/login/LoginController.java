@@ -55,6 +55,7 @@ public class LoginController {
 			session.setAttribute("userGrade", loginInfo.getCsGrade());
 			session.setAttribute("userNm", loginInfo.getCsNm());
 			session.setAttribute("userPs", loginInfo.getCsPs());
+			session.setAttribute("userNo", loginInfo.getCsNo());
 		}
 
 		return returnCnt;
