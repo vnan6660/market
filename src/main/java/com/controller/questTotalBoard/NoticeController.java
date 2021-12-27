@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.service.questTotalBoard.NoticeService;
 import com.vo.common.SearchVO;
@@ -46,6 +52,15 @@ public class NoticeController {
 
 		return "/questTotalBoard/notice";
 	}
+	
+	//목록페이지 가기
+	@PostMapping(value = "/notice/noticePage")
+	public String goNoticeListPage(SearchVO searchVO,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("goList", "t");
+		return "/questTotalBoard/notice";
+		
+	}
 
 	/* 공지사항글쓰기 페이지 가기 */
 	@GetMapping("/notice/writeNotice")
@@ -62,14 +77,26 @@ public class NoticeController {
 
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
 	@GetMapping("/notice/detailNotcie/{ntcNo}")
-	public String detailNotcie(@PathVariable int ntcNo,Model model) {
+	public String detailNotcie(@PathVariable int ntcNo,Model model,HttpServletRequest request) {
 		noticeService.plusVcnt(ntcNo);
 		NoticeVO noticeOne = noticeService.getNotcieDetail(ntcNo);
 		 model.addAttribute("noticeOne", noticeOne);
-	
+		 
+		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+		  SearchVO  searchVO =new SearchVO();
+	      if(flashMap!=null) {
+	          
+	         searchVO=(SearchVO)flashMap.get("searchVO");
+	    }
+	      model.addAttribute("searchVO", searchVO);
 		return "/questTotalBoard/noticeDetail";
-
-		
+	}
+	
+	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
+	@PostMapping("/notice/detailNotcie")
+	public String detailNotcieSearch(String ntcNo,SearchVO searchVO,RedirectAttributes redirectAttributes) {
+		 redirectAttributes.addFlashAttribute("searchVO", searchVO);
+		return "redirect:/notice/detailNotcie/"+ntcNo;
 	}
 
 	/* 공지사항 글 삭제 */
@@ -107,5 +134,5 @@ public class NoticeController {
 
 		return resultMap;
 	}
-
+	
 }

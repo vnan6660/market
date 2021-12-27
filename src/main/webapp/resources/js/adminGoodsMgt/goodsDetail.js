@@ -33,7 +33,7 @@ var attachEvent = function() {
 
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {
-		$("#searchForm").attr("action","/goodsList/goListPage");
+		$("#searchForm").attr("action","/goodsList/goodsListPage");
 		$("#searchForm").attr("method","post");
 		$("#searchForm").submit();
 	});

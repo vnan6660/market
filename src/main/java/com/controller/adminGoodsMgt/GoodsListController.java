@@ -88,9 +88,17 @@ public class GoodsListController {
 		model.addAttribute("page", searchVO.getPage());
 		model.addAttribute("startpage", searchVO.getStartpage());
 		model.addAttribute("endpage", searchVO.getEndpage());
-		model.addAttribute("goList", "f");
 		
 		return "/adminGoodsMgt/goodsList";
+	}
+	
+	//목록페이지 가기
+	@PostMapping(value = "/goodsList/goodsListPage")
+	public String goGoodsListPage(SearchVO searchVO,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("goList", "t");
+		return "/adminGoodsMgt/goodsList";
+		
 	}
 	
 	/* 물품 등록 페이지 이동 */
@@ -129,42 +137,41 @@ public class GoodsListController {
 	
 	
 	
-	  //물품상세 페이지 가기
-	  
-	  @GetMapping("/goodsList/detailGoods/{gdNo}") 
-	  public String detailGoods(@PathVariable String gdNo,Model model,HttpServletRequest request) throws IOException {
-	  
-		  
-	  //하나의 물품정보 가져오기 
-	  GoodsListVO goodsVO = goodsListService.getDetailGoods(gdNo);
-	  
+	//물품상세 페이지 가기
+	@GetMapping("/goodsList/detailGoods/{gdNo}") 
+	public String detailGoods(@PathVariable String gdNo, Model model, HttpServletRequest request) throws IOException {
+
+		// 하나의 물품정보 가져오기
+		GoodsListVO goodsVO = goodsListService.getDetailGoods(gdNo);
+
 		if (goodsVO.getGdImg() != null) {
 			goodsVO.setGdImgStr(new String(Base64.encodeBase64(goodsVO.getGdImg()), "UTF-8"));
 		}
 		if (goodsVO.getGdDetl() != null) {
 			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()), "UTF-8"));
 		}
-	  
-	  
-	  model.addAttribute("goodsVO", goodsVO);
-	  
-	  Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
-	  SearchVO  searchVO =new SearchVO();
-      if(flashMap!=null) {
-          
-         searchVO=(SearchVO)flashMap.get("searchVO");
-      }
-	  model.addAttribute("searchVO", searchVO);
-	  
-	  return "/adminGoodsMgt/goodsDetail"; }
+
+		model.addAttribute("goodsVO", goodsVO);
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		SearchVO searchVO = new SearchVO();
+		if (flashMap != null) {
+
+			searchVO = (SearchVO) flashMap.get("searchVO");
+		}
+		
+		model.addAttribute("searchVO", searchVO);
+
+		return "/adminGoodsMgt/goodsDetail";
+	}
 	 
-	  //물품상세 페이지 가기(목록페이지의 검색값전달)
-	  @PostMapping("/goodsList/detailGoods") 
-	  public String detailGoodsSearch(String gdNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
+	//물품상세 페이지 가기(목록페이지의 검색값전달)
+	@PostMapping("/goodsList/detailGoods") 
+	public String detailGoodsSearch(String gdNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
 	  
-		  redirectAttributes.addFlashAttribute("searchVO", searchVO);
+	 redirectAttributes.addFlashAttribute("searchVO", searchVO);
 	  
-	  return "redirect:/goodsList/detailGoods/"+gdNo; }
+	return "redirect:/goodsList/detailGoods/"+gdNo; }
 	  
 	 
 	
@@ -218,15 +225,5 @@ public class GoodsListController {
 
 		return resultMap;
 	}
-	
-	//목록페이지 가기
-	@RequestMapping(value = "/goodsList/goListPage", method ={RequestMethod.GET, RequestMethod.POST})
-	public String goListPage(SearchVO searchVO,Model model) throws IOException {
-		model.addAttribute("searchVO", searchVO);
-		model.addAttribute("goList", "t");
-		return "/adminGoodsMgt/goodsList";
-		
-	}
-	
 	
 }

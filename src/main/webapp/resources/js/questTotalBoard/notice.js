@@ -7,11 +7,23 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
+	init();
 	attachEvent();
 
 	/*detail페이지의 수정을 위한 input박스 숨김*/
 	$("#updSubject, #updText, #ntcUpdDoneBtn, #ntcDelBtn").hide();
 });
+
+
+var init = function(){
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if($("#returnT").val() == 't'){
+		console.log("t");
+		$("#selectWrap").val($("#returnSptValOne").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
+}
 
 /*이벤트함수*/
 var attachEvent = function() {
@@ -22,7 +34,9 @@ var attachEvent = function() {
 
 	/*공지사항목록 페이지가기*/
 	$("#goNoticeList").click(function() {
-		history.back(-1);
+		$("#searchForm").attr("action","/notice/noticePage");
+		$("#searchForm").attr("method","post");
+		$("#searchForm").submit();
 	});
 
 	/*글쓴것 저장하기*/
@@ -61,7 +75,15 @@ var attachEvent = function() {
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(ntcNo) {
-	location.href = '/notice/detailNotcie/' + ntcNo;
+	//location.href = '/notice/detailNotcie/' + ntcNo;
+	searchParam = {};
+	$("input[name = ntcNo]").val(ntcNo);
+	$("input[name = selectOptValOne]").val($("#selectWrap option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action","/notice/detailNotcie");
+	$('#searchForm').attr("method","POST");
+	$('#searchForm').submit();
 }
 
 /*글작성후 성공하면 글목록에 가기*/
@@ -188,6 +210,7 @@ var goPage = function(pageNum) {
 				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
 				if (nowPage == num) {
 					pageList += ' style = "background-color: #eee" >' + num
+					pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
 				} else {
 					pageList += '>' + num
 				}
