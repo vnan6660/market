@@ -73,18 +73,38 @@
 			</div>
 			<div id="pageList" class="mt10">
 				<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
+				<input type="hidden" id="hdThisPage" value="${cnt}">
 				<c:if test="${cnt == 1}">
-					<span class="page mr6" onclick="goPage(${cnt},0)" style="background-color: #eee">${cnt}</span>
+					<span class="page mr6" onclick="goPage(${cnt})" style="background-color: #eee">${cnt}</span>
 				</c:if>
 				<c:if test="${cnt != 1}">
-					<span class="page mr6" onclick="goPage(${cnt},0)">${cnt}</span>
+					<span class="page mr6" onclick="goPage(${cnt})">${cnt}</span>
 				</c:if>
 				</c:forEach>
 				<c:if test="${endpage < maxPage}">
-					<span class="page mr6" onclick="goPage(${endpage}+1,0)">&gt;&gt;</span>
+					<span class="page mr6" onclick="goPage(${endpage}+1)">&gt;&gt;</span>
 				</c:if>
 		 	</div>
 		</div>
+		<form id="searchForm">
+				<input type="hidden" name="csNo"/>
+				<input type="hidden" name="startDt"/>
+				<input type="hidden" name="endDt"/>
+				<input type="hidden" name="selectOptValOne"/>
+				<input type="hidden" name="selectOptValTwo"/>
+				<input type="hidden" name="selectOptValThree"/>
+				<input type="hidden" name="searchVal"/>
+				<input type="hidden" name="page"/>
+			 <c:if test="${goList == 't'}">
+				<input type="hidden" id="returnT" value="t">
+				<input type="hidden" id="returnStdt" value="${searchVO.startDt}"/>
+				<input type="hidden" id="returnEdDt" value="${searchVO.endDt}"/>
+				<input type="hidden" id="returnSptValOne" value="${searchVO.selectOptValOne}"/>
+				<input type="hidden" id="returnSptValTwo" value="${searchVO.selectOptValTwo}"/>
+				<input type="hidden" id="returnSearchVal" value="${searchVO.searchVal}"/>
+				<input type="hidden" id="returnPage" value="${searchVO.page}"/>
+			</c:if>
+		</form>
 	</main>
 </body>
 </html>

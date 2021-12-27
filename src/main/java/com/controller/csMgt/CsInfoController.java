@@ -7,13 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.service.csMgt.CsInfoService;
 import com.vo.common.SearchVO;
@@ -53,10 +58,19 @@ public class CsInfoController {
 
 		return "/csMgt/csInfo";
 	}
+	
+	//목록페이지 가기
+	@PostMapping(value = "/csInfo/csInfoPage")
+	public String goCsInfoPage(SearchVO searchVO,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("goList", "t");
+		return "/csMgt/csInfo";
+		
+	}
 
 	//고객디테일페이지 가기
 	@GetMapping("/csInfo/detailCsInfo/{csNo}")
-	public String detailCsInfo(@PathVariable String csNo, Model model) {
+	public String detailCsInfo(@PathVariable String csNo, Model model, HttpServletRequest request) {
 		//csNo에 맞는 고객정보 가져오기
 		CsInfoVO csOne = csInfoService.getDetailCsInfo(csNo);
 		
@@ -68,7 +82,16 @@ public class CsInfoController {
 		SearchVO vo = SearchVO.builder().selectOptValOne(csNo).page(1).listcount(listCount).build();
 		//구매이력가져오기
 		List <OrderInfoVO> odInfoList = csInfoService.getOrderHistory(vo); 
-
+		
+		
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		SearchVO searchVO = new SearchVO();
+		if (flashMap != null) {
+			searchVO = (SearchVO) flashMap.get("searchVO");
+		}
+		
+		model.addAttribute("searchVO", searchVO);
+		
 		model.addAttribute("csOne", csOne);
 		model.addAttribute("csNo", vo.getSelectOptValOne());
 		model.addAttribute("odInfoList", odInfoList);
@@ -78,6 +101,14 @@ public class CsInfoController {
 		model.addAttribute("endpage", vo.getEndpage());
 		return "/csMgt/csDetail";
 	}
+	
+	//고객디테일페이지 가기(목록페이지의 검색값전달)
+	@PostMapping("/csInfo/detailCsInfo")
+	public String detailCsInfoSearch(String csNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
+	  
+	 redirectAttributes.addFlashAttribute("searchVO", searchVO);
+	  
+	return "redirect:/csInfo/detailCsInfo/"+csNo; }
 	
 	//고객 구매이력 가져오기(페이지)
 	@GetMapping("/csInfo/searchOdHistoryList")
@@ -109,7 +140,7 @@ public class CsInfoController {
 
 		int listcount = csInfoService.getcsInfoCount(vo);
 
-		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
 
 		List<CsInfoVO> csInfoList = csInfoService.getCsInfo(searchVO);
 

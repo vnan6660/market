@@ -119,6 +119,14 @@
 		</div>
 		<button id="goCsInfoList" class="btnSmallList hover">목록</button>
 		</div>
+		<form id="searchForm">
+				<input type="hidden" name="startDt" value="${searchVO.startDt}"/>
+				<input type="hidden" name="endDt" value="${searchVO.endDt}"/>
+				<input type="hidden" name="selectOptValOne" value="${searchVO.selectOptValOne}"/>
+				<input type="hidden" name="selectOptValTwo" value="${searchVO.selectOptValTwo}"/>
+				<input type="hidden" name="searchVal" value="${searchVO.searchVal}"/>
+				<input type="hidden" name="page" value="${searchVO.page}"/>
+		</form>
 	</main>
 </body>
 </html>

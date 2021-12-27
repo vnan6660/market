@@ -24,6 +24,17 @@ var init = function() {
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
+	
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if($("#returnT").val() == 't'){
+		console.log("t");
+		$("#startDt").val($("#returnStdt").val());
+		$("#endDt").val($("#returnEdDt").val());
+		$("#userGradeSelectWrap").val($("#returnSptValOne").val()).prop("selected", true);
+		$("#userInfoSelectWrap").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val());
+	}
 }
 
 
@@ -34,27 +45,38 @@ var attachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
-		goPage(1, 1);
+		goPage(1);
 	});
 
 	//목록클릭시 고객정보 전페이지가기
 	$("#goCsInfoList").click(function() {
-		history.back(-1);
+		$("#searchForm").attr("action","/csInfo/csInfoPage");
+		$("#searchForm").attr("method","post");
+		$("#searchForm").submit();
 	});
 }
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(csNo) {
-	location.href = '/csInfo/detailCsInfo/' + csNo;
+	//location.href = '/csInfo/detailCsInfo/' + csNo;
+	searchParam = {};
+	$("input[name = csNo]").val(csNo);
+	$("input[name = startDt]").val($("#startDt").val());
+	$("input[name = endDt]").val($("#endDt").val());
+	$("input[name = selectOptValOne]").val($("#userGradeSelectWrap option:selected").val());
+	$("input[name = selectOptValTwo]").val($("#userInfoSelectWrap option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action","/csInfo/detailCsInfo");
+	$('#searchForm').attr("method","POST");
+	$('#searchForm').submit();
 }
 
 /*검색과 페이지 정보 같이 넘기기*/
-var goPage = function(pageNum, tfNum) {
+var goPage = function(pageNum) {
 	searchParam = {};
-	if (tfNum != 0) {
-		searchParam.startDt = $("#startDt").val();
-		searchParam.endDt = $("#endDt").val();
-	}
+	searchParam.startDt = $("#startDt").val();
+	searchParam.endDt = $("#endDt").val();
 	searchParam.selectOptValOne = $("#userGradeSelectWrap option:selected").val();
 	searchParam.selectOptValTwo = $("#userInfoSelectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
@@ -110,12 +132,13 @@ var goPage = function(pageNum, tfNum) {
 				var pageList = "";
 				if (1 < startpage) {
 					/*startpage가 1보다 커야 실행가능*/
-					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
+					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
 				}
 				for (var num = startpage; num <= endpage; num++) {
-					pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
+					pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
 					if (nowPage == num) {
 						pageList += ' style = "background-color: #eee" >' + num
+						pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
 					} else {
 						pageList += '>' + num
 					}
@@ -125,7 +148,7 @@ var goPage = function(pageNum, tfNum) {
 
 				if (endpage < maxPage) {
 					/*endpage가 maxPage보다 작아야 실행 가능*/
-					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
 				}
 				$("#pageList").html(pageList);
 			}
