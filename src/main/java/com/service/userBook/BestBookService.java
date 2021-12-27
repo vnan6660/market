@@ -18,13 +18,7 @@ public interface BestBookService {
 	//검색한 결과의 수를 가져오기
 	int getBbListCount(SearchVO vo);
 
-	
-
-	
-
 	//선택된 베스트 도서 정보 가져오기
 	GoodsListVO getBestDtl(String gdNo);
-
-
 
 }

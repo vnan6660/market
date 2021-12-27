@@ -33,10 +33,6 @@ public class BestBookServiceImpl implements BestBookService {
 		return bestBookDao.getBbListCount(vo);
 	}
 	
-
-	
-	
-	
 	//상세페이지에 해당하는 책의 정보 가져오기
 	@Override
 	public GoodsListVO getBestDtl(String gdNo) {

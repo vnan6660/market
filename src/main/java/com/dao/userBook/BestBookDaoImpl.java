@@ -29,10 +29,6 @@ public class BestBookDaoImpl implements BestBookDao{
 		return sqlSession.selectOne("getBbListCount",vo);
 	}
 	
-	
-	
-	
-	
 	//상세 페이지//
 	//선택된 베스트 도서 정보 가져오기
 	@Override

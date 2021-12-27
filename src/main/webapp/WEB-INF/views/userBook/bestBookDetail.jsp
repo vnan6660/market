@@ -21,8 +21,8 @@
 		<!-- 도서이미지 -->
 		<div>
 			<ul class="flex">
-				<li class="mr20" id="img">
-					
+				<li class="mr20">
+					<img id="img" class="img hover" alt="이미지없음" src="data:image/png;base64,${goodsVO.gdImgStr}">
 				</li>
 				<li>
 					<h3 class="mb10">${goodsVO.gdNm}</h3>
@@ -55,6 +55,7 @@
 		<!-- 상세설명 -->
 		<h4>상세설명</h4>
 		<div class="f15">${goodsVO.gdDetl}</div>
+		<hr id="bottomHr">
 	</div>
 	
 	
