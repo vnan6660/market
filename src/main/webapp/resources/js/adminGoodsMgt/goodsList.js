@@ -13,7 +13,7 @@ $(function() {
 });
 
 var init = function() {
-
+	
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
 
@@ -27,6 +27,18 @@ var init = function() {
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
+	
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if($("#returnT").val() == 't'){
+		console.log("t");
+		$("#startDt").val($("#returnStdt").val());
+		$("#endDt").val($("#returnEdDt").val());
+		$("#goodsGroup").val($("#returnSptValOne").val()).prop("selected", true);
+		$("#goodsSeparate").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#goodsNmNbrm").val($("#returnSptValThree").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
 }
 
 var attachEvent = function() {
@@ -129,6 +141,7 @@ var getGoodsSeparate = function(goodsGroup) {
 		data: {
 			"goodsGroup": goodsGroup
 		},
+		async : false,
 		success: function(res) {
 			$("#goodsSeparate").append("<option value='optAll'>전체</option>");
 			res.filter(function(e, i) {
@@ -143,7 +156,19 @@ var getGoodsSeparate = function(goodsGroup) {
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
-	location.href = "/goodsList/detailGoods/" + gdNo;
+	//location.href = "/goodsList/detailGoods/" + gdNo;
+	searchParam = {};
+	$("input[name = gdNo]").val(gdNo);
+	$("input[name = startDt]").val($("#startDt").val());
+	$("input[name = endDt]").val($("#endDt").val());
+	$("input[name = selectOptValOne]").val($("#goodsGroup option:selected").val());
+	$("input[name = selectOptValTwo]").val($("#goodsSeparate option:selected").val());
+	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action","/goodsList/detailGoods");
+	$('#searchForm').attr("method","POST");
+	$('#searchForm').submit();
 }
 
 var goDeleteGoods = function() {
@@ -261,13 +286,13 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<th>재고</th>";
 			viewList += "<th><input type='checkbox' name='allShowCheck' onchange='allShowCheck()'></th>";
 			viewList += "</tr>";
-			if (reList.length ==  0) {
-				
-					viewList += "<tr>";
-					viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
-					viewList += "</tr>";
-					
-					$("#pageList").html("");
+			if (reList.length == 0) {
+
+				viewList += "<tr>";
+				viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
+				viewList += "</tr>";
+
+				$("#pageList").html("");
 			} else {
 				$.each(reList, function(i, e) {
 
@@ -299,6 +324,7 @@ var goPage = function(pageNum, tfNum) {
 					pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
 					if (nowPage == num) {
 						pageList += ' style = "background-color: #eee" >' + num
+						pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
 					} else {
 						pageList += '>' + num
 					}

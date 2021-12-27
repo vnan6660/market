@@ -170,7 +170,15 @@
 					<button type="button" id="goodsDelBtn" class="btnSmallList hover">삭제</button>
 					<button type="button" id="goodsUpdBtn" class="btnSmallList hover">수정</button>
 				</div>
-				
+			</form>
+			<form id="searchForm">
+				<input type="hidden" name="startDt" value="${searchVO.startDt}"/>
+				<input type="hidden" name="endDt" value="${searchVO.endDt}"/>
+				<input type="hidden" name="selectOptValOne" value="${searchVO.selectOptValOne}"/>
+				<input type="hidden" name="selectOptValTwo" value="${searchVO.selectOptValTwo}"/>
+				<input type="hidden" name="selectOptValThree" value="${searchVO.selectOptValThree}"/>
+				<input type="hidden" name="searchVal" value="${searchVO.searchVal}"/>
+				<input type="hidden" name="page" value="${searchVO.page}"/>
 			</form>
 		</div>
 	</main>

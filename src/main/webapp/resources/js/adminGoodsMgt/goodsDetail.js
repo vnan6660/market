@@ -33,7 +33,9 @@ var attachEvent = function() {
 
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {
-		history.back(-1);
+		$("#searchForm").attr("action","/goodsList/goListPage");
+		$("#searchForm").attr("method","post");
+		$("#searchForm").submit();
 	});
 
 	//수정버튼을 누르면 실행
