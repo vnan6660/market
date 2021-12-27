@@ -1,6 +1,8 @@
 package com.vo.cart;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -16,6 +18,7 @@ public class CartVO {
 	private String cartNo;
 	private String csNo;
 	private String gdNo;
+	private String gdQty;
 
 
 }

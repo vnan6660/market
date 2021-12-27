@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Configuration status="debug">
+<Configuration status="info">
 
 	<Appenders>
 		<!-- 콜솔 -->
 		<Console name="console" target="SYSTEM_OUT">
-			<PatternLayout
-				pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n" />
+			<PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n" />
 		</Console>
 
 		<!--추가된 부분 -->
-		<Console name="console-infolog"
-			class="org.apache.log4j.ConsoleAppender">
+		<Console name="console-infolog" class="org.apache.log4j.ConsoleAppender">
 			<layout class="org.apache.log4j.PatternLayout">
 				<param name="ConversionPattern" value="%d %5p %m%n" />
 			</layout>
 		</Console>
+		
+		 <!-- Query Loggers 쿼리 과정(파라미터까지) -->
+        <Console name="console-dblog" class="org.apache.log4j.ConsoleAppender"> 
+	         <PatternLayout pattern="%d %5p %m%n" />
+        </Console>
 		<!-- -->
 	</Appenders>
 
 	<Loggers>
-		<root level="debug" additivity="true">
+		<root level="warn" additivity="true">
 			<AppenderRef ref="console" />
 		</root>
 	
-		<Logger name="com.main.controller" level="DEBUG">
+		<Logger name="com.main.controller" level="info">
 			<appender-ref ref="console" />
 		</Logger>
 	
-		<!-- 3rdparty Loggers -->
+		3rdparty Loggers
 		<Logger name="org.springframework.core" level="info">
 			<appender-ref ref="console" />
 		</Logger>

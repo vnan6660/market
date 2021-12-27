@@ -106,7 +106,7 @@ input, select{
 	color: #e45374;
 }
 
-.cartBtn{
+#cartBtn{
 	width: 100% !important;
 	background-color: darkolivegreen;
 }

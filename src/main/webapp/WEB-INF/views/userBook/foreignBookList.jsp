@@ -48,7 +48,6 @@
 						<col width="150px;">
 					</colgroup>
 					<c:forEach items="${reList}" var="vo">
-					<input type="hidden" id="gdNo" value="${vo.gdNo}">
 					<tr>
 						<td>
 							<img id="img" class="img hover" onclick="goDetail(${vo.gdNo})" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
@@ -86,7 +85,7 @@
 						</td>
 						<td >
 							<input id="sessionUserId" type="hidden" value="${sessionScope.userId}">
-							<button class="hover cartBtn">장바구니</button>
+							<button class="hover" id="cartBtn" onclick="addCart(${vo.gdNo})">장바구니</button>
 						</td>
 					</tr>
 				</c:forEach>

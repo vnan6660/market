@@ -13,18 +13,6 @@ $(function(){
 		//페이지가 1페이지인 검색함수
 		goPage(1,1);
 	});
-	
-	//장바구니버튼
-	$(".cartBtn").click(function(){
-		var sessionUserId = $("#sessionUserId").val();
-		if(sessionUserId == ""){
-			alert("로그인해주세요");
-			location.href = '/login/loginPage';
-		}else{
-			addCart(sessionUserId);
-		}
-	});
-	
 });
 
 var init = function() {
@@ -170,24 +158,27 @@ var goPage = function(pageNum) {
 }
 
 //장바구니 넣기
-function addCart(sessionUserId){
-	//상품번호
-	var gdNo = $("#gdNo").val();
-	
+function addCart(gdNo){
+	var sessionUserId = $("#sessionUserId").val();
 	data = {};
 	data.gdNo = gdNo;//상품번호
-	data.csId = sessionUserId;
-	
-	$.ajax({
-		url: '/myCart/addCart',
-		type: "POST",
-		data: data,
-		success: function() {
-			alert("장바구니에 추가되었습니다.");
-		},
-		//오류났을때 처리
-		error: function() {
-			alert("오류입니다. 관리자에게 문의해주세요");
+	data.gdQty = '1';
+	if(sessionUserId == ""){
+			alert("로그인해주세요");
+			location.href = '/login/loginPage';
+	}else{
+		$.ajax({
+			url: '/myCart/addCart',
+			type: "POST",
+			data: data,
+			success: function() {
+				alert("장바구니에 추가되었습니다.");
+			},
+			//오류났을때 처리
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
+			}
+		});
 		}
-	});
+	
 }

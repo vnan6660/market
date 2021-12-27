@@ -22,6 +22,7 @@
 		 		CART_SEQ.nextval
 		 	 	,#{csNo}
 		 		,#{gdNo}
+		 		,#{gdQty}
 		 )
 	</insert>
 	
@@ -32,5 +33,26 @@
 		   SET GD_NO = #{gdNo}
 		 WHERE CS_NO = #{csNo}
 	</update>
+	
+	<!-- 장바구니 목록 가져오기 -->
+	<select id="getCartList" resultType="String" >
+	/* myCartMapper.getCartList */
+		SELECT AA.* 
+		 FROM(
+				SELECT 
+					C.CART_NO
+					,C.CS_NO 
+					,C.GD_QTY 
+					,GI.GD_NO
+					,GI.GD_NM 
+					,GI.GD_SP 
+					,GI.GD_IMG 
+					,GI.GD_PRICE
+				FROM CART C 
+				JOIN GOODS_INFO GI
+				ON GI.GD_NO = C.GD_NO 
+			) AA
+		WHERE AA.CS_NO = #{csNo}
+	</select>
 	
 </mapper>

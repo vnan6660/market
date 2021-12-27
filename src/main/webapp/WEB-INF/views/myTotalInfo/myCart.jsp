@@ -58,17 +58,18 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${cartList}" var="vo">
 						<tr>
 							<td>
 								<input type="checkbox" checked="checked">
 							</td>
 							<td>
-								<div id="img"></div>
+								<img id="img"class="hover" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
 							</td>
 							<td id="bookInfo">
 								<ul>
-									<li>[기본서적]</li>
-									<li>책 이름이름이름</li>
+									<li>${vo.gdSp}</li>
+									<li>${vo.gdNm}</li>
 								</ul>
 							</td>
 							<td>
@@ -78,15 +79,16 @@
 								무료배송
 							</td>
 							<td>
-								1원
+								${vo.gdPrice}원
 							</td>
 						</tr>
+					</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td id="tFoot" colspan="6">
 								<span>합계:</span>
-								<span id="redSpan">100만원</span>
+								<span id="redSpan">999999원</span>
 							</td>
 						</tr>
 					</tfoot>
