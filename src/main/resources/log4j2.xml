@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration status="debug">
+<Configuration status="debug">
 
 	<Appenders>
 		<!-- 콜솔 -->
@@ -19,53 +19,46 @@
 		<!-- -->
 	</Appenders>
 
-	<loggers>
+	<Loggers>
 		<root level="debug" additivity="true">
 			<AppenderRef ref="console" />
 		</root>
-	</loggers>
-
-	<logger name="com.main.controller">
-		<level value="DEBUG" />
-		<appender-ref ref="console" />
-	</logger>
-
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-		<appender-ref ref="console" />
-	</logger>
-
-	<logger name="org.springframework.beans">
-		<level value="info" />
-		<appender-ref ref="console" />
-	</logger>
-
-	<logger name="org.springframework.context">
-		<level value="info" />
-		<appender-ref ref="console" />
-	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="info" />
-		<appender-ref ref="console" />
-	</logger>
-
-	<!-- 추가된 부분 -->
-	<!-- Query Loggers -->
-	<Logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console-infolog" />
-	</Logger>
-	<!-- -->
-
-	<Logger name="java.sql">
-		<level value="DEBUG" />
-		<appender-ref ref="console" />
-	</Logger>
-
-	<Logger name="jdbc.sqltiming">
-		<level value="DEBUG" />
-		<appender-ref ref="console" />
-	</Logger>
-</configuration>
+	
+		<Logger name="com.main.controller" level="DEBUG">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<!-- 3rdparty Loggers -->
+		<Logger name="org.springframework.core" level="info">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<Logger name="org.springframework.beans" level="info">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<Logger name="org.springframework.context" level="info">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<Logger name="org.springframework.web" level="info">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<!-- 추가된 부분 -->
+		<!-- Query Loggers -->
+		<Logger name="jdbc.sqlonly" additivity="false" level="info">
+			<appender-ref ref="console-infolog" />
+		</Logger>
+		<!-- -->
+	
+		<Logger name="java.sql" level="DEBUG">
+			<appender-ref ref="console" />
+		</Logger>
+	
+		<Logger name="jdbc.sqltiming" level="DEBUG">
+			<appender-ref ref="console" />
+		</Logger>
+	</Loggers>
+	
+</Configuration>
