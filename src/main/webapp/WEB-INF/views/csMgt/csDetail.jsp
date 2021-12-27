@@ -85,16 +85,23 @@
 						<td>배송날짜</td>
 						<td>발송상태</td>
 					</tr>
-					<c:forEach items="${odInfoList}" var="od">
 					<tr>
-						<td>${od.odNo}</td>
-						<td>${od.odNo}</td>
-						<td>${od.gdNm}</td>
-						<td><fmt:formatDate value="${od.odDate}" pattern="yyyy-MM-dd" /></td>
-						<td><fmt:formatDate value="${od.trDate}" pattern="yyyy-MM-dd" /></td>
-						<td>${od.odStage}</td>
+						<c:if test="${fn:length(odInfoList) == 0}">
+							<td colspan='9'>데이터가 존재하지 않습니다</td>
+						</c:if>
 					</tr>
-					</c:forEach>
+					<c:if test="${fn:length(odInfoList) > 0}">
+						<c:forEach items="${odInfoList}" var="od">
+						<tr>
+							<td>${od.odNo}</td>
+							<td>${od.odNo}</td>
+							<td>${od.gdNm}</td>
+							<td><fmt:formatDate value="${od.odDate}" pattern="yyyy-MM-dd" /></td>
+							<td><fmt:formatDate value="${od.trDate}" pattern="yyyy-MM-dd" /></td>
+							<td>${od.odStage}</td>
+						</tr>
+						</c:forEach>
+					</c:if>
 				</table>
 			</div>
 			<div id="pageList" style="width: 900px; margin: 3% 10%;">
