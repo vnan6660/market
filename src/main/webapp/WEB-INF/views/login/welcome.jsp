@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>page</title>
-<link rel="shortcut icon" href="#">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/login/join.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
