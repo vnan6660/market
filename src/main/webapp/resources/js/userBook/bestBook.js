@@ -1,7 +1,7 @@
 /*
-*생성자 : 김혜경
-*생성일 : 2021.12.21
-* 베스트도서 js
+**생성자 : 김혜경
+**생성일 : 2021.12.21
+**베스트도서 js
 */
 var searchParam = {};
 var nowPage = 1; //처음페이지는 1페이지
@@ -13,17 +13,36 @@ $(function(){
 		//페이지가 1페이지인 검색함수
 		goPage(1,1);
 	});
+	
 });
 
 var init = function() {
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
+	
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if($("#returnT").val() == 't'){
+		console.log("t");
+		$("#goodsSeparate").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#goodsNmNbrm").val($("#returnSptValThree").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
 }
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
 	//gdNo를 사용해서 상품번호에 맞는 상세페이지로 가야한다.
-	location.href = "/bestBook/bestBookDetail/" + gdNo;
+	//location.href = "/bestBook/bestBookDetail/" + gdNo;
+	searchParam = {};
+	$("input[name = gdNo]").val(gdNo);
+	$("input[name = selectOptValTwo]").val($("#goodsSeparate option:selected").val());
+	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action","/bestBookList/bestBookDetail");
+	$('#searchForm').attr("method","POST");
+	$('#searchForm').submit();
 }
 
 //상품 구분(bestBook, newBook,,,)에 맞는 상품분류 값(전문, 수험, 잡지,,,) 가져오기
@@ -53,8 +72,6 @@ var getGoodsSeparate = function(goodsGroup) {
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum) {
 	searchParam = {};
-	searchParam.startDt = $("#startDt").val();//검색시작날짜
-	searchParam.endDt = $("#endDt").val();//검색종료날짜
 	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();//상품분류값
 	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();//상품검색값:이름
 	searchParam.searchVal = $("#searchVal").val();//검색 input박스에 넣은 값
@@ -124,14 +141,11 @@ var goPage = function(pageNum) {
 			
 			//startpage와 endpage가 같거나 작을때까지 for문 돌림
 			for (var num = startpage; num <= endpage; num++) {
-				//페이지 리스트에 class와 onclick속성추가
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
-				//현재페이지가 startpage와 같으면
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
 				if (nowPage == num) {
-					//페이지리스트 배경을 #eee로 바꿈(내가 현재 있는 페이지 나타내기위함)
 					pageList += ' style = "background-color: #eee" >' + num
+					pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
 				} else {
-					//현재페이지가 startpage와 같지 않으면 >표시
 					pageList += '>' + num
 				}
 
@@ -140,8 +154,7 @@ var goPage = function(pageNum) {
 
 			//endpage가 maxPage보다 작아야 실행 가능
 			if (endpage < maxPage) {
-				//페이지 리스트에 '>>'표시
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
 			}
 
 			//id가 bestBookTabledp viewList를 담은 html추가

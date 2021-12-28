@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.service.userBook.BestBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
@@ -88,6 +90,14 @@ public class BestBookController {
 		return "/userBook/bestBookList";
 	}
 	
+	//목록페이지 가기
+	@PostMapping(value = "/bestBook/bestBookPage")
+	public String goBestBookListPage(SearchVO searchVO,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("goList", "t");
+		return "/userBook/bestBookList";
+		
+	}
 
 	// 베스트도서 검색
 	@GetMapping("/bestBook/searchBestBook")
@@ -117,8 +127,18 @@ public class BestBookController {
 		return resultMap;
 	}
 	
-	//상세페이지//
-	// 베스트도서 상세 페이지 연결
+	/* 상세페이지 */
+	//물품상세 페이지 가기(목록페이지의 검색값전달)
+	@PostMapping("/bestBookList/bestBookDetail") 
+	public String detailGoodsSearch(String gdNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
+	  
+	 redirectAttributes.addFlashAttribute("searchVO", searchVO);
+	  
+	return "redirect:/bestBook/bestBookDetail/"+gdNo;
+	}
+		
+		
+	//베스트도서상세 페이지 가기
 	@GetMapping("/bestBook/bestBookDetail/{gdNo}")
 	public String getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
 		

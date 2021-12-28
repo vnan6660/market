@@ -9,7 +9,7 @@
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/userBook/bookDetail.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
-<script type="text/javascript" src="/js/userBook/bestBook.js"></script>
+<script type="text/javascript" src="/js/userBook/bestBookDetail.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
@@ -56,9 +56,14 @@
 		<h4>상세설명</h4>
 		<div class="f15">${goodsVO.gdDetl}</div>
 		<hr id="bottomHr">
-		<a href="/bestBook/bestBookPage"><button class="hover btnCss mb100" >목록</button></a>
+		<button id="bestBookListBtn" class="hover btnCss mb100" >목록</button>
 	</div>
-	
+	<form id="searchForm">
+		<input type="hidden" name="selectOptValTwo" value="${searchVO.selectOptValTwo}"/>
+		<input type="hidden" name="selectOptValThree" value="${searchVO.selectOptValThree}"/>
+		<input type="hidden" name="searchVal" value="${searchVO.searchVal}"/>
+		<input type="hidden" name="page" value="${searchVO.page}"/>
+	</form>
 	
 </main>
 </body>
