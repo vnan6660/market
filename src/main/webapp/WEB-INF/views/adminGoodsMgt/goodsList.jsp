@@ -68,7 +68,7 @@
 					</colgroup>
 					<tr>
 						<th><input type="checkbox" name="allDelCheck" onchange="allDelCheck()"></th>
-						<th>NO</th>
+						<th>상품번호</th>
 						<th>상품구분</th>
 						<th>상품분류</th>
 						<th>상품이미지</th>
