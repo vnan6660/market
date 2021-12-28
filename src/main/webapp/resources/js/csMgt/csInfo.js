@@ -120,9 +120,9 @@ var goPage = function(pageNum) {
 					var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
 					var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
 
-					viewList += "<tr>";
+					viewList += "<tr class='hover' onclick='goDetail(" + e.csNo + ")'>";
 					viewList += "<td>" + e.csNo + "</td>";
-					viewList += "<td class='hover' onclick='goDetail(" + e.csNo + ")'>" + e.csId + "</td>";
+					viewList += "<td>" + e.csId + "</td>";
 					viewList += "<td>" + e.csNm + "</td>";
 					viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
 					viewList += "<td>" + e.csGrade + "</td>";
