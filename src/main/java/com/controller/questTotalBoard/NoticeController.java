@@ -41,7 +41,8 @@ public class NoticeController {
 		SearchVO vo = new SearchVO();
 		int listcount = noticeService.getListCount(vo);
 		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
-		//SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1, listcount);
+		// SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1,
+		// listcount);
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 		model.addAttribute("noticeList", noticeList);
@@ -52,14 +53,14 @@ public class NoticeController {
 
 		return "/questTotalBoard/notice";
 	}
-	
-	//목록페이지 가기
+
+	// 목록페이지 가기
 	@PostMapping(value = "/notice/noticePage")
-	public String goNoticeListPage(SearchVO searchVO,Model model){
+	public String goNoticeListPage(SearchVO searchVO, Model model) {
 		model.addAttribute("searchVO", searchVO);
 		model.addAttribute("goList", "t");
 		return "/questTotalBoard/notice";
-		
+
 	}
 
 	/* 공지사항글쓰기 페이지 가기 */
@@ -77,26 +78,28 @@ public class NoticeController {
 
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
 	@GetMapping("/notice/detailNotcie/{ntcNo}")
-	public String detailNotcie(@PathVariable int ntcNo,Model model,HttpServletRequest request) {
+	public String detailNotcie(@PathVariable int ntcNo, Model model, HttpServletRequest request) {
+
+		// 공지사항 조회수 카운트플러스
 		noticeService.plusVcnt(ntcNo);
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		SearchVO searchVO = new SearchVO();
+		if (flashMap != null) {
+			searchVO = (SearchVO) flashMap.get("searchVO");
+		}
+
 		NoticeVO noticeOne = noticeService.getNotcieDetail(ntcNo);
-		 model.addAttribute("noticeOne", noticeOne);
-		 
-		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
-		  SearchVO  searchVO =new SearchVO();
-	      if(flashMap!=null) {
-	          
-	         searchVO=(SearchVO)flashMap.get("searchVO");
-	    }
-	      model.addAttribute("searchVO", searchVO);
+		model.addAttribute("noticeOne", noticeOne);
+		model.addAttribute("searchVO", searchVO);
 		return "/questTotalBoard/noticeDetail";
 	}
-	
+
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
 	@PostMapping("/notice/detailNotcie")
-	public String detailNotcieSearch(String ntcNo,SearchVO searchVO,RedirectAttributes redirectAttributes) {
-		 redirectAttributes.addFlashAttribute("searchVO", searchVO);
-		return "redirect:/notice/detailNotcie/"+ntcNo;
+	public String detailNotcieSearch(int ntcNo, SearchVO searchVO, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("searchVO", searchVO);
+		return "redirect:/notice/detailNotcie/" + ntcNo;
 	}
 
 	/* 공지사항 글 삭제 */
@@ -121,8 +124,10 @@ public class NoticeController {
 
 		int listcount = noticeService.getListCount(vo);
 
-		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
-		//SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), vo.getPage(), listcount);
+		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal())
+				.page(vo.getPage()).listcount(listcount).build();
+		// SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(),
+		// vo.getPage(), listcount);
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 
@@ -134,5 +139,5 @@ public class NoticeController {
 
 		return resultMap;
 	}
-	
+
 }

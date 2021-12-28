@@ -106,7 +106,7 @@ public class GoodsListController {
 		return "/adminGoodsMgt/goodsReg";
 	}
 
-	
+	//상품구분에따는 상품분류 가져오기
 	@GetMapping("/goodsReg/goodsSeparate")
 	@ResponseBody
 	public List<CmmnVO> goodsSeparate(@RequestParam Map<String, Object> param, Model model) {

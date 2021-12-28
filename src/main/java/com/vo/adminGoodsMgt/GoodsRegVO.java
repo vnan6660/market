@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 public class GoodsRegVO {
 	
-	private String gdNo;//상품번호(나중에 문자열 숫자열 섞어서 넣기)
+	private String gdNo;//상품번호
 	private String gdGp;//상품구분
 	private String gdSp;//상품분류
 	private String gdNm;//상품이름

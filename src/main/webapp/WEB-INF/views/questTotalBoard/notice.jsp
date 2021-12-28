@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
-<link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="/css/questTotalBoard/notice.css">
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <script type="text/javascript" src="/js/common/common.js"></script>

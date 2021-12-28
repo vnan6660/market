@@ -66,7 +66,7 @@ var attachEvent = function() {
 	$("#goodsUpdDoneBtn").click(function() {
 		var emptyCheck = 0;
 
-		$("input").each(function(i, e) {
+		$(".writeForm input").each(function(i, e) {
 
 			if (e.name != 'gdDetlFile' && $(this).val() == "") {
 				if (e.name != 'gdImgFile') {

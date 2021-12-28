@@ -95,7 +95,7 @@ var attachEvent = function() {
 						if (cdDuplList.length == 0) {
 							updateMenuInfo(idDuplList[0].menuId);
 						} else {
-							cdDuplList[0].menuId == menuId ?updateMenuInfo(idDuplList[0].menuId) : alertMesg;						
+							cdDuplList[0].menuId == menuId ?updateMenuInfo(idDuplList[0].menuId) : alertMesg();						
 						}
 					}
 				},

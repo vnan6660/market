@@ -75,7 +75,6 @@ var attachEvent = function() {
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(ntcNo) {
-	//location.href = '/notice/detailNotcie/' + ntcNo;
 	searchParam = {};
 	$("input[name = ntcNo]").val(ntcNo);
 	$("input[name = selectOptValOne]").val($("#selectWrap option:selected").val());
