@@ -51,14 +51,14 @@ button{
 }
 
 #updateInfoBtn{
-	color: #262626;
-	background: #eaeaea;
-	width: 135%;
-	width: 210%;
+	width: 135px;
     height: 40px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
     border-inline-color: revert;
     border-color: #b1b1b1;
     border-bottom-style: solid;
     border-right-style: solid;
     border-width: 1px;
+    margin-bottom: 100px;
 }

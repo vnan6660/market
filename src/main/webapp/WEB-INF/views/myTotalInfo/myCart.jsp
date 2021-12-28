@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +20,15 @@
 			<div class="myinfo">
 				<h3>장바구니</h3>
 			</div>
-			<!-- 선택주문/삭제버튼 -->
-			<div id="delBtn">
-				<button>삭제</button>
-			</div>
 			
 			<!-- 장바구니 상품 리스트 테이블 -->
 			<div style="width:800px;table-layout: fixed">
+			
+			<!-- 선택주문/삭제버튼 -->
+			<div id="delBtn">
+				<button class="hover" onclick="delCart()">삭제</button>
+			</div>
+			
 				<table>
 					<colgroup>
 						<col style="width:30px">
@@ -38,7 +41,7 @@
 					<thead>
 						<tr>
 							<th>
-								<input type="checkbox" checked="checked">
+								<input id="allCheck" name="checkbox" type="checkbox" checked="checked" onchange="allcheck()">
 							</th>
 							<th>
 								상품이미지
@@ -61,7 +64,8 @@
 					<c:forEach items="${cartList}" var="vo">
 						<tr>
 							<td>
-								<input type="checkbox" checked="checked">
+								<input type="hidden" id="cartNo" value="${vo.cartNo}">
+								<input type="checkbox" name="checkbox" checked="checked" onchange="check()">
 							</td>
 							<td>
 								<img id="img"class="hover" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
@@ -73,33 +77,37 @@
 								</ul>
 							</td>
 							<td>
-								<input type="number" style="width: 30px;">
+								<input type="text" style="width: 30px;" value="${vo.gdQty}">
 							</td>
 							<td>
 								무료배송
 							</td>
 							<td>
-								${vo.gdPrice}원
+								<input type="hidden" id="gdPrice" value="${vo.gdPrice}">
+								<fmt:formatNumber value="${vo.gdPrice}" pattern="#,###" type="number"/>원
 							</td>
 						</tr>
+						<c:set var="total" value="${total + vo.gdPrice}" />
 					</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td id="tFoot" colspan="6">
 								<span>합계:</span>
-								<span id="redSpan">999999원</span>
+								<span id="redSpan"><fmt:formatNumber value="${total}" pattern="#,###" type="number"/>원</span>
 							</td>
 						</tr>
 					</tfoot>
 				</table>
-			</div>
-			
+				
 			<!-- 전체주문버튼 -->
 			<div id="orderBtn">
-				<button>목록</button>
-				<button>주문</button>
+				<button class="hover">주문</button>
 			</div>
+			
+			</div>
+			
+			
 			
 			
 			

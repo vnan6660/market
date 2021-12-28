@@ -141,6 +141,52 @@ public class BestBookController {
 		return "/userBook/bestBookDetail";
 	}
 	
-	
-
+//	//외국 도서 상세 페이지 연결
+//	@GetMapping("/bestBook/bestBookDetail/{gdNo}")
+//	public String getForeignDtl(@PathVariable String gdNo,Model model) throws IOException {
+//		
+//		//하나의 물품정보 가져오기
+//		GoodsListVO goodsVO = bestBookService.getBestDtl(gdNo);
+//		
+//		//상품이미지(BLOB)가 있다면
+//		if(goodsVO.getGdImg() != null) {
+//			//goodsVo에 gdImg에 String으로 변환된 gdImg값을 넣어라
+//			goodsVO.setGdImgStr( new String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8"));
+//		}
+//		//상세설명파일이름(BLOB)이 있다면
+//		if(goodsVO.getGdDetl() != null) {
+//			//goodsVo에 gdDetlStr에 String으로 변환된 gdDetl값을 넣어라
+//			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8"));
+//		}
+//		//goodVo의값을 goodsVo란 이름으로 넣어라
+//		model.addAttribute("goodsVO", goodsVO);
+//		
+//		return "/userBook/bestBookDetail";
+//	}
+//	
+//	// 국내도서 상세 페이지 연결
+//	@GetMapping("/bestBook/bestBookDetail/{gdNo}")
+//	public String getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
+//		
+//		//하나의 물품정보 가져오기
+//		GoodsListVO goodsVO = bestBookService.getBestDtl(gdNo);
+//		
+//		//상품이미지(BLOB)가 있다면
+//		if(goodsVO.getGdImg() != null) {
+//			//goodsVo에 gdImg에 String으로 변환된 gdImg값을 넣어라
+//			goodsVO.setGdImgStr( new String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8"));
+//		}
+//		//상세설명파일이름(BLOB)이 있다면
+//		if(goodsVO.getGdDetl() != null) {
+//			//goodsVo에 gdDetlStr에 String으로 변환된 gdDetl값을 넣어라
+//			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8"));
+//		}
+//		//goodVo의값을 goodsVo란 이름으로 넣어라
+//		model.addAttribute("goodsVO", goodsVO);
+//		
+//		return "/userBook/bestBookDetail";
+//	}
+//	
+//	
+//
 }

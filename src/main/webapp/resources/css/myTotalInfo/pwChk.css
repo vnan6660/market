@@ -20,20 +20,19 @@
 
 .flex{
 	display: flex;
-	margin-left: 110px;
+	margin-left: 200px;
 }
 
 .w100{
 	width: 100px;
 }
 .ml100{
-	margin-left: 100px;
+	margin-left: 50px;
 }
 .btnCss{
 	width: 110px;
-	color: rgb(86, 86, 86);
-	background-color:#eaeaea;
+	color: #fff;
+    background: rgba(0, 0, 0, 0.6);
     border-width: 1px;
     margin-right:10px;
-    
 }

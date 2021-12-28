@@ -54,12 +54,12 @@ td{
 }
 
 #delBtn>button{
-	width: 40px;
-	height:20px;
+	width: 50px;
+	height:25px;
 	margin-left: 20px;
 	font-size: x-small;
-	background: #fddd88;
-	color: #231815;
+	color: #fff;
+    background: rgba(0, 0, 0, 0.6);
 	border: none;
 }
 
@@ -85,14 +85,14 @@ td{
 
 #orderBtn{
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 
 #orderBtn>button{
 	width: 80px;
     height: 30px;
 	font-size: small;
-	background: #fddd88;
-	color: #231815;
+	color: #fff;
+    background: rgba(0, 0, 0, 0.6);
 	border: none;
 }

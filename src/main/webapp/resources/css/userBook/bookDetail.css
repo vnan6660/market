@@ -22,7 +22,9 @@ hr{
 .mb10{
 	margin-bottom: 10px;
 }
-
+.mb100{
+	margin-bottom: 100px;
+}
 .f15{
 	font-size: 15px;
 }
@@ -54,5 +56,5 @@ hr{
 	width: 70px;
 }
 #bottomHr{
-	margin-bottom: 100px;
+	margin-bottom: 70px;
 }

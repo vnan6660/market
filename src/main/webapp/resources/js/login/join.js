@@ -42,7 +42,8 @@ var validation = function (){
 		var pwOnlyEngNumSpecial = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/; //영소문자, 특수문자만
 		var nmOnlyHangulEng = /^[가-힣a-zA-Z]+$/; //한글과 영어만
 		var emailOnly = /^[a-zA-Z0-9_\.\-]+$/; //영어 대,소문자 (.)(_)(-)특수문자만
-		var phonelOnly = /^(?=.*?[0-9]).{4,4}$/;//숫자만
+		//var phonelOnly = /^(?=.*?[0-9])+$/;//숫자만
+		var phonelOnly = /^[0-9]+$/;//숫자만
 		var pattern = /\s/g; //공백확인
 		var csId = $("#csId").val(); //아이디
 		var csPs = $("#csPs").val();//비밀번호
@@ -211,6 +212,8 @@ var validation = function (){
 		}else{
 			$("#phoneChk").text("");
 		}
+		
+		
 		
 		// ================ 생년월일 ================ //
 		//회원가입 만14세 미만 가입 금지

@@ -35,7 +35,7 @@
 	</update>
 	
 	<!-- 장바구니 목록 가져오기 -->
-	<select id="getCartList" resultType="String" >
+	<select id="getCartList" resultType="com.vo.cart.CartListVO" >
 	/* myCartMapper.getCartList */
 		SELECT AA.* 
 		 FROM(

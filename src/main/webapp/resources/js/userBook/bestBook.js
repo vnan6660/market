@@ -164,7 +164,7 @@ function addCart(gdNo){
 	data.gdNo = gdNo;//상품번호
 	data.gdQty = '1';
 	if(sessionUserId == ""){
-			alert("로그인해주세요");
+			alert("로그인 후 이용가능합니다.");
 			location.href = '/login/loginPage';
 	}else{
 		$.ajax({
@@ -179,6 +179,19 @@ function addCart(gdNo){
 				alert("오류입니다. 관리자에게 문의해주세요");
 			}
 		});
-		}
+	}
+	
+}
+
+//바로구매
+function goBuy(gdNo){
+	var sessionUserId = $("#sessionUserId").val();
+	data = {};
+	data.gdNo = gdNo;//상품번호
+	//data.gdQty = '1';
+	if(sessionUserId == ""){
+			alert("로그인 후 이용가능합니다.");
+			location.href = '/login/loginPage';
+	}
 	
 }

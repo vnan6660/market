@@ -10,12 +10,12 @@
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/userBook/bookDetail.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
-<script type="text/javascript" src="/js/userBook/bestBook.js"></script>
+<script type="text/javascript" src="/js/userBook/foreignBook.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 <main id="contentsWrap" class="join">
-<h2>베스트 도서</h2>
+<h2>외국 도서</h2>
 <hr>
 	<div class="detailWrap">
 		<!-- 도서이미지 -->
@@ -30,9 +30,8 @@
 						<span>판매가</span> <span>${goodsVO.gdPrice}원</span>
 					</div>
 					<div>
-						<input id="sessionUserId" type="hidden" value="${sessionScope.userId}">
-						<span><button class="hover" id="goCart" onclick="addCart(${goodsVO.gdNo})">장바구니</button></span>
-						<span><button class="hover" id="goBuy" onclick="goBuy(${goodsVO.gdNo})">바로구매</button></span>
+						<span><button id="goCart">장바구니</button></span>
+						<span><button id="goBuy">바로구매</button></span>
 					</div>
 				</li>
 			</ul>
@@ -57,7 +56,7 @@
 		<h4>상세설명</h4>
 		<div class="f15">${goodsVO.gdDetl}</div>
 		<hr id="bottomHr">
-		<a href="/bestBook/bestBookPage"><button class="hover btnCss mb100" >목록</button></a>
+		<a href="/bestBook/bestBookPage"><button class="hover btnCss">목록</button></a>
 	</div>
 	
 	

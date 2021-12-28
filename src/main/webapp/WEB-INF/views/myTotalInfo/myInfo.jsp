@@ -58,7 +58,7 @@
 				<h3>추가정보</h3>
 				<table>
 					<tr>
-						<th>생년월일*</th>
+						<th>생년월일</th>
 						<td>
 							${csInfo.csBirthYear}년 ${csInfo.csBirthMonth}월 ${csInfo.csBirthDay}일
 						</td>

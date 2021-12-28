@@ -2,7 +2,7 @@ package com.service.myTotalInfo;
 
 import java.util.List;
 
-import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 
 /**
@@ -22,7 +22,7 @@ public interface MyCartService {
 	void updateCart(CartVO cartVo);
 
 	//장바구니 목록 가져오기
-	List<GoodsListVO> getCartList(String csNo);
+	List<CartListVO> getCartList(String csNo);
 
 	
 	

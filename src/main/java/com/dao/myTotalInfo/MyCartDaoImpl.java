@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 
 @Repository
@@ -39,7 +39,7 @@ public class MyCartDaoImpl implements MyCartDao{
 
 	//장바구니 목록 가져오기
 	@Override
-	public List<GoodsListVO> getCartList(String csNo) {
+	public List<CartListVO> getCartList(String csNo) {
 		return sqlSession.selectList("getCartList", csNo);
 	}
 

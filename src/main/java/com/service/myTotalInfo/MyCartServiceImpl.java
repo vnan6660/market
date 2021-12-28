@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.myTotalInfo.MyCartDao;
-import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 
 @Service
@@ -36,7 +36,7 @@ public class MyCartServiceImpl implements MyCartService{
 
 	//장바구니 목록 가져오기
 	@Override
-	public List<GoodsListVO> getCartList(String csNo) {
+	public List<CartListVO> getCartList(String csNo) {
 		return myCartDao.getCartList(csNo);
 	}
 

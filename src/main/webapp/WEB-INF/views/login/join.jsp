@@ -84,8 +84,8 @@
 					<tr>
 						<th>이메일*</th>
 						<td>
-							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
-							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput" maxlength="15">
+							<input type="text" class="w150" id="csEmailOne" name="csEmailOne" maxlength="12"> @ 
+							<input type="text" class="w150" id="csEmailWriteInput" name="csEmailWriteInput" maxlength="12">
 							<select class="w150" id="csEmailTwo" name="csEmailTwo">
 								<option value="선택" id="hidden">선택</option>
 								<option value="naver.com">naver.com</option>

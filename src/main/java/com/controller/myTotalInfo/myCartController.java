@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.service.myTotalInfo.MyCartService;
 import com.service.userBook.BestBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 import com.vo.login.LoginVO;
 
@@ -47,13 +48,13 @@ public class myCartController {
 		String csNo = (String) session.getAttribute("userNo");
 		
 		//장바구니 목록 가져오기
-		List<GoodsListVO> list = myCartService.getCartList(csNo);
+		List<CartListVO> list = myCartService.getCartList(csNo);
 		//새로운 reList를 만든다 -> 이미지를 변형해야해서 다시 만듦
-		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
+		List<CartListVO> reList = new ArrayList<CartListVO>();
 		
 		for (int i = 0; i < list.size(); i++) {
-			//GoodsListVO에 저장하기위해 생성자 생성
-			GoodsListVO vo = new GoodsListVO();
+			//CartListVO에 저장하기위해 생성자 생성
+			CartListVO vo = new CartListVO();
 			
 			//list의 i행에있는 gdNo를 vo의 gdNo에 값을 넣겠다.(이하동일)
 			vo.setGdNo(list.get(i).getGdNo());	//상품번호
@@ -65,6 +66,7 @@ public class myCartController {
 			vo.setGdWr(list.get(i).getGdWr());	//상품작가
 			vo.setGdPb(list.get(i).getGdPb());	//상품출판사
 			vo.setGdPrice(list.get(i).getGdPrice());	//상품가격
+			vo.setGdQty(list.get(i).getGdQty());	//상품수량
 			
 			//for문을 돌렸을때 이미지가 있다면
 			if (list.get(i).getGdImg() != null) {
@@ -101,6 +103,12 @@ public class myCartController {
 		}
 	}
 	
+	//장바구니 목록 삭제
+	@ResponseBody
+	@PostMapping("/myCart/delCart")
+	public void delCart() {
+		
+	}
 	
 	
 	

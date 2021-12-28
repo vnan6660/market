@@ -2,7 +2,7 @@ package com.dao.myTotalInfo;
 
 import java.util.List;
 
-import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 
 public interface MyCartDao {
@@ -18,6 +18,6 @@ public interface MyCartDao {
 	void updateCart(CartVO cartVo);
 
 	//장바구니 목록 가져오기
-	List<GoodsListVO> getCartList(String csNo);
+	List<CartListVO> getCartList(String csNo);
 
 }
