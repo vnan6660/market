@@ -102,8 +102,8 @@
 			</div>
 		</div>
 		<div id="pageList">
+			<input type="hidden" id="hdThisPage" value="1">
 			<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
-			<input type="hidden" id="hdThisPage" value="${cnt}">
 			<c:if test="${cnt == 1}">
 				<span class="page mr6" onclick="goPage(${cnt},0)" style="background-color: #eee">${cnt}</span>
 			</c:if>

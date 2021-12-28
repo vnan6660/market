@@ -20,8 +20,9 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
-	//달력시간 해당월1일로 셋팅
+	//달력시간 년초1일로 셋팅
 	var startDate = new Date(curDate);
+	startDate.setMonth(0);//1월은 0부터 시작
 	startDate.setDate(1);
 
 	//가져온 서버시간  startDate와 endDate에 넣기
@@ -189,7 +190,7 @@ var goDeleteGoods = function() {
 				data: { "delNoList": delNoList },
 				success: function() {
 					alert("삭제되었습니다");
-					location.href = "/goodsList/goodsListPage";
+					goPage($("#hdThisPage").val(), 1);
 				},
 				error: function() {
 					alert("오류입니다. 관리자에게 문의해주세요");
@@ -229,7 +230,7 @@ var goShowGoods = function() {
 			},
 			success: function() {
 				alert("개시정보가 변경되었습니다");
-				location.href = "/goodsList/goodsListPage";
+				goPage($("#hdThisPage").val(), 1);
 			},
 			error: function() {
 				alert("오류입니다. 관리자에게 문의해주세요");

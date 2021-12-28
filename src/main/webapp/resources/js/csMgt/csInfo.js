@@ -18,8 +18,9 @@ var init = function() {
 	//서버시간 가져오기
 	getServerTime();
 
-	//달력시간 해당월1일로 셋팅
+	//달력시간 년초1일로 셋팅
 	var startDate = new Date(curDate);
+	startDate.setMonth(0);//1월은 0부터 시작
 	startDate.setDate(1);
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
@@ -81,6 +82,8 @@ var goPage = function(pageNum) {
 	searchParam.selectOptValTwo = $("#userInfoSelectWrap option:selected").val();
 	searchParam.searchVal = $("#searchVal").val();
 	searchParam.page = pageNum;
+	
+	nowPage = pageNum;
 
 	$.ajax({
 		url: '/csInfo/searchCsInfoList',

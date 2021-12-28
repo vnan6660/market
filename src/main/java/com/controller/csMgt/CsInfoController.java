@@ -37,8 +37,8 @@ public class CsInfoController {
 	//고객정보페이지 가기 
 	@RequestMapping("/csInfo/csInfoPage")
 	public String csInfoPage(Model model) {
-		 //현재월 첫번째 일자
-		 String startDt= LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ISO_DATE);
+		//현재년도 첫번째 일자
+		String startDt = LocalDate.now().with(TemporalAdjusters.firstDayOfYear()).format(DateTimeFormatter.ISO_DATE);
 		 //현재 일자
 		 String endDt = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
 		 

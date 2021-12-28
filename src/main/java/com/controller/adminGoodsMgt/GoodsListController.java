@@ -46,12 +46,11 @@ public class GoodsListController {
 	@RequestMapping("/goodsList/goodsListPage")
 	public String goodsListPage(Model model) throws IOException {
 		
-		 //현재월 첫번째 일자
-		 String startDt= LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ISO_DATE);
+		 //현재년도 첫번째 일자
+		 String startDt = LocalDate.now().with(TemporalAdjusters.firstDayOfYear()).format(DateTimeFormatter.ISO_DATE);
 		 
 		 //현재 일자
 		 String endDt = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-		
 		
 		SearchVO svo = SearchVO.builder().startDt(startDt).endDt(endDt).build();
 		
