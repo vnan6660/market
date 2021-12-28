@@ -95,6 +95,7 @@ var saveNotice = function(param) {
 			datatype: 'JSON',
 			contentType: 'application/json',
 			success: function() {
+				alert("저장되었습니다");
 				location.href = '/notice/noticePage';
 			},
 			error: function() {
@@ -112,6 +113,7 @@ var deleteNotice = function() {
 			type: 'GET',
 			data: { "ntcNo": $("#ntcNo").val() },
 			success: function() {
+				alert("삭제되었습니다");
 				location.href = '/notice/noticePage';
 			},
 			error: function() {
@@ -135,7 +137,10 @@ var updateNotice = function() {
 			}),
 			contentType: 'application/json',
 			success: function() {
-				location.href = '/notice/detailNotcie/' + ntcNo;
+				alert("수정되었습니다");
+				$('#searchForm').attr("action","/notice/detailNotcie");
+				$('#searchForm').attr("method","POST");
+				$('#searchForm').submit();
 			},
 			error: function() {
 				alert("오류입니다. 관리자에게 문의해주세요");

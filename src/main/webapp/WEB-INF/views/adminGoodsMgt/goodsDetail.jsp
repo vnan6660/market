@@ -171,6 +171,7 @@
 				</div>
 			</form>
 			<form id="searchForm">
+				<input type="hidden" name="gdNo" value="${goodsVO.gdNo}">
 				<input type="hidden" name="startDt" value="${searchVO.startDt}"/>
 				<input type="hidden" name="endDt" value="${searchVO.endDt}"/>
 				<input type="hidden" name="selectOptValOne" value="${searchVO.selectOptValOne}"/>

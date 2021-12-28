@@ -41,6 +41,7 @@
 			</c:if>
 		</div>
 		<form id="searchForm">
+				<input type="hidden" name="ntcNo" value="${noticeOne.ntcNo}">
 				<input type="hidden" name="startDt" value="${searchVO.startDt}"/>
 				<input type="hidden" name="endDt" value="${searchVO.endDt}"/>
 				<input type="hidden" name="selectOptValOne" value="${searchVO.selectOptValOne}"/>
