@@ -4,13 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main</title>
+<title>관리자메인</title>
 <script src="webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/common/common.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
+	<main>
+		관리자 페이지입니다.
+	</main>
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>
 	</footer>

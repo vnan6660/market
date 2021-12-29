@@ -69,7 +69,19 @@ var login = function(idCheck, passCheck) {
 		}),
 		dataType: 'json',
 		success: function(res) {
-			res == "0" ? $("#validCheckText").text("아이디 또는 비밀번호가 일치하지 않습니다.") : location.href = '/';
+			if(res.returnCnt == "0"){
+				$("#validCheckText").text("아이디 또는 비밀번호가 일치하지 않습니다.") ;
+			}else{
+				if(res.userGrade == "0"){
+					location.href = '/adminMain';
+				}
+				if(res.userGrade == "1"){
+					location.href = '/';
+				}
+				if(res.userGrade == "2"){
+					$("#validCheckText").text("존재하지 않는 회원입니다.") ;
+				}
+			}
 		}
 	});
 

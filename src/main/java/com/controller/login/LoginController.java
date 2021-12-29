@@ -1,5 +1,9 @@
 package com.controller.login;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.print.attribute.HashAttributeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -40,15 +44,18 @@ public class LoginController {
 	/* 로그인하는 아이디 비밀번호체크후 로그인 수행 */
 	@PostMapping("/login/getLogin")
 	@ResponseBody
-	public String getLogin(@RequestBody LoginVO vo) {
-
+	public Map<String, Object> getLogin(@RequestBody LoginVO vo) {
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		
 		/* 로그인하는 아이디 비밀번호체크 있으면 1 없으면 0 */
 		String returnCnt = loginService.getLoginCnt(vo);
+		resultMap.put("returnCnt", returnCnt);
 
 		/* 로그인 아이디 비밀번호체크 후 있으면 실행 */
 		if (returnCnt == "1") {
 			/* 로그인 정보 가져오기 */
 			LoginVO loginInfo = loginService.getLogin(vo);
+			resultMap.put("userGrade", loginInfo.getCsGrade());
 
 			HttpSession session = request.getSession(true);
 			session.setAttribute("userId", loginInfo.getCsId());
@@ -57,8 +64,8 @@ public class LoginController {
 			session.setAttribute("userPs", loginInfo.getCsPs());
 			session.setAttribute("userNo", loginInfo.getCsNo());
 		}
-
-		return returnCnt;
+		
+		return resultMap;
 	}
 
 	/* 로그아웃 실행 */

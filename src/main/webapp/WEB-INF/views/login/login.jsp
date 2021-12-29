@@ -23,6 +23,12 @@
 			</div>
 			<button id="loginBtn">로그인</button>
 		</div>
+		<%-- <c:if test="${sessionScope.userGrade == '0'}">
+			<jsp:forward page="/adminMain"/>
+    	</c:if>
+		<c:if test="${sessionScope.userGrade == '1'}">
+			<jsp:forward page="/main"/>
+    	</c:if> --%>
 	</main>
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>
