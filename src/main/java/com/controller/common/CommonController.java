@@ -36,12 +36,24 @@ public class CommonController {
         return "main";
     }
     
+    //관리자메인 페이지 가기
+    @RequestMapping("/adminMain")
+    public String adminMain() {
+        return "adminMain";
+    }
+    
     //사이드 메뉴 불러오기
     @RequestMapping("/sideMenu/sideMenuPage")
     public String sideMenu(Model model) {
         List<MenuMgtVO> list = MenuMgtService.getMenuList();
         model.addAttribute("list", list);
         return "/common/sideMenu";
+    }
+    
+  //사이드 메뉴 불러오기
+    @RequestMapping("/footer/footerPage")
+    public String footer(Model model) {
+        return "/common/footer";
     }
     
     //공통코드 가져오기

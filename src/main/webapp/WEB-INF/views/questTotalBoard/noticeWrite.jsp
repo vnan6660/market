@@ -27,7 +27,9 @@
 			<button id="goNoticeList" class="btnSmallList hover">목록</button>
 			<button id="saveWriteFrom" class="btnSmall">저장</button>
 		</div>
-
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>
