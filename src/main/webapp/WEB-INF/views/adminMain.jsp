@@ -11,7 +11,7 @@
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main>
+	<main id="contents" style="height: 600px;">
 		관리자 페이지입니다.
 	</main>
 	<footer>

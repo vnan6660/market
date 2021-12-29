@@ -11,6 +11,9 @@
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
+	<main id="contents" style="height: 600px;">
+		사용자 페이지입니다.
+	</main>
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>
 	</footer>
