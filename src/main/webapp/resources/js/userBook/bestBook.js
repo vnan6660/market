@@ -14,6 +14,15 @@ $(function(){
 		goPage(1,1);
 	});
 	
+	//목록버튼 누르면 실행
+	$("#bestBookListBtn").click(function() {
+		$("#searchForm").attr("action","/bestBook/bestBookPage");
+		$("#searchForm").attr("method","post");
+		$("#searchForm").submit();
+	});
+	selectOptValTwo = $("#goodsSeparate option:selected").val();//상품분류값
+	selectOptValThree = $("#goodsNmNbrm option:selected").val()
+	
 });
 
 var init = function() {
@@ -22,9 +31,6 @@ var init = function() {
 	
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){
-		console.log("t");
-		console.log($("#returnSptValTwo").val());
-		console.log($("#returnSptValThree").val());
 		$("#goodsSeparate").val($("#returnSptValTwo").val()).prop("selected", true);
 		$("#goodsNmNbrm").val($("#returnSptValThree").val()).prop("selected", true);
 		$("#searchVal").val($("#returnSearchVal").val());

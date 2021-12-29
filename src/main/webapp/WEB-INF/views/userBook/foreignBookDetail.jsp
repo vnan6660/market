@@ -26,11 +26,12 @@
 				<li>
 					<h3 class="mb10">${goodsVO.gdNm}</h3>
 					<div class="mb10">
-						<span>판매가</span> <span>${goodsVO.gdPrice}원</span>
+						<span>판매가</span> <span><fmt:formatNumber value="${goodsVO.gdPrice}" pattern="#,###"/>원</span>
 					</div>
 					<div>
-						<span><button id="goCart">장바구니</button></span>
-						<span><button id="goBuy">바로구매</button></span>
+						<input id="sessionUserId" type="hidden" value="${sessionScope.userId}">
+						<span><button id="goCart" onclick="addCart(${goodsVO.gdNo})">장바구니</button></span>
+						<span><button id="goBuy" onclick="goBuy(${goodsVO.gdNo})">바로구매</button></span>
 					</div>
 				</li>
 			</ul>
@@ -46,18 +47,23 @@
 		<hr>
 		<!-- 상품설명 -->
 		<h4>상품설명</h4>
-		<div class="f15">
-		<c:if test=""></c:if>
+		<div class="f15" style="width: 100%; word-wrap: break-word; word-break: break-all;">
 			${goodsVO.gdDc}
-		</div>		
+		</div>
 		<hr>
 		<!-- 상세설명 -->
 		<h4>상세설명</h4>
 		<div class="f15">${goodsVO.gdDetl}</div>
 		<hr id="bottomHr">
-		<a href="/bestBook/bestBookPage"><button class="hover btnCss">목록</button></a>
+		<button id="foreignBookListBtn" class="hover btnCss mb100" >목록</button>
 	</div>
-	
+	<form id="searchForm">
+		<input type="hidden" name="gdNo" value="${goodsVO.gdNo}">
+		<input type="hidden" name="selectOptValTwo" value="${searchVO.selectOptValTwo}"/>
+		<input type="hidden" name="selectOptValThree" value="${searchVO.selectOptValThree}"/>
+		<input type="hidden" name="searchVal" value="${searchVO.searchVal}"/>
+		<input type="hidden" name="page" value="${searchVO.page}"/>
+	</form>
 	
 </main>
 </body>

@@ -15,16 +15,15 @@ $(function(){
 		goPage(1,1);
 	});
 	
-	//장바구니버튼
-	$(".cartBtn").click(function(){
-		var sessionUserId = $("#sessionUserId").val();
-		if(sessionUserId == ""){
-			alert("로그인해주세요");
-			location.href = '/login/loginPage';
-		}else{
-			addCart(sessionUserId);
-		}
+	//목록버튼 누르면 실행
+	$("#foreignBookListBtn").click(function() {
+		$("#searchForm").attr("action","/foreignBook/foreignBookPage");
+		$("#searchForm").attr("method","post");
+		$("#searchForm").submit();
 	});
+	selectOptValTwo = $("#goodsSeparate option:selected").val();//상품분류값
+	selectOptValThree = $("#goodsNmNbrm option:selected").val()
+	
 	
 });
 
@@ -33,11 +32,27 @@ var init = function() {
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("foreignBook");
 
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if($("#returnT").val() == 't'){
+		$("#goodsSeparate").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#goodsNmNbrm").val($("#returnSptValThree").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
 }
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
-	location.href = "/foreignBook/foreignBookDetail/" + gdNo;
+	//location.href = "/foreignBook/foreignBookDetail/" + gdNo;
+	searchParam = {};
+	$("input[name = gdNo]").val(gdNo);
+	$("input[name = selectOptValTwo]").val($("#goodsSeparate option:selected").val());
+	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action","/foreignBookList/foreignBookDetail");
+	$('#searchForm').attr("method","POST");
+	$('#searchForm').submit();
 }
 
 //상품 구분에 맞는 상품분류 값 가져오기
@@ -51,9 +66,10 @@ var getGoodsSeparate = function(goodsGroup) {
 		data: {
 			"goodsGroup": goodsGroup
 		},
+		async : false,
 		success: function(res) {
-			$("#goodsSeparate").append("<option value='optAll'>전체</option>");
-			res.filter(function(e, i) {
+			$("#goodsSeparate").append("<option value='optAll'>전체</option>"); //전체 선택값 추가
+			res.filter(function(e, i) {//fliter로 전체값을 순회하면서 #goodsSeparate에 option값을 넣는다.
 				return $("#goodsSeparate").append("<option value='" + res[i].cmGrcd + "'>" + res[i].cmGrnm + "</option>");
 			});
 		},
@@ -66,13 +82,11 @@ var getGoodsSeparate = function(goodsGroup) {
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum) {
 	searchParam = {};
-	searchParam.startDt = $("#startDt").val();
-	searchParam.endDt = $("#endDt").val();
-	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();
-	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();
-	searchParam.searchVal = $("#searchVal").val();
-	searchParam.page = pageNum;
-	nowPage = pageNum;
+	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();//상품분류값
+	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();//상품검색값:이름
+	searchParam.searchVal = $("#searchVal").val();//검색 input박스에 넣은 값
+	searchParam.page = pageNum;//페이지번호
+	nowPage = pageNum;//현재페이지 = 페이지번호
 
 	$.ajax({
 		url: '/foreignBook/searchForeignBook',
@@ -123,23 +137,20 @@ var goPage = function(pageNum) {
 							+"</td>";
 				viewList += "<td class='hover'>" + "<button id='cartBtn'>장바구니</button></td>";
 
-				/*if (e.gdYn == 'Y') {
-					viewList += "<td><input type='checkbox' name='showCheck' checked='checked' value='" + e.gdNo + "'></td>";
-				}
-				if (e.gdYn == 'N') {
-					viewList += "<td><input type='checkbox' name='showCheck' value='" + e.gdNo + "'></td>";
-				}*/
 			});
 
 			var pageList = "";
+			//startpage가 1보다 커야 실행가능
 			if (1 < startpage) {
-				/*startpage가 1보다 커야 실행가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
 			}
+			
+			//startpage와 endpage가 같거나 작을때까지 for문 돌림
 			for (var num = startpage; num <= endpage; num++) {
-				pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
+				pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
 				if (nowPage == num) {
 					pageList += ' style = "background-color: #eee" >' + num
+					pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
 				} else {
 					pageList += '>' + num
 				}
@@ -147,15 +158,20 @@ var goPage = function(pageNum) {
 				pageList += '</span>';
 			}
 
+			//endpage가 maxPage보다 작아야 실행 가능
 			if (endpage < maxPage) {
 				/*endpage가 maxPage보다 작아야 실행 가능*/
-				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
 			}
 
-			$("#bestBookTable").html(viewList);
+			//id가 pageList에 pageList를 담은 html추가
 			$("#pageList").html(pageList);
+			
+			//id가 bestBookTabledp viewList를 담은 html추가
+			$("#bestBookTable").html(viewList);
 
 		},
+		//오류발생시 function()
 		error: function() {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
@@ -163,24 +179,40 @@ var goPage = function(pageNum) {
 }
 
 //장바구니 넣기
-function addCart(sessionUserId){
-	//상품번호
-	var gdNo = $("#gdNo").val();
-	
+function addCart(gdNo){
+	var sessionUserId = $("#sessionUserId").val();
 	data = {};
 	data.gdNo = gdNo;//상품번호
-	data.csId = sessionUserId;
+	data.gdQty = '1';
+	if(sessionUserId == ""){
+			alert("로그인 후 이용가능합니다.");
+			location.href = '/login/loginPage';
+	}else{
+		$.ajax({
+			url: '/myCart/addCart',
+			type: "POST",
+			data: data,
+			success: function() {
+				alert("장바구니에 추가되었습니다.");
+			},
+			//오류났을때 처리
+			error: function() {
+				alert("오류입니다. 관리자에게 문의해주세요");
+			}
+		});
+	}
 	
-	$.ajax({
-		url: '/myCart/addCart',
-		type: "POST",
-		data: data,
-		success: function() {
-			alert("장바구니에 추가되었습니다.");
-		},
-		//오류났을때 처리
-		error: function() {
-			alert("오류입니다. 관리자에게 문의해주세요");
-		}
-	});
+}
+
+//바로구매
+function goBuy(gdNo){
+	var sessionUserId = $("#sessionUserId").val();
+	data = {};
+	data.gdNo = gdNo;//상품번호
+	//data.gdQty = '1';
+	if(sessionUserId == ""){
+			alert("로그인 후 이용가능합니다.");
+			location.href = '/login/loginPage';
+	}
+	
 }

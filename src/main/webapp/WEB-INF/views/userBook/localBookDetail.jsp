@@ -10,7 +10,7 @@
 <script src="/webjars/jquery/3.4.1/jquery.js"></script>
 <link rel="stylesheet" href="/css/userBook/bookDetail.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
-<script type="text/javascript" src="/js/userBook/bestBook.js"></script>
+<script type="text/javascript" src="/js/userBook/localBook.js"></script>
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
@@ -50,13 +50,13 @@
 		<h4>상품설명</h4>
 		<div class="f15" style="width: 100%; word-wrap: break-word; word-break: break-all;">
 			${goodsVO.gdDc}
-		</div>
+		</div>		
 		<hr>
 		<!-- 상세설명 -->
 		<h4>상세설명</h4>
 		<div class="f15">${goodsVO.gdDetl}</div>
 		<hr id="bottomHr">
-		<button id="bestBookListBtn" class="hover btnCss mb100" >목록</button>
+		<button id="localBookListBtn" class="hover btnCss mb100" >목록</button>
 	</div>
 	<form id="searchForm">
 		<input type="hidden" name="gdNo" value="${goodsVO.gdNo}">

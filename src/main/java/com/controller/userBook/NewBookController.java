@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.service.userBook.BestBookService;
-import com.service.userBook.NewBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.SearchVO;
 
@@ -30,14 +32,14 @@ public class NewBookController {
 	@Autowired
 	private BestBookService bestBookService;
 
-	// 신간도서 페이지
+	//신간도서 페이지
 	@RequestMapping("/newBook/newBookPage")
 	public String bestBookPage(Model model) throws IOException{
 		SearchVO svo = SearchVO.builder().selectOptValOne("newBook").build();
 		int listcount = bestBookService.getBbListCount(svo);
 		SearchVO searchVO = SearchVO.builder().selectOptValOne("newBook").page(1).listcount(listcount).build();
 		
-		//베스트 도서 이미지 리스트 가져오기
+		//신간도서 이미지 리스트 가져오기
 		List<GoodsListVO> list =  bestBookService.getBestBook(searchVO);
 		List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
 		
@@ -75,7 +77,16 @@ public class NewBookController {
 		return "/userBook/newBookList";
 	}
 	
-	// 신간도서 검색
+	//목록페이지 가기
+	@PostMapping(value = "/newBook/newBookPage")
+	public String goBestBookListPage(SearchVO searchVO,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("goList", "t");
+		return "/userBook/newBookList";
+		
+	}
+	
+	//신간도서 검색
 	@GetMapping("/newBook/searchNewBook")
 	@ResponseBody
 	public Map<String, Object> searchNotice(SearchVO vo) {
@@ -100,22 +111,38 @@ public class NewBookController {
 	
 	
 	//상세페이지//
-	//신간도서 상세 페이지 연결
-	/*
-	 * @GetMapping("/bestBook/bestBookDetail/{gdNo}") public String
-	 * getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
-	 * 
-	 * //하나의 물품정보 가져오기 GoodsListVO goodsVO = newBookService.getBestDtl(gdNo);
-	 * 
-	 * if(goodsVO.getGdImg() != null) { goodsVO.setGdImgStr( new
-	 * String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8")); }
-	 * if(goodsVO.getGdDetl() != null) { goodsVO.setGdDetlStr(new
-	 * String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8")); }
-	 * 
-	 * model.addAttribute("goodsVO", goodsVO);
-	 * 
-	 * return "/userBook/bestBookDetail"; }
-	 */
+	//물품상세 페이지 가기(목록페이지의 검색값전달)
+	@PostMapping("/newBookList/newBookDetail") 
+	public String detailGoodsSearch(String gdNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
+	  
+	 redirectAttributes.addFlashAttribute("searchVO", searchVO);
+	  
+	return "redirect:/newBook/newBookDetail/"+gdNo;
+	}
+	
+	//신간도서상세 페이지 가기
+	@GetMapping("/newBook/newBookDetail/{gdNo}")
+	public String getBestDtl(@PathVariable String gdNo,Model model) throws IOException {
+		
+		//하나의 물품정보 가져오기
+		GoodsListVO goodsVO = bestBookService.getBestDtl(gdNo);
+		
+		//상품이미지(BLOB)가 있다면
+		if(goodsVO.getGdImg() != null) {
+			//goodsVo에 gdImg에 String으로 변환된 gdImg값을 넣어라
+			goodsVO.setGdImgStr( new String(Base64.encodeBase64(goodsVO.getGdImg()),"UTF-8"));
+		}
+		//상세설명파일이름(BLOB)이 있다면
+		if(goodsVO.getGdDetl() != null) {
+			//goodsVo에 gdDetlStr에 String으로 변환된 gdDetl값을 넣어라
+			goodsVO.setGdDetlStr(new String(Base64.encodeBase64(goodsVO.getGdDetl()),"UTF-8"));
+		}
+		//goodVo의값을 goodsVo란 이름으로 넣어라
+		model.addAttribute("goodsVO", goodsVO);
+		
+		return "/userBook/newBookDetail";
+	}
+	 
 	
 	
 
