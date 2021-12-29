@@ -3,18 +3,33 @@
 *생성일 : 2021.11.27
 *공통
 */
+var startDt;
+var endDt;
+var searchParam;
 $(function() {
 	init();
+	//attachEvent();
 });
 
 /*페이지 로딩될때 즉시 실행시킬 것*/
 var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
+	var mainHeight = $("#contentsMain, #contents").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");
+
+	getServerTime();
+
+	//공지사항불러오기
+	noticeListLoad();
 }
 
-var goHome = function() {
-	location.href = "/";
+var goHome = function(val) {
+	if (val == 0) {
+		location.href = "/adminMain";
+	} else {
+		if (val == 1 || val == 2 || typeof val == 'undefined' || val == '') {
+			location.href = "/";
+		}
+	}
 }
 
 //로그인 페이지로 가기
@@ -33,4 +48,100 @@ var goLogout = function() {
 	});
 }
 
+var getServerTime = function() {
+	var xmlHttp;
 
+	if (window.XMLHttpRequest) {
+		//익스플로러 7과 그 이상의 버전, 크롬, 파이어폭스, 사파리, 오페라
+		xmlHttp = new XMLHttpRequest;
+	} else if (window.ActiveXObject) {
+		//익스플로러 5,6(익스플로러 구형버전)
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlHttp.open('HEAD', window.location.href.toString(), false);
+	xmlHttp.setRequestHeader('Content-Type', 'text/html');
+	xmlHttp.send('');
+
+	var serverDate = xmlHttp.getResponseHeader('Date');
+
+	var curDate = new Date(serverDate);
+
+	//달력시간 년초1일로 셋팅
+	startDt = new Date(curDate);
+	startDt.setMonth(0);//1월은 0부터 시작
+	startDt.setDate(1);
+	startDt = startDt.toISOString().substring(0, 10);
+	endtDt = curDate.toISOString().substring(0, 10);
+}
+
+//공지사항 불러오기
+var noticeListLoad = function() {
+	console.log("공지사항 불러오기 fn");
+
+	$.ajax({
+		url: '/notice/searchNotice',
+		data: {
+			"startDt": startDt,
+			"endtDt": endtDt,
+			"page": 1
+		},
+		success: function(res) {
+			var viewList = "";
+			var noticeList = res.noticeList.filter(function(e, i) {
+				return i < 5;
+			});
+
+			viewList += "<colgroup>";
+			viewList += "<col width='75%;'>";
+			viewList += "<col width='25%;'>";
+			viewList += "/colgroup";
+			viewList += "<tr>";
+			viewList += "<th>제목</th>";
+			viewList += "<th>작성일</th>";
+			viewList += "</tr>";
+			if (noticeList.length == 0) {
+
+				viewList += "<tr>";
+				viewList += "<td colspan='9'>데이터가 존재하지 않습니다</td>";
+				viewList += "</tr>";
+			} else {
+				$.each(noticeList, function(i, e) {
+					var date = new Date(e.ntcRegDate);
+					var year = date.getFullYear().toString();
+					var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+					var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+
+					viewList += "<tr>";
+					viewList += "<td class='hover' onclick='goNoticeDetail(" + e.ntcNo + ")'>" + e.ntcSj + "</td>";
+					viewList += "<td>" + year + "-" + month + "-" + day + "</td>";
+					viewList += "</tr>";
+				});
+			}
+
+			$("#ntcMainTable").html(viewList);
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
+}
+
+// + 모양의 버튼을 누를경우 실행
+var plusBtn = function(val) {
+	if ('notice' == val) {
+		location.href = "/notice/noticePage";
+	}
+}
+/*글번호에 맞는 noticeDetail 페이지 가기*/
+var goNoticeDetail = function(ntcNo) {
+	searchParam = {};
+	$("input[name = ntcNo]").val(ntcNo);
+	$("input[name = selectOptValOne]").val("optAll");
+	$("input[name = page]").val(1);
+	$('#noticeSearchForm').attr("action", "/notice/detailNotcie");
+	$('#noticeSearchForm').attr("method", "POST");
+	$('#noticeSearchForm').submit();
+}

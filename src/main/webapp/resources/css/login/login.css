@@ -7,6 +7,17 @@
 
 @import url("/css/common/common.css");
 
+#contentsLogin{
+    margin: 5% auto;
+    padding: 15px;
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+
 #logoIcon {
 	margin-top: -11%;
 	width: 30%;

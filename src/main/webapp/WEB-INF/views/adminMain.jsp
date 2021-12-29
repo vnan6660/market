@@ -11,8 +11,29 @@
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents" style="height: 600px;">
-		관리자 페이지입니다.
+	<main id="contentsMain" style="height: 600px;">
+		<div style="width: 33%">
+			<div id="noticeQuickMenu" style="border: 1px solid #ccc; height: 50%;">
+				<div class="quickMenuTitle">
+					<h3>공지사항</h3><h3 class="hover" onclick="plusBtn('notice')">+</h3>
+				</div>
+				<div>
+				<form id="noticeSearchForm">
+					<input type="hidden" name="ntcNo"/>
+					<input type="hidden" name="selectOptValOne"/>
+					<input type="hidden" name="page"/>
+				</form>
+				 <!-- 공지사항 최근 5개 불러올것 -->
+				 <table id="ntcMainTable" style="width:100%;table-layout: fixed">
+				 </table>
+				 
+				</div>
+			</div>
+			<div id="fnaQuickMenu" style="border: 1px solid #ccc; height: 50%;">
+			</div>
+		</div>
+		<div style="width: 33%">2</div>
+		<div style="width: 33%">3</div>
 	</main>
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>

@@ -10,7 +10,7 @@ $(function() {
 });
 
 var init = function(){
-	var mainHeight = $("#contents").outerHeight(true);
+	var mainHeight = $("#contentsLogin").outerHeight(true);
 	$("#sideUlWrap").css("height",mainHeight +"px");
 }
 

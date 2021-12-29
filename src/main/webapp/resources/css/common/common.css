@@ -30,6 +30,10 @@ h2 {
 	margin-bottom: 5px;
 }
 
+h3 {
+	display: inline-block;
+}
+
 h5 {
 	display: inline-block;
 }
@@ -195,4 +199,39 @@ input[type=number]::-webkit-inner-spin-button {
 	font-size: large;
 	font-weight: 500;
 	color: #cdcbcb;
+}
+
+/*---------- adminMain -----------*/
+#contentsMain {
+	position: absolute;
+	margin: 5% auto;
+	padding: 15px;
+	width: 90%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-content: stretch;
+	justify-content: space-between;
+}
+
+.quickMenuTitle h3 {
+	margin-top: 5px;
+	margin-left: 3px;
+}
+
+.quickMenuTitle h3:nth-of-type(2) {
+	float: right;
+	margin-right: 10px;
+}
+
+#ntcMainTable {
+	margin: 15px 0 0 5px;
+}
+
+#ntcMainTable tr{
+	margin-bottom:15px;
+	border-bottom: 1px solid;
+}
+
+#ntcMainTable td {
+	word-break: break-all;
 }

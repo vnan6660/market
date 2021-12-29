@@ -33,13 +33,13 @@ public class CommonController {
     //메인 페이지 가기
     @RequestMapping("/")
     public String main() {
-        return "main";
+        return "/main";
     }
     
     //관리자메인 페이지 가기
     @RequestMapping("/adminMain")
     public String adminMain() {
-        return "adminMain";
+        return "/adminMain";
     }
     
     //사이드 메뉴 불러오기

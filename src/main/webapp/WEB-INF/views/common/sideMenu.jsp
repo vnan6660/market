@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="sideUlWrap">
 	<img id="homeIcon" class="hover" alt="homeIcon" src="/images/home.svg"
-		onclick="goHome()">
+		onclick="goHome(${sessionScope.userGrade})">
 	<ul id="sideUl">
 		<c:forEach items="${list}" var="vo">
 
@@ -46,7 +46,7 @@
 </div>
 
 <img id="logoIcon" class="hover" alt="logo" src="/images/logo.png"
-	onclick="goHome()">
+	onclick="goHome(${sessionScope.userGrade})">
 <c:if test="${sessionScope.userId == null}">
 	<button id="goLogInBtn" class="hover" onclick="goLogin()">로그인</button>
 </c:if>
