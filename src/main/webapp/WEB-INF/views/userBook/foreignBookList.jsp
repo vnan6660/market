@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-<main id="contents-bestBook-list" class="join">
+<main id="contentsWrap" class="join">
 	<h2>외국 도서</h2>
 	<hr>
 	<!-- 본문리스트 -->
@@ -122,5 +122,8 @@
 		</c:if>
 	</form>
 </main>
+<footer>
+	<c:import url="/footer/footerPage"></c:import>
+</footer>
 </body>
 </html>

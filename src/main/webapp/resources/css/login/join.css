@@ -65,7 +65,7 @@ table th{
 	width: 150px;
 }
 /* ///////////welcome페이지//////////////// */
-#contents-welcome{
+#contentsWrap{
 	position: absolute;
     margin: 5% auto;
     padding: 15px;

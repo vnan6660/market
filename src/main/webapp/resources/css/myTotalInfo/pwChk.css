@@ -7,7 +7,7 @@
 @import url("/css/common/common.css");
 @import url("/css/myTotalInfo/myInfo.css");
 
-#contents-pwChk{
+#contentsWrap{
 	position: absolute;
     margin: 5% auto;
     padding: 15px;

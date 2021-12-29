@@ -5,6 +5,9 @@
 */
 
 $(function(){
+	var mainHeight = $("#contentsWrap").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
+	
 	//이메일 직접입력 input 처음 로딩됐을때 안보이게
 	$("#csEmailWriteInput").hide();
 

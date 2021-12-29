@@ -5,7 +5,8 @@
 */
 
 $(function() {
-
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
 });
 
 function check(){

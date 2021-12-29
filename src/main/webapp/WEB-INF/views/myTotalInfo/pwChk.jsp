@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents-pwChk" class="info">
+	<main id="contentsWrap" class="info">
 	<input type="hidden" id="csId" name="csId" value="${csInfo.csId}">	
 		<div class="table-wrap" style="width:750px;table-layout: fixed">
 			<ul class="myinfo">
@@ -45,6 +45,9 @@
 			</ul>
 			
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 
 </html>

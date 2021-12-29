@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents" class="join">
+	<main id="contentsWrap" class="join">
 	<form action="/login/doJoin" method="post" onsubmit="return validation();">
 	<input type="hidden" id="csPhone" name="csPhone">
 	<input type="hidden" id="csEmail" name="csEmail">
@@ -164,6 +164,9 @@
 			</div>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 
 </html>

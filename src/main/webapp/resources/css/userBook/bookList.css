@@ -27,7 +27,7 @@ input, select{
 	margin-right: 5px;
 }
 
-#contents-bestBook-list {
+#contentsWrap {
 	position: absolute;
 	margin: 5% auto;
 	margin-left: 13%;

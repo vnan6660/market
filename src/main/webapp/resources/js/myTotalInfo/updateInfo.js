@@ -4,6 +4,9 @@
 *생성일 : 2021.12.14
 */
 $(function() {
+	var mainHeight = $("#contentsWrap").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
+	
 	// ================ 전화번호 ================ //
 	$("#hideCsPhoneOne").hide();
 	var hideCsPhoneOne = $("#hideCsPhoneOne").val();

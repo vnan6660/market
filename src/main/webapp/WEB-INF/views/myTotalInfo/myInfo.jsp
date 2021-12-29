@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents-myinfo" class="info">
+	<main id="contentsWrap" class="info">
 		<div class="table-wrap">
 			<ul class="myinfo">
 				<li><h3>기본정보</h3></li>
@@ -68,6 +68,9 @@
 				<button class="hover" id="updateInfoBtn">회원정보수정</button>
 			</div>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 
 </html>

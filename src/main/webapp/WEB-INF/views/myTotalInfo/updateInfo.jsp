@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents-myinfo" class="info">
+	<main id="contentsWrap" class="info">
 	<form id="updateInfoForm" name="updateInfoForm">
 		<input type="hidden" id="csPhone" name="csPhone">	
 		<input type="hidden" id="csEmail" name="csEmail">	
@@ -131,6 +131,9 @@
 			</div>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 
 </html>

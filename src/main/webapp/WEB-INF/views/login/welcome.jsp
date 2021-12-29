@@ -13,7 +13,7 @@
 </head>
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents-welcome" class="info">
+	<main id="contentsWrap" class="info">
 		<ul class="flex">
 			<li>
 				<h2 id="welcomeTxt">Page의 회원이 되신걸 환영합니다!</h2>
@@ -26,6 +26,9 @@
 			</li>
 		</ul>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 
 </html>

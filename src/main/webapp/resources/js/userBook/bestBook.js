@@ -26,6 +26,9 @@ $(function(){
 });
 
 var init = function() {
+	var mainHeight = $("#contentsWrap").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
+	
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
 	
@@ -138,8 +141,10 @@ var goPage = function(pageNum) {
 								+"</ul>"
 							+"</td>";
 				//장바구니 버튼
-				viewList += "<td class='hover'>" + "<button id='cartBtn'>장바구니</button></td>";
-
+				viewList += "<input id='sessionUserId' type='hidden' value='${sessionScope.userId}'>";
+				viewList += "<td class='hover'>" 
+								+ "<button id='cartBtn' onclick='addCart('${vo.gdNo}')'>" + "장바구니" + "</button>"
+							+ "</td>";
 			});
 
 			var pageList = "";

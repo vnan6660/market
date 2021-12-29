@@ -5,6 +5,9 @@
 */
 
 $(function() {
+	var mainHeight = $("#contentsWrap").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
+	
 	movePage();//페이지 이동관련 함수
 
 	//비밀번호 확인페이지에서 확인버튼 눌렀을 시
