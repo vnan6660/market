@@ -12,5 +12,9 @@ $(function(){
 		$("#searchForm").attr("method","post");
 		$("#searchForm").submit();
 	});
+	selectOptValTwo = $("#goodsSeparate option:selected").val();//상품분류값
+	selectOptValThree = $("#goodsNmNbrm option:selected").val()
+	console.log(selectOptValTwo);
+	console.log(selectOptValThree);
 });
 

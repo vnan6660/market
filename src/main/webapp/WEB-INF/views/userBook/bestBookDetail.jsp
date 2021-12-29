@@ -59,12 +59,12 @@
 		<button id="bestBookListBtn" class="hover btnCss mb100" >목록</button>
 	</div>
 	<form id="searchForm">
+		<input type="hidden" name="gdNo" value="${goodsVO.gdNo}">
 		<input type="hidden" name="selectOptValTwo" value="${searchVO.selectOptValTwo}"/>
 		<input type="hidden" name="selectOptValThree" value="${searchVO.selectOptValThree}"/>
 		<input type="hidden" name="searchVal" value="${searchVO.searchVal}"/>
 		<input type="hidden" name="page" value="${searchVO.page}"/>
 	</form>
-	
 </main>
 </body>
 </html>

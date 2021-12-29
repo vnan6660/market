@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.service.adminGoodsMgt.GoodsListService;
 import com.service.userBook.BestBookService;
 import com.vo.adminGoodsMgt.GoodsListVO;
+import com.vo.common.CmmnVO;
 import com.vo.common.SearchVO;
 
 /**
@@ -32,6 +35,9 @@ public class BestBookController {
 	@Autowired
 	private BestBookService bestBookService;
 
+	@Autowired
+	private GoodsListService goodsListService;
+	
 	
 	// 베스트도서 페이지
 	@RequestMapping("/bestBook/bestBookPage")

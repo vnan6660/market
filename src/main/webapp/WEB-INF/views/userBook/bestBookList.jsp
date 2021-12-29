@@ -94,8 +94,8 @@
 	</div>
 	<!-- 페이징 -->
 	<div id="pageList" class="mt10">
+		<input type="hidden" id="hdThisPage" value="1">
 		<c:forEach var="cnt" begin="${startpage}" end="${endpage}">
-		<input type="hidden" id="hdThisPage" value="${cnt}">
 		<c:if test="${cnt == 1}">
 			<span class="page mr6" onclick="goPage(${cnt},0)" style="background-color: #eee">${cnt}</span>
 		</c:if>
@@ -109,7 +109,6 @@
  	</div>
  	<form id="searchForm">
 		<input type="hidden" name="gdNo"/>
-		<input type="hidden" name="selectOptValOne"/>
 		<input type="hidden" name="selectOptValTwo"/>
 		<input type="hidden" name="selectOptValThree"/>
 		<input type="hidden" name="searchVal"/>

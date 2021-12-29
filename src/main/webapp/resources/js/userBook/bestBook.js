@@ -23,6 +23,8 @@ var init = function() {
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){
 		console.log("t");
+		console.log($("#returnSptValTwo").val());
+		console.log($("#returnSptValThree").val());
 		$("#goodsSeparate").val($("#returnSptValTwo").val()).prop("selected", true);
 		$("#goodsNmNbrm").val($("#returnSptValThree").val()).prop("selected", true);
 		$("#searchVal").val($("#returnSearchVal").val());
@@ -56,6 +58,7 @@ var getGoodsSeparate = function(goodsGroup) {
 		data: {
 			"goodsGroup": goodsGroup
 		},
+		async : false,
 		success: function(res) {
 			$("#goodsSeparate").append("<option value='optAll'>전체</option>"); //전체 선택값 추가
 			res.filter(function(e, i) {//fliter로 전체값을 순회하면서 #goodsSeparate에 option값을 넣는다.
@@ -136,7 +139,7 @@ var goPage = function(pageNum) {
 			var pageList = "";
 			//startpage가 1보다 커야 실행가능
 			if (1 < startpage) {
-				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
+				pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
 			}
 			
 			//startpage와 endpage가 같거나 작을때까지 for문 돌림
@@ -154,13 +157,15 @@ var goPage = function(pageNum) {
 
 			//endpage가 maxPage보다 작아야 실행 가능
 			if (endpage < maxPage) {
+				/*endpage가 maxPage보다 작아야 실행 가능*/
 				pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
 			}
 
-			//id가 bestBookTabledp viewList를 담은 html추가
-			$("#bestBookTable").html(viewList);
 			//id가 pageList에 pageList를 담은 html추가
 			$("#pageList").html(pageList);
+			
+			//id가 bestBookTabledp viewList를 담은 html추가
+			$("#bestBookTable").html(viewList);
 
 		},
 		//오류발생시 function()
