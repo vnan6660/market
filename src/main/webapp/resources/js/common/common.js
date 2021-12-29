@@ -3,8 +3,16 @@
 *생성일 : 2021.11.27
 *공통
 */
+$(function() {
+	init();
+});
 
-//메인 페이지로 가기
+/*페이지 로딩될때 즉시 실행시킬 것*/
+var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
+}
+
 var goHome = function() {
 	location.href = "/";
 }
@@ -17,10 +25,12 @@ var goLogin = function() {
 //로그아웃 실행
 var goLogout = function() {
 	$.ajax({
-		url:'/login/getLogout',
-		type:'GET',
-		success:function(){
+		url: '/login/getLogout',
+		type: 'GET',
+		success: function() {
 			location.href = "/";
 		}
 	});
 }
+
+
