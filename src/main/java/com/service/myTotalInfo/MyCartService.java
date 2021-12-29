@@ -24,6 +24,9 @@ public interface MyCartService {
 	//장바구니 목록 가져오기
 	List<CartListVO> getCartList(String csNo);
 
+	//장바구니 목록 삭제
+	void delCart(CartListVO cartlistVo);
+
 	
 	
 

@@ -40,5 +40,11 @@ public class MyCartServiceImpl implements MyCartService{
 		return myCartDao.getCartList(csNo);
 	}
 
+	//장바구니 목록 삭제
+	@Override
+	public void delCart(CartListVO cartlistVo) {
+		myCartDao.delCart(cartlistVo);
+	}
+
 
 }

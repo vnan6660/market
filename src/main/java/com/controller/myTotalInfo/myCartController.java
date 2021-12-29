@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.myTotalInfo.MyCartService;
 import com.service.userBook.BestBookService;
-import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 import com.vo.login.LoginVO;
@@ -99,6 +98,9 @@ public class myCartController {
 		if(cartCount == 0) {//장바구니에 물건이 없으면 insert
 			myCartService.insertCart(cartVo);
 		}else {//장바구니에 물건이 있으면 update
+			Integer gdQtyInt = Integer.parseInt(cartVo.getGdQty()) + Integer.parseInt(cartVo.getGdQty());//string형태의gdQty를 int로 바꿔서 더함
+			String gdQty =  Integer.toString(gdQtyInt);//int로 바꾼 gdQty를 다시 string으로 바꿈
+			cartVo.setGdQty(gdQty);
 			myCartService.updateCart(cartVo);
 		}
 	}
@@ -106,8 +108,13 @@ public class myCartController {
 	//장바구니 목록 삭제
 	@ResponseBody
 	@PostMapping("/myCart/delCart")
-	public void delCart() {
+	public void delCart(CartListVO cartlistVo) {
+		/* 로그인 정보 가져오기 */
+		HttpSession session = request.getSession(true);
+		String csNo = (String) session.getAttribute("userNo");
+		cartlistVo.setCsNo(csNo);//cartVo의 csNo에 세션의 csNo를 넣음
 		
+		myCartService.delCart(cartlistVo);
 	}
 	
 	
