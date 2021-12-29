@@ -10,6 +10,9 @@ $(function() {
 });
 
 var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
+	
 	//작성폼,삭제버튼,저장 버튼 숨기기
 	$(".writeForm, #goodsDelBtn, #goodsUpdDoneBtn,#file1, #image").hide();
 

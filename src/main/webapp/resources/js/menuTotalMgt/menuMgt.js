@@ -10,6 +10,9 @@ $(function() {
 });
 
 var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
+	
 	$("#blankTable").show();
 	$("#writeTable").hide();
 

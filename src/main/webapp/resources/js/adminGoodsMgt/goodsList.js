@@ -13,6 +13,8 @@ $(function() {
 });
 
 var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
 	
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");

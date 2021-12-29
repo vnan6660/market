@@ -11,6 +11,9 @@ $(function() {
 
 /*페이지 로딩될때 즉시 실행시킬 것*/
 var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
+	
 	//관리자로 셀렉트 박스 값 선택으로 실행
 	getAuthList("adminOpt");
 }

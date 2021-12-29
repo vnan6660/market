@@ -16,6 +16,9 @@ $(function() {
 
 
 var init = function(){
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
+	
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){
 		console.log("t");

@@ -15,6 +15,9 @@ $(function() {
 
 
 var init = function() {
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
+	
 	//서버시간 가져오기
 	getServerTime();
 
