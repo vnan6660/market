@@ -28,6 +28,8 @@
 			<button id="menuSaveBtn" class="hover">저장</button>
 		</div>
 	</main>
-
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>

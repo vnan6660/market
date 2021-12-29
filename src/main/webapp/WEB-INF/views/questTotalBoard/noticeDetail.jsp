@@ -51,5 +51,8 @@
 				<input type="hidden" name="page" value="${searchVO.page}"/>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>

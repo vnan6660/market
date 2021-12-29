@@ -24,6 +24,8 @@
 			<button id="loginBtn">로그인</button>
 		</div>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
-
 </html>

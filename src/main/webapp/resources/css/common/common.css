@@ -109,7 +109,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 #sideUlWrap {
 	display: inline-block;
-	background-color: #E0E0E0;
+	background-color: #d9e0ee;
 	width: 10%;
 	min-height: 575px;
 }
@@ -149,4 +149,50 @@ input[type=number]::-webkit-inner-spin-button {
 	text-align: right;
 	top: 25px;
 	width: 76%;
+}
+
+/* ----  footer ------- */
+#footer {
+	display: flex;
+	height: 162px;
+}
+
+#footerContentsL {
+	float: left;
+	margin-top: 33px;
+	height: 44px;
+	width: 50%;
+	background-color: #4e5564;
+	color: #cdcbcb;
+}
+
+#footerLul {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#cmpnyInfo {
+	margin-top: 15px;
+	margin-left: 35px;
+}
+
+#cmpnyInfo span {
+	display: block;
+}
+
+#footerContentsR {
+	margin-top: 20px;
+	margin-left: 180px;
+}
+
+#qIcon {
+	width: 120px;
+}
+
+#phoneNmbr {
+	margin-top: 33px;
+	margin-left: 50px;
+	font-size: large;
+	font-weight: 500;
+	color: #cdcbcb;
 }

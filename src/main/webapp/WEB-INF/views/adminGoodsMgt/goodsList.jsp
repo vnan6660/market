@@ -56,8 +56,8 @@
 			<div>
 				<table id="goodsListTable">
 					<colgroup>
-						<col width="5%;">
-						<col width="5%;">
+						<col width="3%;">
+						<col width="7%;">
 						<col width="10%;">
 						<col width="10%;">
 						<col width="20%;">
@@ -136,5 +136,8 @@
 			</c:if>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>
