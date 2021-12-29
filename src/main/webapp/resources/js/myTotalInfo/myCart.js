@@ -40,10 +40,9 @@ var allcheck = function() {
 
 //삭제버튼 눌렀을 때
 function delCart(){
-	
+	var gdNo = $("#gdNo").val();
 	data = {};
-	
-	
+	data.gdNo = gdNo;
 	
 	confirm("삭제하시겠습니까?");
 	if(confirm){
@@ -53,6 +52,7 @@ function delCart(){
 			data: data,
 			success: function() {
 				alert("삭제되었습니다.");
+				location.href = "/myCart/myCartPage";
 			},
 			//오류났을때 처리
 			error: function() {

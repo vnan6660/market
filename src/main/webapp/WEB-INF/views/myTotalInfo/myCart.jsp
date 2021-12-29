@@ -64,6 +64,7 @@
 						<tr>
 							<td>
 								<input type="hidden" id="cartNo" value="${vo.cartNo}">
+								<input type="hidden" id="gdNo" value="${vo.gdNo}">
 								<input type="checkbox" name="checkbox" checked="checked" onchange="check()">
 							</td>
 							<td>

@@ -43,6 +43,12 @@ public class MyCartDaoImpl implements MyCartDao{
 		return sqlSession.selectList("getCartList", csNo);
 	}
 
+	//장바구니 목록 삭제
+	@Override
+	public void delCart(CartListVO cartlistVo) {
+		sqlSession.update("delCart", cartlistVo);
+	}
+
 
 
 }
