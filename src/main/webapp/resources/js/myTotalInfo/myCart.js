@@ -71,6 +71,7 @@ function delCartFn(){
 	}
 }
 
+//주문버튼 눌렀을 때 함수
 function cartBuyPage(){
 	location.href="/myCartBuy/myCartBuyPage";
 }

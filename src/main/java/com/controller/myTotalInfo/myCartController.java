@@ -172,8 +172,6 @@ public class myCartController {
 		List<JoinVO> joinVo = myCartService.getCsInfo(csNo);
 		model.addAttribute("csInfo",joinVo);
 
-		
-		
 		return "/myTotalInfo/myCartBuy"; // 실제주소인 /myTotalInfo/myCartBuy를 리턴해준다
 	}
 	

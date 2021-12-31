@@ -15,6 +15,7 @@
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 <main id="contents" class="info">
+<form id="myCartBuyForm">
 	<div class="table-wrap">
 		<div class="myinfo">
 			<h3>상품정보</h3>
@@ -52,8 +53,8 @@
 				<c:forEach items="${cartList}" var="vo">
 					<tr>
 						<td>
-							<input type="hidden" id="cartNo" value="${vo.cartNo}">
-							<input type="hidden" id="gdNo" value="${vo.gdNo}">
+							<input type="hidden" name="cartNo" id="cartNo" value="${vo.cartNo}">
+							<input type="hidden" name="gdNo" id="gdNo" value="${vo.gdNo}">
 							<img id="img"class="hover" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">
 						</td>
 						<td id="bookInfo">
@@ -98,14 +99,14 @@
 					<th>이름</th>
 					<td class="borderTop"></td>
 					<td class="textLeft borderTop">
-						<input type="text" value="${csInfo.csNm}">
+						<input id="csNm" name="csNm" type="text" value="${csInfo.csNm}">
 					</td>
 				</tr>
 				<tr>
 					<th>핸드폰</th>
-					<td></td>
+					<td><input type="hidden" name="csPhone" id="csPhone"></td>
 					<td class="textLeft">
-						<select class="w70">
+						<select class="w70" id="csPhoneOne">
 							<option id="hideCsPhoneOne">${csInfo.csPhone.substring(0,3)}</option>
 							<option value="010">010</option>
 							<option value="011">011</option>
@@ -114,13 +115,13 @@
 							<option value="018">018</option>
 							<option value="019">019</option>
 						</select>
-						 - <input class="w70" type="text" value="${csInfo.csPhone.substring(3,7)}">
-						 - <input class="w70" type="text" value="${csInfo.csPhone.substring(7,11)}">
+						 - <input class="w70" type="text" id="csPhoneTwo" value="${csInfo.csPhone.substring(3,7)}">
+						 - <input class="w70" type="text" id="csPhoneThree" value="${csInfo.csPhone.substring(7,11)}">
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td></td>
+					<td><input name="csEmail" type="hidden" id="csEmail"></td>
 					<td class="textLeft">
 						<input type="hidden" id="hiddenEmail" value="${csInfo.csEmail}">
 						<input type="text" class="w160" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
@@ -134,6 +135,7 @@
 							<option value="직접입력" id="csEmailWrite">직접입력</option>
 							<option id="hiddenEmailTwo"></option>
 						</select>
+						<div id="csEmailChk"></div>
 					</td>
 				</tr>
 				<tr>
@@ -143,11 +145,11 @@
 						<ul>
 							<li style="margin-bottom: 20px;">
 								<div style="font-size: 12px">기본주소</div>
-								<input class="w460" type="text" value="${csInfo.csAddrOne}">
+								<input id="csAddrOne" name="csAddrOne" class="w460" type="text" value="${csInfo.csAddrOne}">
 							</li>
 							<li>
 								<div style="font-size: 12px">상세주소</div>
-								<input class="w460" type="text" value="${csInfo.csAddrTwo}">
+								<input id="csAddrTwo" name="csAddrTwo" class="w460" type="text" value="${csInfo.csAddrTwo}">
 							</li>
 						</ul>
 					</td>
@@ -157,10 +159,11 @@
 			
 			<!-- 결제하기 -->
 			<div id="orderBtn">
-				<button class="hover" onclick="goPay();">결제하기</button>
+				<button class="hover" id="goPay">구매하기</button>
 			</div>
 		</div>
 	</div>
+</form>
 </main>
 <footer>
 	<c:import url="/footer/footerPage"></c:import>
