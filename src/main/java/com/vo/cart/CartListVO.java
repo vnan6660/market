@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +21,11 @@ public class CartListVO {
 	
 	private String cartNo;//장바구니 번호
 	private String csNo;//고객번호
+	private String csNm;//고객이름
+	private String csPhone;//고객전화번호
+	private String csAddrOne;//고객주소
+	private String csAddrTwo;//고객상세주소
+	private String csEmail;//고객이메일
 	private String gdQty;//상품수량
 
 	private String gdNo;//상품번호

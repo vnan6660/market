@@ -77,4 +77,17 @@
 		WHERE AA.CS_NO = #{csNo}
 		AND AA.GD_NO = #{gdNo}
 	</delete>
+	
+	<!-- 고객번호로 고객 정보 가져오기 -->
+	<select id="getCsInfo" resultType="com.vo.login.JoinVO">
+	/* myCartMapper.getCsInfo */
+		SELECT 
+			 CS_NM <!-- 고객이름 -->
+			,CS_ADDR_ONE <!-- 주소 -->
+			,CS_ADDR_TWO <!-- 상세주소 -->
+			,CS_PHONE <!-- 전화번호 -->
+			,CS_EMAIL <!-- 이메일 -->
+		FROM CUSTOMER_INFO
+		WHERE CS_NO = #{csNo}
+	</select>
 </mapper>

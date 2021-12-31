@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dao.myTotalInfo.MyCartDao;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.login.JoinVO;
 
 @Service
 public class MyCartServiceImpl implements MyCartService{
@@ -44,6 +45,12 @@ public class MyCartServiceImpl implements MyCartService{
 	@Override
 	public void delCart(CartListVO cartlistVo) {
 		myCartDao.delCart(cartlistVo);
+	}
+
+	//고객정보 가져오기
+	@Override
+	public List<JoinVO> getCsInfo(String csNo) {
+		return myCartDao.getCsInfo(csNo);
 	}
 
 

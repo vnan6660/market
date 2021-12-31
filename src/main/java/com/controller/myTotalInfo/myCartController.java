@@ -19,6 +19,7 @@ import com.service.myTotalInfo.MyCartService;
 import com.service.userBook.BestBookService;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
 
 /**
@@ -122,10 +123,59 @@ public class myCartController {
 		}
 		
 		return "redirect:/myCart/myCartPage";
-		
 	}
 	
-	
+	//장바구니 이동
+	@RequestMapping("/myCartBuy/myCartBuyPage")
+	public String myCartBuyPage(Model model) throws IOException { // myCartPage() 메서드는
+		
+		/* 로그인 정보 가져오기 */
+		HttpSession session = request.getSession(true);
+		String csNo = (String) session.getAttribute("userNo");
+		
+		//장바구니 목록 가져오기
+		List<CartListVO> list = myCartService.getCartList(csNo);
+		
+		//새로운 reList를 만든다 -> 이미지를 변형해야해서 다시 만듦
+		List<CartListVO> reList = new ArrayList<CartListVO>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			//CartListVO에 저장하기위해 생성자 생성
+			CartListVO vo = new CartListVO();
+			
+			//list의 i행에있는 gdNo를 vo의 gdNo에 값을 넣겠다.(이하동일)
+			vo.setGdNo(list.get(i).getGdNo());	//상품번호
+			vo.setGdGp(list.get(i).getGdGp());	//상품구분
+			vo.setGdGpNm(list.get(i).getGdGpNm());	//상품구분이름
+			vo.setGdSp(list.get(i).getGdSp());	//상품분류
+			vo.setGdNm(list.get(i).getGdNm());	//상품이름
+			vo.setGdCnt(list.get(i).getGdCnt());	//상품재고
+			vo.setGdWr(list.get(i).getGdWr());	//상품작가
+			vo.setGdPb(list.get(i).getGdPb());	//상품출판사
+			vo.setGdPrice(list.get(i).getGdPrice());	//상품가격
+			vo.setGdQty(list.get(i).getGdQty());	//상품수량
+			
+			//for문을 돌렸을때 이미지가 있다면
+			if (list.get(i).getGdImg() != null) {
+				//blob으로 저장되어있는 이미지를 string형태로 담아낸다.
+				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
+				//vo에 이미지를 담는다.
+				vo.setGdImgStr(gdImgStr);
+			}
+			
+			//새로운 리스트에 가져온 값을 넣어줌
+			reList.add(i,vo);
+		}
+		model.addAttribute("cartList",reList);
+		
+		//로그인된 고객번호로 이름, 핸드폰번호, 주소, 이메일 가져오기
+		List<JoinVO> joinVo = myCartService.getCsInfo(csNo);
+		model.addAttribute("csInfo",joinVo);
+
+		
+		
+		return "/myTotalInfo/myCartBuy"; // 실제주소인 /myTotalInfo/myCartBuy를 리턴해준다
+	}
 	
 	
 	

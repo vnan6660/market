@@ -69,8 +69,8 @@ function delCartFn(){
 			return false;
 		}
 	}
-	
-	
-	
-	
+}
+
+function cartBuyPage(){
+	location.href="/myCartBuy/myCartBuyPage";
 }

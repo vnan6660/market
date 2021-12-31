@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.login.JoinVO;
 
 @Repository
 public class MyCartDaoImpl implements MyCartDao{
@@ -47,6 +48,11 @@ public class MyCartDaoImpl implements MyCartDao{
 	@Override
 	public void delCart(CartListVO cartlistVo) {
 		sqlSession.delete("delCart", cartlistVo);
+	}
+
+	@Override
+	public List<JoinVO> getCsInfo(String csNo) {
+		return sqlSession.selectList("getCsInfo", csNo);
 	}
 
 

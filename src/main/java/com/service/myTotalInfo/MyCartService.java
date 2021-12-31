@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.login.JoinVO;
 
 /**
  * 장바구니 Controller 
@@ -26,6 +27,9 @@ public interface MyCartService {
 
 	//장바구니 목록 삭제
 	void delCart(CartListVO cartlistVo);
+
+	//고객정보 가져오기
+	List<JoinVO> getCsInfo(String csNo);
 
 	
 	

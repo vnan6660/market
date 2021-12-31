@@ -72,7 +72,6 @@
 							</td>
 							<td id="bookInfo">
 								<ul>
-									<li>${vo.gdSp}</li>
 									<li>${vo.gdNm}</li>
 								</ul>
 							</td>
@@ -102,22 +101,9 @@
 				
 			<!-- 전체주문버튼 -->
 			<div id="orderBtn">
-				<button class="hover">주문</button>
+				<button class="hover" onclick="cartBuyPage();">주문</button>
 			</div>
-			
 			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		</div>
 	</main>
 	<footer>

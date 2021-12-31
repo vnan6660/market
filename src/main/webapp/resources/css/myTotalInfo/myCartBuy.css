@@ -1,0 +1,117 @@
+/**
+*생성자 : 김혜경
+*생성일 : 2021.12.06
+*로그인
+*/
+@charset "UTF-8";
+@import url("/css/common/common.css");
+
+#contents{
+	position: absolute;
+	margin: 5% auto;
+	margin-left: 13%;
+    margin-right: 20%;
+	padding: 15px;
+	width: 60%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-content: stretch;
+	font-size: 14px;
+}
+table{
+	 border-collapse : collapse;
+	 margin-top: 20px;
+	 margin-bottom: 20px;
+}
+th{
+	padding: 11px 0 10px;
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+    color: #353535;
+    vertical-align: middle;
+    font-weight: normal;
+    background-color: #fbfafa;
+   
+}
+
+td{
+	color: #353535;
+	text-align: center;
+    vertical-align: middle;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #c1c1c1;
+    color: #353535;
+    vertical-align: middle;
+    font-weight: normal;
+}
+input[type=text]{
+	height: 24px;
+    line-height: 20px;
+    padding: 2px 4px;
+    border: 1px solid #d5d5d5;
+    color: #353535;
+    font-size: 12px;
+}
+select{
+	height: 24px;
+    line-height: 20px;
+    padding: 2px 4px;
+    border: 1px solid #d5d5d5;
+    color: #353535;
+    font-size: 12px;
+}
+.textLeft{
+	text-align: left;
+}
+.w70{
+	width: 70px;
+}
+.w460{
+	width: 460px;
+}
+.w160{
+	width: 160px;
+}
+.borderTop{
+	border-top: 1px solid #c1c1c1;
+}
+#img{
+    margin: 0 auto;
+	background-color:gray;
+	width: 80px;
+	height: 100px;
+}
+#bookInfo{
+	text-align: left;
+}
+#tFoot{
+	text-align: end;
+	background-color: #fbfafa;
+	padding-right: 20px;	
+}
+
+#redSpan{
+	color: #d73737;
+	font-weight: bolder;
+}
+
+#tdCsNm{
+	border-top: 1px solid #c1c1c1;
+}
+#orderBtn{
+	display: flex;
+	justify-content: flex-end;
+}
+
+#orderBtn>button{
+	width: 80px;
+    height: 30px;
+	font-size: small;
+	color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+	border: none;
+}
