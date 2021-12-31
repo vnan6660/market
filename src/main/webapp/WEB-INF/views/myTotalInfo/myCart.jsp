@@ -25,7 +25,7 @@
 			
 			<!-- 선택주문/삭제버튼 -->
 			<div id="delBtn">
-				<button class="hover" onclick="delCart()">삭제</button>
+				<button class="hover" id="delCart" onclick="delCartFn();">삭제</button>
 			</div>
 			
 				<table>
@@ -40,7 +40,7 @@
 					<thead>
 						<tr>
 							<th>
-								<input id="allCheck" name="checkbox" type="checkbox" checked="checked" onchange="allcheck()">
+								<input id="allCheck" name="allCheck" type="checkbox" checked="checked">
 							</th>
 							<th>
 								상품이미지
@@ -65,7 +65,7 @@
 							<td>
 								<input type="hidden" id="cartNo" value="${vo.cartNo}">
 								<input type="hidden" id="gdNo" value="${vo.gdNo}">
-								<input type="checkbox" name="checkbox" checked="checked" onchange="check()">
+								<input type="checkbox" class="chk" name="rowCheck" checked="checked" value="${vo.gdNo}">
 							</td>
 							<td>
 								<img id="img"class="hover" alt="이미지없음" src="data:image/png;base64,${vo.gdImgStr}">

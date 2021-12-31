@@ -108,14 +108,32 @@ public class myCartController {
 	//장바구니 목록 삭제
 	@ResponseBody
 	@PostMapping("/myCart/delCart")
-	public void delCart(CartListVO cartlistVo) {
-		/* 로그인 정보 가져오기 */
+	public String delCart(CartListVO cartlistVo) {
 		HttpSession session = request.getSession(true);
 		String csNo = (String) session.getAttribute("userNo");
 		cartlistVo.setCsNo(csNo);//cartVo의 csNo에 세션의 csNo를 넣음
 		
-		myCartService.delCart(cartlistVo);
+		//삭제[]
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			cartlistVo.setGdNo(ajaxMsg[i]);
+			myCartService.delCart(cartlistVo);
+		}
+		
+		return "redirect:/myCart/myCartPage";
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

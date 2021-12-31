@@ -3,65 +3,74 @@
 *생성자 : 김혜경
 *생성일 : 2021.12.28
 */
-
 $(function() {
 	var mainHeight = $("#contents").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");
+	
+	//checkBox 관련 function()
+	check();
+	
 });
 
+//checkBox 관련 function()
 function check(){
-	$("input[name = checkbox]").each(function() {
-		if($("input[name = checkbox]").is(":checked") != true){
-			$('input:checkbox[id=allCheck]').prop("checked", false);
-		}	
+	var chkObj = document.getElementsByName("rowCheck");
+	console.log(chkObj);
+	var rowCnt = chkObj.length;
+	
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name = 'rowCheck']");
+		for(var i=0; i<chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='rowCheck']").click(function(){
+		if($("input[name='rowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked =  true;
+		}else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
 	});
 }
 
 
-//맨위에 있는 체크박스를 클릭시 아래에 있는 체크박스 전체선택또는 전체해제
-var allcheck = function() {
-
-	/*맨위에있는 체크박스 선택 또는 해제 상태*/
-	var allcheckStatus = $('input:checkbox[id=allCheck]').is(":checked");
-
-
-	if (allcheckStatus == true) {
-		/*맨위에 있는 체크박스가 선택일때 아래에 있는 체크박스들을 disabled 제외하고 전체선택으로 바꿈*/
-		$("input[name = checkbox]").each(function() {
-			$("input[name = checkbox]:not(:disabled)").prop("checked", true);
-		});
-	} else {
-		/*맨위에 있는 체크박스가 해제일때 아래에 있는 체크박스들을 disabled 제외하고 전체해제으로 바꿈*/
-		$("input[name = checkbox]").each(function() {
-			$("input[name = checkbox]:not(:disabled)").prop("checked", false);
-		});
-	}
-}
-
 
 //삭제버튼 눌렀을 때
-function delCart(){
-	var gdNo = $("#gdNo").val();
-	data = {};
-	data.gdNo = gdNo;
+function delCartFn(){
+	var valueArr = new Array();
+	var list = $("input[name = 'rowCheck']");
+	for(var i = 0; i<list.length;i++){
+		if(list[i].checked){
+			valueArr.push(list[i].value);
+		}
+	}
 	
-	confirm("삭제하시겠습니까?");
-	if(confirm){
-		$.ajax({
-			url: '/myCart/delCart',
-			type: "POST",
-			data: data,
-			success: function() {
-				alert("삭제되었습니다.");
-				location.href = "/myCart/myCartPage";
-			},
-			//오류났을때 처리
-			error: function() {
-				alert("오류입니다. 관리자에게 문의해주세요");
-			}
-		});
+	//삭제버튼 눌렀을 때 시작
+	if(valueArr.length == 0){
+		alert("상품을 선택해주세요.");
+	}else{
+		if(confirm("삭제하시겠습니까?") == true){
+			$.ajax({
+				url: '/myCart/delCart',
+				type: "POST",
+				traditional : true,
+				data:{valueArr: valueArr},
+				success: function() {
+					alert("삭제되었습니다.");
+					location.href = "/myCart/myCartPage";
+				},
+				//오류났을때 처리
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		}else{
+			alert("취소되었습니다.");
+			return false;
+		}
 	}
 	
 	
+	
+	
 }
-
