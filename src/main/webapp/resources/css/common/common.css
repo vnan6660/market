@@ -213,7 +213,30 @@ input[type=number]::-webkit-inner-spin-button {
 	justify-content: space-between;
 }
 
-.quickMenuTitle h3 {
+.adminQuickWrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.adminQuickWrap:nth-of-type(1) {
+	width: 33%;
+	margin-right: 5px;
+}
+
+.adminQuickWrap:nth-of-type(2) {
+	width: 38%;
+	margin-right: 5px;
+}
+
+.adminQuickWrap:nth-of-type(3) {
+	width: 27%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.quickMenuTitle {
+	margin-bottom: 5px;
 	margin-top: 5px;
 	margin-left: 3px;
 }
@@ -224,14 +247,98 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 #ntcMainTable {
-	margin: 15px 0 0 5px;
+	margin: 0 2.5px;
 }
 
-#ntcMainTable tr{
-	margin-bottom:15px;
+#ntcMainTable tr {
+	margin-bottom: 15px;
 	border-bottom: 1px solid;
 }
 
 #ntcMainTable td {
 	word-break: break-all;
+}
+
+/*---------- tab -----------*/
+.tab {
+	float: left;
+	width: 100%;
+	height: 250px;
+}
+
+.tabnav {
+	font-size: 0;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 46px;
+	text-align: center;
+	border-right: 2px solid #fff;
+}
+
+.tabnav li:nth-of-type(3) {
+	width: 134px;
+	border-right: none;
+}
+
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #d9e0ee;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 15.7px;
+}
+
+.tabnav li a.active:before {
+	background: #4e5564;
+}
+
+.tabnav li a.active {
+	border-bottom: 1px solid #fff;
+}
+
+.tabnav li a:hover, .tabnav li a.active {
+	background: #4e5564;
+	color: #cdcbcb;
+	font-weight: 700;
+}
+
+.tabcontent {
+	padding: 20px;
+	height: 244px;
+	border-top: 1px solid #cdcbcb;
+}
+
+.thirdSessionColor {
+	background-color: #d9e0ee;
+	font-size: 11.5px;
+}
+
+.boldFont {
+	font-size: 12.5px;
+	font-weight: 700;
+}
+
+.thirdSessionOrderAmt::after {
+	background-image: url("/images/phone.svg");
+	background-repeat:no-repeat;
+	content: "";
+	display: inline-block;
+	height: 10px;
+	width: 10px;
+	margin: 0 3px 0 8px;
+}
+
+.thirdSessionMoneyAmt::after {
+	background-image: url("/images/moneyAmount.svg");
+	background-repeat:no-repeat;
+	content: "";
+	display: inline-block;
+	height: 10px;
+	width: 10px;
+	margin: 0 3px 0 8px;
 }

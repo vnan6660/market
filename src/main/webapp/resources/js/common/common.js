@@ -8,7 +8,7 @@ var endDt;
 var searchParam;
 $(function() {
 	init();
-	//attachEvent();
+	attachEvent();
 });
 
 /*페이지 로딩될때 즉시 실행시킬 것*/
@@ -20,6 +20,28 @@ var init = function() {
 
 	//공지사항불러오기
 	noticeListLoad();
+
+	//주문관리에 있는 탭내용부분 숨기되 첫번째내용은 보여주기
+	$('.tabcontent > div').hide().filter(':first').show();
+}
+
+var attachEvent = function() {
+	
+	//주문관리에 있는 탭을 클릭시 시행
+	$('.tabnav a').click(function() {
+		//주문관리에 있는 탭내용부분 숨기되 클릭한 부분의 #뒤에있는 부분값은 보여주기
+		$('.tabcontent > div').hide().filter(this.hash).show();
+		
+		//tabnav a 에있는 active라고 지어진 Class지우기
+		$('.tabnav a').removeClass('active');
+		
+		//클릭된a(this)에 active라고 Class주기
+		$(this).addClass('active');
+		
+		// 원래의 a태그의 기능 무력화
+		return false;
+	}).filter(':first').click();
+	
 }
 
 var goHome = function(val) {
@@ -145,3 +167,5 @@ var goNoticeDetail = function(ntcNo) {
 	$('#noticeSearchForm').attr("method", "POST");
 	$('#noticeSearchForm').submit();
 }
+
+
