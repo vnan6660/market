@@ -1,6 +1,5 @@
 package com.vo.orderInfo;
 
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +18,8 @@ public class OrderInfoVO {
 	private String csNo;/* 고객번호 */
 	private String odCnt;/* 상품갯수 */
 	private String odAmt;/* 주문금액 */
-	private Date trDate;/* 배송날짜 */
-	private Date odDate;/* 주문날짜 */
+	private String trDate;/* 배송날짜 */
+	private String odDate;/* 주문날짜 */
 	private String odStage;/* 주문상태 */
 	private String gdNm;/* 상품이름 */
 }

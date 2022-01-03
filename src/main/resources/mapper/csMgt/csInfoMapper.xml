@@ -123,24 +123,30 @@
 	SELECT *
 	  FROM
 	  (SELECT
-	   ROWNUM as rnum,odNo,trNo,csNo,odCnt,odAmt,odDate,odStage,gdNm,trDate
-	   FROM
-		(SELECT
-	    	o.OD_NO AS odNo
-	        ,o.TR_NO AS trNo
-	    	,o.CS_NO AS csNo
-	   		,o.OD_CNT AS odCnt
-	    	,o.OD_AMT AS odAmt
-	    	,o.OD_DATE AS odDate
-	    	,DECODE(o.OD_STAGE,'100',<![CDATA['대기중']]>,'200',<![CDATA['주문완료']]>,'300',<![CDATA['주문취소']]>,'400',<![CDATA['배송중']]>,'500',<![CDATA['배송완료']]>) AS odStage
-	   		,g.GD_NM AS gdNm
-	   		,t.TR_DATE AS trDate
-	 	FROM ORDER_INFO o
-	 	LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
-	 	LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
-		WHERE o.CS_NO = #{selectOptValOne}
-		ORDER BY OD_DATE DESC,OD_NO DESC
-	  )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	   ROWNUM as rnum,odNo,odDate,odStage,gdNm,trDate
+	     FROM
+		 (SELECT 
+	      a.odNo
+	     ,a.gdNm
+	     ,a.trDate
+	     ,a.odStage
+	     ,b.odDate   
+            FROM(SELECT
+    	        o.OD_NO AS odNo
+   		       ,LISTAGG(g.GD_NM,',') AS gdNm
+               ,to_char(t.TR_DATE,'yyyy-mm-dd') AS trDate
+               ,DECODE(o.OD_STAGE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odStage
+	 	          FROM ORDER_INFO o
+	 	          LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
+	 	          LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
+		          WHERE o.CS_NO = #{selectOptValOne}
+                  GROUP BY o.OD_NO,t.TR_DATE,o.OD_STAGE)a      
+            INNER JOIN (SELECT DISTINCT to_char(o.OD_DATE,'yyyy-mm-dd')AS odDate,o.OD_NO as odNo 
+	 				      FROM ORDER_INFO o
+	 				      LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
+	 				      LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
+					      WHERE o.CS_NO = #{selectOptValOne}) b ON b.odNo = a.odNo
+	   )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 	)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 	

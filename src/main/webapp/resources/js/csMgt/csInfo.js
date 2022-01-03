@@ -203,15 +203,12 @@ var goPageOdHistory = function(pageNum) {
 				$("#pageList").html("");
 			} else {
 				$.each(odInfoList, function(i, e) {
-					var odDate = new Date(e.odDate);
-					var trDate = new Date(e.trDate);
-
 					viewList += "<tr>";
 					viewList += "<td>" + e.odNo + "</td>";
 					viewList += "<td>" + e.odNo + "</td>";
 					viewList += "<td>" + e.gdNm + "</td>";
-					viewList += "<td>" + odDate.getFullYear().toString() + "-" + ("0" + (odDate.getMonth() + 1)).slice(-2) + "-" + ("0" + odDate.getDate()).slice(-2) + "</td>";
-					viewList += "<td>" + trDate.getFullYear().toString() + "-" + ("0" + (trDate.getMonth() + 1)).slice(-2) + "-" + ("0" + trDate.getDate()).slice(-2) + "</td>";
+					viewList += "<td>" + e.odDate + "</td>";
+					viewList += "<td>" + e.trDate + "</td>";
 					viewList += "<td>" + e.odStage + "</td>";
 					viewList += "</tr>";
 				});

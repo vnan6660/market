@@ -90,13 +90,13 @@
 						</c:if>
 					</tr>
 					<c:if test="${fn:length(odInfoList) > 0}">
-						<c:forEach items="${odInfoList}" var="od">
+						<c:forEach items="${odInfoList}" var="od" varStatus="status">
 						<tr>
 							<td>${od.odNo}</td>
 							<td>${od.odNo}</td>
 							<td>${od.gdNm}</td>
-							<td><fmt:formatDate value="${od.odDate}" pattern="yyyy-MM-dd" /></td>
-							<td><fmt:formatDate value="${od.trDate}" pattern="yyyy-MM-dd" /></td>
+							<td>${od.odDate}</td>
+							<td>${od.trDate}</td>
 							<td>${od.odStage}</td>
 						</tr>
 						</c:forEach>
