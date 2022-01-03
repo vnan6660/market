@@ -1,9 +1,11 @@
 package com.dao.myTotalInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 public interface MyCartDao {
@@ -26,5 +28,8 @@ public interface MyCartDao {
 
 	//고객정보가져오기
 	List<JoinVO> getCsInfo(String csNo);
+
+	//[장바구니 구매] 1. ORDER_INFO
+	public void insOdrInfo(List<Map<String, Object>> payVoList);
 
 }

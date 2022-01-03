@@ -1,7 +1,7 @@
 /*
-*회원정보수정 js
+*주문하기js
 *생성자 : 김혜경
-*생성일 : 2021.12.14
+*생성일 : 2021.12.31
 */
 $(function() {
 	var mainHeight = $("#contentsWrap").outerHeight(true);
@@ -54,11 +54,11 @@ $(function() {
 	
 	//결제하기버튼 눌렀을 시 시행되는 함수
 	$('#goPay').click(function() {
-		if(!csInfo()) return; //updateInfo()가 false면 return;
+		if(!csInfo()) return; //csInfo()가 false면 return;
 		
 		if (confirm('구매하시겠습니까?')) {
 			$.ajax({
-				url: '/myCart/myCartBuy',
+				url: '/myCart/doPay',
 				type: 'POST',
 				enctype: 'multipart/form-data',
 				contentType: false,//false 꼭 작성해야함
@@ -102,6 +102,15 @@ function csInfo() {
 	$('input[id=csPhone]').attr('value', csPhone);
 	//이메일 속성추가
 	$('input[id=csEmail]').attr('value', csEmail);
+
+
+	console.log("이름:  "+csNm);
+	console.log("핸드폰:  "+csPhone);
+	console.log("이메일:  "+csEmail);
+	console.log("기본주소:  "+$("#csAddrOne").val());
+	console.log("기본주소:  "+$("#csAddrTwo").val());
+
+
 
 	// ================ 이름 ================ //
 	//1. 빈값 안됨

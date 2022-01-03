@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 @Repository
@@ -50,10 +51,18 @@ public class MyCartDaoImpl implements MyCartDao{
 		sqlSession.delete("delCart", cartlistVo);
 	}
 
+	//고객정보가져오기
 	@Override
 	public List<JoinVO> getCsInfo(String csNo) {
 		return sqlSession.selectList("getCsInfo", csNo);
 	}
+
+	//[장바구니 구매] 1. ORDER_INFO
+	@Override
+	public void insOdrInfo(List<Map<String, Object>> payVoList) {
+		sqlSession.insert("insOdrInfo", payVoList);
+	}
+
 
 
 

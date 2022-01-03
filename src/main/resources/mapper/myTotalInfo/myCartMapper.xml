@@ -90,4 +90,32 @@
 		FROM CUSTOMER_INFO
 		WHERE CS_NO = #{csNo}
 	</select>
+
+	<!-- 구매버튼 눌렀을 때 주문정보테이블에 입력 -->
+	<insert id="insOdrInfo" parameterType="java.util.List">
+	/* myCartMapper.insOdrInfo */
+	<foreach collection="list" item="item" separator=" , " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO ORDER_INFO
+		(
+			 OD_NO
+			,CS_NO
+			,GD_NO
+			,GD_QTY
+			,OD_AMT
+			,OD_DATE
+			,OD_STAGE
+		)
+		VALUES
+		(
+			 #{item.odNo}
+			,#{item.csNo}
+			,#{item.gdNo}
+			,#{item.gdQty}
+			,#{item.odAmt}
+			,SYSDATE
+			,'100'
+		)
+	</foreach>
+	</insert>
+    
 </mapper>

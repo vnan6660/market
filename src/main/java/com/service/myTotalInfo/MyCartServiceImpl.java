@@ -1,6 +1,7 @@
 package com.service.myTotalInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dao.myTotalInfo.MyCartDao;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 @Service
@@ -51,6 +53,19 @@ public class MyCartServiceImpl implements MyCartService{
 	@Override
 	public List<JoinVO> getCsInfo(String csNo) {
 		return myCartDao.getCsInfo(csNo);
+	}
+
+	//장바구니 구매 1.배송정보(TRANSFER_INFO)테이블에 먼저 INSERT
+	//@Override
+	//public void insTrsInfo(CartListVO cartListVo) {
+	//	myCartDao.insTrsInfo(cartListVo);
+	//}
+
+	//[장바구니 구매] 1. ORDER_INFO
+	@Override
+	public void insOdrInfo(List<Map<String, Object>> payVoList) {
+		myCartDao.insOdrInfo(payVoList);
+		
 	}
 
 

@@ -1,8 +1,14 @@
 package com.controller.myTotalInfo;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,11 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.myTotalInfo.MyCartService;
-import com.service.userBook.BestBookService;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
+import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
+
 
 /**
  * 장바구니 Controller 
@@ -33,9 +40,6 @@ public class myCartController {
 	@Autowired
 	private MyCartService myCartService;
 
-	@Autowired
-	private BestBookService bestBookService;
-	
 	@Autowired
 	private HttpServletRequest request;
 	
@@ -177,7 +181,75 @@ public class myCartController {
 	
 	
 	
-	
+	//장바구니 구매
+	@ResponseBody
+	@PostMapping("/myCart/doPay")
+	public void doPay(PayVO payVo) {
+		HttpSession session = request.getSession(true);
+		String csNo = (String) session.getAttribute("userNo");
+		String csNm = (String) session.getAttribute("userNm");
+		payVo.setCsNo(csNo);//payVo의 csNo에 세션의 csNo를 넣음
+		payVo.setCsNm(csNm);//payVo의 csNm에 세션의 csNm를 넣음
+		
+		/***** 현재시간 milsec로 바꿈 *****/
+		//1. 사용할 zone 아이디 값
+        ZoneId zoneid = ZoneId.of("Asia/Seoul");
+        //2. 현재 날짜 구하기
+        Date date = new Date();        
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd")
+				.withZone(ZoneId.systemDefault());
+		String dateToStr = format.format(date.toInstant());
+        //3.현재 시간의 값 밀리세컨드 변환
+        Long milsec = LocalDateTime.now().atZone(zoneid).toInstant().toEpochMilli();
+        String strMilsec = Long.toString(milsec);
+        //4.현재날짜+milsec를 주문번호로 사용
+        String odNo = dateToStr+strMilsec;
+        payVo.setOdNo(odNo);
+        
+        /***** 장바구니 구매 *****/
+        //[장바구니 구매] 1. ORDER_INFO
+        List<Map<String, Object>> payVoList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("odNo", payVo.getOdNo());
+        map.put("csNo", payVo.getCsNo());
+        
+        String gdNo =  payVo.getGdNo();
+        String[] splitGdNo = gdNo.split(",");
+        for(var i=0 ; i<splitGdNo.length; i++) {
+        	System.out.println(splitGdNo[i]);
+        	map.put("gdNo", splitGdNo[i]);
+        }
+        System.out.println("=============================================="); 
+        System.out.println(gdNo);
+    	System.out.println("=============================================="); 
+        
+    	//map.put("gdNo", payVo.getGdNo());
+        map.put("gdQty", payVo.getGdQty());
+        map.put("odAmt", payVo.getOdAmt());
+        payVoList.add(map);
+        
+        for(Map<String, Object> strMap : payVoList){
+            System.out.println(strMap.get("odNo"));
+            System.out.println(strMap.get("csNo"));
+            for(var i=0 ; i<splitGdNo.length; i++) {
+            	System.out.println(strMap .get(splitGdNo[i]));
+            }
+            System.out.println(strMap.get("gdQty"));
+            System.out.println(strMap.get("odAmt"));
+        	System.out.println("==============================================");
+        }
+        
+        myCartService.insOdrInfo(payVoList);
+///////////////////////////////////////////////////////////////////////////
+		//장바구니 구매 1.배송정보(TRANSFER_INFO)테이블에 먼저 INSERT
+		//배송번호, 배송주소, 수취인 이름, 수취인 전화번호
+ 		//myCartService.insTrsInfo(cartListVo);
+		
+		//2.주문정보(ORDER_INFO)테이블에 INSERT
+		//List<PayVO> listPayVo =  new ArrayList<PayVO>();
+///////////////////////////////////////////////////////////////////////////
+
+	}
 	
 	
 	
