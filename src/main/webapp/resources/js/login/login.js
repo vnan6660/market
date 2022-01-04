@@ -5,16 +5,12 @@
 */
 
 $(function() {
-	init();
-	attchEvent();
+	loginAttchEvent();
 });
 
-var init = function(){
-	var mainHeight = $("#contentsLogin").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-}
 
-var attchEvent = function() {
+
+var loginAttchEvent = function() {
 
 	//로그인 버튼 누르면 실행
 	$("#loginBtn").click(function() {

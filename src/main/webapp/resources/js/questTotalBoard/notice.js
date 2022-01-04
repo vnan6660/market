@@ -7,18 +7,15 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
-	init();
-	attachEvent();
+	noticeInit();
+	noticeAttachEvent();
 
 	/*detail페이지의 수정을 위한 input박스 숨김*/
 	$("#updSubject, #updText, #ntcUpdDoneBtn, #ntcDelBtn").hide();
 });
 
 
-var init = function(){
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var noticeInit = function(){
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){
 		console.log("t");
@@ -29,7 +26,7 @@ var init = function(){
 }
 
 /*이벤트함수*/
-var attachEvent = function() {
+var noticeAttachEvent = function() {
 	/*글쓰기 페이지가기*/
 	$("#goWriteForm").click(function() {
 		location.href = "/notice/writeNotice";

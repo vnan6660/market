@@ -9,15 +9,12 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
-	init();
-	attachEvent();
+	csInfoInit();
+	csInfoAttachEvent();
 });
 
 
-var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var csInfoInit = function() {
 	//서버시간 가져오기
 	getServerTime();
 
@@ -44,7 +41,7 @@ var init = function() {
 
 
 /*이벤트함수*/
-var attachEvent = function() {
+var csInfoAttachEvent = function() {
 
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
@@ -209,7 +206,7 @@ var goPageOdHistory = function(pageNum) {
 					viewList += "<td>" + e.gdNm + "</td>";
 					viewList += "<td>" + e.odDate + "</td>";
 					viewList += "<td>" + e.trDate + "</td>";
-					viewList += "<td>" + e.odStage + "</td>";
+					viewList += "<td>" + e.odState + "</td>";
 					viewList += "</tr>";
 				});
 

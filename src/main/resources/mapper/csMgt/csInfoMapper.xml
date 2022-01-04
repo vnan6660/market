@@ -121,32 +121,31 @@
 	<select id="selectOrderHistory" parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
 	/*  csInfoMapper.selectOrderHistory */
 	SELECT *
-	  FROM
-	  (SELECT
-	   ROWNUM as rnum,odNo,odDate,odStage,gdNm,trDate
-	     FROM
-		 (SELECT 
+	  FROM (SELECT
+	   ROWNUM as rnum,odNo,odState,gdNm,odDate,trDate
+	     FROM (SELECT 
 	      a.odNo
 	     ,a.gdNm
-	     ,a.trDate
-	     ,a.odStage
-	     ,b.odDate   
+	     ,a.odState
+         ,a.trDate
+	     ,b.odDate
             FROM(SELECT
     	        o.OD_NO AS odNo
    		       ,LISTAGG(g.GD_NM,',') AS gdNm
-               ,to_char(t.TR_DATE,'yyyy-mm-dd') AS trDate
-               ,DECODE(o.OD_STAGE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odStage
+               ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+               ,to_char(t.TR_DATE,'yyyy-mm-dd')AS trDate
 	 	          FROM ORDER_INFO o
 	 	          LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
-	 	          LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
+                  LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
 		          WHERE o.CS_NO = #{selectOptValOne}
-                  GROUP BY o.OD_NO,t.TR_DATE,o.OD_STAGE)a      
-            INNER JOIN (SELECT DISTINCT to_char(o.OD_DATE,'yyyy-mm-dd')AS odDate,o.OD_NO as odNo 
+                  GROUP BY o.OD_NO,o.OD_STATE,t.TR_DATE)a      
+            INNER JOIN (SELECT
+                          DISTINCT to_char(o.OD_DATE,'yyyy-mm-dd')AS odDate,o.OD_NO as odNo 
 	 				      FROM ORDER_INFO o
 	 				      LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
-	 				      LEFT OUTER JOIN TRANSFER_INFO t ON t.TR_NO = o.TR_NO
+                          LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
 					      WHERE o.CS_NO = #{selectOptValOne}) b ON b.odNo = a.odNo
-	   )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	    )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 	)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 	

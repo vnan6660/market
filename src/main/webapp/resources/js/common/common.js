@@ -16,7 +16,7 @@ var init = function() {
 	var mainHeight = $("#contentsMain, #contents").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");
 
-	getServerTime();
+	getLocalTime();
 
 	//공지사항불러오기
 	noticeListLoad();
@@ -70,27 +70,8 @@ var goLogout = function() {
 	});
 }
 
-var getServerTime = function() {
-	var xmlHttp;
-
-	if (window.XMLHttpRequest) {
-		//익스플로러 7과 그 이상의 버전, 크롬, 파이어폭스, 사파리, 오페라
-		xmlHttp = new XMLHttpRequest;
-	} else if (window.ActiveXObject) {
-		//익스플로러 5,6(익스플로러 구형버전)
-		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	} else {
-		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-
-	xmlHttp.open('HEAD', window.location.href.toString(), false);
-	xmlHttp.setRequestHeader('Content-Type', 'text/html');
-	xmlHttp.send('');
-
-	var serverDate = xmlHttp.getResponseHeader('Date');
-
-	var curDate = new Date(serverDate);
-
+var getLocalTime = function() {
+	var curDate = new Date();
 	//달력시간 년초1일로 셋팅
 	startDt = new Date(curDate);
 	startDt.setMonth(0);//1월은 0부터 시작

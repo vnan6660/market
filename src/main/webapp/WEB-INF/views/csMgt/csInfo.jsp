@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,17 +58,21 @@
 						<th>가입날짜</th>
 						<th>회원구분</th>
 					</tr>
-					
-					<c:forEach items="${csInfoList}" var="vo">
-						<tr class="hover" onclick="goDetail(${vo.csNo})">
-							<td>${vo.csNo}</td>
-							<td>${vo.csId}</td>
-							<td>${vo.csNm}</td>
-							<td><fmt:formatDate value="${vo.createDate}"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${vo.csGrade}</td>
-						</tr>
-					</c:forEach>
+					<c:if test="${fn:length(csInfoList) == 0}">
+							<td colspan='9'>데이터가 존재하지 않습니다</td>
+					</c:if>
+					<c:if test="${fn:length(csInfoList) > 0}">
+						<c:forEach items="${csInfoList}" var="vo">
+							<tr class="hover" onclick="goDetail(${vo.csNo})">
+								<td>${vo.csNo}</td>
+								<td>${vo.csId}</td>
+								<td>${vo.csNm}</td>
+								<td><fmt:formatDate value="${vo.createDate}"
+										pattern="yyyy-MM-dd" /></td>
+								<td>${vo.csGrade}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</table>
 			</div>
 			<div id="pageList" class="mt10">
@@ -105,5 +110,8 @@
 			</c:if>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>

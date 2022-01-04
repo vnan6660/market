@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,16 +47,21 @@
 						<th>작성일</th>
 						<th>조회</th>
 					</tr>
-					<c:forEach items="${noticeList}" var="vo">
-						<tr>
-							<td>${vo.ntcNo}</td>
-							<td class="hover" onclick="goDetail(${vo.ntcNo})">${vo.ntcSj}</td>
-							<td>${vo.ntcWrt}</td>
-							<td><fmt:formatDate value="${vo.ntcRegDate}"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${vo.ntcVcnt}</td>
-						</tr>
-					</c:forEach>
+					<c:if test="${fn:length(noticeList) == 0}">
+							<td colspan='9'>데이터가 존재하지 않습니다</td>
+					</c:if>
+					<c:if test="${fn:length(noticeList) > 0}">
+						<c:forEach items="${noticeList}" var="vo">
+							<tr>
+								<td>${vo.ntcNo}</td>
+								<td class="hover" onclick="goDetail(${vo.ntcNo})">${vo.ntcSj}</td>
+								<td>${vo.ntcWrt}</td>
+								<td><fmt:formatDate value="${vo.ntcRegDate}"
+										pattern="yyyy-MM-dd" /></td>
+								<td>${vo.ntcVcnt}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</table>
 				<c:if test="${sessionScope.userGrade == '0'}">
 					<button id="goWriteForm" class="btnSmall hover">글쓰기</button>

@@ -5,20 +5,17 @@
 */
 
 $(function() {
-	init();
-	attachEvent();
+	goodsRegInit();
+	goodsRegAttachEvent();
 });
 
-var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var goodsRegInit = function() {
 	$("#file1, #image").hide();
 	//베스트도서에 맞는 상품분류 값 가져오기
 	getGoodsSeparate("bestBook");
 }
 
-var attachEvent = function() {
+var goodsRegAttachEvent = function() {
 
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {

@@ -97,7 +97,7 @@
 							<td>${od.gdNm}</td>
 							<td>${od.odDate}</td>
 							<td>${od.trDate}</td>
-							<td>${od.odStage}</td>
+							<td>${od.odState}</td>
 						</tr>
 						</c:forEach>
 					</c:if>
@@ -127,5 +127,8 @@
 				<input type="hidden" name="page" value="${searchVO.page}"/>
 		</form>
 	</main>
+	<footer>
+		<c:import url="/footer/footerPage"></c:import>
+	</footer>
 </body>
 </html>

@@ -5,21 +5,18 @@
 */
 
 $(function() {
-	init();
-	attachEvent();
+	authMgtInit();
+	authMgtAttachEvent();
 });
 
 /*페이지 로딩될때 즉시 실행시킬 것*/
-var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var authMgtInit = function() {
 	//관리자로 셀렉트 박스 값 선택으로 실행
 	getAuthList("adminOpt");
 }
 
 /*이벤트 함수*/
-var attachEvent = function() {
+var authMgtAttachEvent = function() {
 
 	//권한자 selectBox 변경시 event
 	$("#authSelect").change(function() {

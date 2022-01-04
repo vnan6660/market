@@ -20,6 +20,6 @@ public class OrderInfoVO {
 	private String odAmt;/* 주문금액 */
 	private String trDate;/* 배송날짜 */
 	private String odDate;/* 주문날짜 */
-	private String odStage;/* 주문상태 */
+	private String odState;/* 주문상태 */
 	private String gdNm;/* 상품이름 */
 }

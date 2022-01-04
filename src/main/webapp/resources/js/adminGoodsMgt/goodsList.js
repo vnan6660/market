@@ -8,14 +8,11 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
-	init();
-	attachEvent();
+	goodsListInit();
+	goodsListattachEvent();
 });
 
-var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var goodsListInit = function() {
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
 
@@ -44,7 +41,7 @@ var init = function() {
 	}
 }
 
-var attachEvent = function() {
+var goodsListattachEvent = function() {
 
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
@@ -344,7 +341,8 @@ var goPage = function(pageNum, tfNum) {
 			}
 
 			$("#goodsListTable").html(viewList);
-
+	var mainHeight = $("#contents").outerHeight(true);
+	$("#sideUlWrap").css("height",mainHeight +"px");
 
 		},
 		error: function() {

@@ -5,19 +5,16 @@
 */
 
 $(function() {
-	init();
-	attachEvent();
+	menuMgtInit();
+	menuMgtAttachEvent();
 });
 
-var init = function() {
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
-	
+var menuMgtInit = function() {
 	$("#blankTable").show();
 	$("#writeTable").hide();
 
 }
-var attachEvent = function() {
+var menuMgtAttachEvent = function() {
 
 	//관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택
 	$("#adminSelect").change(function() {
