@@ -34,7 +34,7 @@ var noticeAttachEvent = function() {
 
 	/*공지사항목록 페이지가기*/
 	$("#goNoticeList").click(function() {
-		$("#searchForm").attr("action","/notice/noticePage");
+		$("#searchForm").attr("action","/notice/goNoticeListPage");
 		$("#searchForm").attr("method","post");
 		$("#searchForm").submit();
 	});
@@ -80,7 +80,7 @@ var goDetail = function(ntcNo) {
 	$("input[name = selectOptValOne]").val($("#selectWrap option:selected").val());
 	$("input[name = searchVal]").val($("#searchVal").val());
 	$("input[name = page]").val($("#hdThisPage").val());
-	$('#searchForm').attr("action","/notice/detailNotcie");
+	$('#searchForm').attr("action","/notice/detailNotcieSearch");
 	$('#searchForm').attr("method","POST");
 	$('#searchForm').submit();
 }
@@ -138,7 +138,7 @@ var updateNotice = function() {
 			contentType: 'application/json',
 			success: function() {
 				alert("수정되었습니다");
-				$('#searchForm').attr("action","/notice/detailNotcie");
+				$('#searchForm').attr("action","/notice/detailNotcieSearch");
 				$('#searchForm').attr("method","POST");
 				$('#searchForm').submit();
 			},

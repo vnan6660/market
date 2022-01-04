@@ -33,7 +33,7 @@ var goodsDetailAttachEvent = function() {
 
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {
-		$("#searchForm").attr("action","/goodsList/goodsListPage");
+		$("#searchForm").attr("action","/goodsList/goGoodsListPage");
 		$("#searchForm").attr("method","post");
 		$("#searchForm").submit();
 	});
@@ -91,7 +91,7 @@ var goodsDetailAttachEvent = function() {
 					data: new FormData($('#goodsForm')[0]),
 					success: function() {
 						alert("저장되었습니다");
-						$("#searchForm").attr("action","/goodsList/detailGoods");
+						$("#searchForm").attr("action","/goodsList/detailGoodsSearch");
 						$("#searchForm").attr("method","post");
 						$("#searchForm").submit();
 					},

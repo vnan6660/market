@@ -39,8 +39,6 @@ public class NoticeController {
 		SearchVO vo = new SearchVO();
 		int listcount = noticeService.getListCount(vo);
 		SearchVO searchVO = SearchVO.builder().page(1).listcount(listcount).build();
-		// SearchVO searchVO = new SearchVO(vo.getSearchVal(), vo.getSelectOptVal(), 1,
-		// listcount);
 
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 		model.addAttribute("noticeList", noticeList);
@@ -53,7 +51,7 @@ public class NoticeController {
 	}
 
 	// 목록페이지 가기
-	@PostMapping(value = "/notice/noticePage")
+	@PostMapping(value = "/notice/goNoticeListPage")
 	public String goNoticeListPage(SearchVO searchVO, Model model) {
 		model.addAttribute("searchVO", searchVO);
 		model.addAttribute("goList", "t");
@@ -94,7 +92,7 @@ public class NoticeController {
 	}
 
 	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
-	@PostMapping("/notice/detailNotcie")
+	@PostMapping("/notice/detailNotcieSearch")
 	public String detailNotcieSearch(int ntcNo, SearchVO searchVO, RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("searchVO", searchVO);
 		return "redirect:/notice/detailNotcie/" + ntcNo;

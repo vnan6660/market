@@ -91,7 +91,7 @@ public class GoodsListController {
 	}
 	
 	//목록페이지 가기
-	@PostMapping(value = "/goodsList/goodsListPage")
+	@PostMapping(value = "/goodsList/goGoodsListPage")
 	public String goGoodsListPage(SearchVO searchVO,Model model){
 		model.addAttribute("searchVO", searchVO);
 		model.addAttribute("goList", "t");
@@ -164,7 +164,7 @@ public class GoodsListController {
 	}
 	 
 	//물품상세 페이지 가기(목록페이지의 검색값전달)
-	@PostMapping("/goodsList/detailGoods") 
+	@PostMapping("/goodsList/detailGoodsSearch") 
 	public String detailGoodsSearch(String gdNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
 	  
 	 redirectAttributes.addFlashAttribute("searchVO", searchVO);

@@ -60,7 +60,7 @@ public class CsInfoController {
 	}
 	
 	//목록페이지 가기
-	@PostMapping(value = "/csInfo/csInfoPage")
+	@PostMapping(value = "/csInfo/goCsInfoPage")
 	public String goCsInfoPage(SearchVO searchVO,Model model){
 		model.addAttribute("searchVO", searchVO);
 		model.addAttribute("goList", "t");
@@ -103,7 +103,7 @@ public class CsInfoController {
 	}
 	
 	//고객디테일페이지 가기(목록페이지의 검색값전달)
-	@PostMapping("/csInfo/detailCsInfo")
+	@PostMapping("/csInfo/detailCsInfoSearch")
 	public String detailCsInfoSearch(String csNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
 	  
 	 redirectAttributes.addFlashAttribute("searchVO", searchVO);

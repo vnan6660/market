@@ -94,7 +94,18 @@
 						<tr>
 							<td>${od.odNo}</td>
 							<td>${od.odNo}</td>
-							<td>${od.gdNm}</td>
+							 <td>
+							 <c:forTokens var="token" items="${od.gdNm}" delims="," varStatus="status">
+								 <c:if test="${status.first == true}">
+								 	${token}
+								 </c:if>
+								 <c:if test="${status.last == true}">
+									 <c:if test="${status.index != 0}">
+									  외 ${status.index}
+									 </c:if>
+								 </c:if>
+							</c:forTokens>
+							</td>
 							<td>${od.odDate}</td>
 							<td>${od.trDate}</td>
 							<td>${od.odState}</td>
