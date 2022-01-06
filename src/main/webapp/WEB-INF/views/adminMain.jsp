@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <title>관리자메인</title>
 <script src="webjars/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="/css/common/common.css">
+<link rel="stylesheet" href="/css/common/adminMain.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/common/adminMain.js"></script>
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
@@ -55,13 +56,17 @@
 					<!-- 주문관리 불러올것 -->
 					<div class="tab">
 						<ul class="tabnav">
-							<li><a href="#tab1" class="active hover">준비중</a></li>
+							<li><a href="#tab1" class="active hover">준비완료</a></li>
 							<li><a href="#tab2" class="hover">배송중</a></li>
 							<li><a href="#tab3" class="hover">배송완료</a></li>
 						</ul>
 						<div class="tabcontent">
-							<div id="tab1">준비중 content</div>
-							<div id="tab2">배송중 content</div>
+							<div id="tab1">
+							<!-- 주문완료 탭내용  -->
+							</div>
+							<div id="tab2">
+							배송중 content
+							</div>
 							<div id="tab3">배송완료 content</div>
 							<!-- 이테이블을 어떻게 정할지 아직 정하지 않았음 (tab안에 넣을지 말지 고민중)-->
 							<table id="orderMgtMainTable" style="width: 97%; table-layout: fixed">
