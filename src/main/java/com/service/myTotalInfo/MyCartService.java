@@ -9,7 +9,7 @@ import com.vo.login.JoinVO;
 
 /**
  * 장바구니 Controller 
- * 생성자 : 김혜경 
+ * 생성자 : 김소연 
  * 생성일 : 2021.12.27
  */
 public interface MyCartService {
@@ -32,8 +32,8 @@ public interface MyCartService {
 	//고객정보 가져오기
 	List<JoinVO> getCsInfo(String csNo);
 
-	//[장바구니 구매] 1. ORDER_INFO
-	void insOdrInfo(List<Map<String, Object>> payVoList);
+	//장바구니 구매
+	void setOdrInfo(Map<String, Object> insertMap);
 
 	
 	

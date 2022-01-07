@@ -6,7 +6,11 @@ import java.util.Map;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 import com.vo.login.JoinVO;
-
+/**
+ * 장바구니 Dao
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.27
+ */
 public interface MyCartDao {
 
 
@@ -27,8 +31,8 @@ public interface MyCartDao {
 
 	//고객정보가져오기
 	List<JoinVO> getCsInfo(String csNo);
-
-	//[장바구니 구매] 1. ORDER_INFO
-	public void insOdrInfo(List<Map<String, Object>> payVoList);
+	
+	//장바구니 구매
+	void insOdrInfo(Map<String, Object> insertMap);
 
 }

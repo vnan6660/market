@@ -92,42 +92,22 @@
 	</select>
 
 	<!-- 구매버튼 눌렀을 때 주문정보테이블에 입력 -->
-	<insert id="insOdrInfo" >
+	<insert id="insOdrInfo" parameterType="java.util.Map">
 	/* myCartMapper.insOdrInfo */
-	INSERT INTO ORDER_INFO 
-	(SELECT 			
-		T.OD_NO
-		,T.CS_NO
-		,REGEXP_SUBSTR(T.GD_NO, '[^,]+', 1, Level) AS GD_NO
-		,REGEXP_SUBSTR(T.GD_QTY, '[^,]+', 1, Level) AS GD_QTY	
-		,REGEXP_SUBSTR(T.OD_AMT, '[^,]+', 1, Level) AS OD_AMT 			
-		,T.OD_DATE
-		,T.RC_STATE
-		,T.RC_NM
-		,T.RC_PHONE
-		,T.RC_EMAIL
-		,T.RC_ADDR_ONE
-		,T.RC_ADDR_TWO
-	FROM (
-		SELECT 
-			 #{odNo} AS OD_NO
-			,#{csNo} AS CS_NO
-			,#{gdNo} AS GD_NO
-			,#{gdQty} AS GD_QTY
-			,#{odAmt} AS OD_AMT
-			,SYSDATE AS OD_DATE
-			,'100' AS RC_STATE
-			,#{rcNm} AS RC_NM
-			,#{rcPhone} AS RC_PHONE
-			,#{rcEmail} AS RC_EMAIL
-			,#{rcAddrOne} AS RC_ADDR_ONE
-			,#{rcAddrTwo} AS RC_ADDR_TWO
-		FROM DUAL
-	)T 		
-	WHERE T.OD_AMT IS NOT NULL 		
-	CONNECT BY LEVEL <![CDATA[<=]]> REGEXP_COUNT(T.OD_AMT, '[^,]+') 		
-	AND PRIOR T.OD_NO  = T.OD_NO 		
-	AND PRIOR DBMS_RANDOM.VALUE IS NOT NULL)
+	<foreach collection="list" item="i" open="INSERT ALL"  close="SELECT * FROM DUAL" separator="">
+	INTO ORDER_INFO (OD_NO,CS_NO,GD_NO,GD_QTY,OD_AMT,OD_DATE,OD_STATE,RC_NM,RC_PHONE,RC_EMAIL,RC_ADDR_ONE,RC_ADDR_TWO)
+	VALUES (		#{i.odNo} 
+					,#{i.csNo} 
+					,#{i.gdNo}
+					,#{i.gdQty} 
+					,#{i.odAmt}
+					,SYSDATE
+					,'100'
+					,#{i.rcNm} 
+					,#{i.rcPhone}
+					,#{i.rcEmail} 
+					,#{i.rcAddrOne}
+					,#{i.rcAddrTwo} )
+		</foreach>
 	</insert>
-    
 </mapper>

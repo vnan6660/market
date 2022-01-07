@@ -10,7 +10,11 @@ import com.dao.myTotalInfo.MyCartDao;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 import com.vo.login.JoinVO;
-
+/**
+ * 장바구니 ServiceImpl
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.27
+ */
 @Service
 public class MyCartServiceImpl implements MyCartService{
 
@@ -54,11 +58,10 @@ public class MyCartServiceImpl implements MyCartService{
 		return myCartDao.getCsInfo(csNo);
 	}
 
-	//[장바구니 구매] 1. ORDER_INFO
+	//장바구니 구매
 	@Override
-	public void insOdrInfo(List<Map<String, Object>> payVoList) {
-		myCartDao.insOdrInfo(payVoList);
-		
+	public void setOdrInfo(Map<String, Object> insertMap) {
+		myCartDao.insOdrInfo(insertMap);
 	}
 
 

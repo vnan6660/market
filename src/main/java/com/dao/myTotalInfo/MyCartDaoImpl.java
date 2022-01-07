@@ -11,7 +11,11 @@ import org.springframework.stereotype.Repository;
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
 import com.vo.login.JoinVO;
-
+/**
+ * 장바구니 DaoImpl
+ * 생성자 : 김소연 
+ * 생성일 : 2021.12.27
+ */
 @Repository
 public class MyCartDaoImpl implements MyCartDao{
 
@@ -55,11 +59,10 @@ public class MyCartDaoImpl implements MyCartDao{
 	public List<JoinVO> getCsInfo(String csNo) {
 		return sqlSession.selectList("getCsInfo", csNo);
 	}
-
-	//[장바구니 구매] 1. ORDER_INFO
+	//장바구니 구매
 	@Override
-	public void insOdrInfo(List<Map<String, Object>> payVoList) {
-		sqlSession.insert("insOdrInfo", payVoList);
+	public void insOdrInfo(Map<String, Object> insertMap) {
+		sqlSession.insert("insOdrInfo", insertMap);
 	}
 
 
