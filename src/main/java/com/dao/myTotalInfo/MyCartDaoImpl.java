@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
-import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 @Repository

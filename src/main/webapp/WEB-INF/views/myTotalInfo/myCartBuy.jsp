@@ -16,8 +16,8 @@
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 <main id="contents" class="info">
 <form id="myCartBuyForm">
-<input type="hidden" id="csEmail" name="csEmail">
-<input type="hidden" id="csPhone" name="csPhone">
+<input type="hidden" id="csEmail" name="rcEmail">
+<input type="hidden" id="csPhone" name="rcPhone">
 	<div class="table-wrap">
 		<div class="myinfo">
 			<h3>상품정보</h3>
@@ -102,7 +102,7 @@
 					<th>이름</th>
 					<td class="borderTop"></td>
 					<td class="textLeft borderTop">
-						<input id="csNm" name="csNm" type="text" value="${csInfo.csNm}" maxlength="10">
+						<input id="csNm" name="rcNm" type="text" value="${csInfo.csNm}" maxlength="10">
 						<div id="csNmConfirm"></div>
 					</td>
 				</tr>
@@ -126,7 +126,7 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input name="csEmail" type="hidden"></td>
+					<td><input name="rcEmail" type="hidden"></td>
 					<td class="textLeft">
 						<input type="hidden" id="hiddenEmail" value="${csInfo.csEmail}">
 						<input type="text" class="w160" id="csEmailOne" name="csEmailOne" maxlength="20"> @ 
@@ -150,11 +150,11 @@
 						<ul>
 							<li style="margin-bottom: 20px;">
 								<div style="font-size: 12px">기본주소</div>
-								<input id="csAddrOne" name="csAddrOne" class="w460" type="text" value="${csInfo.csAddrOne}" maxlength="30">
+								<input id="csAddrOne" name="rcAddrOne" class="w460" type="text" value="${csInfo.csAddrOne}" maxlength="30">
 							</li>
 							<li>
 								<div style="font-size: 12px">상세주소</div>
-								<input id="csAddrTwo" name="csAddrTwo" class="w460" type="text" value="${csInfo.csAddrTwo}" maxlength="30">
+								<input id="csAddrTwo" name="rcAddrTwo" class="w460" type="text" value="${csInfo.csAddrTwo}" maxlength="30">
 							</li>
 						</ul>
 					</td>

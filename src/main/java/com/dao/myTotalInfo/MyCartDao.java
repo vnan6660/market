@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
-import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 public interface MyCartDao {

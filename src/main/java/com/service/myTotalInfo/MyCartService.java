@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.vo.cart.CartListVO;
 import com.vo.cart.CartVO;
-import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 
 /**
@@ -32,9 +31,6 @@ public interface MyCartService {
 
 	//고객정보 가져오기
 	List<JoinVO> getCsInfo(String csNo);
-
-	//장바구니 구매 1.배송정보(TRANSFER_INFO)테이블에 먼저 INSERT
-	//void insTrsInfo(CartListVO cartListVo);
 
 	//[장바구니 구매] 1. ORDER_INFO
 	void insOdrInfo(List<Map<String, Object>> payVoList);
