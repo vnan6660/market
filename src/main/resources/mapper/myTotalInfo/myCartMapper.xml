@@ -17,7 +17,7 @@
 	<!-- 장바구니에 물건이 없으면 insert -->
 	<insert id="insertCart">
 	/* myCartMapper.insertCart */
-	INSERT INTO CART
+	INSERT INTO CART (CART_NO,CS_NO,GD_NO,GD_QTY)
 		 VALUES (
 		 		CART_SEQ.nextval
 		 	 	,#{csNo}
