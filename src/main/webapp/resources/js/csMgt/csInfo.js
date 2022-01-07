@@ -51,7 +51,7 @@ var csInfoAttachEvent = function() {
 
 	//목록클릭시 고객정보 전페이지가기
 	$("#goCsInfoList").click(function() {
-		$("#searchForm").attr("action","/csInfo/csInfoPage");
+		$("#searchForm").attr("action","/csInfo/goCsInfoPage");
 		$("#searchForm").attr("method","post");
 		$("#searchForm").submit();
 	});
@@ -59,7 +59,6 @@ var csInfoAttachEvent = function() {
 
 /*글번호에 맞는 Detail 페이지 가기*/
 var goDetail = function(csNo) {
-	//location.href = '/csInfo/detailCsInfo/' + csNo;
 	searchParam = {};
 	$("input[name = csNo]").val(csNo);
 	$("input[name = startDt]").val($("#startDt").val());
@@ -68,7 +67,7 @@ var goDetail = function(csNo) {
 	$("input[name = selectOptValTwo]").val($("#userInfoSelectWrap option:selected").val());
 	$("input[name = searchVal]").val($("#searchVal").val());
 	$("input[name = page]").val($("#hdThisPage").val());
-	$('#searchForm').attr("action","/csInfo/detailCsInfo");
+	$('#searchForm').attr("action","/csInfo/detailCsInfoSearch");
 	$('#searchForm').attr("method","POST");
 	$('#searchForm').submit();
 }

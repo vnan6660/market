@@ -156,7 +156,6 @@ var getGoodsSeparate = function(goodsGroup) {
 
 //상품상세 페이지 가기
 var goDetail = function(gdNo) {
-	//location.href = "/goodsList/detailGoods/" + gdNo;
 	searchParam = {};
 	$("input[name = gdNo]").val(gdNo);
 	$("input[name = startDt]").val($("#startDt").val());
@@ -166,7 +165,7 @@ var goDetail = function(gdNo) {
 	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
 	$("input[name = searchVal]").val($("#searchVal").val());
 	$("input[name = page]").val($("#hdThisPage").val());
-	$('#searchForm').attr("action","/goodsList/detailGoods");
+	$('#searchForm').attr("action","/goodsList/detailGoodsSearch");
 	$('#searchForm').attr("method","POST");
 	$('#searchForm').submit();
 }

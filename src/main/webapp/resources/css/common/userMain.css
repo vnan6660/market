@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+@import url("/css/common/common.css");
+
+#slideShow {
+	width: 90%;
+	height: 30%;
+	overflow: hidden;
+	position: relative;
+}
+
+#slides>div>img {
+	position: absolute;
+	width: 90%;
+	height: 100%;
+	float: left;
+}
+
+.tabNav {
+	position: absolute;
+	width: 200px;
+	top: 90%;
+	left: 37%;
+}
+
+.tabNav a {
+	color: #fff;
+	background-color: #000;
+	text-decoration: none;
+	border-style: solid;
+	border-width: 1px;
+	padding: 8px;
+}
+
+#epTab:link, #gfTab:link {
+	color: #fff;
+}
+
+#gfTab {
+	margin-left: -7px;
+	padding: 8px 23px;
+}
+
+#slides>button {
+	position: absolute;
+	height: 90%;
+	border: none;
+	padding: 10px;
+	background-color: transparent; /*투명색*/
+	font-weight: 800;
+	font-size: 24px;
+	opacity: 0.4;
+	color: #000;
+}
+
+#slides>button:hover {
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+#slides>button::focus {
+	outline: 0;
+}
+
+#prev {
+	left: 0;
+	margin-left: -70px;
+}
+
+#next {
+	right: 0;
+	margin-right: 35px;
+}
