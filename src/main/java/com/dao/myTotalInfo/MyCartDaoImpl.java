@@ -13,8 +13,9 @@ import com.vo.cart.CartVO;
 import com.vo.login.JoinVO;
 /**
  * 장바구니 DaoImpl
- * 생성자 : 김소연 
+ * 생성자 : 김혜경 
  * 생성일 : 2021.12.27
+ * 수정자 : 김소연
  */
 @Repository
 public class MyCartDaoImpl implements MyCartDao{
@@ -63,6 +64,12 @@ public class MyCartDaoImpl implements MyCartDao{
 	@Override
 	public void insOdrInfo(Map<String, Object> insertMap) {
 		sqlSession.insert("insOdrInfo", insertMap);
+	}
+	
+	//gdNo에 맞는 상품 정보 가져오기
+	@Override
+	public List<CartListVO> selectBuyList(String gdNo) {
+		return sqlSession.selectList("selectBuyList", gdNo);
 	}
 
 

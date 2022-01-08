@@ -217,10 +217,12 @@ function goBuy(gdNo){
 	var sessionUserId = $("#sessionUserId").val();
 	data = {};
 	data.gdNo = gdNo;//상품번호
-	//data.gdQty = '1';
+	data.gdQty = '1';
 	if(sessionUserId == ""){
 			alert("로그인 후 이용가능합니다.");
 			location.href = '/login/loginPage';
+	}else{
+		location.href = '/myCartBuy/takeGoods?gdNo='+gdNo;
 	}
 	
 }

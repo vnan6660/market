@@ -110,4 +110,17 @@
 					,#{i.rcAddrTwo} )
 		</foreach>
 	</insert>
+	
+	<!-- gdNo에 맞는 상품 정보 가져오기  -->
+	<select id="selectBuyList" parameterType="String" resultType="com.vo.cart.CartListVO">
+	/*myCartMapper.selectBuyList*/
+		SELECT 
+			GD_NO
+			,GD_NM 
+			,GD_SP 
+			,GD_IMG 
+			,GD_PRICE
+		 FROM GOODS_INFO 
+		WHERE GD_NO = #{gdNo}
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.controller.myTotalInfo;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.myTotalInfo.MyCartService;
@@ -27,11 +30,10 @@ import com.vo.cart.CartVO;
 import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
+import com.vo.orderInfo.OrderInfoVO;
 
 /**
- * 장바구니 Controller
- * 생성자 : 김소연 
- * 생성일 : 2021.12.27
+ * 장바구니 Controller 생성자 : 김혜경 생성일 : 2021.12.27 수정자 : 김소연
  */
 @Controller
 public class myCartController {
@@ -180,6 +182,56 @@ public class myCartController {
 		return "/myTotalInfo/myCartBuy"; // 실제주소인 /myTotalInfo/myCartBuy를 리턴해준다
 	}
 
+	// 구매페이지로 이동
+	@RequestMapping("/myCartBuy/takeGoods")
+	public String takeGoods(@RequestParam String gdNo, Model model) throws IOException {
+
+		/* 로그인 정보 가져오기 */
+		HttpSession session = request.getSession(true);
+		String csNo = (String) session.getAttribute("userNo");
+
+		// 장바구니 목록 가져오기
+		List<CartListVO> list = myCartService.getBuyList(gdNo);
+
+		// 새로운 reList를 만든다 -> 이미지를 변형해야해서 다시 만듦
+		List<CartListVO> reList = new ArrayList<CartListVO>();
+
+		for (int i = 0; i < list.size(); i++) {
+			// CartListVO에 저장하기위해 생성자 생성
+			CartListVO vo = new CartListVO();
+
+			// list의 i행에있는 gdNo를 vo의 gdNo에 값을 넣겠다.(이하동일)
+			vo.setGdNo(list.get(i).getGdNo()); // 상품번호
+			vo.setGdGp(list.get(i).getGdGp()); // 상품구분
+			vo.setGdGpNm(list.get(i).getGdGpNm()); // 상품구분이름
+			vo.setGdSp(list.get(i).getGdSp()); // 상품분류
+			vo.setGdNm(list.get(i).getGdNm()); // 상품이름
+			vo.setGdCnt(list.get(i).getGdCnt()); // 상품재고
+			vo.setGdWr(list.get(i).getGdWr()); // 상품작가
+			vo.setGdPb(list.get(i).getGdPb()); // 상품출판사
+			vo.setGdPrice(list.get(i).getGdPrice()); // 상품가격
+			vo.setGdQty("1"); // 상품수량
+
+			// for문을 돌렸을때 이미지가 있다면
+			if (list.get(i).getGdImg() != null) {
+				// blob으로 저장되어있는 이미지를 string형태로 담아낸다.
+				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()), "UTF-8");
+				// vo에 이미지를 담는다.
+				vo.setGdImgStr(gdImgStr);
+			}
+
+			// 새로운 리스트에 가져온 값을 넣어줌
+			reList.add(i, vo);
+		}
+		model.addAttribute("cartList", reList);
+
+		// 로그인된 고객번호로 이름, 핸드폰번호, 주소, 이메일 가져오기
+		List<JoinVO> joinVo = myCartService.getCsInfo(csNo);
+		model.addAttribute("csInfo", joinVo);
+
+		return "/myTotalInfo/myCartBuy"; // 실제주소인 /myTotalInfo/myCartBuy를 리턴해준다
+	}
+
 	// 장바구니 구매
 	@ResponseBody
 	@PostMapping("/myCart/doPay")
@@ -209,26 +261,25 @@ public class myCartController {
 		String rcEmail[] = payVo.getRcEmail().split("[,]");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> insertMap = new HashMap<String, Object>();
-		if (gdNoArr.length > 1) {
-			for (int i = 0; i < gdNoArr.length; i++) {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("odNo", payVo.getOdNo());
-				map.put("csNo", payVo.getCsNo());
-				map.put("gdNo", gdNoArr[i]);
-				map.put("gdQty", gdQty[i]);
-				map.put("odAmt", odAmt[i]);
-				map.put("rcNm", payVo.getRcNm());
-				map.put("rcPhone", payVo.getRcPhone());
-				map.put("rcEmail", rcEmail[0]);
-				map.put("rcAddrOne", payVo.getRcAddrOne());
-				map.put("rcAddrTwo", payVo.getRcAddrTwo());
-				// 새로운 리스트에 가져온 값을 넣어줌
-				list.add(i, map);
-			}
-			insertMap.put("list", list);
+		// if (gdNoArr.length > 1) {
+		for (int i = 0; i < gdNoArr.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("odNo", payVo.getOdNo());
+			map.put("csNo", payVo.getCsNo());
+			map.put("gdNo", gdNoArr[i]);
+			map.put("gdQty", gdQty[i]);
+			map.put("odAmt", odAmt[i]);
+			map.put("rcNm", payVo.getRcNm());
+			map.put("rcPhone", payVo.getRcPhone());
+			map.put("rcEmail", rcEmail[0]);
+			map.put("rcAddrOne", payVo.getRcAddrOne());
+			map.put("rcAddrTwo", payVo.getRcAddrTwo());
+			// 새로운 리스트에 가져온 값을 넣어줌
+			list.add(i, map);
+			// }
 		}
+		insertMap.put("list", list);
 		myCartService.setOdrInfo(insertMap);
-
 	}
 
 }

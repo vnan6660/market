@@ -12,8 +12,9 @@ import com.vo.cart.CartVO;
 import com.vo.login.JoinVO;
 /**
  * 장바구니 ServiceImpl
- * 생성자 : 김소연 
+ * 생성자 : 김혜경 
  * 생성일 : 2021.12.27
+ * 수정자 : 김소연
  */
 @Service
 public class MyCartServiceImpl implements MyCartService{
@@ -62,6 +63,12 @@ public class MyCartServiceImpl implements MyCartService{
 	@Override
 	public void setOdrInfo(Map<String, Object> insertMap) {
 		myCartDao.insOdrInfo(insertMap);
+	}
+	
+	//gdNo에 맞는 상품 정보 가져오기
+	@Override
+	public List<CartListVO> getBuyList(String gdNo) {
+		return myCartDao.selectBuyList(gdNo);
 	}
 
 

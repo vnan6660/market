@@ -9,8 +9,9 @@ import com.vo.login.JoinVO;
 
 /**
  * 장바구니 Controller 
- * 생성자 : 김소연 
+ * 생성자 : 김혜경 
  * 생성일 : 2021.12.27
+ * 수정자 : 김소연
  */
 public interface MyCartService {
 	
@@ -34,6 +35,9 @@ public interface MyCartService {
 
 	//장바구니 구매
 	void setOdrInfo(Map<String, Object> insertMap);
+	
+	//gdNo에 맞는 상품 정보 가져오기
+	List<CartListVO> getBuyList(String gdNo);
 
 	
 	
