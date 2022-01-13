@@ -340,8 +340,8 @@ var goPage = function(pageNum, tfNum) {
 			}
 
 			$("#goodsListTable").html(viewList);
-	var mainHeight = $("#contents").outerHeight(true);
-	$("#sideUlWrap").css("height",mainHeight +"px");
+			var mainHeight = $("#contents").outerHeight(true);
+			$("#sideUlWrap").css("height",mainHeight +"px");
 
 		},
 		error: function() {

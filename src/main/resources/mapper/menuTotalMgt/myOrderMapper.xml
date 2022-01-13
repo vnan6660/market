@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.myTotalInfo.MyOrderDaoImpl">
+
+	<!-- 주문정보 가져오기 -->
+	<select id="selectMyOrderInfo"  parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
+	/*  myOrderMapper.selectMyOrderInfo */
+	SELECT *
+	  FROM
+	  (SELECT
+	    ROWNUM as rnum,odNo,odState,odDate,gdNm
+		FROM
+		(SELECT
+		  o.OD_NO AS odNo
+		 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+		 ,o.OD_DATE AS odDate
+		 ,LISTAGG(g.GD_NM,',') AS gdNm
+		 FROM ORDER_INFO o
+		 LEFT OUTER JOIN goods_info g ON g.GD_NO = o.GD_NO
+		 WHERE o.CS_NO = #{selectOptValThree}
+		 <if test='startDt != null and endDt != null'>
+				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+		</if>
+		<if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE IN ('100','200','300','400')
+				</if>
+				<if test='!selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE = #{selectOptValOne}
+				</if>
+		</if>
+		<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
+						OR g.GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("orderNmbr")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("gdsName")'>
+					AND(g.GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+		</if>
+		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE
+		 ORDER BY o.OD_DATE
+		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	 )WHERE rnum <![CDATA[>=]]> #{startCount}
+	</select>
+	
+	<!-- 검색글카운트 -->
+	<select id="selectMyOrderListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  myOrderMapper.selectMyOrderListCount */
+		select count(*) from(SELECT
+ 		o.OD_NO AS odNo
+ 		,o.OD_STATE AS odState
+ 		,o.OD_DATE AS odDate
+        ,LISTAGG(g.GD_NM,',') AS gdNm
+	 	  FROM ORDER_INFO o
+	      LEFT OUTER JOIN goods_info g ON g.GD_NO = o.GD_NO
+	      WHERE o.CS_NO = #{selectOptValThree}
+	      <if test='startDt != null and endDt != null'>
+				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+		  </if>
+		  <if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE IN ('100','200','300','400')
+				</if>
+				<if test='!selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE = #{selectOptValOne}
+				</if>
+		</if>
+		<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
+						OR g.GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("orderNmbr")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("gdsName")'>
+					AND(g.GD_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+		</if>
+	      GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE)
+	</select>
+</mapper>
