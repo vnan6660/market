@@ -1,6 +1,7 @@
 package com.service.myTotalInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,12 @@ public class MyOrderServiceImpl implements MyOrderService {
 	@Override
 	public int getMyOrderListCount(SearchVO svo) {
 		return myOrderDao.selectMyorderListCount(svo);
+	}
+
+	//주문상세내역가져오기
+	@Override
+	public OrderInfoVO getMyOrderDetail(Map<String, Object> param) {
+		return myOrderDao.selectMyOrderDetail(param);
 	}
 
 }

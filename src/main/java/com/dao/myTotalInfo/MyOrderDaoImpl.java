@@ -1,6 +1,7 @@
 package com.dao.myTotalInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class MyOrderDaoImpl implements MyOrderDao {
 	@Override
 	public int selectMyorderListCount(SearchVO svo) {
 		return sqlSession.selectOne("selectMyOrderListCount",svo);
+	}
+
+	//주문상세내역가져오기
+	@Override
+	public OrderInfoVO selectMyOrderDetail(Map<String, Object> param) {
+		return sqlSession.selectOne("selectMyOrderDetail",param);
 	}
 
 }

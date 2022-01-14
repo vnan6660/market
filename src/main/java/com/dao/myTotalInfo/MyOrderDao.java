@@ -1,6 +1,7 @@
 package com.dao.myTotalInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vo.common.SearchVO;
 import com.vo.orderInfo.OrderInfoVO;
@@ -17,6 +18,9 @@ public interface MyOrderDao {
 
 	//검색글 카운트
 	int selectMyorderListCount(SearchVO svo);
+	
+	//주문상세내역가져오기
+	OrderInfoVO selectMyOrderDetail(Map<String, Object> param);
 	
 
 }

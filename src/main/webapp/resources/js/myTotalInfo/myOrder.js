@@ -12,7 +12,7 @@ $(function() {
 	myOrderAttachEvent();
 });
 
-var myOrderInit = function(){
+var myOrderInit = function() {
 	//서버시간 가져오기
 	getServerTime();
 	//달력시간 년초1일로 셋팅
@@ -23,9 +23,20 @@ var myOrderInit = function(){
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
+
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if ($("#returnT").val() == 't') {
+		console.log("t");
+		$("#startDt").val($("#returnStdt").val());
+		$("#endDt").val($("#returnEdDt").val());
+		$("#oderState").val($("#returnSptValOne").val()).prop("selected", true);
+		$("#orderInfo").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
 }
-var myOrderAttachEvent = function(){
-	 /*검색쿼리작성하기*/
+var myOrderAttachEvent = function() {
+	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
 		goPage(1, 1);
@@ -99,21 +110,29 @@ var goPage = function(pageNum, tfNum) {
 				$("#pageList").html("");
 			} else {
 				$.each(reList, function(i, e) {
-
+					/*e.odNo가 다른 함수로 넘어갈때 변형이 일어나서 2개로 나누어서 값 넘겨줌*/
+					let odNoOne = e.odNo.substring(0, 10);
+					let odNoTwo = e.odNo.substring(10);
+					let odState;
+					if ("주문완료" == e.odState || "주문취소" == e.odState) {
+						odState = "12";
+					} else {
+						odState = "34";
+					}
 					viewList += "<tr>";
-					viewList += "<td class='hover' onclick='goDetail(" + e.odNo + ")'>" + e.odNo + "</td>";
-					
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odNo + "</td>";
+
 					var gdNmSplit = e.gdNm.split(",");
-					if(gdNmSplit.length == 1) {
-						viewList += "<td class='hover' onclick='goDetail(" + e.odNo + ")'>" + e.gdNm + "</td>";
+					if (gdNmSplit.length == 1) {
+						viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.gdNm + "</td>";
 					}
-					if(gdNmSplit.length > 1){
-						viewList += "<td class='hover' onclick='goDetail(" + e.odNo + ")'>" + gdNmSplit[0] + " 외 " + (gdNmSplit.length-1)  + "</td>";
+					if (gdNmSplit.length > 1) {
+						viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + gdNmSplit[0] + " 외 " + (gdNmSplit.length - 1) + "</td>";
 					}
-						
-					
-					viewList += "<td class='hover' onclick='goDetail(" + e.odNo + ")'>" + e.odState + "</td>";
-					viewList += "<td class='hover' onclick='goDetail(" + e.odNo + ")'>" + e.odDate + "</td>";
+
+
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odState + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odDate + "</td>";
 					viewList += "</tr>";
 				});
 
@@ -144,11 +163,28 @@ var goPage = function(pageNum, tfNum) {
 
 			$("#orderListTable").html(viewList);
 			var mainHeight = $("#contents").outerHeight(true);
-			$("#sideUlWrap").css("height",mainHeight +"px");
+			$("#sideUlWrap").css("height", mainHeight + "px");
 
 		},
 		error: function() {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
+}
+
+//주문상세내역 페이지 가기
+//odNo가 다른 함수로 넘어갈때 변형이 일어나서 2개로 나누어서 값 받음		
+var goDetail = function(odNo, odNo2, odState) {
+	searchParam = {};
+	$("input[name = odNo]").val(String(odNo) + String(odNo2));
+	$("input[name = startDt]").val($("#startDt").val());
+	$("input[name = endDt]").val($("#endDt").val());
+	$("input[name = selectOptValOne]").val($("#oderState option:selected").val());
+	$("input[name = selectOptValTwo]").val($("#orderInfo option:selected").val());
+	$("input[name = selectOptValThree]").val(odState);
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action", "/myOrder/detailMyOrderSearch");
+	$('#searchForm').attr("method", "POST");
+	$('#searchForm').submit();
 }

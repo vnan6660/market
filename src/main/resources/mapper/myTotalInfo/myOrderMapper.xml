@@ -85,4 +85,47 @@
 		</if>
 	      GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE)
 	</select>
+	
+	<!-- 주문상세내역가져오기 -->
+	<select id="selectMyOrderDetail" parameterType="java.util.Map" resultType="com.vo.orderInfo.OrderInfoVO">
+	/*  myOrderMapper.selectMyOrderDetail */
+	SELECT 
+	a.odNo
+	,a.odDate
+	,a.rcAddrOne
+	,a.rcAddrTwo
+	,a.rcPhone
+	,a.rcEmail
+	,a.rcNm
+	,a.odState
+	,a.gdQty
+	,a.odAmt
+	,a.gdNm
+	<if test='odstate.equals("12")'>
+	,<![CDATA['해당사항없음']]> as trDate
+	</if>
+	<if test='odstate.equals("34")'>
+	,t.TR_DATE as trDate
+	</if>
+	FROM(SELECT
+	    o.OD_NO AS odNo
+	    ,o.OD_DATE AS odDate
+	    ,o.RC_ADDR_ONE AS rcAddrOne
+	    ,o.RC_ADDR_TWO AS rcAddrTwo
+	    ,o.RC_PHONE AS rcPhone
+	    ,o.RC_EMAIL  AS rcEmail
+	    ,o.RC_NM AS rcNm
+	    ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+	    ,LISTAGG(o.GD_QTY, ',')  AS gdQty
+	    ,LISTAGG(o.OD_AMT, ',')  AS odAmt
+	    ,LISTAGG(g.GD_NM, ',') AS gdNm
+	     FROM ORDER_INFO o 
+	     LEFT OUTER JOIN GOODS_INFO g ON  g.GD_NO= o.GD_NO
+	     WHERE CS_NO = #{userNo} AND OD_NO = #{odNo}
+	     GROUP BY o.OD_NO,o.OD_STATE,o.OD_DATE,o.RC_ADDR_ONE,o.RC_ADDR_TWO,o.RC_PHONE,o.RC_EMAIL,o.RC_NM)a
+     <if test='odstate.equals("34")'>
+	  LEFT OUTER JOIN TRANSFER_INFO t ON  t.OD_NO= a.odNo
+	 </if>
+	
+	</select>
 </mapper>
