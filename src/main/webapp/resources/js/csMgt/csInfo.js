@@ -163,6 +163,8 @@ var goPageOdHistory = function(pageNum) {
 	searchParam = {};
 	searchParam.selectOptValOne = $("#csNo").val();
 	searchParam.page = pageNum;
+	
+	nowPage = pageNum;
 
 	$.ajax({
 		url: '/csInfo/searchOdHistoryList',
@@ -200,11 +202,31 @@ var goPageOdHistory = function(pageNum) {
 			} else {
 				$.each(odInfoList, function(i, e) {
 					viewList += "<tr>";
+					
+					if((i+1)*(nowPage%10-1) == 0){
+						viewList += "<td>"+(i+1) + "</td>";
+					}else{
+						viewList += "<td>"+(i+1)*(nowPage%10-1)+""+(i+1) + "</td>";
+					}
+					
 					viewList += "<td>" + e.odNo + "</td>";
-					viewList += "<td>" + e.odNo + "</td>";
-					viewList += "<td>" + e.gdNm + "</td>";
+					
+					var gdNmSplit = e.gdNm.split(",");
+					if (gdNmSplit.length == 1) {
+						viewList += "<td>" + e.gdNm + "</td>";
+					}
+					if (gdNmSplit.length > 1) {
+						viewList += "<td>" + gdNmSplit[0] + " 외 " + (gdNmSplit.length - 1) + "</td>";
+					}
+					
 					viewList += "<td>" + e.odDate + "</td>";
-					viewList += "<td>" + e.trDate + "</td>";
+					
+					if(e.trDate == null){
+						viewList += "<td> 해당없음 </td>";
+					}else{
+						viewList += "<td>" + e.trDate + "</td>";
+					}
+					
 					viewList += "<td>" + e.odState + "</td>";
 					viewList += "</tr>";
 				});

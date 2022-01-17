@@ -92,7 +92,7 @@
 					<c:if test="${fn:length(odInfoList) > 0}">
 						<c:forEach items="${odInfoList}" var="od" varStatus="status">
 						<tr>
-							<td>${od.odNo}</td>
+							<td>${status.index + 1}</td>
 							<td>${od.odNo}</td>
 							 <td>
 							 <c:forTokens var="token" items="${od.gdNm}" delims="," varStatus="status">

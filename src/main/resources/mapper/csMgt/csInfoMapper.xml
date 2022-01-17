@@ -153,8 +153,10 @@
 	<select id="selectOdHistoryCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	/*  csInfoMapper.selectOdHistoryCount */
 	SELECT COUNT(*)
-	  FROM ORDER_INFO
-	 WHERE CS_NO = #{selectOptValOne}
+	  FROM(SELECT od_no
+	         FROM ORDER_INFO
+	         WHERE CS_NO = #{selectOptValOne}
+             GROUP BY od_no)
 	</select>
 </mapper>
 
