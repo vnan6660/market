@@ -222,7 +222,7 @@ var goPageOdHistory = function(pageNum) {
 					viewList += "<td>" + e.odDate + "</td>";
 					
 					if(e.trDate == null){
-						viewList += "<td> 해당없음 </td>";
+						viewList += "<td> - </td>";
 					}else{
 						viewList += "<td>" + e.trDate + "</td>";
 					}

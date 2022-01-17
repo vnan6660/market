@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.orderMgt.OrderListDaoImpl">
+
+	<!-- 주문목록 가져오기 -->
+	<select id="selectMyOrderList"  parameterType="com.vo.common.SearchVO" resultType="com.vo.orderMgt.OrderWrapVO">
+	/*  orderListMapper.selectMyOrderList */
+	SELECT *
+	  FROM
+	  (SELECT
+	    ROWNUM as rnum,csId,csNm,odNo,odDate,odState,trDate
+		FROM
+		(SELECT
+		  o.OD_NO AS odNo
+		 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+		 ,o.OD_DATE AS odDate
+         ,DECODE(t.TR_DATE,null,<![CDATA['-']]>,t.TR_DATE) AS trDate
+         ,c.CS_ID AS csId
+         ,c.CS_NM AS csNm
+		 FROM ORDER_INFO o
+         LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
+         LEFT OUTER JOIN CUSTOMER_INFO c ON c.CS_NO = o.CS_NO
+		 WHERE 1=1
+		 <if test='selectOptValThree != null'>
+			 <if test='startDt != null and endDt != null'>
+				<if test='selectOptValThree.equals("odDt")'>
+				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				</if>
+				<if test='selectOptValThree.equals("trDt")'>
+				AND t.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				</if>
+			 </if>
+		</if>
+		<if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE IN ('100','200','300','400')
+				</if>
+				<if test='!selectOptValOne.equals("optAll")'>
+					AND o.OD_STATE = #{selectOptValOne}
+				</if>
+		</if>
+		<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
+						OR c.CS_ID LIKE '%'||#{searchVal}||'%'
+						OR c.CS_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("orderNmbr")'>
+					AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("userId")'>
+					AND(c.CS_ID LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("userNm")'>
+					AND(c.CS_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+		</if>
+		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE, t.TR_DATE, c.CS_ID, c.CS_NM
+		 ORDER BY o.OD_DATE DESC
+		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+	 )WHERE rnum <![CDATA[>=]]> #{startCount}
+	
+	</select>
+	
+	<select id="selectOrderListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	SELECT
+	    COUNT(*)
+	  FROM
+		(SELECT
+		  o.OD_NO AS odNo
+		 ,o.OD_STATE AS odState
+		 ,o.OD_DATE AS odDate
+         ,t.TR_DATE AS trDate
+         ,c.CS_ID AS csId
+         ,c.CS_NM AS csNm
+		 FROM ORDER_INFO o
+         LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
+         LEFT OUTER JOIN CUSTOMER_INFO c ON c.CS_NO = o.CS_NO
+		 WHERE 1=1
+		<if test='selectOptValThree != null'>
+			 <if test='startDt != null and endDt != null'>
+				<if test='selectOptValThree.equals("odDt")'>
+				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				</if>
+				<if test='selectOptValThree.equals("trDt")'>
+				AND t.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				</if>
+			 </if>
+		</if>
+		<if test='selectOptValOne != null'>
+			<if test='selectOptValOne.equals("optAll")'>
+				AND o.OD_STATE IN ('100','200','300','400')
+			</if>
+			<if test='!selectOptValOne.equals("optAll")'>
+				AND o.OD_STATE = #{selectOptValOne}
+			</if>
+		</if>
+		<if test='selectOptValTwo != null'>
+			<if test='selectOptValTwo.equals("optAll")'>
+				AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
+					OR c.CS_ID LIKE '%'||#{searchVal}||'%'
+					OR c.CS_NM LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValTwo.equals("orderNmbr")'>
+				AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValTwo.equals("userId")'>
+				AND(c.CS_ID LIKE '%'||#{searchVal}||'%')
+			</if>
+			<if test='selectOptValTwo.equals("userNm")'>
+				AND(c.CS_NM LIKE '%'||#{searchVal}||'%')
+			</if>
+		</if>
+		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE, t.TR_DATE, c.CS_ID, c.CS_NM)
+	</select>
+	
+</mapper>

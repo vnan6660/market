@@ -102,7 +102,7 @@
 	,a.odAmt
 	,a.gdNm
 	<if test='odstate.equals("12")'>
-	,<![CDATA['해당사항없음']]> as trDate
+	,<![CDATA['-']]> as trDate
 	</if>
 	<if test='odstate.equals("34")'>
 	,t.TR_DATE as trDate
