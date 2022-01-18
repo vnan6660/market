@@ -3,13 +3,16 @@ package com.controller.orderMgt;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.orderMgt.OrderListService;
@@ -48,6 +51,7 @@ public class OrderListController {
 		List<OrderWrapVO> list = orderListService.getOrderList(searchVO);
 		  
 		model.addAttribute("list", list);
+		model.addAttribute("listcount", listcount);
 		model.addAttribute("maxPage", searchVO.getMaxpage());
 		model.addAttribute("page", searchVO.getPage());
 		model.addAttribute("startpage", searchVO.getStartpage());
@@ -77,5 +81,18 @@ public class OrderListController {
 		resultMap.put("endpage", searchVO.getEndpage());
 
 		return resultMap;
+	}
+	
+	//주문상태 변경하기
+	@GetMapping("/orderList/odStateChange")
+	@ResponseBody
+	public void odStateChange(@RequestParam(value = "checkList[]",required = false) ArrayList<String> checkList,@RequestParam(value = "nowOdState",required = false) String nowOdState) {
+		
+		Map<String,Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("checkList", checkList);
+		searchMap.put("nowOdState", nowOdState);
+		System.out.println(searchMap);
+		
+		orderListService.updateOdState(searchMap);
 	}
 }

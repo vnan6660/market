@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/css/orderMgt/orderList.css">
 <script type="text/javascript" src="/js/common/common.js"></script>
 <script type="text/javascript" src="/js/orderMgt/orderList.js"></script>
-</head>
+</head> 
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contents">
@@ -55,6 +55,10 @@
 				
 			</div>
 			<div>
+				<button id="orderCancel" class="btnXSmall hover" value="orderCancel">주문취소</button>
+				<button id="transferDone" class="btnXSmall hover" value="transferDone">발송완료</button>
+			</div>
+			<div>
 				<table id="orderListTable">
 					<colgroup>
 						<col width="3%;">
@@ -67,7 +71,7 @@
 						<col width="10%;">
 					</colgroup>
 					<tr>
-						<th>체크</th>
+						<th><input type="checkbox" name="allCheck"></th>
 						<th>No</th>
 						<th>사용자ID</th>
 						<th>사용자이름</th>
@@ -82,9 +86,9 @@
 					<c:if test="${fn:length(list) > 0}">
 						<c:forEach items="${list}" var="od" varStatus="status">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="eachCheck" value="${od.odNo}"></td>
 							<!-- 역순(=DESC) -->
-							<td><c:out value="${fn:length(list) - status.index}"/></td>
+							<td><c:out value="${listcount - status.index}"/></td>
 							<td><c:out value="${od.csId}" /></td>
 							<td><c:out value="${od.csNm}" /></td>
 							<td><c:out value="${od.odNo}" /></td>

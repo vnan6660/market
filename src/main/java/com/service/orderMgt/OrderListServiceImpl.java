@@ -1,6 +1,7 @@
 package com.service.orderMgt;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class OrderListServiceImpl implements OrderListService {
 	@Override
 	public int getOrderListCount(SearchVO svo) {
 		return orderListDao.selectOrderListCount(svo);
+	}
+
+	//주문상태 변경하기
+	@Override
+	public void updateOdState(Map<String, Object> searchMap) {
+		orderListDao.updateOdState(searchMap);
 	}
 
 }

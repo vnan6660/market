@@ -64,7 +64,9 @@
 	
 	</select>
 	
+	<!-- 검색글 카운트 -->
 	<select id="selectOrderListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
+	/*  orderListMapper.selectOrderListCount */
 	SELECT
 	    COUNT(*)
 	  FROM
@@ -116,4 +118,19 @@
 		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE, t.TR_DATE, c.CS_ID, c.CS_NM)
 	</select>
 	
+	<!-- 주문상태 변경하기 -->
+	<update id="updateOdState" parameterType="java.util.Map">
+	/*  orderListMapper.updateOdState */
+	UPDATE ORDER_INFO
+	<if test='nowOdState.equals("orderCancel")'>
+	   SET OD_STATE = '200'
+	</if>
+	<if test='nowOdState.equals("transferDone")'>
+	   SET OD_STATE = '400'
+	</if>
+	 WHERE OD_NO IN 
+	 <foreach item="item" collection="checkList" open="(" separator="," close=")"> 
+		#{item}
+	 </foreach>
+	</update>
 </mapper>

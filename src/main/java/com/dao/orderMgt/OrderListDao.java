@@ -1,6 +1,7 @@
 package com.dao.orderMgt;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vo.common.SearchVO;
 import com.vo.orderMgt.OrderWrapVO;
@@ -17,5 +18,8 @@ public interface OrderListDao {
 
 	//검색글 카운트
 	int selectOrderListCount(SearchVO svo);
+
+	//주문상태 변경하기
+	Object updateOdState(Map<String, Object> searchMap);
 
 }

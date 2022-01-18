@@ -32,6 +32,17 @@ var myOrderListAttachEvent = function() {
 		/*페이지가 1페이지인 검색함수*/
 		goPage(1, 1);
 	});
+
+	//전체체크
+	$("input[name = allCheck]").click(function() {
+		allCheck();
+	});
+
+	//주문취소,발송중,발송완료 버튼 누를시
+	$("#orderCancel, #transferDone").click(function() {
+		odStateChange(this.value);
+	});
+
 }
 
 //서버시간 가져오기
@@ -94,7 +105,7 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<col width='10%;'>";
 			viewList += "</colgroup>";
 			viewList += "<tr>";
-			viewList += "<th>체크</th>";
+			viewList += "<th><input type='checkbox' name='allCheck'></th>";
 			viewList += "<th>No</th>";
 			viewList += "<th>사용자ID</th>";
 			viewList += "<th>사용자이름</th>";
@@ -122,9 +133,9 @@ var goPage = function(pageNum, tfNum) {
 						odState = "34";
 					}
 					viewList += "<tr>";
-					viewList += "<td>" + "<input type='checkbox'>" + "</td>";
+					viewList += "<td><input type='checkbox' name='eachCheck' value='" + odNoOne + "" + odNoTwo + "'></td>";
 					/*역순 NO정렬*/
-					viewList += "<td>" + (reListcount- (nowPage-1)*10-i) + "</td>";
+					viewList += "<td>" + (reListcount - (nowPage - 1) * 10 - i) + "</td>";
 					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.csId + "</td>";
 					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.csNm + "</td>";
 					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odNo + "</td>";
@@ -168,4 +179,58 @@ var goPage = function(pageNum, tfNum) {
 			alert("오류입니다. 관리자에게 문의해주세요");
 		}
 	});
+}
+
+//맨위에 있는 체크박스를 클릭시 아래에 있는 체크박스 전체선택또는 전체해제
+var allCheck = function() {
+
+	/*맨위에있는 체크박스 선택 또는 해제 상태*/
+	var allcheckStatus = $('input:checkbox[name=allCheck]').is(":checked");
+
+
+	if (allcheckStatus == true) {
+		/*맨위에 있는 체크박스가 선택일때 아래에 있는 체크박스들을 disabled 제외하고 전체선택으로 바꿈*/
+		$("input[name = eachCheck]").each(function() {
+			$("input[name = eachCheck]").prop("checked", true);
+		});
+	} else {
+		/*맨위에 있는 체크박스가 해제일때 아래에 있는 체크박스들을 disabled 제외하고 전체해제으로 바꿈*/
+		$("input[name = eachCheck]").each(function() {
+			$("input[name = eachCheck]").prop("checked", false);
+		});
+	}
+}
+
+var odStateChange = function(nowOdState) {
+	checkList = [];
+
+	$("input[name = eachCheck]").each(function(i, e) {
+		//체크박스에 체크되어있는 것만
+		if (e.checked == true) {
+			checkList.push(e.value);
+		}
+	});
+	if (checkList.length != 0) {
+		if (confirm('변경하시겠습니까?')) {
+			$.ajax({
+				url: '/orderList/odStateChange',
+				type: 'GET',
+				data: {
+					"checkList": checkList,
+					"nowOdState": nowOdState
+				},
+				async: false,
+				success: function() {
+					alert("개시정보가 변경되었습니다");
+					goPage($("#hdThisPage").val(), 1);
+				},
+				error: function() {
+					alert("오류입니다. 관리자에게 문의해주세요");
+				}
+			});
+		}
+	} else {
+		alert("변경할 항목이 존재하지 않습니다");
+	}
+
 }

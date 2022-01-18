@@ -1,6 +1,7 @@
 package com.service.orderMgt;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vo.common.SearchVO;
 import com.vo.orderMgt.OrderWrapVO;
@@ -17,5 +18,8 @@ public interface OrderListService {
 	
 	//검색글 카운트
 	int getOrderListCount(SearchVO svo);
+
+	//주문상태 변경하기
+	void updateOdState(Map<String, Object> searchMap);
 	
 }
