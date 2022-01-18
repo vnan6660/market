@@ -73,7 +73,7 @@ var goPage = function(pageNum, tfNum) {
 	nowPage = pageNum;
 
 	$.ajax({
-		url: '',
+		url: '/orderList/searchOrderList',
 		type: 'GET',
 		data: searchParam,
 		success: function(res) {
@@ -81,6 +81,7 @@ var goPage = function(pageNum, tfNum) {
 			var startpage = res.startpage;
 			var endpage = res.endpage;
 			var reList = res.reList;
+			var reListcount = res.reListcount;
 			var viewList = "";
 			viewList += "<colgroup>";
 			viewList += "<col width='3%;'>";
@@ -121,19 +122,15 @@ var goPage = function(pageNum, tfNum) {
 						odState = "34";
 					}
 					viewList += "<tr>";
+					viewList += "<td>" + "<input type='checkbox'>" + "</td>";
+					/*역순 NO정렬*/
+					viewList += "<td>" + (reListcount- (nowPage-1)*10-i) + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.csId + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.csNm + "</td>";
 					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odNo + "</td>";
-
-					var gdNmSplit = e.gdNm.split(",");
-					if (gdNmSplit.length == 1) {
-						viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.gdNm + "</td>";
-					}
-					if (gdNmSplit.length > 1) {
-						viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + gdNmSplit[0] + " 외 " + (gdNmSplit.length - 1) + "</td>";
-					}
-
-
-					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odState + "</td>";
 					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odDate + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.trDate + "</td>";
+					viewList += "<td class='hover' onclick='goDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odState + "</td>";
 					viewList += "</tr>";
 				});
 

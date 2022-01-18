@@ -15,8 +15,8 @@
 		(SELECT
 		  o.OD_NO AS odNo
 		 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
-		 ,o.OD_DATE AS odDate
-         ,DECODE(t.TR_DATE,null,<![CDATA['-']]>,t.TR_DATE) AS trDate
+		 ,TO_CHAR(o.OD_DATE,'YYYY-MM-DD HH24:MI') AS odDate
+         ,DECODE(t.TR_DATE,null,<![CDATA['-']]>,TO_CHAR(t.TR_DATE,'YYYY-MM-DD HH24:MI')) AS trDate
          ,c.CS_ID AS csId
          ,c.CS_NM AS csNm
 		 FROM ORDER_INFO o

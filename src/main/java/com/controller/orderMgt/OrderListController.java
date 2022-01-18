@@ -3,12 +3,14 @@ package com.controller.orderMgt;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.orderMgt.OrderListService;
 import com.vo.common.SearchVO;
@@ -53,5 +55,27 @@ public class OrderListController {
 		
 		return "/orderMgt/orderList";
 		
+	}
+	
+	//주문목록 검색 리스트 가져와서 주문목록 페이지 가기
+	@GetMapping("/orderList/searchOrderList")
+	@ResponseBody
+	public HashMap<String, Object> searchMyOrderList(SearchVO vo) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		//검색글 카운트
+		int listcount = orderListService.getOrderListCount(vo);
+		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		 //주문목록 가져오기
+		List<OrderWrapVO> reList = orderListService.getOrderList(searchVO);
+		
+		resultMap.put("reList", reList);
+		resultMap.put("reListcount", listcount);
+		resultMap.put("maxPage", searchVO.getMaxpage());
+		resultMap.put("page", searchVO.getPage());
+		resultMap.put("startpage", searchVO.getStartpage());
+		resultMap.put("endpage", searchVO.getEndpage());
+
+		return resultMap;
 	}
 }
