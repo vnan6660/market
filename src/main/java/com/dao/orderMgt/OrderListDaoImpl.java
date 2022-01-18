@@ -35,7 +35,14 @@ public class OrderListDaoImpl implements OrderListDao {
 	//주문상태 변경하기
 	@Override
 	public Object updateOdState(Map<String, Object> searchMap) {
-		return sqlSession.selectOne("updateOdState", searchMap);
+		return sqlSession.update("updateOdState", searchMap);
+	}
+
+	//배송날쩌 저장하기
+	@Override
+	public void insertTrDate(Map<String, Object> searchMap) {
+		sqlSession.insert("insertTrDate",searchMap);
+		
 	}
 
 }

@@ -56,7 +56,7 @@
 			</div>
 			<div>
 				<button id="orderCancel" class="btnXSmall hover" value="orderCancel">주문취소</button>
-				<button id="transferDone" class="btnXSmall hover" value="transferDone">발송완료</button>
+				<button id="transferStart" class="btnXSmall hover" value="transferStart">발송완료</button>
 			</div>
 			<div>
 				<table id="orderListTable">

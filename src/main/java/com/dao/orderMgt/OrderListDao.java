@@ -22,4 +22,7 @@ public interface OrderListDao {
 	//주문상태 변경하기
 	Object updateOdState(Map<String, Object> searchMap);
 
+	//배송날쩌 저장하기
+	void insertTrDate(Map<String, Object> searchMap);
+
 }

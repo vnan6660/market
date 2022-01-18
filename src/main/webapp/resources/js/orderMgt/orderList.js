@@ -39,7 +39,7 @@ var myOrderListAttachEvent = function() {
 	});
 
 	//주문취소,발송중,발송완료 버튼 누를시
-	$("#orderCancel, #transferDone").click(function() {
+	$("#orderCancel, #transferStart").click(function() {
 		odStateChange(this.value);
 	});
 

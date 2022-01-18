@@ -108,7 +108,7 @@
 					,#{i.rcEmail} 
 					,#{i.rcAddrOne}
 					,#{i.rcAddrTwo} )
-		</foreach>
+	</foreach>
 	</insert>
 	
 	<!-- gdNo에 맞는 상품 정보 가져오기  -->

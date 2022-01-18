@@ -37,6 +37,9 @@ public class OrderListServiceImpl implements OrderListService {
 	@Override
 	public void updateOdState(Map<String, Object> searchMap) {
 		orderListDao.updateOdState(searchMap);
+		if("transferStart".equals(searchMap.get("nowOdState"))) {
+			orderListDao.insertTrDate(searchMap);
+		}
 	}
 
 }
