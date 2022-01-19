@@ -15,7 +15,6 @@ $(function() {
 //checkBox 관련 function()
 function check(){
 	var chkObj = document.getElementsByName("rowCheck");
-	console.log(chkObj);
 	var rowCnt = chkObj.length;
 	
 	$("input[name='allCheck']").click(function(){

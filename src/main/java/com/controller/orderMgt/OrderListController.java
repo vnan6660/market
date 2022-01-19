@@ -91,7 +91,6 @@ public class OrderListController {
 		Map<String,Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("checkList", checkList);
 		searchMap.put("nowOdState", nowOdState);
-		System.out.println(searchMap);
 		
 		orderListService.updateOdState(searchMap);
 	}

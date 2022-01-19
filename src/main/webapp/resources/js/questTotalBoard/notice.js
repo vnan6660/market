@@ -18,7 +18,6 @@ $(function() {
 var noticeInit = function(){
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){
-		console.log("t");
 		$("#selectWrap").val($("#returnSptValOne").val()).prop("selected", true);
 		$("#searchVal").val($("#returnSearchVal").val());
 		goPage($("#returnPage").val(), 1);

@@ -103,15 +103,6 @@ function csInfo() {
 	//이메일 속성추가
 	$('input[id=csEmail]').attr('value', csEmail);
 
-
-	console.log("이름:  "+csNm);
-	console.log("핸드폰:  "+csPhone);
-	console.log("이메일:  "+csEmail);
-	console.log("기본주소:  "+$("#csAddrOne").val());
-	console.log("기본주소:  "+$("#csAddrTwo").val());
-
-
-
 	// ================ 이름 ================ //
 	//1. 빈값 안됨
 	if (csNm == "") {

@@ -26,7 +26,6 @@ var myOrderInit = function() {
 
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if ($("#returnT").val() == 't') {
-		console.log("t");
 		$("#startDt").val($("#returnStdt").val());
 		$("#endDt").val($("#returnEdDt").val());
 		$("#oderState").val($("#returnSptValOne").val()).prop("selected", true);
