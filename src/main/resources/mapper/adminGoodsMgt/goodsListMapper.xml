@@ -7,7 +7,7 @@
 	<!-- 물품목록리스트 가져오기 -->
 	<select id="selectGoodsList" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	/* goodsListMapper.selectGoodsList */
-	SELECT *
+	SELECT gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm
 	  FROM
 	  (SELECT
 	    ROWNUM as rnum,gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm
@@ -66,7 +66,11 @@
 	<!-- 상품 구분에 해당하는 상품 분류 가지고 오기 -->
 	<select id="selectGoodsSeparate" parameterType="String" resultType="com.vo.common.CmmnVO">
 	/* goodsListMapper.selectGoodsSeparate */
-	SELECT *
+	SELECT 
+	 	CM_GRCD<!-- 그룹코드 -->
+	   ,CM_GRNM<!-- 그룹코드명 -->
+	   ,CM_UPCD<!-- 메뉴상위코드 -->
+	   ,CMCD_REGDATE<!-- 등록일 -->
 	  FROM CMCD_MGT
 	 WHERE CM_UPCD = #{goodsGroup}
 	</select>
@@ -203,7 +207,7 @@
 	<!-- 검색글카운트 -->
 	<select id="selectGoodsListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	/*  goodsListMapper.selectGoodsListCount */
-		SELECT COUNT(*)
+		SELECT COUNT(GD_NO)
 		  FROM GOODS_INFO
 		 WHERE 1 = 1
 		<if test='startDt != null and endDt != null'>

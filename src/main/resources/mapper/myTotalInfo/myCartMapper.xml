@@ -8,7 +8,7 @@
 	<!-- 장바구니에 담긴 상품 개수 확인 -->
 	<select id="cartCount" resultType="int" >
 	/* myCartMapper.cartCount */
-		SELECT COUNT(*)
+		SELECT COUNT(CART_NO)
 		  FROM CART
 		 WHERE CS_NO = #{csNo}
 		   AND GD_NO = #{gdNo}
@@ -38,10 +38,18 @@
 	<!-- 장바구니 목록 가져오기 -->
 	<select id="getCartList" resultType="com.vo.cart.CartListVO" >
 	/* myCartMapper.getCartList */
-		SELECT AA.* 
+		SELECT 
+		   AA.CART_NO <!-- 장바구니번호 -->
+		  ,AA.CS_NO <!-- 고객번호 -->
+		  ,AA.GD_QTY<!-- 상품수량 -->
+		  ,AA.GD_NO <!-- 상품번호 -->
+		  ,AA.GD_NM <!-- 상품이름 -->
+		  ,AA.GD_SP <!-- 상품분류 -->
+		  ,AA.GD_IMG <!-- 상품이미지 -->
+		  ,AA.GD_PRICE <!-- 상품가격 -->
 		 FROM(
 				SELECT 
-					C.CART_NO
+					C.CART_NO 
 					,C.CS_NO 
 					,C.GD_QTY 
 					,GI.GD_NO
@@ -115,11 +123,11 @@
 	<select id="selectBuyList" parameterType="String" resultType="com.vo.cart.CartListVO">
 	/*myCartMapper.selectBuyList*/
 		SELECT 
-			GD_NO
-			,GD_NM 
-			,GD_SP 
-			,GD_IMG 
-			,GD_PRICE
+			GD_NO <!-- 상품번호 -->
+			,GD_NM <!-- 상품이름 -->
+			,GD_SP <!-- 상품분류 -->
+			,GD_IMG <!-- 상품이미지 -->
+			,GD_PRICE<!-- 상품가격 -->
 		 FROM GOODS_INFO 
 		WHERE GD_NO = #{gdNo}
 	</select>

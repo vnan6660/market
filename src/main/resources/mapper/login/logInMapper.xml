@@ -7,7 +7,7 @@
 	<!-- 로그인하는 아이디 비밀번호체크 -->
 	<select id="selectLoginCnt" parameterType="com.vo.login.LoginVO" resultType="int">
 	/*  logInMapper.selectLoginCnt */
-		SELECT COUNT(*)
+		SELECT COUNT(CS_NO)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_ID = #{csId} AND CS_PS = #{csPs}
 	</select>

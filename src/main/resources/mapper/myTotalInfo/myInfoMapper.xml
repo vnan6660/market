@@ -30,7 +30,7 @@
 	<!-- 비밀번호 확인페이지 비밀번호 같은지 체크 -->
 	<select id="pwChk" resultType="int" parameterType="map">
 	/* myInfoMapper.pwChk */
-		SELECT COUNT(*)
+		SELECT COUNT(CS_NO)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_PS = #{csPs}
 		   AND CS_ID = #{csId}
@@ -55,7 +55,7 @@
 	<!-- 회원정보수정 이메일 중복체크 -->
 	<select id="infoEmailChk" resultType="int" parameterType="com.vo.csMgt.CsInfoVO">
 	/* myInfoMapper.infoEmailChk */
-		SELECT COUNT(*)
+		SELECT COUNT(CS_NO)
 		  FROM CUSTOMER_INFO
 		 WHERE CS_EMAIL = #{csEmail}
 		   AND CS_ID != #{csId}

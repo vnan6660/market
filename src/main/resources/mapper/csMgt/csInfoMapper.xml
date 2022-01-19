@@ -7,7 +7,7 @@
 	<!-- 고객정보 검색글카운트 -->
 	<select id="selectCsInfoCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	<!-- csInfoMapper.selectCsInfoCount -->
-	SELECT COUNT(*)
+	SELECT COUNT(CS_NO)
 	  FROM CUSTOMER_INFO
 	  WHERE 1=1
 	  <if test='startDt != null and endDt != null'>
@@ -120,15 +120,15 @@
 	<!-- csNo에 맞는 구매이력가져오기 -->
 	<select id="selectOrderHistory" parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
 	/*  csInfoMapper.selectOrderHistory */
-	SELECT *
+	SELECT odNo,odState,gdNm,odDate,trDate
 	  FROM (SELECT
 	   ROWNUM as rnum,odNo,odState,gdNm,odDate,trDate
 	     FROM (SELECT 
-	      a.odNo
-	     ,a.gdNm
-	     ,a.odState
-         ,a.trDate
-	     ,b.odDate
+	      a.odNo<!--주문번호 -->
+	     ,a.gdNm<!--상품이름 -->
+	     ,a.odState<!--주문상태 -->
+         ,a.trDate<!--배송날짜 -->
+	     ,b.odDate<!--주문날짜 -->
             FROM(SELECT
     	        o.OD_NO AS odNo
    		       ,LISTAGG(g.GD_NM,',') AS gdNm
@@ -152,11 +152,11 @@
 	<!-- 고객 구매이력 카운트 -->
 	<select id="selectOdHistoryCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	/*  csInfoMapper.selectOdHistoryCount */
-	SELECT COUNT(*)
-	  FROM(SELECT od_no
+	SELECT COUNT(OD_NO)
+	  FROM(SELECT OD_NO
 	         FROM ORDER_INFO
 	         WHERE CS_NO = #{selectOptValOne}
-             GROUP BY od_no)
+             GROUP BY OD_NO)
 	</select>
 </mapper>
 
