@@ -21,6 +21,7 @@ public class OrderListDaoImpl implements OrderListDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	//주문목록가져오기
 	@Override
 	public List<OrderWrapVO> selectMyOrderList(SearchVO searchVO) {
 		return sqlSession.selectList("selectMyOrderList", searchVO);

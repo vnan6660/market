@@ -19,7 +19,7 @@ import com.vo.orderInfo.OrderInfoVO;
 public class CsInfoDaoImpl implements CsInfoDao {
 
 	@Autowired
-	private SqlSession sqlSession;
+	SqlSession sqlSession;
 
 	//고객정보 검색글카운트 
 	@Override

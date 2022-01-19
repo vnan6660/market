@@ -15,13 +15,13 @@ import lombok.Setter;
 @Setter
 public class CmmnVO {
 	
-	private String cmGrcd;
-	private String cmGrnm;
-	private String cmUpcd;
-	private String cmYn;
-	private String cmCdds;
-	private String cmcdWrt;
-	private Date cmcdRegDate;
+	private String cmGrcd; //그룹코드
+	private String cmGrnm;//그룹코드명
+	private String cmUpcd;//메뉴상위코드
+	private String cmYn;//사용여부
+	private String cmCdds;//코드설명
+	private String cmcdWrt;//등록자
+	private Date cmcdRegDate;//등록일
 
 
 }

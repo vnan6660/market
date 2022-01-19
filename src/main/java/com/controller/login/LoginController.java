@@ -3,7 +3,6 @@ package com.controller.login;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.print.attribute.HashAttributeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,8 +21,6 @@ import com.vo.login.LoginVO;
  * 로그인 Controller
  * 생성자 : 김소연
  * 생성일 : 2021.11.29
- * 수정자 : 김혜경
- * 수정일 : 2021.12.13
  */
 @Controller
 public class LoginController {

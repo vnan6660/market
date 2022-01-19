@@ -1,6 +1,5 @@
 package com.vo.common;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,20 +13,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchVO {
 	
-	private String startDt;
-	private String endDt;
-	private String selectOptValOne;
-	private String selectOptValTwo;
-	private String selectOptValThree;
-	private String searchVal;
+	private String startDt; //시작날짜
+	private String endDt; //끝나는날짜
+	private String selectOptValOne; //셀렉트박스값1
+	private String selectOptValTwo; //셀렉트박스값2
+	private String selectOptValThree; //셀렉트박스값3
+	private String searchVal;//검색하는 값
 
 	private int page;
 	private int limit = 10;
-	private int startpage;
-	private int endpage;
-	private int maxpage;
-	private int startCount;
-	private int endCount;
+	private int startpage;//시작페이지 
+	private int endpage;//끝페이지
+	private int maxpage;//최대 페이지
+	private int startCount; //해당페이지의 시작페이지 수 
+	private int endCount;//해당페이지의 끝페이지 수
 	
 	@Builder
 	public SearchVO(String startDt,String endDt,String selectOptValOne,String selectOptValTwo,String selectOptValThree,String searchVal,int page, int listcount) {
@@ -41,7 +40,7 @@ public class SearchVO {
 		this.startCount = (this.page- 1) * this.limit + 1;// 페이지가 1 이면 1 
 		this.endCount =  this.page * this.limit;  // 페이지가 1 이면 10
 		this.startpage = ((this.page - 1) / 10) * 10 + 1;// 시작 페이지수
-		this.endpage = this.startpage + 10 - 1;// 시작 페이지수
+		this.endpage = this.startpage + 10 - 1;
 		this.maxpage = (listcount + this.limit - 1) / this.limit;// (1 + 9) / 10
 		
 		if (this.endpage > this.maxpage) {

@@ -15,7 +15,9 @@ import com.service.menuTotalMgt.AuthMgtService;
 import com.vo.menuTotalMgt.MenuMgtVO;
 
 /**
- * 권한관리 Controller 생성자 : 김소연 생성일 : 2021.12.06
+ * 권한관리 Controller
+ * 생성자 : 김소연
+ * 생성일 : 2021.12.06
  *
  */
 

@@ -23,7 +23,9 @@ import com.vo.common.SearchVO;
 import com.vo.questTotalBoard.NoticeVO;
 
 /**
- * 공지사항 Controller 생성자 : 김소연 생성일 : 2021.12.02
+ * 공지사항 Controller
+ * 생성자 : 김소연
+ * 생성일 : 2021.12.02
  *
  */
 @Controller

@@ -26,7 +26,9 @@ import com.vo.csMgt.CsInfoVO;
 import com.vo.orderInfo.OrderInfoVO;
 
 /**
- * 고객정보 Controller 생성자 : 김소연 생성일 : 2021.12.22
+ * 고객정보 Controller
+ * 생성자 : 김소연
+ * 생성일 : 2021.12.22
  */
 @Controller
 public class CsInfoController {
@@ -106,9 +108,10 @@ public class CsInfoController {
 	@PostMapping("/csInfo/detailCsInfoSearch")
 	public String detailCsInfoSearch(String csNo,SearchVO searchVO,RedirectAttributes redirectAttributes){
 	  
-	 redirectAttributes.addFlashAttribute("searchVO", searchVO);
+		redirectAttributes.addFlashAttribute("searchVO", searchVO);
 	  
-	return "redirect:/csInfo/detailCsInfo/"+csNo; }
+	 	return "redirect:/csInfo/detailCsInfo/"+csNo;
+	}
 	
 	//고객 구매이력 가져오기(페이지)
 	@GetMapping("/csInfo/searchOdHistoryList")

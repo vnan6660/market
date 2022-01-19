@@ -13,13 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MenuMgtVO {
-	private String menuId;
-	private String menuNm;
-	private String menuCd;
-	private String menuUpCd;
-	private int menuSn;
-	private String adminYn;
-	private String userYn;
+	private String menuId;//메뉴아이디
+	private String menuNm;//메뉴이름
+	private String menuCd;//메뉴코드
+	private String menuUpCd;//메뉴상위코드
+	private int menuSn;//메뉴정렬순서
+	private String adminYn;//관리자메뉴노출여부
+	private String userYn;//사용자메뉴노출여부
 	
 	private String onlyUserYn = "f";
 	

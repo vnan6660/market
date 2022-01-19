@@ -11,6 +11,7 @@ import com.vo.login.JoinVO;
  * 생성자 : 김혜경 
  * 생성일 : 2021.12.27
  * 수정자 : 김소연
+ * 수정일 : 2022.01.07
  */
 public interface MyCartDao {
 

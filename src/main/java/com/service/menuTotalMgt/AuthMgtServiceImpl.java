@@ -30,8 +30,10 @@ public class AuthMgtServiceImpl implements AuthMgtService {
 	@Override
 	public void updateAuthMgtList(MenuMgtVO vo) {
 		if (!vo.getOptList().isEmpty()) {
+			/* check박스 true업데이트 */
 			authMgtDao.updateAuthMgtListTrue(vo);
 		}
+		/* check박스 false업데이트 */
 		authMgtDao.updateAuthMgtListFalse(vo);
 	}
 

@@ -1,7 +1,6 @@
 package com.controller.myTotalInfo;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,10 +28,13 @@ import com.vo.cart.CartVO;
 import com.vo.cart.PayVO;
 import com.vo.login.JoinVO;
 import com.vo.login.LoginVO;
-import com.vo.orderInfo.OrderInfoVO;
 
 /**
- * 장바구니 Controller 생성자 : 김혜경 생성일 : 2021.12.27 수정자 : 김소연
+ * 장바구니 Controller
+ * 생성자 : 김혜경
+ * 생성일 : 2021.12.27
+ * 수정자 : 김소연
+ * 수정일 : 2022.01.07
  */
 @Controller
 public class myCartController {
@@ -261,7 +262,6 @@ public class myCartController {
 		String rcEmail[] = payVo.getRcEmail().split("[,]");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> insertMap = new HashMap<String, Object>();
-		// if (gdNoArr.length > 1) {
 		for (int i = 0; i < gdNoArr.length; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("odNo", payVo.getOdNo());
@@ -276,7 +276,6 @@ public class myCartController {
 			map.put("rcAddrTwo", payVo.getRcAddrTwo());
 			// 새로운 리스트에 가져온 값을 넣어줌
 			list.add(i, map);
-			// }
 		}
 		insertMap.put("list", list);
 		myCartService.setOdrInfo(insertMap);
