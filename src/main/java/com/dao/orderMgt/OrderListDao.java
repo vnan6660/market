@@ -23,6 +23,9 @@ public interface OrderListDao {
 	Object updateOdState(Map<String, Object> searchMap);
 
 	//배송날쩌 저장하기
-	void insertTrDate(Map<String, Object> searchMap);
+	void insertTrDate(String checkedOdNo);
+
+	//TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
+	int hasOdNo(String checkedOdNo);
 
 }

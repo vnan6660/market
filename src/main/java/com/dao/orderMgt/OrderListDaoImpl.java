@@ -41,9 +41,15 @@ public class OrderListDaoImpl implements OrderListDao {
 
 	//배송날쩌 저장하기
 	@Override
-	public void insertTrDate(Map<String, Object> searchMap) {
-		sqlSession.insert("insertTrDate",searchMap);
+	public void insertTrDate(String checkedOdNo) {
+		sqlSession.insert("insertTrDate",checkedOdNo);
 		
+	}
+
+	//TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
+	@Override
+	public int hasOdNo(String checkedOdNo) {
+		return sqlSession.selectOne("hasOdNo",checkedOdNo);
 	}
 
 }

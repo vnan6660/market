@@ -140,22 +140,22 @@
 	<if test='nowOdState.equals("transferStart")'>
 	   SET OD_STATE = '300'
 	</if>
-	 WHERE OD_NO IN 
-	 <foreach item="item" collection="checkList" open="(" separator="," close=")"> 
-		#{item}
-	 </foreach>
+	 WHERE OD_NO = #{checkedOdNo}
 	</update>
 	
-	<insert id="insertTrDate" parameterType="java.util.Map">
-	/*  orderListMapper.insertTrDate */
-	INSERT INTO TRANSFER_INFO (TR_NO,TR_DATE,OD_NO)
-	SELECT TRANSFER_INFO_SEQ.NEXTVAL, A.TR_DATE,A.OD_NO FROM(
-	<foreach collection="checkList" item="item" separator="UNION ALL">
-	  SELECT		
-		  SYSDATE AS TR_DATE
-		 ,#{item} AS OD_NO
-	   FROM DUAL
-	</foreach>) A
-	</insert>
+	<!-- TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크 -->
+	<select id="hasOdNo" parameterType="java.lang.String" resultType="_int">
+	/*  orderListMapper.hasOdNo */
+	SELECT
+		COUNT(OD_NO)
+	  FROM TRANSFER_INFO
+	 WHERE OD_NO = #{checkedOdNo}
+	</select>
 	
+	<!-- 배송날쩌 저장하기 -->
+	<insert id="insertTrDate" parameterType="java.lang.String">
+	/*  orderListMapper.insertTrDate */
+	INSERT INTO TRANSFER_INFO (TR_NO, TR_DATE, OD_NO)
+	VALUES (TRANSFER_INFO_SEQ.NEXTVAL, SYSDATE ,#{checkedOdNo})
+	</insert>
 </mapper>
