@@ -7,64 +7,73 @@
 	<!-- 주문정보 가져오기 -->
 	<select id="selectMyOrderInfo"  parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
 	/*  myOrderMapper.selectMyOrderInfo */
-	SELECT odNo,odState,odDate,gdNm
+	SELECT 
+		odNo
+	   ,odState
+	   ,odDate
+	   ,gdNm
 	  FROM
 	  (SELECT
-	    ROWNUM as rnum,odNo,odState,odDate,gdNm
-		FROM
-		(SELECT
-		  o.OD_NO AS odNo<!--주문번호 -->
-		 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState<!--주문상태 -->
-		 ,o.OD_DATE AS odDate<!--주문날짜 -->
-		 ,LISTAGG(g.GD_NM,',') AS gdNm<!--상품이름 -->
-		 FROM ORDER_INFO o
-		 LEFT OUTER JOIN goods_info g ON g.GD_NO = o.GD_NO
-		 WHERE o.CS_NO = #{selectOptValThree}
-		 <if test='startDt != null and endDt != null'>
-				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
-		</if>
-		<if test='selectOptValOne != null'>
-				<if test='selectOptValOne.equals("optAll")'>
-					AND o.OD_STATE IN ('100','200','300','400')
-				</if>
-				<if test='!selectOptValOne.equals("optAll")'>
-					AND o.OD_STATE = #{selectOptValOne}
-				</if>
-		</if>
-		<if test='selectOptValTwo != null'>
-				<if test='selectOptValTwo.equals("optAll")'>
-					AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
-						OR g.GD_NM LIKE '%'||#{searchVal}||'%')
-				</if>
-				<if test='selectOptValTwo.equals("orderNmbr")'>
-					AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
-				</if>
-				<if test='selectOptValTwo.equals("gdsName")'>
-					AND(g.GD_NM LIKE '%'||#{searchVal}||'%')
-				</if>
-		</if>
-		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE
-		 ORDER BY o.OD_DATE
-		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
-	 )WHERE rnum <![CDATA[>=]]> #{startCount}
+		    ROWNUM as rnum
+		   ,odNo
+		   ,odState
+		   ,odDate
+		   ,gdNm
+		 FROM
+		 (SELECT
+			  o.OD_NO AS odNo<!--주문번호 -->
+			 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState<!--주문상태 -->
+			 ,o.OD_DATE AS odDate<!--주문날짜 -->
+			 ,LISTAGG(g.GD_NM,',') AS gdNm<!--상품이름 -->
+		    FROM ORDER_INFO o
+		 	LEFT OUTER JOIN goods_info g ON g.GD_NO = o.GD_NO
+		 	WHERE o.CS_NO = #{selectOptValThree}
+			<if test='startDt != null and endDt != null'>
+					AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+			</if>
+			<if test='selectOptValOne != null'>
+					<if test='selectOptValOne.equals("optAll")'>
+						AND o.OD_STATE IN ('100','200','300','400')
+					</if>
+					<if test='!selectOptValOne.equals("optAll")'>
+						AND o.OD_STATE = #{selectOptValOne}
+					</if>
+			</if>
+			<if test='selectOptValTwo != null'>
+					<if test='selectOptValTwo.equals("optAll")'>
+						AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
+							OR g.GD_NM LIKE '%'||#{searchVal}||'%')
+					</if>
+					<if test='selectOptValTwo.equals("orderNmbr")'>
+						AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+					</if>
+					<if test='selectOptValTwo.equals("gdsName")'>
+						AND(g.GD_NM LIKE '%'||#{searchVal}||'%')
+					</if>
+			</if>
+			 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE
+			 ORDER BY o.OD_DATE
+			)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+		 )WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 	
 	<!-- 검색글카운트 -->
 	<select id="selectMyOrderListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	/*  myOrderMapper.selectMyOrderListCount */
-		select count(odNo)
-		  from (SELECT
-		 		 o.OD_NO AS odNo<!--주문번호 -->
-		 		,o.OD_STATE AS odState<!--주문상태 -->
-		 		,o.OD_DATE AS odDate<!--주문날짜 -->
-        		,LISTAGG(g.GD_NM,',') AS gdNm <!--상품이름 -->
+		SELECT 
+			count(odNo)
+		  FROM (SELECT
+			 		 o.OD_NO AS odNo<!--주문번호 -->
+			 		,o.OD_STATE AS odState<!--주문상태 -->
+			 		,o.OD_DATE AS odDate<!--주문날짜 -->
+	        		,LISTAGG(g.GD_NM,',') AS gdNm <!--상품이름 -->
 	 	  		  FROM ORDER_INFO o
 	      		  LEFT OUTER JOIN goods_info g ON g.GD_NO = o.GD_NO
-	     		 WHERE o.CS_NO = #{selectOptValThree}
+	     		  WHERE o.CS_NO = #{selectOptValThree}
 			     <if test='startDt != null and endDt != null'>
 					AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 				 </if>
-				  <if test='selectOptValOne != null'>
+				 <if test='selectOptValOne != null'>
 					<if test='selectOptValOne.equals("optAll")'>
 						AND o.OD_STATE IN ('100','200','300','400')
 					</if>
@@ -74,8 +83,8 @@
 				 </if>
 				 <if test='selectOptValTwo != null'>
 					<if test='selectOptValTwo.equals("optAll")'>
-						AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
-						OR g.GD_NM LIKE '%'||#{searchVal}||'%')
+						AND(   o.OD_NO LIKE '%'||#{searchVal}||'%'
+							OR g.GD_NM LIKE '%'||#{searchVal}||'%')
 					</if>
 					<if test='selectOptValTwo.equals("orderNmbr")'>
 						AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
@@ -108,7 +117,8 @@
 		<if test='odstate.equals("34")'>
 		,t.TR_DATE as trDate
 	</if>
-	FROM(SELECT
+	FROM
+	(SELECT
 	    o.OD_NO AS odNo
 	    ,o.OD_DATE AS odDate
 	    ,o.RC_ADDR_ONE AS rcAddrOne
@@ -120,10 +130,10 @@
 	    ,LISTAGG(o.GD_QTY, ',')  AS gdQty
 	    ,LISTAGG(o.OD_AMT, ',')  AS odAmt
 	    ,LISTAGG(g.GD_NM, ',') AS gdNm
-	     FROM ORDER_INFO o 
-	     LEFT OUTER JOIN GOODS_INFO g ON  g.GD_NO= o.GD_NO
-	     WHERE CS_NO = #{userNo} AND OD_NO = #{odNo}
-	     GROUP BY o.OD_NO,o.OD_STATE,o.OD_DATE,o.RC_ADDR_ONE,o.RC_ADDR_TWO,o.RC_PHONE,o.RC_EMAIL,o.RC_NM)a
+	    FROM ORDER_INFO o 
+	    LEFT OUTER JOIN GOODS_INFO g ON  g.GD_NO= o.GD_NO
+	    WHERE CS_NO = #{userNo} AND OD_NO = #{odNo}
+	    GROUP BY o.OD_NO,o.OD_STATE,o.OD_DATE,o.RC_ADDR_ONE,o.RC_ADDR_TWO,o.RC_PHONE,o.RC_EMAIL,o.RC_NM)a
      <if test='odstate.equals("34")'>
 	  LEFT OUTER JOIN TRANSFER_INFO t ON  t.OD_NO= a.odNo
 	 </if>

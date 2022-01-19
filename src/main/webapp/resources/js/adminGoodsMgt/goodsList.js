@@ -169,6 +169,7 @@ var goDetail = function(gdNo) {
 	$('#searchForm').submit();
 }
 
+//상품삭제버튼 클릭시 실행
 var goDeleteGoods = function() {
 	var delNoList = [];
 
@@ -201,7 +202,7 @@ var goDeleteGoods = function() {
 
 }
 
-
+//상품개시버튼 클릭시 실행
 var goShowGoods = function() {
 	var nonShowNoList = [];
 	var showNoList = [];

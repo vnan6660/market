@@ -25,36 +25,48 @@
 	<!-- 공지사항목록불러오기 -->
 	<select id="selectNoticeList" parameterType="com.vo.common.SearchVO" resultType="com.vo.questTotalBoard.NoticeVO">
 	/*  noticeMapper.selectNoticeList */
-		SELECT ntcNo,ntcSj,ntcText,ntcWrt,ntcRegDate,ntcVcnt
+		SELECT 
+			ntcNo
+		   ,ntcSj
+		   ,ntcText
+		   ,ntcWrt
+		   ,ntcRegDate
+		   ,ntcVcnt
 		FROM
 		(SELECT
-			ROWNUM as rnum,ntcNo,ntcSj,ntcText,ntcWrt,ntcRegDate,ntcVcnt
-			FROM
-			(SELECT
-				NTC_NO AS ntcNo, <!--공지사항번호 -->
-				NTC_SJ AS ntcSj, <!--제목 -->
-				NTC_TEXT AS ntcText, <!--내용 -->
-				NTC_WRT AS ntcWrt, <!--작성자 -->
-				NTC_REGDATE AS ntcRegDate, <!--생성일자 -->
-				NTC_VCNT AS ntcVcnt <!--조회수 -->
-				FROM NOTICE
-				WHERE 1 = 1
-				<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
+			ROWNUM as rnum
+		   ,ntcNo
+		   ,ntcSj
+		   ,ntcText
+		   ,ntcWrt
+		   ,ntcRegDate
+		   ,ntcVcnt
+		   FROM
+		   (SELECT
+				NTC_NO AS ntcNo <!--공지사항번호 -->
+				,NTC_SJ AS ntcSj <!--제목 -->
+				,NTC_TEXT AS ntcText <!--내용 -->
+				,NTC_WRT AS ntcWrt <!--작성자 -->
+				,NTC_REGDATE AS ntcRegDate <!--생성일자 -->
+				,NTC_VCNT AS ntcVcnt <!--조회수 -->
+			  FROM NOTICE
+			  WHERE 1 = 1
+			  <if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>
 					AND(NTC_SJ LIKE '%'||#{searchVal}||'%'
 					OR NTC_WRT LIKE
 					'%'||#{searchVal}||'%'
 					OR NTC_TEXT LIKE '%'||#{searchVal}||'%')
-				</if>
-				<if test='selectOptValOne != null and selectOptValOne.equals("optSj")'>
+			  </if>
+			  <if test='selectOptValOne != null and selectOptValOne.equals("optSj")'>
 					AND(NTC_SJ LIKE '%'||#{searchVal}||'%')
-				</if>
-				<if test='selectOptValOne != null and selectOptValOne.equals("optWrt")'>
+			  </if>
+			  <if test='selectOptValOne != null and selectOptValOne.equals("optWrt")'>
 					AND(NTC_WRT LIKE '%'||#{searchVal}||'%')
-				</if>
-				<if test='selectOptValOne != null and selectOptValOne.equals("optText")'>
+			  </if>
+			  <if test='selectOptValOne != null and selectOptValOne.equals("optText")'>
 					AND(NTC_TEXT LIKE'%'||#{searchVal}||'%')
-				</if>
-				ORDER BY NTC_NO DESC
+			  </if>
+			  ORDER BY NTC_NO DESC
 			)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 		)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
@@ -63,12 +75,12 @@
 	<select id="selectNotcieDetail" parameterType="_int" resultType="com.vo.questTotalBoard.NoticeVO">
 	/*  noticeMapper.selectNotcieDetail */
 	 SELECT
-		NTC_NO AS ntcNo, <!--공지사항번호 -->
-		NTC_SJ AS ntcSj, <!--제목 -->
-		NTC_TEXT AS ntcText, <!--내용 -->
-		NTC_WRT AS ntcWrt, <!--작성자 -->
-		NTC_REGDATE AS ntcRegDate, <!--생성일자 -->
-		NTC_VCNT AS ntcVcnt <!--조회수 -->
+		NTC_NO AS ntcNo <!--공지사항번호 -->
+	   ,NTC_SJ AS ntcSj <!--제목 -->
+	   ,NTC_TEXT AS ntcText <!--내용 -->
+	   ,NTC_WRT AS ntcWrt<!--작성자 -->
+	   ,NTC_REGDATE AS ntcRegDate<!--생성일자 -->
+	   ,NTC_VCNT AS ntcVcnt <!--조회수 -->
 	   FROM NOTICE
 	  WHERE NTC_NO = #{ntcNo}
 	</select>
@@ -92,7 +104,8 @@
 	<!-- 검색글카운트 -->
 	<select id="selectListCount" parameterType="com.vo.common.SearchVO" resultType="_int">
 	/*  noticeMapper.selectListCount */
-		SELECT COUNT(NTC_NO)
+		SELECT 
+			COUNT(NTC_NO)
 		  FROM NOTICE
 		 WHERE 1 = 1
 		<if test='selectOptValOne != null and selectOptValOne.equals("optAll")'>

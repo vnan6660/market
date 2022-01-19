@@ -7,25 +7,45 @@
 	<!-- 물품목록리스트 가져오기 -->
 	<select id="selectGoodsList" parameterType="com.vo.common.SearchVO" resultType="com.vo.adminGoodsMgt.GoodsListVO">
 	/* goodsListMapper.selectGoodsList */
-	SELECT gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm
+	SELECT 
+		 gdNo
+		,gdGp
+		,gdSp
+		,gdNm
+		,gdCnt
+		,gdYn
+		,gdPrice
+		,gdImg
+		,gdGpNm
+		,gdSpNm
 	  FROM
 	  (SELECT
-	    ROWNUM as rnum,gdNo,gdGp,gdSp,gdNm,gdCnt,gdYn,gdPrice,gdImg,gdGpNm,gdSpNm
+	    ROWNUM as rnum
+	    ,gdNo
+	    ,gdGp
+	    ,gdSp
+	    ,gdNm
+	    ,gdCnt
+	    ,gdYn
+	    ,gdPrice
+	    ,gdImg
+	    ,gdGpNm
+	    ,gdSpNm
 		FROM
 		(SELECT
-	      a.GD_NO as gdNo<!-- 상품번호 -->
-		 ,a.GD_GP as gdGp<!-- 상품구분 -->
-		 ,a.GD_SP as gdSp<!-- 상품분류 -->
-		 ,a.GD_NM as gdNm<!-- 상품이름 -->
-		 ,a.GD_CNT as gdCnt<!-- 상품재고 -->
-		 ,a.GD_YN as gdYn<!-- 상품개시 -->
-		 ,a.GD_PRICE as gdPrice<!-- 상품가격 -->
-		 ,a.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
-	     ,b.cm_grnm as gdGpNm<!-- 상품구분이름 -->
-	     ,c.cm_grnm as gdSpNm<!-- 상품분류이름 -->
-		  FROM GOODS_INFO a 
-		   left OUTER JOIN CMCD_MGT b ON  b.CM_GRCD = a.GD_GP
-		   left OUTER JOIN CMCD_MGT c ON c.CM_GRCD = a.GD_SP and c.CM_UPCD = a.GD_GP
+	      A.GD_NO as gdNo<!-- 상품번호 -->
+		 ,A.GD_GP as gdGp<!-- 상품구분 -->
+		 ,A.GD_SP as gdSp<!-- 상품분류 -->
+		 ,A.GD_NM as gdNm<!-- 상품이름 -->
+		 ,A.GD_CNT as gdCnt<!-- 상품재고 -->
+		 ,A.GD_YN as gdYn<!-- 상품개시 -->
+		 ,A.GD_PRICE as gdPrice<!-- 상품가격 -->
+		 ,A.GD_IMG as gdImg<!-- 상품이미지(BLOB) -->
+	     ,B.cm_grnm as gdGpNm<!-- 상품구분이름 -->
+	     ,C.cm_grnm as gdSpNm<!-- 상품분류이름 -->
+		  FROM GOODS_INFO A 
+		   left OUTER JOIN CMCD_MGT B ON  B.CM_GRCD = A.GD_GP
+		   left OUTER JOIN CMCD_MGT C ON C.CM_GRCD = A.GD_SP and C.CM_UPCD = A.GD_GP
 		  WHERE 1 = 1
 		 	<if test='startDt != null and endDt != null'>
 				AND GD_REGDATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
@@ -220,7 +240,7 @@
 				<if test='!selectOptValOne.equals("optAll")'>
 					AND GD_GP = #{selectOptValOne}
 				</if>
-			</if>
+		</if>
 			<if test='selectOptValTwo != null'>
 				<if test='selectOptValTwo.equals("optAll")'>
 					AND GD_SP IN ('foreign','child','magazine','it','exam','general','special')

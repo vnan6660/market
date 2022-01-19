@@ -8,15 +8,15 @@
 	<select id="selectAuthMgtList" parameterType="String" resultType="com.vo.menuTotalMgt.MenuMgtVO">
 	/*  AuthMgtMapper.selectAuthMgtList */
 		SELECT
-		 MU_ID as menuId, <!-- 메뉴아이디 -->
-		 MU_NM as menuNm,<!-- 메뉴이름 -->
-		 MU_CD as menuCd,<!-- 메뉴코드 -->
-	   MU_UPCD as menuUpCd,<!-- 메뉴상위코드 -->
+			MU_ID as menuId <!-- 메뉴아이디 -->
+		   ,MU_NM as menuNm<!-- 메뉴이름 -->
+		   ,MU_CD as menuCd<!-- 메뉴코드 -->
+		   ,MU_UPCD as menuUpCd<!-- 메뉴상위코드 -->
 		<if test='authSelect.equals("adminOpt")'>
-		ADMIN_YN as adminYn<!-- 관리자메뉴노출여부 -->
+			ADMIN_YN as adminYn<!-- 관리자메뉴노출여부 -->
 		</if>
 		<if test='authSelect.equals("userOpt")'>
-		USER_YN as userYn<!-- 사용자메뉴노출여부 -->
+			USER_YN as userYn<!-- 사용자메뉴노출여부 -->
 		</if>
 		 FROM MENU_MGT
 		 START WITH MU_UPCD IS NULL

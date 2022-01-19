@@ -38,6 +38,7 @@ var goodsRegAttachEvent = function() {
 
 		//input file태그안에 file이존재하면 실행(이미지 미리보기)
 		if (input.currentTarget.files && input.currentTarget.files[0]) {
+			//FileReader는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해줌
 			var reader = new FileReader();
 
 			reader.onload = function(e) {

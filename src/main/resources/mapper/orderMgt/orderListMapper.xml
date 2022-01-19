@@ -7,58 +7,70 @@
 	<!-- 주문목록 가져오기 -->
 	<select id="selectMyOrderList"  parameterType="com.vo.common.SearchVO" resultType="com.vo.orderMgt.OrderWrapVO">
 	/*  orderListMapper.selectMyOrderList */
-	SELECT csId,csNm,odNo,odDate,odState,trDate
+	SELECT 
+		csId
+	   ,csNm
+	   ,odNo
+	   ,odDate
+	   ,odState
+	   ,trDate
 	  FROM
 	  (SELECT
-	    ROWNUM as rnum,csId,csNm,odNo,odDate,odState,trDate
-		FROM
-		(SELECT
-		  o.OD_NO AS odNo<!--주문번호 -->
-		 ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState<!--주문상태 -->
-		 ,TO_CHAR(o.OD_DATE,'YYYY-MM-DD HH24:MI') AS odDate<!--주문날짜 -->
-         ,DECODE(t.TR_DATE,null,<![CDATA['-']]>,TO_CHAR(t.TR_DATE,'YYYY-MM-DD HH24:MI')) AS trDate<!--배송날짜 -->
-         ,c.CS_ID AS csId<!--고객아이디 -->
-         ,c.CS_NM AS csNm<!--이름 -->
-		 FROM ORDER_INFO o
-         LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
-         LEFT OUTER JOIN CUSTOMER_INFO c ON c.CS_NO = o.CS_NO
-		 WHERE 1=1
-		 <if test='selectOptValThree != null'>
-			 <if test='startDt != null and endDt != null'>
-				<if test='selectOptValThree.equals("odDt")'>
-				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
-				</if>
-				<if test='selectOptValThree.equals("trDt")'>
-				AND t.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
-				</if>
-			 </if>
-		</if>
-		<if test='selectOptValOne != null'>
+	    	ROWNUM as rnum
+	       ,csId
+	       ,csNm
+	       ,odNo
+	       ,odDate
+	       ,odState
+	       ,trDate
+		  FROM
+		  (SELECT
+				O.OD_NO AS odNo<!--주문번호 -->
+			   ,DECODE(O.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState<!--주문상태 -->
+			   ,TO_CHAR(O.OD_DATE,'YYYY-MM-DD HH24:MI') AS odDate<!--주문날짜 -->
+		       ,DECODE(T.TR_DATE,null,<![CDATA['-']]>,TO_CHAR(T.TR_DATE,'YYYY-MM-DD HH24:MI')) AS trDate<!--배송날짜 -->
+		       ,C.CS_ID AS csId<!--고객아이디 -->
+		       ,C.CS_NM AS csNm<!--이름 -->
+			 FROM ORDER_INFO O
+	         LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
+	         LEFT OUTER JOIN CUSTOMER_INFO C ON C.CS_NO = O.CS_NO
+			WHERE 1=1
+			<if test='selectOptValThree != null'>
+				<if test='startDt != null and endDt != null'>
+					<if test='selectOptValThree.equals("odDt")'>
+						AND O.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+					</if>
+					<if test='selectOptValThree.equals("trDt")'>
+						AND T.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+					</if>
+				 </if>
+			</if>
+			<if test='selectOptValOne != null'>
 				<if test='selectOptValOne.equals("optAll")'>
-					AND o.OD_STATE IN ('100','200','300','400')
+					AND O.OD_STATE IN ('100','200','300','400')
 				</if>
 				<if test='!selectOptValOne.equals("optAll")'>
-					AND o.OD_STATE = #{selectOptValOne}
+					AND O.OD_STATE = #{selectOptValOne}
 				</if>
-		</if>
-		<if test='selectOptValTwo != null'>
+			</if>
+			<if test='selectOptValTwo != null'>
 				<if test='selectOptValTwo.equals("optAll")'>
-					AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
-						OR c.CS_ID LIKE '%'||#{searchVal}||'%'
-						OR c.CS_NM LIKE '%'||#{searchVal}||'%')
+					AND(   O.OD_NO LIKE '%'||#{searchVal}||'%'
+						OR C.CS_ID LIKE '%'||#{searchVal}||'%'
+						OR C.CS_NM LIKE '%'||#{searchVal}||'%')
 				</if>
 				<if test='selectOptValTwo.equals("orderNmbr")'>
-					AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+					AND(O.OD_NO LIKE '%'||#{searchVal}||'%')
 				</if>
 				<if test='selectOptValTwo.equals("userId")'>
-					AND(c.CS_ID LIKE '%'||#{searchVal}||'%')
+					AND(C.CS_ID LIKE '%'||#{searchVal}||'%')
 				</if>
 				<if test='selectOptValTwo.equals("userNm")'>
-					AND(c.CS_NM LIKE '%'||#{searchVal}||'%')
+					AND(C.CS_NM LIKE '%'||#{searchVal}||'%')
 				</if>
-		</if>
-		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE, t.TR_DATE, c.CS_ID, c.CS_NM
-		 ORDER BY o.OD_DATE DESC
+			</if>
+			 GROUP BY O.OD_NO, O.OD_STATE, O.OD_DATE, T.TR_DATE, C.CS_ID, C.CS_NM
+			 ORDER BY O.OD_DATE DESC
 		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 	 )WHERE rnum <![CDATA[>=]]> #{startCount}
 	
@@ -71,51 +83,51 @@
 	    COUNT(odNo)
 	  FROM
 		(SELECT
-		  o.OD_NO AS odNo <!--주문번호 -->
-		 ,o.OD_STATE AS odState <!--주문상태 -->
-		 ,o.OD_DATE AS odDate<!--주문날짜 -->
-         ,t.TR_DATE AS trDate<!--배송날짜 -->
-         ,c.CS_ID AS csId<!--고객아이디 -->
-         ,c.CS_NM AS csNm<!--이름 -->
-		 FROM ORDER_INFO o
-         LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
-         LEFT OUTER JOIN CUSTOMER_INFO c ON c.CS_NO = o.CS_NO
+			  O.OD_NO AS odNo <!--주문번호 -->
+			 ,O.OD_STATE AS odState <!--주문상태 -->
+			 ,O.OD_DATE AS odDate<!--주문날짜 -->
+	         ,T.TR_DATE AS trDate<!--배송날짜 -->
+	         ,C.CS_ID AS csId<!--고객아이디 -->
+	         ,C.CS_NM AS csNm<!--이름 -->
+		 FROM ORDER_INFO O
+         LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
+         LEFT OUTER JOIN CUSTOMER_INFO C ON C.CS_NO = O.CS_NO
 		 WHERE 1=1
 		<if test='selectOptValThree != null'>
 			 <if test='startDt != null and endDt != null'>
 				<if test='selectOptValThree.equals("odDt")'>
-				AND o.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				AND O.OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 				</if>
 				<if test='selectOptValThree.equals("trDt")'>
-				AND t.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+				AND T.TR_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 				</if>
 			 </if>
 		</if>
 		<if test='selectOptValOne != null'>
 			<if test='selectOptValOne.equals("optAll")'>
-				AND o.OD_STATE IN ('100','200','300','400')
+				AND O.OD_STATE IN ('100','200','300','400')
 			</if>
 			<if test='!selectOptValOne.equals("optAll")'>
-				AND o.OD_STATE = #{selectOptValOne}
+				AND O.OD_STATE = #{selectOptValOne}
 			</if>
 		</if>
 		<if test='selectOptValTwo != null'>
 			<if test='selectOptValTwo.equals("optAll")'>
-				AND(o.OD_NO LIKE '%'||#{searchVal}||'%'
-					OR c.CS_ID LIKE '%'||#{searchVal}||'%'
-					OR c.CS_NM LIKE '%'||#{searchVal}||'%')
+				AND(   O.OD_NO LIKE '%'||#{searchVal}||'%'
+					OR C.CS_ID LIKE '%'||#{searchVal}||'%'
+					OR C.CS_NM LIKE '%'||#{searchVal}||'%')
 			</if>
 			<if test='selectOptValTwo.equals("orderNmbr")'>
-				AND(o.OD_NO LIKE '%'||#{searchVal}||'%')
+				AND(O.OD_NO LIKE '%'||#{searchVal}||'%')
 			</if>
 			<if test='selectOptValTwo.equals("userId")'>
-				AND(c.CS_ID LIKE '%'||#{searchVal}||'%')
+				AND(C.CS_ID LIKE '%'||#{searchVal}||'%')
 			</if>
 			<if test='selectOptValTwo.equals("userNm")'>
-				AND(c.CS_NM LIKE '%'||#{searchVal}||'%')
+				AND(C.CS_NM LIKE '%'||#{searchVal}||'%')
 			</if>
 		</if>
-		 GROUP BY o.OD_NO, o.OD_STATE, o.OD_DATE, t.TR_DATE, c.CS_ID, c.CS_NM)
+		 GROUP BY O.OD_NO, O.OD_STATE, O.OD_DATE, T.TR_DATE, C.CS_ID, C.CS_NM)
 	</select>
 	
 	<!-- 주문상태 변경하기 -->
@@ -135,14 +147,15 @@
 	</update>
 	
 	<insert id="insertTrDate" parameterType="java.util.Map">
+	/*  orderListMapper.insertTrDate */
 	INSERT INTO TRANSFER_INFO (TR_NO,TR_DATE,OD_NO)
-	SELECT TRANSFER_INFO_SEQ.NEXTVAL, a.TR_DATE,a.OD_NO FROM(
+	SELECT TRANSFER_INFO_SEQ.NEXTVAL, A.TR_DATE,A.OD_NO FROM(
 	<foreach collection="checkList" item="item" separator="UNION ALL">
 	  SELECT		
 		  SYSDATE AS TR_DATE
 		 ,#{item} AS OD_NO
 	   FROM DUAL
-	</foreach>) a
+	</foreach>) A
 	</insert>
 	
 </mapper>

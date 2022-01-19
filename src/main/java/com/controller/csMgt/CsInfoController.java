@@ -141,11 +141,11 @@ public class CsInfoController {
 	public Map<String, Object> searchCsInfoList(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int listcount = csInfoService.getcsInfoCount(vo);
+		int listcount = csInfoService.getcsInfoCount(vo);//고객정보 검색글카운트
 
 		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
 
-		List<CsInfoVO> csInfoList = csInfoService.getCsInfo(searchVO);
+		List<CsInfoVO> csInfoList = csInfoService.getCsInfo(searchVO);//고객정보 가져오기
 
 		resultMap.put("csInfoList", csInfoList);
 		resultMap.put("maxPage", searchVO.getMaxpage());

@@ -12,87 +12,110 @@
 	  WHERE 1=1
 	  <if test='startDt != null and endDt != null'>
 			AND CREATE_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
+	  </if>
+	  <if test='selectOptValOne != null'>
+		<if test='selectOptValOne.equals("optAll")'>
+				AND CS_GRADE IN ('0','1','2')
 		</if>
-		<if test='selectOptValOne != null'>
-			<if test='selectOptValOne.equals("optAll")'>
-					AND CS_GRADE IN ('0','1','2')
+		<if test='!selectOptValOne.equals("optAll")'>
+			<if test='selectOptValOne.equals("optMember")'>
+				AND CS_GRADE IN ('0','1')
 			</if>
-			<if test='!selectOptValOne.equals("optAll")'>
-				<if test='selectOptValOne.equals("optMember")'>
-					AND CS_GRADE IN ('0','1')
-				</if>
-				<if test='selectOptValOne.equals("optWithdrawal")'>
-					AND CS_GRADE = ('2')
-				</if>
-			</if>
-		</if>
-		<if test='selectOptValTwo != null'>
-			<if test='selectOptValTwo.equals("optAll")'>
-				AND(CS_ID LIKE '%'||#{searchVal}||'%'
-				 OR CS_NM LIKE '%'||#{searchVal}||'%')
-			</if>
-			<if test='selectOptValTwo.equals("optCsID")'>
-				AND(CS_ID LIKE '%'||#{searchVal}||'%')
-			</if>
-			<if test='selectOptValTwo.equals("optCsNm")'>
-				AND(CS_NM LIKE '%'||#{searchVal}||'%')
+			<if test='selectOptValOne.equals("optWithdrawal")'>
+				AND CS_GRADE = ('2')
 			</if>
 		</if>
-	</select>
+	  </if>
+	  <if test='selectOptValTwo != null'>
+		<if test='selectOptValTwo.equals("optAll")'>
+			AND(   CS_ID LIKE '%'||#{searchVal}||'%'
+			 	OR CS_NM LIKE '%'||#{searchVal}||'%')
+		</if>
+		<if test='selectOptValTwo.equals("optCsID")'>
+			AND(CS_ID LIKE '%'||#{searchVal}||'%')
+		</if>
+		<if test='selectOptValTwo.equals("optCsNm")'>
+			AND(CS_NM LIKE '%'||#{searchVal}||'%')
+		</if>
+	  </if>
+	  </select>
 
 	<!-- 고객정보 가져오기 -->
 	<select id="selectCsInfo" parameterType="com.vo.common.SearchVO" resultType="com.vo.csMgt.CsInfoVO">
 	 /*  csInfoMapper.selectCsInfo */
-	 SELECT *
+	 SELECT 
+		 csNo
+		,csGrade
+		,csId
+		,csNm
+		,csPhone
+		,csEmail
+		,csAddrOne
+		,csAddrTwo
+		,csBirthYear
+		,csBirthMonth
+		,createDate
 	   FROM
-		(SELECT ROWNUM as rnum,csNo,csGrade,csId,csNm,csPhone,csEmail,csAddrOne,csAddrTwo,csBirthYear,csBirthMonth,createDate
+		(SELECT 
+			ROWNUM as rnum
+		   ,csNo
+		   ,csGrade
+		   ,csId
+		   ,csNm
+		   ,csPhone
+		   ,csEmail
+		   ,csAddrOne
+		   ,csAddrTwo
+		   ,csBirthYear
+		   ,csBirthMonth
+		   ,createDate
 		   FROM
 		   (SELECT
-			 CS_NO AS csNo<!-- 고객번호 -->
-			,DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade<!-- 고객등급 -->
-			,CS_ID AS csId<!-- 고객아이디 -->
-			,CS_NM AS csNm<!-- 이름 -->
-			,CS_PHONE AS csPhone<!-- 핸드폰 -->
-			,CS_EMAIL AS csEmail<!-- 이메일 -->
-			,CS_ADDR_ONE AS csAddrOne<!-- 주소 앞부분 -->
-			,CS_ADDR_TWO AS csAddrTwo<!-- 주소 뒷부분 -->
-			,CS_BIRTH_YEAR AS csBirthYear <!-- 생일 년도 -->
-			,CS_BIRTH_MONTH AS csBirthMonth<!-- 생일 월 -->
-			,CS_BIRTH_DAY AS csBirthDay <!-- 생일 일 -->
-			,CREATE_DATE AS createDate<!-- 생성일 -->
-		FROM CUSTOMER_INFO
-		WHERE 1 = 1
-		<if test='startDt != null and endDt != null'>
-			AND CREATE_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
-		</if>
-		<if test='selectOptValOne != null'>
-			<if test='selectOptValOne.equals("optAll")'>
-					AND CS_GRADE IN ('0','1','2')
+				 CS_NO AS csNo<!-- 고객번호 -->
+				,DECODE(CS_GRADE,'2',<![CDATA['탈퇴']]>,<![CDATA['회원']]>) AS csGrade<!-- 고객등급 -->
+				,CS_ID AS csId<!-- 고객아이디 -->
+				,CS_NM AS csNm<!-- 이름 -->
+				,CS_PHONE AS csPhone<!-- 핸드폰 -->
+				,CS_EMAIL AS csEmail<!-- 이메일 -->
+				,CS_ADDR_ONE AS csAddrOne<!-- 주소 앞부분 -->
+				,CS_ADDR_TWO AS csAddrTwo<!-- 주소 뒷부분 -->
+				,CS_BIRTH_YEAR AS csBirthYear <!-- 생일 년도 -->
+				,CS_BIRTH_MONTH AS csBirthMonth<!-- 생일 월 -->
+				,CS_BIRTH_DAY AS csBirthDay <!-- 생일 일 -->
+				,CREATE_DATE AS createDate<!-- 생성일 -->
+		     FROM CUSTOMER_INFO
+			WHERE 1 = 1
+			<if test='startDt != null and endDt != null'>
+				AND CREATE_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+ 1
 			</if>
-			<if test='!selectOptValOne.equals("optAll")'>
-				<if test='selectOptValOne.equals("optMember")'>
-					AND CS_GRADE IN ('0','1')
+			<if test='selectOptValOne != null'>
+				<if test='selectOptValOne.equals("optAll")'>
+						AND CS_GRADE IN ('0','1','2')
 				</if>
-				<if test='selectOptValOne.equals("optWithdrawal")'>
-					AND CS_GRADE = ('2')
+				<if test='!selectOptValOne.equals("optAll")'>
+					<if test='selectOptValOne.equals("optMember")'>
+						AND CS_GRADE IN ('0','1')
+					</if>
+					<if test='selectOptValOne.equals("optWithdrawal")'>
+						AND CS_GRADE = ('2')
+					</if>
 				</if>
 			</if>
-		</if>
-		<if test='selectOptValTwo != null'>
-			<if test='selectOptValTwo.equals("optAll")'>
-				AND(CS_ID LIKE '%'||#{searchVal}||'%'
-				 OR CS_NM LIKE '%'||#{searchVal}||'%')
+			<if test='selectOptValTwo != null'>
+				<if test='selectOptValTwo.equals("optAll")'>
+					AND(   CS_ID LIKE '%'||#{searchVal}||'%'
+					 	OR CS_NM LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("optCsID")'>
+					AND(CS_ID LIKE '%'||#{searchVal}||'%')
+				</if>
+				<if test='selectOptValTwo.equals("optCsNm")'>
+					AND(CS_NM LIKE '%'||#{searchVal}||'%')
+				</if>
 			</if>
-			<if test='selectOptValTwo.equals("optCsID")'>
-				AND(CS_ID LIKE '%'||#{searchVal}||'%')
-			</if>
-			<if test='selectOptValTwo.equals("optCsNm")'>
-				AND(CS_NM LIKE '%'||#{searchVal}||'%')
-			</if>
-		</if>
-		 ORDER BY CREATE_DATE DESC,CS_NO DESC
-		)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
-	)WHERE rnum <![CDATA[>=]]> #{startCount}
+			 ORDER BY CREATE_DATE DESC,CS_NO DESC
+			)WHERE ROWNUM <![CDATA[<=]]> #{endCount}
+		)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
 	
 	<!-- csNo에 맞는 고객정보 가져오기 -->
@@ -120,31 +143,44 @@
 	<!-- csNo에 맞는 구매이력가져오기 -->
 	<select id="selectOrderHistory" parameterType="com.vo.common.SearchVO" resultType="com.vo.orderInfo.OrderInfoVO">
 	/*  csInfoMapper.selectOrderHistory */
-	SELECT odNo,odState,gdNm,odDate,trDate
-	  FROM (SELECT
-	   ROWNUM as rnum,odNo,odState,gdNm,odDate,trDate
-	     FROM (SELECT 
-	      a.odNo<!--주문번호 -->
-	     ,a.gdNm<!--상품이름 -->
-	     ,a.odState<!--주문상태 -->
-         ,a.trDate<!--배송날짜 -->
-	     ,b.odDate<!--주문날짜 -->
-            FROM(SELECT
-    	        o.OD_NO AS odNo
-   		       ,LISTAGG(g.GD_NM,',') AS gdNm
-               ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
-               ,to_char(t.TR_DATE,'yyyy-mm-dd')AS trDate
-	 	          FROM ORDER_INFO o
-	 	          LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
-                  LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
-		          WHERE o.CS_NO = #{selectOptValOne}
-                  GROUP BY o.OD_NO,o.OD_STATE,t.TR_DATE)a      
+	SELECT 
+		odNo
+	   ,odState
+	   ,gdNm
+	   ,odDate
+	   ,trDate
+	  FROM 
+	  (SELECT
+		   ROWNUM as rnum
+		   ,odNo
+		   ,odState
+		   ,gdNm
+		   ,odDate
+		   ,trDate
+	     FROM 
+	     (SELECT 
+		      A.odNo<!--주문번호 -->
+		     ,A.gdNm<!--상품이름 -->
+		     ,A.odState<!--주문상태 -->
+	         ,A.trDate<!--배송날짜 -->
+		     ,B.odDate<!--주문날짜 -->
+            FROM
+            (SELECT
+	   	        O.OD_NO AS odNo
+	  		   ,LISTAGG(G.GD_NM,',') AS gdNm
+	           ,DECODE(O.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+	           ,TO_CHAR(T.TR_DATE,'yyyy-mm-dd')AS trDate
+	 	       FROM ORDER_INFO O
+	 	          LEFT OUTER JOIN GOODS_INFO G ON G.GD_NO = O.GD_NO
+                  LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
+		          WHERE O.CS_NO = #{selectOptValOne}
+                  GROUP BY O.OD_NO,O.OD_STATE,T.TR_DATE)A      
             INNER JOIN (SELECT
-                          DISTINCT to_char(o.OD_DATE,'yyyy-mm-dd')AS odDate,o.OD_NO as odNo 
-	 				      FROM ORDER_INFO o
-	 				      LEFT OUTER JOIN GOODS_INFO g ON g.GD_NO = o.GD_NO
-                          LEFT OUTER JOIN TRANSFER_INFO t ON t.OD_NO = o.OD_NO
-					      WHERE o.CS_NO = #{selectOptValOne}) b ON b.odNo = a.odNo
+                          	DISTINCT TO_CHAR(O.OD_DATE,'yyyy-mm-dd')AS odDate,O.OD_NO as odNo 
+	 				      FROM ORDER_INFO O
+	 				      LEFT OUTER JOIN GOODS_INFO G ON G.GD_NO = O.GD_NO
+                          LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
+					      WHERE O.CS_NO = #{selectOptValOne}) B ON B.odNo = A.odNo
 	    )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 	)WHERE rnum <![CDATA[>=]]> #{startCount}
 	</select>
