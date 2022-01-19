@@ -23,7 +23,7 @@ public class MenuMgtVO {
 	
 	private String onlyUserYn = "f";
 	
-	List optList;
+	List<?> optList;
 	String authSelect;
 
 }
