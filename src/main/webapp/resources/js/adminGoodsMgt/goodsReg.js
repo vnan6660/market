@@ -5,16 +5,21 @@
 */
 
 $(function() {
+	//초기설정함수
 	goodsRegInit();
+	
+	//이벤트함수
 	goodsRegAttachEvent();
 });
 
+//초기설정함수
 var goodsRegInit = function() {
 	$("#file1, #image").hide();
 	//베스트도서에 맞는 상품분류 값 가져오기
 	getGoodsSeparate("bestBook");
 }
 
+//이벤트함수
 var goodsRegAttachEvent = function() {
 
 	//목록버튼 누르면 실행

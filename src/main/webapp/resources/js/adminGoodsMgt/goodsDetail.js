@@ -5,10 +5,14 @@
 */
 
 $(function() {
+	//초기설정함수
 	goodsDetailInit();
+	
+	//이벤트함수
 	goodsDetailAttachEvent();
 });
 
+//초기설정함수
 var goodsDetailInit = function() {
 	//작성폼,삭제버튼,저장 버튼 숨기기
 	$(".writeForm, #goodsDelBtn, #goodsUpdDoneBtn,#file1, #image").hide();
@@ -17,6 +21,7 @@ var goodsDetailInit = function() {
 	injectGpSpNm();
 }
 
+//이벤트함수
 var goodsDetailAttachEvent = function() {
 
 	//상세설명의 파일 선택을 누를 때 실행
@@ -242,8 +247,6 @@ var chkFileType = function(obj) {
 	//checkFileType 에서 맞는 fileType이 없어서 -1이 반환될때 실행 
 	if (checkFileType.indexOf(file_type) == -1) {
 		alert('이미지 파일만 선택할 수 있습니다.');
-		var parent_Obj = obj.parentNode
-		var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
 		$("input[name = " + obj.name + "]").val("");
 		return false;
 	}

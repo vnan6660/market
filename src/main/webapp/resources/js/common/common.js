@@ -7,15 +7,17 @@ var startDt;
 var endDt;
 var searchParam;
 $(function() {
+	//초기설정함수
 	init();
 });
 
-/*페이지 로딩될때 즉시 실행시킬 것*/
+//초기설정함수
 var init = function() {
 	var mainHeight = $("#contentsMain, #contents").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");
 }
 
+//메인페이지로 가기
 var goHome = function(val) {
 	if (val == 0) {
 		location.href = "/adminMain";

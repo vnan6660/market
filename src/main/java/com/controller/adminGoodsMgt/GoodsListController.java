@@ -208,11 +208,12 @@ public class GoodsListController {
 	@ResponseBody
 	public Map<String, Object> searchNotice(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
+		//검색글카운트
 		int listcount = goodsListService.getGoodsListCount(vo);
 
 		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
 
+		//물품목록리스트 가져오기
 		List<GoodsListVO> reList = goodsListService.getGoodsList(searchVO);
 
 		resultMap.put("reList", reList);

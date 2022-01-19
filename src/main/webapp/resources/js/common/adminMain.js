@@ -5,12 +5,17 @@
 */
 
 $(function() {
+	//초기설정함수
 	adminMainInit();
+	
+	//이벤트함수
 	adminMainAttachEvent();
 });
 
+//초기설정함수
 var adminMainInit = function(){
 	
+	//Local시간 가져오기
 	getLocalTime();
 	
 	//공지사항불러오기
@@ -20,6 +25,7 @@ var adminMainInit = function(){
 	$('.tabcontent > div').hide().filter(':first').show();
 }
 
+//이벤트함수
 var adminMainAttachEvent = function(){
 	//주문관리에 있는 탭을 클릭시 시행
 	$('.tabnav a').click(function() {
@@ -37,6 +43,7 @@ var adminMainAttachEvent = function(){
 	}).filter(':first').click();
 }
 
+//Local시간 가져오기
 var getLocalTime = function() {
 	var curDate = new Date();
 	//달력시간 년초1일로 셋팅

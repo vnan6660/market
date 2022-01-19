@@ -8,10 +8,14 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
+	//초기설정함수
 	goodsListInit();
+	
+	//이벤트함수
 	goodsListattachEvent();
 });
 
+//초기설정함수
 var goodsListInit = function() {
 	//상품 구분에 맞는 상품분류 값 가져오기(베스트도서로 상품 구분값 setting)
 	getGoodsSeparate("bestBook");
@@ -40,6 +44,7 @@ var goodsListInit = function() {
 	}
 }
 
+//이벤트함수
 var goodsListattachEvent = function() {
 
 	/*검색쿼리작성하기*/
@@ -64,7 +69,7 @@ var goodsListattachEvent = function() {
 	});
 }
 
-
+//서버시간 가져오기
 var getServerTime = function() {
 	var xmlHttp;
 

@@ -9,11 +9,14 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
+	//초기설정함수
 	csInfoInit();
+	
+	//이벤트함수
 	csInfoAttachEvent();
 });
 
-
+//초기설정함수
 var csInfoInit = function() {
 	//서버시간 가져오기
 	getServerTime();
@@ -158,6 +161,7 @@ var goPage = function(pageNum) {
 	});
 }
 
+/*고객정보상세에서 구매이력 페이지 정보넘기기*/
 var goPageOdHistory = function(pageNum) {
 	searchParam = {};
 	searchParam.selectOptValOne = $("#csNo").val();
@@ -257,7 +261,7 @@ var goPageOdHistory = function(pageNum) {
 	});
 }
 
-
+//서버시간 가져오기
 var getServerTime = function() {
 	var xmlHttp;
 

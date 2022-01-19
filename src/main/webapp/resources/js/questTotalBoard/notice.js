@@ -7,14 +7,17 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
+	//초기설정함수
 	noticeInit();
+	
+	//이벤트함수
 	noticeAttachEvent();
 
 	/*detail페이지의 수정을 위한 input박스 숨김*/
 	$("#updSubject, #updText, #ntcUpdDoneBtn, #ntcDelBtn").hide();
 });
 
-
+//초기설정함수
 var noticeInit = function(){
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if($("#returnT").val() == 't'){

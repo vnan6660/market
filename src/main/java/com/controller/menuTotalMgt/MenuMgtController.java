@@ -29,7 +29,10 @@ public class MenuMgtController {
 	// 메뉴관리 메뉴리스트와 상위코드 불러오기
 	@RequestMapping("/menuMgt/menuMgtPage")
 	public String menuMgtPage(Model model) {
+		// 메뉴관리 메뉴리스트 불러오기
 		List<MenuMgtVO> list = MenuMgtService.getMenuList();
+		
+		// 메뉴관리 상위코드 불러오기
 		List<MenuMgtVO> option = MenuMgtService.getUpCd();
 		model.addAttribute("list", list);
 		model.addAttribute("option", option);

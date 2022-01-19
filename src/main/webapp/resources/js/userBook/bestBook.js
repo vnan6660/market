@@ -8,6 +8,7 @@
 var searchParam = {};
 var nowPage = 1; //처음페이지는 1페이지
 $(function(){
+	//초기설정함수
 	init();
 	
 	//검색
@@ -27,6 +28,7 @@ $(function(){
 	
 });
 
+//초기설정함수
 var init = function() {
 	var mainHeight = $("#contentsWrap").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");

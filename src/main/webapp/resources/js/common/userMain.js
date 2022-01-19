@@ -7,10 +7,12 @@ var current = 0;
 var nowTab = 'epTab';
 
 $(function() {
+	//초기설정함수
 	userMainInit();
 	userMainAttachEvent();
 });
 
+//초기설정함수
 var userMainInit = function() {
 	//현재 이미지 보여줌
 	showSlides(nowTabInfo(), current);
@@ -19,6 +21,7 @@ var userMainInit = function() {
 
 }
 
+//이벤트함수
 var userMainAttachEvent = function() {
 
 	//탭클릭시

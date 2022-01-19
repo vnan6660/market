@@ -118,6 +118,7 @@ public class MyOrderController {
 		param.put("odNo", odNo);
 		param.put("odstate",odState);
 		
+		//주문상세내역가져오기
 		OrderInfoVO orderOne = myOrderService.getMyOrderDetail(param);
 		model.addAttribute("orderOne", orderOne);
 		model.addAttribute("searchVO", searchVO);

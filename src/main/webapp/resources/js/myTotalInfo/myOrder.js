@@ -8,10 +8,14 @@ var searchParam = {};
 var nowPage = 1;
 
 $(function() {
+	//초기설정함수
 	myOrderInit();
+	
+	//이벤트함수
 	myOrderAttachEvent();
 });
 
+//초기설정함수
 var myOrderInit = function() {
 	//서버시간 가져오기
 	getServerTime();
@@ -34,6 +38,8 @@ var myOrderInit = function() {
 		goPage($("#returnPage").val(), 1);
 	}
 }
+
+//이벤트함수
 var myOrderAttachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
@@ -42,6 +48,7 @@ var myOrderAttachEvent = function() {
 	});
 }
 
+//서버시간 가져오기
 var getServerTime = function() {
 	var xmlHttp;
 

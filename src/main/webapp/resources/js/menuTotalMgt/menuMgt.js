@@ -5,15 +5,21 @@
 */
 
 $(function() {
+	//초기설정함수
 	menuMgtInit();
+	
+	//이벤트함수
 	menuMgtAttachEvent();
 });
 
+//초기설정함수
 var menuMgtInit = function() {
 	$("#blankTable").show();
 	$("#writeTable").hide();
 
 }
+
+//이벤트함수
 var menuMgtAttachEvent = function() {
 
 	//관리자화면에 사용여부가 N인경우 사용자화면 사용여부도 N으로 선택

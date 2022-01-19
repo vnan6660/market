@@ -5,7 +5,10 @@
 */
 
 $(function() {
+	//초기설정함수
 	authMgtInit();
+	
+	/*이벤트 함수*/
 	authMgtAttachEvent();
 });
 

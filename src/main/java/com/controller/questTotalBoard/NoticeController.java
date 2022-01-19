@@ -87,6 +87,7 @@ public class NoticeController {
 			searchVO = (SearchVO) flashMap.get("searchVO");
 		}
 
+		/* 공시사항디테일불러오기 */
 		NoticeVO noticeOne = noticeService.getNotcieDetail(ntcNo);
 		model.addAttribute("noticeOne", noticeOne);
 		model.addAttribute("searchVO", searchVO);
@@ -120,11 +121,13 @@ public class NoticeController {
 	public Map<String, Object> searchNotice(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
+		/* 검색글카운트 */
 		int listcount = noticeService.getListCount(vo);
 
 		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal())
 				.page(vo.getPage()).listcount(listcount).build();
 
+		/* 공지사항목록불러오기 */
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);
 
 		resultMap.put("noticeList", noticeList);
