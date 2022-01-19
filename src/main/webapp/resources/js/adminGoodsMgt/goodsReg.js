@@ -144,8 +144,6 @@ var chkFileType = function(obj) {
 	//checkFileType 에서 맞는 fileType이 없어서 -1이 반환될때 실행 
 	if (checkFileType.indexOf(file_type) == -1) {
 		alert('이미지 파일만 선택할 수 있습니다.');
-		var parent_Obj = obj.parentNode
-		var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
 		$("input[name = " + obj.name + "]").val("");
 		return false;
 	}

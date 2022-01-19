@@ -19,12 +19,14 @@ var goodsDetailInit = function() {
 
 var goodsDetailAttachEvent = function() {
 
+	//상세설명의 파일 선택을 누를 때 실행
 	$("#file2Btn").click(function(e) {
 		e.preventDefault();
 		$("#gdDetlLabel").click();
 
 	});
 	
+	//상세설명의 파일이 변경시 실행
 	$("#file2").change(function(){
 		$("#file2Btn").hide();
 		$("#file2Btn").siblings().hide();
@@ -56,16 +58,14 @@ var goodsDetailAttachEvent = function() {
 
 		//상품개시에 디테일 정보와 맞는 값 선택되게 하기
 		$("#gdYnSelect").val($("#gdYn").text()).prop("selected", true);
-
-		//상세설명에 이미지 파일이 없을시
-		gdDetailFileExist();
-
 	});
 
 	//수정 완료 버튼을 눌렀을 때 실행
 	$("#goodsUpdDoneBtn").click(function() {
+		//빈값체크
 		var emptyCheck = 0;
 
+		//수정할 때 나오는 input박스
 		$(".writeForm input").each(function(i, e) {
 
 			if (e.name != 'gdDetlFile' && $(this).val() == "") {
@@ -246,12 +246,5 @@ var chkFileType = function(obj) {
 		var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
 		$("input[name = " + obj.name + "]").val("");
 		return false;
-	}
-}
-
-var gdDetailFileExist = function() {
-	var fiel2Exist = $("#file2").parents(".writeForm").siblings(".viewForm").children();
-	if (fiel2Exist.attr('src').substring(22) == "") {
-
 	}
 }
