@@ -51,5 +51,11 @@ public class OrderListDaoImpl implements OrderListDao {
 	public int hasOdNo(String checkedOdNo) {
 		return sqlSession.selectOne("hasOdNo",checkedOdNo);
 	}
+	
+	//주문목록상세내역가져오기
+	@Override
+	public OrderWrapVO selectOrderDetail(Map<String, Object> modleMap) {
+		return sqlSession.selectOne("selectOrderDetail", modleMap);
+	}
 
 }

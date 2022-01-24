@@ -57,4 +57,10 @@ public class OrderListServiceImpl implements OrderListService {
 		}
 	}
 
+	//주문목록상세내역가져오기
+	@Override
+	public OrderWrapVO getOrderDetail(Map<String, Object> modleMap) {
+		return orderListDao.selectOrderDetail(modleMap);
+	}
+
 }

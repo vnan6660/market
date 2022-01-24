@@ -8,12 +8,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.service.orderMgt.OrderListService;
 import com.vo.common.SearchVO;
@@ -56,7 +63,17 @@ public class OrderListController {
 		model.addAttribute("page", searchVO.getPage());
 		model.addAttribute("startpage", searchVO.getStartpage());
 		model.addAttribute("endpage", searchVO.getEndpage());
+			 
+		return "/orderMgt/orderList";
 		
+	}
+	
+	//목록페이지 가기(목록버튼을 눌렀을때 실행됨)
+	@PostMapping(value = "/orderList/goOrderListPage")
+	public String goOrderListPage(SearchVO searchVO,String dtType,Model model){
+		model.addAttribute("searchVO", searchVO);
+		model.addAttribute("dtType", dtType);
+		model.addAttribute("goList", "t");
 		return "/orderMgt/orderList";
 		
 	}
@@ -93,5 +110,67 @@ public class OrderListController {
 		searchMap.put("nowOdState", nowOdState);
 		
 		orderListService.updateOdState(searchMap);
+	}
+	
+	/* 주문목록상세내역 페이지 가기(주문목록상세내역 불러오기) */
+	@GetMapping("/orderList/detailOrder/{odState}/{odNo}")
+	public String detailOrder(@PathVariable String odState,@PathVariable String odNo, Model model, HttpServletRequest request) {
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		if (flashMap != null) {
+			String[] strArr = flashMap.get("param").toString().split("[,]");
+			for (int i = 0; i < strArr.length; i++) {
+				String[] strArrTwo = strArr[i].trim().replaceAll("[{]", "").replaceAll("[}]", "").split("[=]");
+				if(strArrTwo.length == 1) {
+					modelMap.put(strArrTwo[0], ""); 
+				}else {
+					modelMap.put(strArrTwo[0], strArrTwo[1].trim()); 
+				}
+			}
+		}
+		HttpSession session = request.getSession(true);
+		
+		if(modelMap.isEmpty()) {
+			modelMap.put("odNo",odNo);
+			modelMap.put("selectOptValThree",odState);
+			modelMap.put("startDt",session.getAttribute("startDt"));
+			modelMap.put("endDt",session.getAttribute("endDt"));
+			modelMap.put("selectOptValOne",session.getAttribute("selectOptValOne"));
+			modelMap.put("selectOptValTwo",session.getAttribute("selectOptValTwo"));
+			modelMap.put("dtType",session.getAttribute("dtType"));
+			modelMap.put("searchVal",session.getAttribute("searchVal"));
+			modelMap.put("page",session.getAttribute("page"));
+			
+		}
+		
+	    //주문상세내역가져오기 
+	    OrderWrapVO orderOne = orderListService.getOrderDetail(modelMap);
+	    model.addAttribute("orderOne",orderOne); 
+	    model.addAttribute("searchVO", modelMap);
+		 
+		return "/orderMgt/orderDetail";
+	}
+	
+	//주문상세내역 페이지 가기(목록페이지의 검색값전달)
+	@PostMapping("/orderList/detailOrderSearch") 
+	public String detailMyOrderSearch(@RequestParam Map<String, Object> param,RedirectAttributes redirectAttributes,HttpServletRequest request){
+	  
+		redirectAttributes.addFlashAttribute("param", param);
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("startDt",(String) param.get("startDt"));
+		session.setAttribute("endDt",(String) param.get("endDt"));
+		session.setAttribute("selectOptValOne",(String) param.get("selectOptValOne"));
+		session.setAttribute("selectOptValTwo",(String) param.get("selectOptValTwo"));
+		session.setAttribute("dtType",(String) param.get("dtType"));
+		session.setAttribute("searchVal",(String) param.get("searchVal"));
+		session.setAttribute("page",(String) param.get("page"));
+		 
+		String odNo = (String) param.get("odNo");
+		String odState = (String) param.get("selectOptValThree");
+		
+		return "redirect:/orderList/detailOrder/"+ odState +"/"+odNo; 
+	 
 	}
 }

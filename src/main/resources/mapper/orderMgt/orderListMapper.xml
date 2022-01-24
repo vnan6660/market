@@ -158,4 +158,47 @@
 	INSERT INTO TRANSFER_INFO (TR_NO, TR_DATE, OD_NO)
 	VALUES (TRANSFER_INFO_SEQ.NEXTVAL, SYSDATE ,#{checkedOdNo})
 	</insert>
+	
+	<!-- 주문목록상세내역가져오기 -->
+	<select id="selectOrderDetail" parameterType="java.util.Map" resultType="com.vo.orderMgt.OrderWrapVO">
+	/*  orderListMapper.selectOrderDetail */
+	SELECT 
+		a.odNo<!--주문번호 -->
+		,a.odDate<!--주문날짜 -->
+		,a.rcAddrOne<!--수취인기본주소 -->
+		,a.rcAddrTwo<!--수취인상세주소 -->
+		,a.rcPhone<!--수취인휴대폰번호 -->
+		,a.rcEmail<!--수취인이메일 -->
+		,a.rcNm<!--수취인이름 -->
+		,a.odState<!--주문상태 -->
+		,a.gdQty <!--상품갯수 -->
+		,a.odAmt<!--주문금액 -->
+		,a.gdNm <!--상품이름 -->
+		<if test='selectOptValThree.equals("12")'>
+		,<![CDATA['-']]> as trDate<!--배송날짜 -->
+		</if>
+		<if test='selectOptValThree.equals("34")'>
+		,t.TR_DATE as trDate
+	</if>
+	FROM
+	(SELECT
+	    o.OD_NO AS odNo
+	    ,o.OD_DATE AS odDate
+	    ,o.RC_ADDR_ONE AS rcAddrOne
+	    ,o.RC_ADDR_TWO AS rcAddrTwo
+	    ,o.RC_PHONE AS rcPhone
+	    ,o.RC_EMAIL  AS rcEmail
+	    ,o.RC_NM AS rcNm
+	    ,DECODE(o.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
+	    ,LISTAGG(o.GD_QTY, ',')  AS gdQty
+	    ,LISTAGG(o.OD_AMT, ',')  AS odAmt
+	    ,LISTAGG(g.GD_NM, ',') AS gdNm
+	    FROM ORDER_INFO o 
+	    LEFT OUTER JOIN GOODS_INFO g ON  g.GD_NO= o.GD_NO
+	    WHERE OD_NO = #{odNo}
+	    GROUP BY o.OD_NO,o.OD_STATE,o.OD_DATE,o.RC_ADDR_ONE,o.RC_ADDR_TWO,o.RC_PHONE,o.RC_EMAIL,o.RC_NM)a
+     <if test='selectOptValThree.equals("34")'>
+	  LEFT OUTER JOIN TRANSFER_INFO t ON  t.OD_NO= a.odNo
+	 </if>
+	</select>
 </mapper>

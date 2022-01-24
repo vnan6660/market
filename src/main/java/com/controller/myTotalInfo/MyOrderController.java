@@ -100,9 +100,9 @@ public class MyOrderController {
 	}
 	
 	
-	/* 공지사항상세 페이지 가기(공시사항디테일불러오기) */
+	/* 내주문상세 페이지 가기(내주문상세불러오기) */
 	@GetMapping("/myOrder/detailMyOrder/{odState}/{odNo}")
-	public String detailNotcie(@PathVariable String odState,@PathVariable String odNo, Model model, HttpServletRequest request) {
+	public String detailMyOrder(@PathVariable String odState,@PathVariable String odNo, Model model, HttpServletRequest request) {
 
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		SearchVO searchVO = new SearchVO();

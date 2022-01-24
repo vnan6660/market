@@ -1,0 +1,83 @@
+/**
+*생성자 : 김소연
+*생성일 : 2022.01.24
+*주문상세
+*/
+@charset "UTF-8";
+
+@import url("/css/common/common.css");
+
+#myOrderDetailUpperWrap {
+	height: 600px;
+}
+
+#orderGdInfo {
+	display: flex;
+}
+
+#orderDetailListTable, #orderDetailListUl {
+	margin-top: 10px;
+	width: 80%;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	margin: 3% 10%;
+}
+
+#orderDetailListTable tr {
+	border-top: 1px solid #ddd;
+}
+
+#orderDetailListTable td {
+	padding: 10px;
+}
+
+#orderDetailListTable tr>td:nth-of-type(1), #orderDetailListUl>li:nth-of-type(1)
+	{
+	background-color: #eaeaea;
+	text-align: center;
+}
+
+#orderDetailListUl>li:nth-of-type(3) {
+	background-color: #eaeaea;
+}
+
+#orderDetailListUl>li:nth-of-type(3)>div:nth-of-type(1) {
+	margin-left: 10%;
+}
+
+.orderGdInfoDiv {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+#orderGdNm {
+	width: 50%;
+}
+
+#orderGdQty {
+	width: 20%;
+}
+
+#orderOdAmt {
+	width: 30%;
+}
+
+.orderGdInfoDiv div {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+#orderListBtn {
+	margin-left: 115px;
+}
+
+#orderCancel {
+	float: right;
+	margin-right: 120px;
+}
+
+#transferStart {
+	float: right;
+	margin-right: 20px;
+}

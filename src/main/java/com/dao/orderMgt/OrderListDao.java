@@ -28,4 +28,7 @@ public interface OrderListDao {
 	//TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
 	int hasOdNo(String checkedOdNo);
 
+	//주문목록상세내역가져오기
+	OrderWrapVO selectOrderDetail(Map<String, Object> modleMap);
+
 }

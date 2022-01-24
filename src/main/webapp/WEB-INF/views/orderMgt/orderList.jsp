@@ -85,7 +85,17 @@
 					</c:if>
 					<c:if test="${fn:length(list) > 0}">
 						<c:forEach items="${list}" var="od" varStatus="status">
-						<tr>
+						
+						<c:set var="odNo" value="${od.odNo}"/>
+								<c:set var="odNoLength" value="${fn:length(odNo)}"/>
+								<c:set var="odState" value="${od.odState}"/>
+								<c:if test="${odState == '주문완료' || odState == '주문취소'}">
+									<c:set var="odStateResult" value="12"/>
+								</c:if>
+								<c:if test="${odState == '배송중' || odState == '배송완료'}">
+									<c:set var="odStateResult" value="34"/>
+								</c:if>
+						<tr class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
 							<td><input type="checkbox" name="eachCheck" value="${od.odNo}"></td>
 							<!-- 역순(=DESC) -->
 							<td><c:out value="${listcount - status.index}"/></td>
@@ -123,18 +133,19 @@
 				<input type="hidden" name="selectOptValOne"/>
 				<input type="hidden" name="selectOptValTwo"/>
 				<input type="hidden" name="selectOptValThree"/>
+				<input type="hidden" name="dtType"/>
 				<input type="hidden" name="searchVal"/>
 				<input type="hidden" name="page"/>
-			<%-- <c:if test="${goList == 't'}">
+			<c:if test="${goList == 't'}">
 				<input type="hidden" id="returnT" value="t">
 				<input type="hidden" id="returnStdt" value="${searchVO.startDt}"/>
 				<input type="hidden" id="returnEdDt" value="${searchVO.endDt}"/>
 				<input type="hidden" id="returnSptValOne" value="${searchVO.selectOptValOne}"/>
 				<input type="hidden" id="returnSptValTwo" value="${searchVO.selectOptValTwo}"/>
-				<input type="hidden" id="selectOptValThree" value="${searchVO.selectOptValThree}"/>
+				<input type="hidden" id="returndtType" value="${dtType}"/>
 				<input type="hidden" id="returnSearchVal" value="${searchVO.searchVal}"/>
 				<input type="hidden" id="returnPage" value="${searchVO.page}"/>
-			</c:if> --%>
+			</c:if>
 		</form>	
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>

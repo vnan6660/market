@@ -21,5 +21,8 @@ public interface OrderListService {
 
 	//주문상태 변경하기
 	void updateOdState(Map<String, Object> searchMap);
+
+	//주문목록상세내역가져오기
+	OrderWrapVO getOrderDetail(Map<String, Object> modleMap);
 	
 }

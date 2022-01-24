@@ -9,14 +9,14 @@ var nowPage = 1;
 
 $(function() {
 	//초기설정함수
-	myOrderListInit();
+	orderListInit();
 	
 	//이벤트함수
-	myOrderListAttachEvent();
+	orderListAttachEvent();
 });
 
 //초기설정함수
-var myOrderListInit = function() {
+var orderListInit = function() {
 	//서버시간 가져오기
 	getServerTime();
 
@@ -28,10 +28,21 @@ var myOrderListInit = function() {
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
+	
+	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
+	if ($("#returnT").val() == 't') {
+		$("#startDt").val($("#returnStdt").val());
+		$("#endDt").val($("#returnEdDt").val());
+		$("#oderState").val($("#returnSptValOne").val()).prop("selected", true);
+		$("#orderInfo").val($("#returnSptValTwo").val()).prop("selected", true);
+		$("#dtType").val($("#returndtType").val()).prop("selected", true);
+		$("#searchVal").val($("#returnSearchVal").val());
+		goPage($("#returnPage").val(), 1);
+	}
 }
 
 //이벤트함수
-var myOrderListAttachEvent = function() {
+var orderListAttachEvent = function() {
 	/*검색쿼리작성하기*/
 	$("#goSearch").click(function() {
 		/*페이지가 1페이지인 검색함수*/
@@ -206,6 +217,7 @@ var allCheck = function() {
 	}
 }
 
+//주문취소,발송중,발송완료 버튼 누를시
 var odStateChange = function(nowOdState) {
 	checkList = [];
 
@@ -238,4 +250,21 @@ var odStateChange = function(nowOdState) {
 		alert("변경할 항목이 존재하지 않습니다");
 	}
 
+}
+
+//odNo가 다른 함수로 넘어갈때 변형이 일어나서 2개로 나누어서 값 받음		
+var goDetail = function(odNo, odNo2, odState) {
+	searchParam = {};
+	$("input[name = odNo]").val(String(odNo) + String(odNo2));
+	$("input[name = startDt]").val($("#startDt").val());
+	$("input[name = endDt]").val($("#endDt").val());
+	$("input[name = selectOptValOne]").val($("#oderState option:selected").val());
+	$("input[name = selectOptValTwo]").val($("#orderInfo option:selected").val());
+	$("input[name = selectOptValThree]").val(odState);
+	$("input[name = dtType]").val($("#dtType option:selected").val());
+	$("input[name = searchVal]").val($("#searchVal").val());
+	$("input[name = page]").val($("#hdThisPage").val());
+	$('#searchForm').attr("action", "/orderList/detailOrderSearch");
+	$('#searchForm').attr("method", "POST");
+	$('#searchForm').submit();
 }
