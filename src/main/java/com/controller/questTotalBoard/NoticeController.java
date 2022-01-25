@@ -124,8 +124,15 @@ public class NoticeController {
 		/* 검색글카운트 */
 		int listcount = noticeService.getListCount(vo);
 
-		SearchVO searchVO = SearchVO.builder().selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal())
-				.page(vo.getPage()).listcount(listcount).build();
+		//noLimit란 변수가 넘어올 때 1인경우에는 전체글 조회
+		SearchVO searchVO;
+		if(vo.getNoLimit()== 1) {
+			searchVO = SearchVO.builder().noLimit(1).endpage(listcount).selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal())
+					.page(vo.getPage()).listcount(listcount).build();
+		}else {
+			searchVO = SearchVO.builder().noLimit(0).selectOptValOne(vo.getSelectOptValOne()).searchVal(vo.getSearchVal())
+					.page(vo.getPage()).listcount(listcount).build();
+		}
 
 		/* 공지사항목록불러오기 */
 		List<NoticeVO> noticeList = noticeService.getNoticeList(searchVO);

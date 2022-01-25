@@ -48,7 +48,7 @@
 		<div class="adminQuickWrap">
 			<div id="orderMgtQuickMenu" style="border: 1px solid #ccc; height: 100%;">
 				<div class="quickMenuTitle">
-					<h3>주문관리</h3>
+					<h3>주문목록</h3>
 					<h3 class="hover" onclick="plusBtn('orderMgt')">+</h3>
 				</div>
 				<div>
@@ -56,21 +56,36 @@
 					<!-- 주문관리 불러올것 -->
 					<div class="tab">
 						<ul class="tabnav">
-							<li><a href="#tab1" class="active hover">준비완료</a></li>
+							<li><a href="#tab1" class="active hover">주문완료</a></li>
 							<li><a href="#tab2" class="hover">배송중</a></li>
 							<li><a href="#tab3" class="hover">배송완료</a></li>
 						</ul>
 						<div class="tabcontent">
 							<div id="tab1">
 							<!-- 주문완료 탭내용  -->
+							<table style="width: 97%; table-layout: fixed">
+							</table>
 							</div>
 							<div id="tab2">
-							배송중 content
-							</div>
-							<div id="tab3">배송완료 content</div>
-							<!-- 이테이블을 어떻게 정할지 아직 정하지 않았음 (tab안에 넣을지 말지 고민중)-->
-							<table id="orderMgtMainTable" style="width: 97%; table-layout: fixed">
+							<!-- 배송중 탭내용  -->
+							<table style="width: 97%; table-layout: fixed">
 							</table>
+							</div>
+							<div id="tab3">
+							<!-- 배송완료 탭내용  -->
+							<table style="width: 97%; table-layout: fixed">
+							</table>
+							</div>
+							<form id="odSearchForm">
+								<input type="hidden" name="odNo" /> 
+								<input type="hidden" name="startDt" /> 
+								<input type="hidden" name="endDt" /> 
+								<input type="hidden" name="selectOptValOne" />
+								<input type="hidden" name="selectOptValTwo" />
+								<input type="hidden" name="selectOptValThree" />
+								<input type="hidden" name="dtType" />
+								<input type="hidden" name="page" />
+							</form>
 						</div>
 					</div>
 				</div>

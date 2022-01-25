@@ -7,6 +7,10 @@
 
 @import url("/css/common/common.css");
 
+Table tr td {
+    word-break: break-all;
+}
+
 #contentsMain {
 	position: absolute;
 	margin: 5% auto;
@@ -51,17 +55,15 @@
 	margin-right: 10px;
 }
 
-#ntcMainTable {
-	margin: 0 2.5px;
-}
+
 
 #ntcMainTable tr {
 	margin-bottom: 15px;
 	border-bottom: 1px solid;
 }
 
-#ntcMainTable td {
-	word-break: break-all;
+#noticeQuickMenu{
+	overflow: auto;
 }
 
 /*---------- tab -----------*/
@@ -113,9 +115,12 @@
 }
 
 .tabcontent {
-	padding: 20px;
-	height: 244px;
+	padding: 5px;
+	height: 490px;
 	border-top: 1px solid #cdcbcb;
+	text-align: center;
+	overflow: auto;
+	
 }
 
 .thirdSessionColor {

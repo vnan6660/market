@@ -84,10 +84,18 @@ public class OrderListController {
 	public HashMap<String, Object> searchMyOrderList(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
+		SearchVO searchVO;
 		//검색글 카운트
 		int listcount = orderListService.getOrderListCount(vo);
-		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
-		 //주문목록 가져오기
+		
+		//noLimit란 변수가 넘어올 때 1인경우에는 전체글 조회
+		if(vo.getNoLimit()== 1) {
+			searchVO = SearchVO.builder().noLimit(1).startDt(vo.getStartDt()).endDt(vo.getEndDt()).endpage(listcount).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		}else {
+			searchVO = SearchVO.builder().noLimit(0).startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		}
+		
+	    //주문목록 가져오기
 		List<OrderWrapVO> reList = orderListService.getOrderList(searchVO);
 		
 		resultMap.put("reList", reList);
