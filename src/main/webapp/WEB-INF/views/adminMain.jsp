@@ -15,8 +15,7 @@
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
 	<main id="contentsMain" style="height: 600px;">
 		<div class="adminQuickWrap">
-			<div id="noticeQuickMenu"
-				style="border: 1px solid #ccc; height: 50%;">
+			<div id="noticeQuickMenu" style="border: 1px solid #ccc; height: 100%;">
 				<div class="quickMenuTitle">
 					<h3>공지사항</h3>
 					<h3 class="hover" onclick="plusBtn('notice')">+</h3>
@@ -31,7 +30,7 @@
 					</table>
 				</div>
 			</div>
-			<div id="fnaQuickMenu"
+			<!-- <div id="fnaQuickMenu"
 				style="margin-top: 50px; border: 1px solid #ccc; height: 50%;">
 				<div class="quickMenuTitle">
 					<h3>질의응답</h3>
@@ -39,11 +38,11 @@
 				</div>
 				<div>
 					<form id="fnaSearchForm"></form>
-					<!-- 질의응답 최근 5개 불러올것 -->
+					질의응답 최근 5개 불러올것
 					<table id="fnaMainTable" style="width: 100%; table-layout: fixed">
 					</table>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="adminQuickWrap">
 			<div id="orderMgtQuickMenu" style="border: 1px solid #ccc; height: 100%;">
@@ -93,14 +92,41 @@
 		</div>
 		<div class="adminQuickWrap">
 			<div>
-				<span class="thirdSessionOrderAmt">금주의 주문량</span>
+				<span class="thirdSessionOrderAmt">금주 주문량</span>
 				<div class="thirdSessionColor">
-				<table>
+				<table id="weekOrderAmt" style="table-layout: fixed">
 					<colgroup>
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
+						<col width="17%">
+						<col width="17%">
+						<col width="17%">
+						<col width="17%">
+						<col width="17%">
+						<col width="17%">
+						<col width="17%">
+					</colgroup>
+					<tr>
+						<td class="boldFont">월</td>
+						<td class="boldFont">화</td>
+						<td class="boldFont">수</td>
+						<td class="boldFont">목</td>
+						<td class="boldFont">금</td>
+						<td class="boldFont">토</td>
+						<td class="boldFont">일</td>
+					</tr>
+					<tr id="weekQty">
+					</tr>
+				</table>
+				</div>
+			</div>
+			<div>
+				<span class="thirdSessionMoneyAmt">금주 판매금액</span>
+				<div class="thirdSessionColor">
+				<table id="weekMoneyAmt" style="table-layout: fixed">
+					<colgroup>
+						<col width="80px;">
+						<col width="80px;">
+						<col width="80px;">
+						<col width="80px;">
 					</colgroup>
 					<tr>
 						<td class="boldFont">월</td>
@@ -108,11 +134,7 @@
 						<td class="boldFont">수</td>
 						<td class="boldFont">목</td>
 					</tr>
-					<tr>
-						<td>월 주문량</td>
-						<td>화 주문량</td>
-						<td>수 주문량</td>
-						<td>목 주문량</td>
+					<tr id="weekAmt4">
 					</tr>
 					<tr>
 						<td class="boldFont">금</td>
@@ -120,59 +142,20 @@
 						<td class="boldFont" colspan="1">일</td>
 					
 					</tr>
-					<tr>
-						<td>금 주문량</td>
-						<td>토 주문량</td>
-						<td colspan="1">일 주문량</td>
+					<tr id="weekAmt3">
 					</tr>
 				</table>
 				</div>
 			</div>
 			<div>
-				<span class="thirdSessionMoneyAmt">금주의 판매금액</span>
+				<span class="thirdSessionOrderAmt">월 주문량</span>
 				<div class="thirdSessionColor">
-				<table>
+				<table id="yearOrderAmt" style="table-layout: fixed">
 					<colgroup>
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
-					</colgroup>
-					<tr>
-						<td class="boldFont">월</td>
-						<td class="boldFont">화</td>
-						<td class="boldFont">수</td>
-						<td class="boldFont">목</td>
-					</tr>
-					<tr>
-						<td>월 판매금액</td>
-						<td>화 판매금액</td>
-						<td>수 판매금액</td>
-						<td>목 판매금액</td>
-					</tr>
-					<tr>
-						<td class="boldFont">금</td>
-						<td class="boldFont">토</td>
-						<td class="boldFont" colspan="1">일</td>
-					
-					</tr>
-					<tr>
-						<td>금 판매금액</td>
-						<td>토 판매금액</td>
-						<td colspan="1">일 판매금액</td>
-					</tr>
-				</table>
-				</div>
-			</div>
-			<div>
-				<span class="thirdSessionOrderAmt">금월의 주문량</span>
-				<div class="thirdSessionColor">
-				<table>
-					<colgroup>
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
+						<col width="80px;">
+						<col width="80px;">
+						<col width="80px;">
+						<col width="80px;">
 					</colgroup>
 					<tr>
 						<td class="boldFont">1월</td>
@@ -180,11 +163,7 @@
 						<td class="boldFont">3월</td>
 						<td class="boldFont">4월</td>
 					</tr>
-					<tr>
-						<td>1월 주문량</td>
-						<td>2월 주문량</td>
-						<td>3월 주문량</td>
-						<td>4월 주문량</td>
+					<tr id="yearQty4">
 					</tr>
 					<tr>
 						<td class="boldFont">5월</td>
@@ -192,11 +171,7 @@
 						<td class="boldFont">7월</td>
 						<td class="boldFont">8월</td>
 					</tr>
-					<tr>
-						<td>5월 주문량</td>
-						<td>6월 주문량</td>
-						<td>7월 주문량</td>
-						<td>8월 주문량</td>
+					<tr id="yearQty8">
 					</tr>
 					<tr>
 						<td class="boldFont">9월</td>
@@ -204,24 +179,20 @@
 						<td class="boldFont">11월</td>
 						<td class="boldFont">12월</td>
 					</tr>
-					<tr>
-						<td>9월 주문량</td>
-						<td>10월 주문량</td>
-						<td>11월 주문량</td>
-						<td>12월 주문량</td>
+					<tr id="yearQty12">
 					</tr>
 				</table>
 				</div>
 			</div>
 			<div>
-				<span class="thirdSessionMoneyAmt">금월의 판매금액</span>
+				<span class="thirdSessionMoneyAmt">월 판매금액</span>
 				<div class="thirdSessionColor">
-				<table>
+				<table id="yearMoneyAmt" style="table-layout: fixed">
 					<colgroup>
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
-						<col width="15%">
+						<col width="100px;">
+						<col width="85px;">
+						<col width="85px;">
+						<col width="85px;">
 					</colgroup>
 					<tr>
 						<td class="boldFont">1월</td>
@@ -229,11 +200,7 @@
 						<td class="boldFont">3월</td>
 						<td class="boldFont">4월</td>
 					</tr>
-					<tr>
-						<td>1월 판매금액</td>
-						<td>2월 판매금액</td>
-						<td>3월 판매금액</td>
-						<td>4월 판매금액</td>
+					<tr id="yearAmt4">
 					</tr>
 					<tr>
 						<td class="boldFont">5월</td>
@@ -241,11 +208,7 @@
 						<td class="boldFont">7월</td>
 						<td class="boldFont">8월</td>
 					</tr>
-					<tr>
-						<td>5월 판매금액</td>
-						<td>6월 판매금액</td>
-						<td>7월 판매금액</td>
-						<td>8월 판매금액</td>
+					<tr id="yearAmt8">
 					</tr>
 					<tr>
 						<td class="boldFont">9월</td>
@@ -253,11 +216,7 @@
 						<td class="boldFont">11월</td>
 						<td class="boldFont">12월</td>
 					</tr>
-					<tr>
-						<td>9월 판매금액</td>
-						<td>10월 판매금액</td>
-						<td>11월 판매금액</td>
-						<td>12월 판매금액</td>
+					<tr id="yearAmt12">
 					</tr>
 				</table>
 				</div>

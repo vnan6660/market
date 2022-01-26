@@ -1,8 +1,10 @@
 package com.dao.common;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vo.common.CmmnVO;
+import com.vo.common.OrderVO;
 
 /**
  * 공통 Dao
@@ -13,5 +15,9 @@ public interface CommonDao {
 
 	//공통코드 가져오기
 	List<CmmnVO> selectCmmnCd();
+
+	//주문량,판매금액 불러오기
+	OrderVO selectOrderAmtQty(Map<String, Object> param);
+
 
 }

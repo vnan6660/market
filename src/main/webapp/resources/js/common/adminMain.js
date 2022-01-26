@@ -3,6 +3,9 @@
 *생성일 : 2022.01.06
 *관리자 메인
 */
+var weekMonday;
+var weekSunday;
+var dateArr = [];
 
 $(function() {
 	//초기설정함수
@@ -18,11 +21,20 @@ var adminMainInit = function() {
 	//Local시간 가져오기
 	getLocalTime();
 
+	//월요일과 일요일간의 날짜사이를 dateArr 배열에 넣기
+	getDateStartToLast(weekMonday, weekSunday);
+
 	//공지사항불러오기
 	noticeListLoad();
 
 	//주문관리 불러오기
-	orderMgtLoad("tab1","주문완료");
+	orderMgtLoad("tab1", "주문완료");
+
+	//금주 주문량,판매금액 불러오기
+	thisWeekOrderLoad(dateArr);
+
+	//이번년도 주문량,판매금액 불러오기
+	thisYearOrderLoad();
 
 	//주문관리에 있는 탭내용부분 숨기되 첫번째내용은 보여주기
 	$('.tabcontent > div').hide().filter(':first').show();
@@ -50,7 +62,7 @@ var adminMainAttachEvent = function() {
 		//hash태그로 이어진 tabContents Id 가져오기
 		var tabContentsId = new String(this.hash).substring(1);
 		var tabNm = new String(this.text);
-		orderMgtLoad(tabContentsId,tabNm);
+		orderMgtLoad(tabContentsId, tabNm);
 
 	});
 }
@@ -64,6 +76,11 @@ var getLocalTime = function() {
 	startDt.setDate(1);
 	startDt = startDt.toISOString().substring(0, 10);
 	endDt = curDate.toISOString().substring(0, 10);
+
+	//오늘기준으로 월요일 가져오기
+	weekMonday = getMondayDate(curDate);
+	//오늘기준으로 일요일 가져오기
+	weekSunday = getSundayDate(curDate);
 }
 
 //공지사항 불러오기
@@ -74,13 +91,13 @@ var noticeListLoad = function() {
 			"startDt": startDt,
 			"endtDt": endDt,
 			"page": 1,
-			"noLimit":1
+			"noLimit": 1
 		},
-		async:false,
+		async: false,
 		success: function(res) {
 			var viewList = "";
 			var noticeList = res.noticeList.filter(function(e, i) {
-				return i < 5;
+				return i < 20;
 			});
 
 			viewList += "<colgroup>";
@@ -119,21 +136,21 @@ var noticeListLoad = function() {
 }
 
 //주문관리 불러오기
-var orderMgtLoad = function(tabContentsId,tabNm) {
+var orderMgtLoad = function(tabContentsId, tabNm) {
 	$.ajax({
 		url: '/orderList/searchOrderList',
 		data: {
 			"startDt": startDt,
 			"endDt": endDt,
 			"page": 1,
-			"noLimit":1
+			"noLimit": 1
 		},
-		async:false,
+		async: false,
 		success: function(res) {
 			var viewList = "";
 			var orderMgtList = res.reList.filter(function(e, i) {
 				return e.odState == tabNm;
-			}).filter(function(e,i){
+			}).filter(function(e, i) {
 				return i < 10;
 			});
 
@@ -187,7 +204,7 @@ var orderMgtLoad = function(tabContentsId,tabNm) {
 				});
 			}
 
-			$("#"+tabContentsId+" > table").html(viewList);
+			$("#" + tabContentsId + " > table").html(viewList);
 		},
 		error: function() {
 			alert("오류입니다. 관리자에게 문의해주세요");
@@ -235,3 +252,129 @@ var goOdDetail = function(odNo, odNo2, odState) {
 	$('#odSearchForm').submit();
 }
 
+//오늘기준으로 월요일 가져오기
+var getMondayDate = function(date) {
+	var paramDate = new Date(date);
+
+	var day = paramDate.getDay();// 요일을 반환(0은 일요일 ....6은 월요일)
+	var diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
+	return new Date(paramDate.setDate(diff)).toISOString().substring(0, 10);
+}
+
+//오늘기준으로 일요일 가져오기
+var getSundayDate = function(date) {
+	var paramDate = new Date(date);
+
+	var day = paramDate.getDay();// 요일을 반환(0은 일요일 ....6은 월요일)
+	var diff = paramDate.getDate() + (day == 0 ? 0 : 7 - day);
+	return new Date(paramDate.setDate(diff)).toISOString().substring(0, 10);
+}
+
+//월요일과 일요일간의 날짜사이를 dateArr 배열에 넣기
+var getDateStartToLast = function(startDate, lastDate) {
+	dateArr = [];
+
+	var curDate = new Date(startDate);
+	while (curDate <= new Date(lastDate)) {
+		//dateArr배열에 값넣기
+		dateArr.push(curDate.toISOString().substring(0, 10));
+		//curDate날짜에 1일 더하기
+		curDate.setDate(curDate.getDate() + 1);
+	}
+
+	return dateArr;
+}
+
+//금주 주문량,판매금액 불러오기
+var thisWeekOrderLoad = function(dateArr) {
+	$.ajax({
+		url: '/common/getThisWeekOrder',
+		data: {
+			"dateList": dateArr
+		},
+		async: false,
+		success: function(res) {
+			var week = res.filter(function(e,i) {
+				return e.dateType == 'week';
+			});
+
+			var weekList = ""
+			$.each(week, function(i, e) {
+				weekList += "<td>" + String(week[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+			})
+
+			var weekAmt4 = ""
+			var weekAmt3 = ""
+			$.each(week, function(i, e) {
+				if (i < 4) {
+					weekAmt4 += "<td>" + String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				}
+
+				if (i > 3) {
+					weekAmt3 += "<td colspan='1'>" + +String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				}
+
+			})
+
+			$("#weekOrderAmt #weekQty").html(weekList);
+			$("#weekMoneyAmt #weekAmt4").html(weekAmt4);
+			$("#weekMoneyAmt #weekAmt3").html(weekAmt3);
+
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
+}
+
+
+//이번년도 주문량,판매금액 불러오기
+var thisYearOrderLoad = function() {
+	$.ajax({
+		url: '/common/getThisYearOrder',
+		async: false,
+		success: function(res) {
+			console.log(res);
+			var year = res.filter(function(e, i) {
+				return e.dateType == 'year';
+			});
+
+			var yearAmt4 = "";
+			var yearQty4 = "";
+			var yearAmt8 = "";
+			var yearQty8 = "";
+			var yearAmt12 = "";
+			var yearQty12 = "";
+			$.each(year, function(i, e) {
+				if (i < 4) {
+					yearAmt4 += "<td>" + String(year[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+					yearQty4 += "<td>" + String(year[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				}
+
+				if (i > 3 && i < 8) {
+					yearAmt8 += "<td>" + String(year[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+					yearQty8 += "<td>" + String(year[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				}
+
+				if (i > 7 && i < 12) {
+					yearAmt12 += "<td>" + String(year[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+					yearQty12 += "<td>" + String(year[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				}
+
+			})
+			
+			$("#yearOrderAmt #yearQty4").html(yearQty4);
+			$("#yearOrderAmt #yearQty8").html(yearQty8);
+			$("#yearOrderAmt #yearQty12").html(yearQty12);
+			
+			
+			$("#yearMoneyAmt #yearAmt4").html(yearAmt4);
+			$("#yearMoneyAmt #yearAmt8").html(yearAmt8);
+			$("#yearMoneyAmt #yearAmt12").html(yearAmt12);
+			
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
+}

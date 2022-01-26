@@ -1,17 +1,21 @@
 package com.controller.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.common.CommonService;
 import com.service.menuTotalMgt.MenuMgtService;
 import com.vo.common.CmmnVO;
+import com.vo.common.OrderVO;
 import com.vo.menuTotalMgt.MenuMgtVO;
 
 /**
@@ -50,7 +54,7 @@ public class CommonController {
         return "/common/sideMenu";
     }
     
-  //사이드 메뉴 불러오기
+   //사이드 메뉴 불러오기
     @RequestMapping("/footer/footerPage")
     public String footer(Model model) {
         return "/common/footer";
@@ -64,5 +68,25 @@ public class CommonController {
     	List<CmmnVO> list = commonService.getCmmnCd();
     	
         return list;
+    }
+    
+    //금주 주문량,판매금액 불러오기
+    @GetMapping("/common/getThisWeekOrder")
+    @ResponseBody
+    public List<OrderVO> getThisWeekOrder(@RequestParam(value = "dateList[]" ,required = false)ArrayList<String> dateList){
+    	
+    	List<OrderVO> list = commonService.getThisWeekOrder(dateList);
+		
+    	return list;
+    }
+    
+    //이번년도 주문량,판매금액 불러오기
+    @GetMapping("/common/getThisYearOrder")
+    @ResponseBody
+    public List<OrderVO> getThisYearOrder(){
+    	
+    	List<OrderVO> list = commonService.getThisYearOrder();
+		
+    	return list;
     }
 }

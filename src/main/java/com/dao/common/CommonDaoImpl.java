@@ -1,12 +1,14 @@
 package com.dao.common;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.vo.common.CmmnVO;
+import com.vo.common.OrderVO;
 
 /**
  * 공통 DaoImpl
@@ -22,5 +24,11 @@ public class CommonDaoImpl implements CommonDao {
 	@Override
 	public List<CmmnVO> selectCmmnCd() {
 		return sqlSession.selectList("selectCmmnCd");
+	}
+
+	//금주 주문량,판매금액 불러오기
+	@Override
+	public OrderVO selectOrderAmtQty(Map<String, Object> param) {
+		return sqlSession.selectOne("selectOrderAmtQty",param);
 	}
 }
