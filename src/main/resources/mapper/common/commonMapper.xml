@@ -53,5 +53,6 @@
 		      GROUP BY GD_NO
 		     ) O
 		 ON O.GD_NO = G.GD_NO
+		 WHERE G.GD_GP = 'bestBook'
 	 </select>
  </mapper>

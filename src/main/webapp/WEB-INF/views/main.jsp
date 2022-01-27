@@ -43,15 +43,17 @@
 							<div id="bestSellerTab">
 								<ul style="display: flex;">
 									<li style="font-weight: 700;">베스트셀러</li>
-									<li>전문서적</li>
-									<li>일반서적</li>
-									<li>외국어</li>
-									<li>아동</li>
-									<li>잡지</li>
-									<li>IT</li>
-									<li>수험서</li>
+									<li class="hover"><input type="hidden" value="special">전문서적</li>
+									<li class="hover"><input type="hidden" value="general">일반서적</li>
+									<li class="hover"><input type="hidden" value="foreign">외국어</li>
+									<li class="hover"><input type="hidden" value="child">아동</li>
+									<li class="hover"><input type="hidden" value="magazine">잡지</li>
+									<li class="hover"><input type="hidden" value="it">IT</li>
+									<li class="hover"><input type="hidden" value="exam">수험서</li>
 								</ul>
 							</div>
+							<ul>
+							</ul>
 						</div>
 						<div id="issueBook">
 							<!--  화제의 신간 -->

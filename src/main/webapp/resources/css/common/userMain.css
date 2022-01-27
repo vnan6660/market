@@ -155,3 +155,32 @@
 	width: 100px;
 	height: 50px;
 }
+
+#bestSeller {
+	margin-top: 5px;
+}
+
+#bestSeller>ul {
+	width: 50%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	background-color: #a6b3ce;
+}
+
+#bestSeller>ul>li {
+	width: 200px;
+	height: 150px;
+	margin-top: 10px;
+}
+
+#bestSeller>ul>li div span {
+	word-break: keep-all;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#bestSeller>ul img {
+	width: 200px;
+	height: 100px;
+}

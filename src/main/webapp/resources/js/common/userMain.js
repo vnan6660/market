@@ -17,8 +17,11 @@ var userMainInit = function() {
 	//현재 이미지 보여줌
 	showSlides(nowTabInfo(), current);
 
-	//베스트셀러불러오기
+	//베스트셀러Rank불러오기
 	bestSellerLoad();
+	
+	//베스트셀러 모음 불러오기
+	bestSellerLoad('special');
 
 	$('.tabcontent > div').hide().filter(':first').show();
 
@@ -56,17 +59,24 @@ var userMainAttachEvent = function() {
 	$("#next").click(function() {
 		nextSlide(nowTabInfo());
 	});
-	
+
 	//1~5위 버튼 클릭시
 	$("#oneRank").click(function() {
 		$("#bestRankListTwo").hide();
 		$("#bestRankListOne").show();
 	});
-	
+
 	//6~10위 버튼 클릭시
 	$("#sixRank").click(function() {
 		$("#bestRankListOne").hide();
 		$("#bestRankListTwo").show();
+	});
+
+	$("#bestSellerTab ul li").click(function() {
+		//li의 첫번째 태그에의 값 가져오기
+		var bestTabVal = this.childNodes[0].defaultValue;
+
+		bestSellerLoad(bestTabVal);
 	});
 }
 
@@ -122,7 +132,7 @@ var nextSlide = function(slides) {
 }
 
 //베스트셀러불러오기
-var bestSellerLoad = function() {
+var bestSellerLoad = function(code) {
 	$.ajax({
 		url: '/common/getBestSeller'
 		, async: false
@@ -131,49 +141,76 @@ var bestSellerLoad = function() {
 			var bestRankListOne = "";
 			var bestRankListTwo = "";
 
-			if (res.length > 1) {
-				//selQty Desc순으로 정렬
-				bestRankResult = res.sort(function(a, b) {
-					return b.selQty - a.selQty;
-				//정렬된 것을 10개만 가져오기
-				}).filter(function(e, i) {
-					return i < 10;
-				});
-			} else {
-				bestRankResult = res.filter(function(e, i) {
-					return i < 10;
-				});
-			}
+			var bestRes;
+			var bestResList = "";
 
-			$.each(bestRankResult, function(i, e) {
-				if (i < 5) {
-					bestRankListOne += "<li>"
-					bestRankListOne += "<div>" + (i+1) + "</div>";
-					bestRankListOne += "<div style='width: 50%'>";
-					bestRankListOne += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
-					bestRankListOne += "</div>";
-					bestRankListOne += "<div style='width: 50%;display: flex;flex-direction: column; '>";
-					bestRankListOne += "<span>" + e.gdNm + "</span>";
-					bestRankListOne += "<span>" + e.gdWr + "</span>";
-					bestRankListOne += "</div>";
-					bestRankListOne += "</li>"
-				}else{
-					bestRankListTwo += "<li>"
-					bestRankListTwo += "<div>" + (i+1) + "</div>";
-					bestRankListTwo += "<div style='width: 50%'>";
-					bestRankListTwo += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
-					bestRankListTwo += "</div>";
-					bestRankListTwo += "<div style='width: 50%;display: flex;flex-direction: column; '>";
-					bestRankListTwo += "<span>" + e.gdNm + "</span>";
-					bestRankListTwo += "<span>" + e.gdWr + "</span>";
-					bestRankListTwo += "</div>";
-					bestRankListTwo += "</li>"
+			if (typeof code == 'undefined') {
+				//베스트 랭킹담기
+				if (res.length > 1) {
+					//selQty Desc순으로 정렬
+					bestRankResult = res.sort(function(a, b) {
+						return b.selQty - a.selQty;
+						//정렬된 것을 10개만 가져오기
+					}).filter(function(e, i) {
+						return i < 10;
+					});
+				} else {
+					bestRankResult = res.filter(function(e, i) {
+						return i < 10;
+					});
 				}
 
-			});
+				$.each(bestRankResult, function(i, e) {
+					if (i < 5) {
+						bestRankListOne += "<li>"
+						bestRankListOne += "<div>" + (i + 1) + "</div>";
+						bestRankListOne += "<div style='width: 50%'>";
+						bestRankListOne += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+						bestRankListOne += "</div>";
+						bestRankListOne += "<div style='width: 50%;display: flex;flex-direction: column; '>";
+						bestRankListOne += "<span>" + e.gdNm + "</span>";
+						bestRankListOne += "<span>" + e.gdWr + "</span>";
+						bestRankListOne += "</div>";
+						bestRankListOne += "</li>"
+					} else {
+						bestRankListTwo += "<li>"
+						bestRankListTwo += "<div>" + (i + 1) + "</div>";
+						bestRankListTwo += "<div style='width: 50%'>";
+						bestRankListTwo += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+						bestRankListTwo += "</div>";
+						bestRankListTwo += "<div style='width: 50%;display: flex;flex-direction: column; '>";
+						bestRankListTwo += "<span>" + e.gdNm + "</span>";
+						bestRankListTwo += "<span>" + e.gdWr + "</span>";
+						bestRankListTwo += "</div>";
+						bestRankListTwo += "</li>"
+					}
 
-			$("#bestRank #bestRankListOne").html(bestRankListOne);
-			$("#bestRank #bestRankListTwo").html(bestRankListTwo);
+				});
+
+				$("#bestRank #bestRankListOne").html(bestRankListOne);
+				$("#bestRank #bestRankListTwo").html(bestRankListTwo);
+			}
+
+			if (typeof code != 'undefined') {
+				bestRes = res.filter(function(e, i) {
+					return e.gdSp == code;
+				});
+
+				$.each(bestRes, function(i, e) {
+					bestResList += "<li>";
+					bestResList += "<div>";
+					bestResList += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+					bestResList += "</div>";
+					bestResList += "<div style='display: flex;flex-direction: column; '>";
+					bestResList += "<span>" + e.gdNm + "</span>";
+					bestResList += "<span>" + e.gdWr + "</span>";
+					bestResList += "</div>";
+					bestResList += "</li>";
+				});
+
+				$("#bestSeller > ul").html(bestResList);
+
+			}
 
 		}
 		, error: function() {
