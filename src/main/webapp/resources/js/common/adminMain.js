@@ -316,7 +316,10 @@ var thisWeekOrderLoad = function(dateArr) {
 
 			})
 
+			//금주 주문량
 			$("#weekOrderAmt #weekQty").html(weekList);
+			
+			//금주 판매금액
 			$("#weekMoneyAmt #weekAmt4").html(weekAmt4);
 			$("#weekMoneyAmt #weekAmt3").html(weekAmt3);
 
@@ -334,7 +337,6 @@ var thisYearOrderLoad = function() {
 		url: '/common/getThisYearOrder',
 		async: false,
 		success: function(res) {
-			console.log(res);
 			var year = res.filter(function(e, i) {
 				return e.dateType == 'year';
 			});
@@ -363,11 +365,12 @@ var thisYearOrderLoad = function() {
 
 			})
 			
+			//이번해 주문량
 			$("#yearOrderAmt #yearQty4").html(yearQty4);
 			$("#yearOrderAmt #yearQty8").html(yearQty8);
 			$("#yearOrderAmt #yearQty12").html(yearQty12);
 			
-			
+			//이번해 판매금액
 			$("#yearMoneyAmt #yearAmt4").html(yearAmt4);
 			$("#yearMoneyAmt #yearAmt8").html(yearAmt8);
 			$("#yearMoneyAmt #yearAmt12").html(yearAmt12);

@@ -25,13 +25,13 @@ var userMainInit = function() {
 var userMainAttachEvent = function() {
 
 	//탭클릭시
-	$(".tabNav a").click(function() {
+	$("#tabNav a").click(function() {
 		//현재 클릭한 tabId
 		nowTab = $(this).attr("id");
 		$('.tabcontent > div').hide().filter(this.hash).show();
 
 		//tabnav a 에있는 active라고 지어진 Class지우기
-		$('.tabNav a').removeClass('active');
+		$('#tabNav a').removeClass('active');
 
 		//클릭된a(this)에 active라고 Class주기
 		$(this).addClass('active');

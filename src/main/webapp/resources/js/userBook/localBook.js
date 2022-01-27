@@ -175,6 +175,9 @@ var goPage = function(pageNum) {
 			
 			//id가 bestBookTabledp viewList를 담은 html추가
 			$("#bestBookTable").html(viewList);
+			
+			var mainHeight = $("#contentsWrap").outerHeight(true);
+			$("#sideUlWrap").css("height",mainHeight +"px");
 
 		},
 		//오류발생시 function()

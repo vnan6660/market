@@ -7,9 +7,13 @@
 
 @import url("/css/common/common.css");
 
-#slideShow {
+#leftContents {
+	height: 25%;
 	width: 90%;
-	height: 30%;
+}
+
+#leftSlideShow {
+	height: 100%;
 	overflow: hidden;
 	position: relative;
 }
@@ -21,29 +25,33 @@
 	float: left;
 }
 
-.tabNav {
+#tabNav {
 	position: absolute;
-	width: 200px;
+	width: 400px;
 	top: 90%;
-	left: 37%;
+	left: 33%;
 }
 
-.tabNav a {
+#tabNav a {
 	color: #fff;
+	width: 350px;
 	background-color: #000;
 	text-decoration: none;
 	border-style: solid;
 	border-width: 1px;
-	padding: 8px;
+	margin-left: -7px;
 }
 
 #epTab:link, #gfTab:link {
 	color: #fff;
 }
 
+#epTab {
+	padding: 8px 20px;
+}
+
 #gfTab {
-	margin-left: -7px;
-	padding: 8px 23px;
+	padding: 8px 36px;
 }
 
 #slides>button {
@@ -76,3 +84,14 @@
 	right: 0;
 	margin-right: 35px;
 }
+/*-------베스트셀러 ------*/
+#bestSellerTab{
+	width: 50%;
+}
+
+#bestSellerTab ul{
+	justify-content:space-between;
+	font-size:16px;
+	background-color: #d9e0ee;
+}
+
