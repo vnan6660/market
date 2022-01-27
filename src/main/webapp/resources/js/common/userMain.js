@@ -17,7 +17,13 @@ var userMainInit = function() {
 	//현재 이미지 보여줌
 	showSlides(nowTabInfo(), current);
 
+	//베스트셀러불러오기
+	bestSellerLoad();
+
 	$('.tabcontent > div').hide().filter(':first').show();
+
+	var mainHeight = $("#contentsWrap").outerHeight(true);
+	$("#sideUlWrap").css("height", mainHeight + "px");
 
 }
 
@@ -49,6 +55,18 @@ var userMainAttachEvent = function() {
 	// 다음버튼클릭시
 	$("#next").click(function() {
 		nextSlide(nowTabInfo());
+	});
+	
+	//1~5위 버튼 클릭시
+	$("#oneRank").click(function() {
+		$("#bestRankListTwo").hide();
+		$("#bestRankListOne").show();
+	});
+	
+	//6~10위 버튼 클릭시
+	$("#sixRank").click(function() {
+		$("#bestRankListOne").hide();
+		$("#bestRankListTwo").show();
 	});
 }
 
@@ -101,4 +119,65 @@ var nextSlide = function(slides) {
 		current = 0;
 	}
 	showSlides(slides, current);
+}
+
+//베스트셀러불러오기
+var bestSellerLoad = function() {
+	$.ajax({
+		url: '/common/getBestSeller'
+		, async: false
+		, success: function(res) {
+			var bestRankResult;
+			var bestRankListOne = "";
+			var bestRankListTwo = "";
+
+			if (res.length > 1) {
+				//selQty Desc순으로 정렬
+				bestRankResult = res.sort(function(a, b) {
+					return b.selQty - a.selQty;
+				//정렬된 것을 10개만 가져오기
+				}).filter(function(e, i) {
+					return i < 10;
+				});
+			} else {
+				bestRankResult = res.filter(function(e, i) {
+					return i < 10;
+				});
+			}
+
+			$.each(bestRankResult, function(i, e) {
+				if (i < 5) {
+					bestRankListOne += "<li>"
+					bestRankListOne += "<div>" + (i+1) + "</div>";
+					bestRankListOne += "<div style='width: 50%'>";
+					bestRankListOne += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+					bestRankListOne += "</div>";
+					bestRankListOne += "<div style='width: 50%;display: flex;flex-direction: column; '>";
+					bestRankListOne += "<span>" + e.gdNm + "</span>";
+					bestRankListOne += "<span>" + e.gdWr + "</span>";
+					bestRankListOne += "</div>";
+					bestRankListOne += "</li>"
+				}else{
+					bestRankListTwo += "<li>"
+					bestRankListTwo += "<div>" + (i+1) + "</div>";
+					bestRankListTwo += "<div style='width: 50%'>";
+					bestRankListTwo += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+					bestRankListTwo += "</div>";
+					bestRankListTwo += "<div style='width: 50%;display: flex;flex-direction: column; '>";
+					bestRankListTwo += "<span>" + e.gdNm + "</span>";
+					bestRankListTwo += "<span>" + e.gdWr + "</span>";
+					bestRankListTwo += "</div>";
+					bestRankListTwo += "</li>"
+				}
+
+			});
+
+			$("#bestRank #bestRankListOne").html(bestRankListOne);
+			$("#bestRank #bestRankListTwo").html(bestRankListTwo);
+
+		}
+		, error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
 }

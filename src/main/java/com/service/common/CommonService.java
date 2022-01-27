@@ -3,6 +3,7 @@ package com.service.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.CmmnVO;
 import com.vo.common.OrderVO;
 
@@ -21,4 +22,7 @@ public interface CommonService {
 
 	//이번년도 주문량,판매금액 불러오기
 	List<OrderVO> getThisYearOrder();
+
+	//베스트 셀러 불러오기
+	List<GoodsListVO> getBestSeller();
 }

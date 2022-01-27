@@ -46,4 +46,6 @@ public class GoodsListVO {
 	private String gdImgStr;
 	private String gdDetlStr;
 	
+	private String SelQty;//판매수량
+	
 }

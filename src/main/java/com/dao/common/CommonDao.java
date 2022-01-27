@@ -3,6 +3,7 @@ package com.dao.common;
 import java.util.List;
 import java.util.Map;
 
+import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.CmmnVO;
 import com.vo.common.OrderVO;
 
@@ -18,6 +19,9 @@ public interface CommonDao {
 
 	//주문량,판매금액 불러오기
 	OrderVO selectOrderAmtQty(Map<String, Object> param);
+
+	//베스트 셀러 불러오기
+	List<GoodsListVO> selectBestSeller();
 
 
 }

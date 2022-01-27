@@ -12,7 +12,7 @@
 </head>
 <body>
 	<c:import url="/sideMenu/sideMenuPage"></c:import>
-	<main id="contents" style="height: 1000px;">
+	<main id="contentsWrap">
 		<div id="leftContents">
 			<div id="leftSlideShow">
 				<!-- 슬라이드쇼 -->
@@ -59,10 +59,18 @@
 				</div>
 			</div>
 		</div>
+		<div id="bestRank">
+			<h4 style="text-align: center;">베스트 셀러</h4>
+			<input id="oneRank" type="button" value="1~5위">
+			<input id="sixRank" type="button" value="6~10위">
+			<ul id="bestRankListOne">
+			</ul>
+			<ul id="bestRankListTwo" style="display: none">
+			</ul>
+		</div>
 	</main>
 	<footer>
 		<c:import url="/footer/footerPage"></c:import>
 	</footer>
 </body>
-
 </html>

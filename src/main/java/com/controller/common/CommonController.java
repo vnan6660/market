@@ -1,8 +1,10 @@
 package com.controller.common;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.service.common.CommonService;
 import com.service.menuTotalMgt.MenuMgtService;
+import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.CmmnVO;
 import com.vo.common.OrderVO;
 import com.vo.menuTotalMgt.MenuMgtVO;
@@ -88,4 +91,33 @@ public class CommonController {
 		
     	return list;
     }
+    
+    //베스트 셀러 불러오기
+    @GetMapping("/common/getBestSeller")
+    @ResponseBody
+    public List<GoodsListVO> getBestSeller() throws IOException{
+    	
+    	List<GoodsListVO> list = commonService.getBestSeller();
+    	List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			GoodsListVO vo = new GoodsListVO();
+			
+			vo.setGdNo(list.get(i).getGdNo());
+			vo.setGdGp(list.get(i).getGdGp());
+			vo.setGdSp(list.get(i).getGdSp());
+			vo.setGdNm(list.get(i).getGdNm());
+			vo.setGdWr(list.get(i).getGdWr());
+			vo.setSelQty(list.get(i).getSelQty());
+			
+			if (list.get(i).getGdImg() != null) {
+				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
+				vo.setGdImgStr(gdImgStr);
+			}
+			reList.add(i,vo);
+		}
+		
+    	return list;
+    }
+    
 }

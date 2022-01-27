@@ -35,5 +35,23 @@
    		  </if>
  		 
 	 </select>
- 
+	 
+	 <!-- 베스트 셀러 불러오기 -->
+	 <select id="selectBestSeller" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+		SELECT
+		    G.GD_NO<!-- 상품번호 -->
+		   ,G.GD_GP<!-- 상품구분 -->
+		   ,G.GD_SP<!-- 상품분류 -->
+		   ,G.GD_NM<!-- 상품이름 -->
+		   ,G.GD_WR<!-- 상품작가 -->
+		   ,G.GD_IMG<!-- 상품이미지 -->
+		   ,NVL(O.SEL_QTY,0) AS SEL_QTY<!-- 판매수량 -->
+		 FROM GOODS_INFO G
+		 LEFT OUTER JOIN 
+		    (SELECT GD_NO ,SUM(NVL(GD_QTY,0))AS SEL_QTY
+		       FROM ORDER_INFO
+		      GROUP BY GD_NO
+		     ) O
+		 ON O.GD_NO = G.GD_NO
+	 </select>
  </mapper>

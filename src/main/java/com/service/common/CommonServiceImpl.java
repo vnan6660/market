@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.common.CommonDao;
+import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.CmmnVO;
 import com.vo.common.OrderVO;
 
@@ -95,6 +96,12 @@ public class CommonServiceImpl implements CommonService {
 			reList.add(i,odvo);
 		}
 		return reList;
+	}
+
+	//베스트 셀러 불러오기
+	@Override
+	public List<GoodsListVO> getBestSeller() {
+		return commonDao.selectBestSeller();
 	}
 
 }

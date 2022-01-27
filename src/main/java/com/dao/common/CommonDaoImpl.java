@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.vo.adminGoodsMgt.GoodsListVO;
 import com.vo.common.CmmnVO;
 import com.vo.common.OrderVO;
 
@@ -30,5 +31,11 @@ public class CommonDaoImpl implements CommonDao {
 	@Override
 	public OrderVO selectOrderAmtQty(Map<String, Object> param) {
 		return sqlSession.selectOne("selectOrderAmtQty",param);
+	}
+
+	//베스트 셀러 불러오기
+	@Override
+	public List<GoodsListVO> selectBestSeller() {
+		return sqlSession.selectList("selectBestSeller");
 	}
 }

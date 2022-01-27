@@ -7,9 +7,20 @@
 
 @import url("/css/common/common.css");
 
-#leftContents {
-	height: 25%;
+#contentsWrap {
+	height: 700px;
+	position: absolute;
+	margin: 5% auto;
+	padding: 15px;
 	width: 90%;
+	display: inline-flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+#leftContents {
+	height: 35%;
+	width: 80%;
 }
 
 #leftSlideShow {
@@ -55,11 +66,12 @@
 }
 
 #slides>button {
+	width: 10px;
 	position: absolute;
 	height: 90%;
 	border: none;
 	padding: 10px;
-	background-color: transparent; /*투명색*/
+	background-color: transparent;
 	font-weight: 800;
 	font-size: 24px;
 	opacity: 0.4;
@@ -76,22 +88,70 @@
 }
 
 #prev {
-	left: 0;
-	margin-left: -70px;
+	left: 15;
 }
 
 #next {
-	right: 0;
-	margin-right: 35px;
+	left: 85%;
 }
 /*-------베스트셀러 ------*/
-#bestSellerTab{
+#bestSellerTab {
 	width: 50%;
 }
 
-#bestSellerTab ul{
-	justify-content:space-between;
-	font-size:16px;
+#bestSellerTab ul {
+	height: 50px;
+	line-height: 50px;
+	justify-content: space-around;
+	font-size: 16px;
 	background-color: #d9e0ee;
 }
 
+#bestRank {
+	width: 25%;
+	border: 1px solid #000;
+	margin-left: -75px;
+}
+
+#bestRank input {
+	color: #000;
+	width: 51%;
+	background-color: #d9e0ee;
+	text-decoration: none;
+	border-style: solid;
+	border-width: 0px;
+	cursor: pointer;
+}
+
+#bestRank input:nth-of-type(2) {
+	border-left: 1px solid;
+	margin-left: -11.5px;
+}
+
+#bestRank ul li {
+	display: flex;
+	white-space: nowrap;
+	margin-bottom: 5px;
+	padding: 1em;
+}
+
+#bestRank ul li div:nth-of-type(1) {
+	margin: 0px 5px 34px;
+	padding: 0.25em 0.5em;
+	background-color: #a6b3ce;
+}
+
+#bestRank ul li div:nth-of-type(2) {
+	width: 100px;
+}
+
+#bestRank ul li div span {
+	/*상위 태그 크기를 넘어가면 ....로 표현*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#bestRank img {
+	width: 100px;
+	height: 50px;
+}
