@@ -300,18 +300,18 @@ var thisWeekOrderLoad = function(dateArr) {
 
 			var weekList = ""
 			$.each(week, function(i, e) {
-				weekList += "<td>" + String(week[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+				weekList += "<td>" + String(week[i].totalQty).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
 			})
 
 			var weekAmt4 = ""
 			var weekAmt3 = ""
 			$.each(week, function(i, e) {
 				if (i < 4) {
-					weekAmt4 += "<td>" + String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+					weekAmt4 += "<td>" + String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
 				}
 
 				if (i > 3) {
-					weekAmt3 += "<td colspan='1'>" + +String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>"
+					weekAmt3 += "<td colspan='1'>"+String(week[i].totalAmt).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
 				}
 
 			})

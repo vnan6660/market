@@ -6,7 +6,7 @@
 $(function() {
 	var mainHeight = $("#contentsWrap").outerHeight(true);
 	$("#sideUlWrap").css("height", mainHeight + "px");
-	
+
 	// ================ 전화번호 ================ //
 	$("#hideCsPhoneOne").hide();
 	var hideCsPhoneOne = $("#hideCsPhoneOne").val();
@@ -45,17 +45,17 @@ $(function() {
 	var csEmailTwo = $("#csEmailTwo").val();
 	var csEmailWriteInput = $("#csEmailWriteInput").val()//직접 입력한 이메일 도메인
 	var csEmail = csEmailOne + '@' + csEmailTwo;
-	if(csEmailTwo == "직접입력"){
-		csEmail = csEmailOne+'@'+csEmailWriteInput;
+	if (csEmailTwo == "직접입력") {
+		csEmail = csEmailOne + '@' + csEmailWriteInput;
 	}
 	$('input[id=csEmail]').attr('value', csEmail);
-	
-	
-	
+
+
+
 	//결제하기버튼 눌렀을 시 시행되는 함수
 	$('#goPay').click(function() {
-		if(!csInfo()) return; //csInfo()가 false면 return;
-		
+		if (!csInfo()) return; //csInfo()가 false면 return;
+
 		if (confirm('구매하시겠습니까?')) {
 			$.ajax({
 				url: '/myCart/doPay',
@@ -66,13 +66,20 @@ $(function() {
 				data: new FormData($('#myCartBuyForm')[0]),
 				success: function() {
 					alert("구매되었습니다");
-					location.href = "/";
+					var uGrdeVal = $("#uGrde").val();
+					if (uGrdeVal == 0) {
+						location.href = "/adminMain";
+					} else {
+						if (uGrdeVal == 1 || uGrdeVal == 2 || typeof uGrdeVal == 'undefined' || uGrdeVal == '') {
+							location.href = "/";
+						}
+					}
 				},
 				error: function() {
 					alert("오류입니다. 관리자에게 문의해주세요");
 				}
 			});
-		}else{//수정하시겠습니까 취소
+		} else {//수정하시겠습니까 취소
 			alert("취소되었습니다");
 		}
 	});
@@ -90,13 +97,13 @@ function csInfo() {
 	var csPhoneOne = $("#csPhoneOne").val();//핸드폰번호 앞자리
 	var csPhoneTwo = $("#csPhoneTwo").val();//핸드폰번호 중간자리
 	var csPhoneThree = $("#csPhoneThree").val();//핸드폰번호 뒷자리
-	var csPhone = csPhoneOne+csPhoneTwo+csPhoneThree;//핸드폰번호 전체
+	var csPhone = csPhoneOne + csPhoneTwo + csPhoneThree;//핸드폰번호 전체
 	var csEmailOne = $("#csEmailOne").val();//이메일 앞자리
 	var csEmailWriteInput = $("#csEmailWriteInput").val()//직접 입력한 이메일 도메인
 	var csEmailTwo = $("#csEmailTwo").val();//선택한 도메인
-	var csEmail = csEmailOne+'@'+csEmailWriteInput+csEmailTwo;//이메일 전체
-	if(csEmailTwo == "직접입력"){
-		csEmail = csEmailOne+'@'+csEmailWriteInput;
+	var csEmail = csEmailOne + '@' + csEmailWriteInput + csEmailTwo;//이메일 전체
+	if (csEmailTwo == "직접입력") {
+		csEmail = csEmailOne + '@' + csEmailWriteInput;
 	}
 	//전화번호 속성추가
 	$('input[id=csPhone]').attr('value', csPhone);
@@ -189,6 +196,6 @@ function csInfo() {
 
 	return true;
 }
-	
+
 
 

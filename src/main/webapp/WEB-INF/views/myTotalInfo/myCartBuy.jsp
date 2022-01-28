@@ -166,6 +166,7 @@
 			<div id="orderBtn">
 				<!-- <button class="hover" id="goPay">구매하기</button> -->
 				<input type="button" id="goPay" class="hover" value="구매하기">
+				<input type="hidden" id="uGrde" value="${sessionScope.userGrade}"> 
 			</div>
 		</div>
 	</div>
