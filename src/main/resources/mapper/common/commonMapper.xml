@@ -24,9 +24,6 @@
 		SELECT 
    			SUM(GD_QTY) AS TOTAL_QTY
    		   ,SUM(GD_QTY*OD_AMT) AS TOTAL_AMT
-   		   <if test='dateType.equals("week")'>
-   		   ,TO_DATE(OD_DATE) AS OD_DATE
-   		   </if>
   		  FROM ORDER_INFO
 		  WHERE OD_DATE BETWEEN TO_DATE(#{startDt}) AND TO_DATE(#{endDt})+0.99999
  		  <if test='dateType.equals("week")'>
