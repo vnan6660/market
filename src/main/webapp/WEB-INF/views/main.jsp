@@ -36,12 +36,12 @@
 				</div>
 			</div>
 			<div id="leftDown">
-				<div>
+				<div style="display: flex;">
 					<!--이건 베스트,신간 적용할것-->
 						<div id="bestSeller">
 							<!-- 베스트 셀러 -->
 							<div id="bestSellerTab">
-								<ul style="display: flex;">
+								<ul>
 									<li style="font-weight: 700;">베스트셀러</li>
 									<li class="hover"><input type="hidden" value="special">전문서적</li>
 									<li class="hover"><input type="hidden" value="general">일반서적</li>
@@ -50,13 +50,37 @@
 									<li class="hover"><input type="hidden" value="magazine">잡지</li>
 									<li class="hover"><input type="hidden" value="it">IT</li>
 									<li class="hover"><input type="hidden" value="exam">수험서</li>
+									<li class="hover">+</li>
 								</ul>
 							</div>
-							<ul>
-							</ul>
+							<ul></ul>
 						</div>
-						<div id="issueBook">
-							<!--  화제의 신간 -->
+						<div id="recommendBook">
+							<div id="recommendTab">
+								<ul>
+									<li style="font-weight: 700;">추천도서</li>
+									<li class="hover"><input type="hidden" value="newBook">신간도서</li>
+									<li class="hover"><input type="hidden" value="localBook">국내도서</li>
+									<li class="hover"><input type="hidden" value="foreignBook">외국도서</li>
+								</ul>
+							</div>
+							<ul style="border: 1px solid; height: 86.7%;">
+								<li id="recomnImg">
+									<input type="hidden" id="recomnGdNo">
+									<img class="hover" alt="이미지없음" style="width: 80%; height:220px; padding: 1em; margin-left: 30px;">
+								</li>
+								<li id="recomnGdNm" style="text-align: center;">
+								</li>
+								<li style="margin:10px 0;text-align: center;">
+									<button id="recomndReload" class="hover" type="button">추천새로고침&nbsp;&#x21BA;</button>
+								</li>
+							</ul>
+							<form id="searchForm">
+								<input type="hidden" name="gdNo"/>
+								<input type="hidden" name="selectOptValTwo"/>
+								<input type="hidden" name="selectOptValThree"/>
+								<input type="hidden" name="page"/>
+							</form>
 						</div>
 				</div>
 			</div>

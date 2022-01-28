@@ -23,5 +23,8 @@ public interface CommonDao {
 	//베스트 셀러 불러오기
 	List<GoodsListVO> selectBestSeller();
 
+	//추천도서 불러오기
+	List<GoodsListVO> selectRecomnSeller(String gpCd);
+
 
 }

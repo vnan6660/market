@@ -104,4 +104,10 @@ public class CommonServiceImpl implements CommonService {
 		return commonDao.selectBestSeller();
 	}
 
+	//추천도서 불러오기
+	@Override
+	public List<GoodsListVO> getRecomnSeller(String gpCd) {
+		return commonDao.selectRecomnSeller(gpCd);
+	}
+
 }

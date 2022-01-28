@@ -95,20 +95,9 @@
 	left: 85%;
 }
 /*-------베스트셀러 ------*/
-#bestSellerTab {
-	width: 50%;
-}
-
-#bestSellerTab ul {
-	height: 50px;
-	line-height: 50px;
-	justify-content: space-around;
-	font-size: 16px;
-	background-color: #d9e0ee;
-}
-
 #bestRank {
 	width: 25%;
+    height: 611px;
 	border: 1px solid #000;
 	margin-left: -75px;
 }
@@ -156,16 +145,32 @@
 	height: 50px;
 }
 
+#bestSellerTab>ul, #recommendTab>ul {
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	line-height: 50px;
+	justify-content: space-around;
+	font-size: 16px;
+	background-color: #d9e0ee;
+}
+
+#bestSellerTab>ul>li:nth-of-type(9) {
+	border: 1px solid;
+	padding: 0.5em 1em;
+	line-height: 29px;
+}
+
 #bestSeller {
 	margin-top: 5px;
+	width: 50%;
 }
 
 #bestSeller>ul {
-	width: 50%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	background-color: #a6b3ce;
+	border: 1px solid;
 }
 
 #bestSeller>ul>li {
@@ -183,4 +188,13 @@
 #bestSeller>ul img {
 	width: 200px;
 	height: 100px;
+}
+
+#recommendBook {
+	margin-top: 5px;
+	width: 40%;
+	padding: 0 0 0 2px;
+}
+#recomndReload{
+	width: 250px;
 }

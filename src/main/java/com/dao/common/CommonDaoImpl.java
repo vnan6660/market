@@ -38,4 +38,10 @@ public class CommonDaoImpl implements CommonDao {
 	public List<GoodsListVO> selectBestSeller() {
 		return sqlSession.selectList("selectBestSeller");
 	}
+
+	//추천도서 불러오기
+	@Override
+	public List<GoodsListVO> selectRecomnSeller(String gpCd) {
+		return sqlSession.selectList("selectRecomnSeller",gpCd);
+	}
 }

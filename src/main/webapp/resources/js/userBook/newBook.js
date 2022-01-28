@@ -56,7 +56,7 @@ var goDetail = function(gdNo) {
 	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
 	$("input[name = searchVal]").val($("#searchVal").val());
 	$("input[name = page]").val($("#hdThisPage").val());
-	$('#searchForm').attr("action","/bestBookList/bestBookDetail");
+	$('#searchForm').attr("action","/newBookList/newBookDetail");
 	$('#searchForm').attr("method","POST");
 	$('#searchForm').submit();
 }

@@ -120,4 +120,32 @@ public class CommonController {
     	return list;
     }
     
+    
+    //추천도서 불러오기
+    @GetMapping("/common/getRecomnSeller")
+    @ResponseBody
+    public List<GoodsListVO> getRecomnSeller(String gpCd) throws IOException{
+    	
+    	List<GoodsListVO> list = commonService.getRecomnSeller(gpCd);
+    	List<GoodsListVO> reList = new ArrayList<GoodsListVO>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			GoodsListVO vo = new GoodsListVO();
+			
+			vo.setGdNo(list.get(i).getGdNo());
+			vo.setGdGp(list.get(i).getGdGp());
+			vo.setGdSp(list.get(i).getGdSp());
+			vo.setGdNm(list.get(i).getGdNm());
+			vo.setGdWr(list.get(i).getGdWr());
+			
+			if (list.get(i).getGdImg() != null) {
+				String gdImgStr = new String(Base64.encodeBase64(list.get(i).getGdImg()),"UTF-8");
+				vo.setGdImgStr(gdImgStr);
+			}
+			reList.add(i,vo);
+		}
+		
+    	return list;
+    }
+    
 }

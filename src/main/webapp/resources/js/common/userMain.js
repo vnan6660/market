@@ -5,6 +5,8 @@
 */
 var current = 0;
 var nowTab = 'epTab';
+var beforeRecomnClick = 'newBook';
+var beforeRand;
 
 $(function() {
 	//초기설정함수
@@ -19,9 +21,12 @@ var userMainInit = function() {
 
 	//베스트셀러Rank불러오기
 	bestSellerLoad();
-	
+
 	//베스트셀러 모음 불러오기
 	bestSellerLoad('special');
+
+	//신간도서불러오기
+	recommendLoad('newBook', 'notReload');
 
 	$('.tabcontent > div').hide().filter(':first').show();
 
@@ -72,11 +77,56 @@ var userMainAttachEvent = function() {
 		$("#bestRankListTwo").show();
 	});
 
+	//베스트셀러탭클릭시
 	$("#bestSellerTab ul li").click(function() {
 		//li의 첫번째 태그에의 값 가져오기
 		var bestTabVal = this.childNodes[0].defaultValue;
 
-		bestSellerLoad(bestTabVal);
+		//+버튼을 눌렀을때 실행
+		if (typeof bestTabVal == 'undefined') {
+			location.href = '/bestBook/bestBookPage';
+
+			//bestTabVal에 맞는 베스트셀러 불러오기	
+		} else {
+			bestSellerLoad(bestTabVal);
+		}
+	});
+
+	//추천도서탭클릭시
+	$("#recommendTab ul li").click(function() {
+		//li의 첫번째 태그에의 값 가져오기
+		var recommendTabVal = this.childNodes[0].defaultValue;
+
+		beforeRecomnClick = recommendTabVal;
+
+
+		if (typeof recommendTabVal != 'undefined') {
+			//recommendTabVal에 맞는 추천도서 불러오기	
+			recommendLoad(recommendTabVal, 'notReload');
+		}
+	});
+
+	//추천도서새로고침 누르면 실행
+	$("#recomndReload").click(function() {
+
+		//beforeRecomnClick에 맞는 추천도서 불러오기
+		recommendLoad(beforeRecomnClick, 'reload');
+	});
+
+	//추천도서 이미지 클릭시
+	$("#recomnImg img").click(function() {
+		var recomnGdNo = $("#recomnGdNo").val();
+
+		//상품상세페이지가기
+		goDetail(recomnGdNo,beforeRecomnClick);
+	});
+	
+	//베스트 도서 이미지 클릭시
+	$("#bestRankListOne div, #bestRankListTwo div").click(function() {
+		
+		var bestBookGdNo =  this.firstElementChild.defaultValue;
+		//상품상세페이지가기
+		goDetail(bestBookGdNo);
 	});
 }
 
@@ -165,7 +215,8 @@ var bestSellerLoad = function(code) {
 						bestRankListOne += "<li>"
 						bestRankListOne += "<div>" + (i + 1) + "</div>";
 						bestRankListOne += "<div style='width: 50%'>";
-						bestRankListOne += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+						bestRankListOne += "<input type='hidden' id='bestBookGdNo' value='"+e.gdNo+"'>";
+						bestRankListOne += "<span class='hover'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
 						bestRankListOne += "</div>";
 						bestRankListOne += "<div style='width: 50%;display: flex;flex-direction: column; '>";
 						bestRankListOne += "<span>" + e.gdNm + "</span>";
@@ -176,7 +227,8 @@ var bestSellerLoad = function(code) {
 						bestRankListTwo += "<li>"
 						bestRankListTwo += "<div>" + (i + 1) + "</div>";
 						bestRankListTwo += "<div style='width: 50%'>";
-						bestRankListTwo += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+						bestRankListTwo += "<input type='hidden' id='bestBookGdNo' value='"+e.gdNo+"'>";
+						bestRankListTwo += "<span class='hover'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
 						bestRankListTwo += "</div>";
 						bestRankListTwo += "<div style='width: 50%;display: flex;flex-direction: column; '>";
 						bestRankListTwo += "<span>" + e.gdNm + "</span>";
@@ -197,9 +249,10 @@ var bestSellerLoad = function(code) {
 				});
 
 				$.each(bestRes, function(i, e) {
+					var ee= "ffff";
 					bestResList += "<li>";
-					bestResList += "<div>";
-					bestResList += "<span><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
+					bestResList += "<div onclick='goDetail("+e.gdNo+")'>";
+					bestResList += "<span class='hover'><img alt='이미지없음' src='data:image/png;base64," + e.gdImg + "'></span>";
 					bestResList += "</div>";
 					bestResList += "<div style='display: flex;flex-direction: column; '>";
 					bestResList += "<span>" + e.gdNm + "</span>";
@@ -218,3 +271,84 @@ var bestSellerLoad = function(code) {
 		}
 	});
 }
+
+var recommendLoad = function(upCd, doReload) {
+	$.ajax({
+		url: '/common/getRecomnSeller'
+		, data: {
+			"gpCd": upCd
+		}
+		, async: false
+		, success: function(res) {
+			let randNum = rand(res.length, 'notReload');
+
+			if (doReload == 'notReload') {
+				beforeRand = randNum;
+			}
+
+			//전에 랜덤 숫자와 같은 숫자일때 한번더 랜덤 돌리기
+			if (doReload == 'reload') {
+				if(beforeRand == randNum){
+					randNum = rand(res.length, 'reload');
+				}
+				beforeRand = randNum;
+			}
+
+			let beforeRecomnNm = "";
+			if (beforeRecomnClick == 'newBook') {
+				beforeRecomnNm = '신간도서';
+			}
+			if (beforeRecomnClick == 'localBook') {
+				beforeRecomnNm = '국내도서';
+			}
+			if (beforeRecomnClick == 'foreignBook') {
+				beforeRecomnNm = '외국도서';
+			}
+
+			let resVal = res.filter(function(e, i) {
+				return i == randNum;
+			});
+
+			$("#recomnImg > img").attr("src", 'data:image/png;base64,' + resVal[0].gdImg);
+			$("#recomnGdNm").html("[" + beforeRecomnNm + "]" + resVal[0].gdNm);
+			$("#recomnGdNo").val(resVal[0].gdNo);
+		}
+		, error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
+}
+
+//res에 대한 랜덤 정수 숫자 구하기
+var rand = function(max, doReload) {
+
+	var randResult = Math.floor(Math.random() * max);
+
+	if (doReload == 'reload') {
+		while (beforeRand == randResult) {
+			if (beforeRand != randResult) {
+				break;
+			}
+			randResult = Math.floor(Math.random() * max);
+		}
+	}
+
+	return randResult;
+}
+
+//상품상세 페이지 가기
+var goDetail = function(gdNo,upCd) {
+	
+	if(typeof upCd == 'undefined'){
+		upCd = "bestBook";
+	}
+	searchParam = {};
+	$("input[name = gdNo]").val(gdNo);
+	$("input[name = selectOptValTwo]").val("optAll");
+	$("input[name = selectOptValThree]").val("optAll");
+	$("input[name = page]").val(1);
+	$('#searchForm').attr("action", "/" + upCd + "List/" + upCd + "Detail");
+	$('#searchForm').attr("method", "POST");
+	$('#searchForm').submit();
+}
+

@@ -15,7 +15,7 @@
 <body>
 <c:import url="/sideMenu/sideMenuPage"></c:import>
 <main id="contentsWrap" class="join">
-<h2>베스트 도서</h2>
+<h2>신간 도서</h2>
 <hr>
 	<div class="detailWrap">
 		<!-- 도서이미지 -->

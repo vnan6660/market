@@ -38,6 +38,7 @@
 	 
 	 <!-- 베스트 셀러 불러오기 -->
 	 <select id="selectBestSeller" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	  /*  commonMapper.selectBestSeller */	
 		SELECT
 		    G.GD_NO<!-- 상품번호 -->
 		   ,G.GD_GP<!-- 상품구분 -->
@@ -54,5 +55,19 @@
 		     ) O
 		 ON O.GD_NO = G.GD_NO
 		 WHERE G.GD_GP = 'bestBook'
+	 </select>
+	 
+	 <!-- 추천도서 불러오기 -->
+	 <select id="selectRecomnSeller" parameterType="java.lang.String" resultType="com.vo.adminGoodsMgt.GoodsListVO">
+	 /*  commonMapper.selectRecomnSeller */	
+		SELECT
+		    GD_NO<!-- 상품번호 -->
+		   ,GD_GP<!-- 상품구분 -->
+		   ,GD_SP<!-- 상품분류 -->
+		   ,GD_NM<!-- 상품이름 -->
+		   ,GD_WR<!-- 상품작가 -->
+		   ,GD_IMG<!-- 상품이미지 -->
+		 FROM GOODS_INFO 
+		 WHERE GD_GP = #{gpCd}
 	 </select>
  </mapper>
