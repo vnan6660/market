@@ -206,12 +206,18 @@ public class GoodsListController {
 	/*물품목록 검색 */
 	@GetMapping("/goodsList/searchGoodsList")
 	@ResponseBody
-	public Map<String, Object> searchNotice(SearchVO vo) {
+	public Map<String, Object> searchGoodsList(SearchVO vo) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		//검색글카운트
 		int listcount = goodsListService.getGoodsListCount(vo);
-
-		SearchVO searchVO = SearchVO.builder().startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		
+		SearchVO searchVO;
+		if(vo.getNoLimit()== 1) {
+			searchVO = SearchVO.builder().noLimit(1).endpage(listcount).startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		}else {
+			searchVO = SearchVO.builder().noLimit(0).startDt(vo.getStartDt()).endDt(vo.getEndDt()).selectOptValOne(vo.getSelectOptValOne()).selectOptValTwo(vo.getSelectOptValTwo()).selectOptValThree(vo.getSelectOptValThree()).searchVal(vo.getSearchVal()).page(vo.getPage()).listcount(listcount).build();
+		}
+		
 
 		//물품목록리스트 가져오기
 		List<GoodsListVO> reList = goodsListService.getGoodsList(searchVO);

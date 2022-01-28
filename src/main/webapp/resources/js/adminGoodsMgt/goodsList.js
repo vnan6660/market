@@ -10,7 +10,7 @@ var nowPage = 1;
 $(function() {
 	//초기설정함수
 	goodsListInit();
-	
+
 	//이벤트함수
 	goodsListattachEvent();
 });
@@ -31,9 +31,9 @@ var goodsListInit = function() {
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
-	
+
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
-	if($("#returnT").val() == 't'){
+	if ($("#returnT").val() == 't') {
 		$("#startDt").val($("#returnStdt").val());
 		$("#endDt").val($("#returnEdDt").val());
 		$("#goodsGroup").val($("#returnSptValOne").val()).prop("selected", true);
@@ -145,7 +145,7 @@ var getGoodsSeparate = function(goodsGroup) {
 		data: {
 			"goodsGroup": goodsGroup
 		},
-		async : false,
+		async: false,
 		success: function(res) {
 			$("#goodsSeparate").append("<option value='optAll'>전체</option>");
 			res.filter(function(e, i) {
@@ -169,8 +169,8 @@ var goDetail = function(gdNo) {
 	$("input[name = selectOptValThree]").val($("#goodsNmNbrm option:selected").val());
 	$("input[name = searchVal]").val($("#searchVal").val());
 	$("input[name = page]").val($("#hdThisPage").val());
-	$('#searchForm').attr("action","/goodsList/detailGoodsSearch");
-	$('#searchForm').attr("method","POST");
+	$('#searchForm').attr("action", "/goodsList/detailGoodsSearch");
+	$('#searchForm').attr("method", "POST");
 	$('#searchForm').submit();
 }
 
@@ -246,10 +246,8 @@ var goShowGoods = function() {
 //검색과 페이지 정보 같이 넘기기
 var goPage = function(pageNum, tfNum) {
 	searchParam = {};
-	if (tfNum != 0) {
-		searchParam.startDt = $("#startDt").val();
-		searchParam.endDt = $("#endDt").val();
-	}
+	searchParam.startDt = $("#startDt").val();
+	searchParam.endDt = $("#endDt").val();
 	searchParam.selectOptValOne = $("#goodsGroup option:selected").val();
 	searchParam.selectOptValTwo = $("#goodsSeparate option:selected").val();
 	searchParam.selectOptValThree = $("#goodsNmNbrm option:selected").val();
@@ -322,10 +320,10 @@ var goPage = function(pageNum, tfNum) {
 				var pageList = "";
 				if (1 < startpage) {
 					/*startpage가 1보다 커야 실행가능*/
-					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ',1)">' + '&lt;&lt;' + '</span>';
+					pageList += '<span class="page mr6" onclick="goPage(' + (startpage - 1) + ')">' + '&lt;&lt;' + '</span>';
 				}
 				for (var num = startpage; num <= endpage; num++) {
-					pageList += '<span class="page mr6" onclick="goPage(' + num + ',1)"'
+					pageList += '<span class="page mr6" onclick="goPage(' + num + ')"'
 					if (nowPage == num) {
 						pageList += ' style = "background-color: #eee" >' + num
 						pageList += '<input type="hidden"  id="hdThisPage" value="' + num + '">'
@@ -338,7 +336,7 @@ var goPage = function(pageNum, tfNum) {
 
 				if (endpage < maxPage) {
 					/*endpage가 maxPage보다 작아야 실행 가능*/
-					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ',1)">' + '&gt;&gt;' + '</span>';
+					pageList += '<span class="page mr6" onclick="goPage(' + (endpage + 1) + ')">' + '&gt;&gt;' + '</span>';
 				}
 
 				$("#pageList").html(pageList);
@@ -346,7 +344,7 @@ var goPage = function(pageNum, tfNum) {
 
 			$("#goodsListTable").html(viewList);
 			var mainHeight = $("#contents").outerHeight(true);
-			$("#sideUlWrap").css("height",mainHeight +"px");
+			$("#sideUlWrap").css("height", mainHeight + "px");
 
 		},
 		error: function() {
