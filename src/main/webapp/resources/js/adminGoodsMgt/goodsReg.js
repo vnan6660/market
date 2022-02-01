@@ -59,7 +59,13 @@ var goodsRegAttachEvent = function() {
 	//저장버튼 클릭시 실행
 	$('#goodsRegBtn').click(function() {
 		var reqirefileCheck = $("input[name = gdImgFile]").val();
+		
+		//빈값체크
 		var emptyCheck = 0;
+		var emptyTotalCheck = 0;
+		
+		//상품설명text내용
+		var gdDcCheck = $("textarea[name = gdDc]")[0].value;
 
 		if (!reqirefileCheck) {
 			alert("상품이미지를 첨부해 주세요");
@@ -76,9 +82,18 @@ var goodsRegAttachEvent = function() {
 				return alert("필수 입력사항을 입력해주세요");
 			}
 		});
+		
+		//상품설명text내용 빈값 체크
+		if (emptyCheck == 0 && gdDcCheck == '') {
+			emptyTotalCheck += 1;
+			$("textarea[name = gdDc]").focus();
+			return alert("필수 입력사항을 입력해주세요");
+		}
+		
+		
 
 		//빈값이 없을 경우에만 실행
-		if (emptyCheck == 0) {
+		if (emptyCheck == 0 && emptyTotalCheck == 0) {
 			if (confirm('저장하시겠습니까?')) {
 				$.ajax({
 					url: '/goodsReg/setGoodsReg',

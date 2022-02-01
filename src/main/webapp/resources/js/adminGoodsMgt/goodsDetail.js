@@ -7,7 +7,7 @@
 $(function() {
 	//초기설정함수
 	goodsDetailInit();
-	
+
 	//이벤트함수
 	goodsDetailAttachEvent();
 });
@@ -30,9 +30,9 @@ var goodsDetailAttachEvent = function() {
 		$("#gdDetlLabel").click();
 
 	});
-	
+
 	//상세설명의 파일이 변경시 실행
-	$("#file2").change(function(){
+	$("#file2").change(function() {
 		$("#file2Btn").hide();
 		$("#file2Btn").siblings().hide();
 		$("#file2").show();
@@ -40,8 +40,8 @@ var goodsDetailAttachEvent = function() {
 
 	//목록버튼 누르면 실행
 	$("#goodsListBtn").click(function() {
-		$("#searchForm").attr("action","/goodsList/goGoodsListPage");
-		$("#searchForm").attr("method","post");
+		$("#searchForm").attr("action", "/goodsList/goGoodsListPage");
+		$("#searchForm").attr("method", "post");
 		$("#searchForm").submit();
 	});
 
@@ -69,6 +69,10 @@ var goodsDetailAttachEvent = function() {
 	$("#goodsUpdDoneBtn").click(function() {
 		//빈값체크
 		var emptyCheck = 0;
+		var emptyTotalCheck = 0;
+
+		//상품설명text내용
+		var gdDcCheck = $(".writeForm textarea[name = gdDc]")[0].value;
 
 		//수정할 때 나오는 input박스
 		$(".writeForm input").each(function(i, e) {
@@ -84,8 +88,18 @@ var goodsDetailAttachEvent = function() {
 			}
 		});
 
+
+		//상품설명text내용 빈값 체크
+		if (emptyCheck == 0 && gdDcCheck == '') {
+			emptyTotalCheck += 1;
+			$(".writeForm textarea[name = gdDc]").focus();
+			return alert("필수 입력사항을 입력해주세요");
+		}
+
+
+
 		//빈값이 없을 경우에만 실행
-		if (emptyCheck == 0) {
+		if (emptyCheck == 0 && emptyTotalCheck == 0) {
 			if (confirm('저장하시겠습니까?')) {
 				$.ajax({
 					url: '/goodsList/updateGoods',
@@ -96,8 +110,8 @@ var goodsDetailAttachEvent = function() {
 					data: new FormData($('#goodsForm')[0]),
 					success: function() {
 						alert("저장되었습니다");
-						$("#searchForm").attr("action","/goodsList/detailGoodsSearch");
-						$("#searchForm").attr("method","post");
+						$("#searchForm").attr("action", "/goodsList/detailGoodsSearch");
+						$("#searchForm").attr("method", "post");
 						$("#searchForm").submit();
 					},
 					error: function() {
