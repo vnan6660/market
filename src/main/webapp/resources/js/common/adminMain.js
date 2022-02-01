@@ -160,7 +160,7 @@ var orderMgtLoad = function(tabContentsId, tabNm) {
 			viewList += "<col width='20%;'>";
 			viewList += "<col width='15%;'>";
 			viewList += "/colgroup";
-			viewList += "<tr>";
+			viewList += "<tr style='border-bottom: 1px solid #e9e9e9;'>";
 			viewList += "<th>사용자ID</th>";
 			viewList += "<th>주문번호</th>";
 			viewList += "<th>주문날짜</th>";
@@ -195,7 +195,7 @@ var orderMgtLoad = function(tabContentsId, tabNm) {
 					} else {
 						odState = "34";
 					}
-					viewList += "<tr>";
+					viewList += "<tr style='border-bottom: 1px solid #e9e9e9;'>";
 					viewList += "<td class='hover' onclick='goOdDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.csId + "</td>";
 					viewList += "<td class='hover' onclick='goOdDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odNo + "</td>";
 					viewList += "<td class='hover' onclick='goOdDetail(" + odNoOne + "," + odNoTwo + "," + odState + ")'>" + e.odDate.substring(0, 10) + "</td>";

@@ -173,7 +173,7 @@
 	 	       FROM ORDER_INFO O
 	 	          LEFT OUTER JOIN GOODS_INFO G ON G.GD_NO = O.GD_NO
 		          WHERE O.CS_NO = #{selectOptValOne}
-                  GROUP BY O.OD_NO,O.OD_STATE,T.TR_DATE)A      
+                  GROUP BY O.OD_NO,O.OD_STATE,O.TR_DATE)A      
             INNER JOIN (SELECT
                           	DISTINCT TO_CHAR(O.OD_DATE,'yyyy-mm-dd')AS odDate,O.OD_NO as odNo 
 	 				      FROM ORDER_INFO O

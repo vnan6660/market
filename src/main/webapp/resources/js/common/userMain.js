@@ -122,9 +122,10 @@ var userMainAttachEvent = function() {
 	});
 	
 	//베스트 도서 이미지 클릭시
-	$("#bestRankListOne div, #bestRankListTwo div").click(function() {
+	$("#bestRankListOne div img, #bestRankListTwo div img").click(function() {
 		
-		var bestBookGdNo =  this.firstElementChild.defaultValue;
+		var bestBookGdNo =  $(this).parent().siblings().filter('input[id = bestBookGdNo]')[0].defaultValue;
+		
 		//상품상세페이지가기
 		goDetail(bestBookGdNo);
 	});

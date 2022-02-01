@@ -8,7 +8,13 @@
 @import url("/css/common/common.css");
 
 Table tr td {
-    word-break: break-all;
+	word-break: break-all;
+}
+
+#ntcMainTable tr td {
+	word-break: keep-all;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #contentsMain {
@@ -55,14 +61,12 @@ Table tr td {
 	margin-right: 10px;
 }
 
-
-
 #ntcMainTable tr {
 	margin-bottom: 15px;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #e9e9e9;
 }
 
-#noticeQuickMenu{
+#noticeQuickMenu {
 	overflow: auto;
 }
 
@@ -120,7 +124,6 @@ Table tr td {
 	border-top: 1px solid #cdcbcb;
 	text-align: center;
 	overflow: auto;
-	
 }
 
 .thirdSessionColor {
@@ -135,7 +138,7 @@ Table tr td {
 
 .thirdSessionOrderAmt::after {
 	background-image: url("/images/phone.svg");
-	background-repeat:no-repeat;
+	background-repeat: no-repeat;
 	content: "";
 	display: inline-block;
 	height: 10px;
@@ -145,7 +148,7 @@ Table tr td {
 
 .thirdSessionMoneyAmt::after {
 	background-image: url("/images/moneyAmount.svg");
-	background-repeat:no-repeat;
+	background-repeat: no-repeat;
 	content: "";
 	display: inline-block;
 	height: 10px;

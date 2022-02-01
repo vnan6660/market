@@ -107,7 +107,12 @@
 							</c:forTokens>
 							</td>
 							<td>${od.odDate}</td>
-							<td>${od.trDate}</td>
+							<c:if test="${od.trDate == null}">
+								<td>-</td>
+							</c:if>
+							<c:if test="${od.trDate != null}">
+								<td>${od.trDate}</td>
+							</c:if>
 							<td>${od.odState}</td>
 						</tr>
 						</c:forEach>

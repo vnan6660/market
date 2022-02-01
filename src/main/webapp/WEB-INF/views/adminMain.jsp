@@ -26,7 +26,7 @@
 						<input type="hidden" name="selectOptValOne" /> <input type="hidden" name="page" />
 					</form>
 					<!-- 공지사항 최근 5개 불러올것 -->
-					<table id="ntcMainTable" style="width: 100%; table-layout: fixed">
+					<table id="ntcMainTable" style="width: 100%; table-layout: fixed; border-collapse: collapse;">
 					</table>
 				</div>
 			</div>
@@ -62,17 +62,17 @@
 						<div class="tabcontent">
 							<div id="tab1">
 							<!-- 주문완료 탭내용  -->
-							<table style="width: 97%; table-layout: fixed">
+							<table style="width: 97%; table-layout: fixed; border-collapse: collapse;">
 							</table>
 							</div>
 							<div id="tab2">
 							<!-- 배송중 탭내용  -->
-							<table style="width: 97%; table-layout: fixed">
+							<table style="width: 97%; table-layout: fixed; border-collapse: collapse;">
 							</table>
 							</div>
 							<div id="tab3">
 							<!-- 배송완료 탭내용  -->
-							<table style="width: 97%; table-layout: fixed">
+							<table style="width: 97%; table-layout: fixed; border-collapse: collapse;">
 							</table>
 							</div>
 							<form id="odSearchForm">
