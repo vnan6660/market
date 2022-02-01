@@ -24,7 +24,7 @@
 					<h5>날짜유형</h5>
 					<select id="dtType">
 						<option value="odDt">주문날짜</option>
-						<option value="trDt">배송날짜</option>
+						<option value="trDt">발송날짜</option>
 					</select>
 				</div>
 				<div id="dateWrap">
@@ -57,6 +57,7 @@
 			<div>
 				<button id="orderCancel" class="btnXSmall hover" value="orderCancel">주문취소</button>
 				<button id="transferStart" class="btnXSmall hover" value="transferStart">발송완료</button>
+				<button id="transferDone" class="btnXSmall hover" value="transferDone">배송완료</button>
 			</div>
 			<div>
 				<table id="orderListTable">
@@ -71,13 +72,13 @@
 						<col width="10%;">
 					</colgroup>
 					<tr>
-						<th><input type="checkbox" name="allCheck"></th>
+						<th><input type="checkbox" name="allCheck" onclick="allCheck()"></th>
 						<th>No</th>
 						<th>사용자ID</th>
 						<th>사용자이름</th>
 						<th>주문번호</th>
 						<th>주문날짜</th>
-						<th>배송날짜</th>
+						<th>발송날짜</th>
 						<th>발송상태</th>
 					</tr>
 					<c:if test="${fn:length(list) == 0}">
@@ -95,16 +96,32 @@
 								<c:if test="${odState == '배송중' || odState == '배송완료'}">
 									<c:set var="odStateResult" value="34"/>
 								</c:if>
-						<tr class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
-							<td><input type="checkbox" name="eachCheck" value="${od.odNo}"></td>
+						<tr>
+							<td>
+								<input type="checkbox" name="eachCheck" value="${od.odNo}">
+							</td>
 							<!-- 역순(=DESC) -->
-							<td><c:out value="${listcount - status.index}"/></td>
-							<td><c:out value="${od.csId}" /></td>
-							<td><c:out value="${od.csNm}" /></td>
-							<td><c:out value="${od.odNo}" /></td>
-							<td><c:out value="${od.odDate}" /></td>
-							<td><c:out value="${od.trDate}" /></td>
-							<td><c:out value="${od.odState}" /></td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${listcount - status.index}"/>
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.csId}" />
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.csNm}" />
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.odNo}" />
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.odDate}" />
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.trDate}" />
+							</td>
+							<td class="hover" onclick="goDetail(${fn:substring(odNo,0,10)},${fn:substring(odNo,10,odNoLength)},${odStateResult})">
+								<c:out value="${od.odState}" />
+							</td>
 						</tr>
 						</c:forEach>
 					</c:if>

@@ -39,17 +39,11 @@ public class OrderListDaoImpl implements OrderListDao {
 		return sqlSession.update("updateOdState", searchMap);
 	}
 
-	//배송날쩌 저장하기
+	//배송날쩌 업데이트하기
 	@Override
-	public void insertTrDate(String checkedOdNo) {
-		sqlSession.insert("insertTrDate",checkedOdNo);
+	public void updateTrDate(String checkedOdNo) {
+		sqlSession.update("updateTrDate",checkedOdNo);
 		
-	}
-
-	//TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
-	@Override
-	public int hasOdNo(String checkedOdNo) {
-		return sqlSession.selectOne("hasOdNo",checkedOdNo);
 	}
 	
 	//주문목록상세내역가져오기

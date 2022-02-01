@@ -84,11 +84,11 @@
 						<td><c:out value="${orderOne.rcNm}"></c:out></td>
 					</tr>
 					<tr>
-						<td>배송상태</td>
-						<td><c:out value="${orderOne.odState}"></c:out></td>
+						<td>발송상태</td>
+						<td id="trStateFinal"><c:out value="${orderOne.odState}"></c:out></td>
 					</tr>
 					<tr>
-						<td>배송날짜</td>
+						<td>발송날짜</td>
 						<td><c:out value="${orderOne.trDate}"></c:out></td>
 					</tr>
 				</table>
@@ -98,6 +98,7 @@
 			<button type="button" id="orderListBtn" class="btnSmallList hover">목록</button>
 			<button id="orderCancel" class="btnSmallList hover" value="orderCancel">주문취소</button>
 			<button id="transferStart" class="btnSmallList hover" value="transferStart">발송완료</button>
+			<button id="transferDone" class="btnSmallList hover" value="transferDone">배송완료</button>
 		</div>
 			
 		<form id="searchForm">

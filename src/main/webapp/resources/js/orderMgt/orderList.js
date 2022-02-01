@@ -10,7 +10,7 @@ var nowPage = 1;
 $(function() {
 	//초기설정함수
 	orderListInit();
-	
+
 	//이벤트함수
 	orderListAttachEvent();
 });
@@ -28,7 +28,7 @@ var orderListInit = function() {
 	//가져온 서버시간  startDate와 endDate에 넣기
 	$("#startDt").attr('value', startDate.toISOString().substring(0, 10));
 	$("#endDt").attr('value', curDate.toISOString().substring(0, 10));
-	
+
 	//상세페이지에서 목록버튼 클릭해서 돌아왔을시만 실행
 	if ($("#returnT").val() == 't') {
 		$("#startDt").val($("#returnStdt").val());
@@ -49,13 +49,13 @@ var orderListAttachEvent = function() {
 		goPage(1, 1);
 	});
 
-	//전체체크
+	/*//전체체크
 	$("input[name = allCheck]").click(function() {
 		allCheck();
-	});
+	});*/
 
-	//주문취소,발송중,발송완료 버튼 누를시
-	$("#orderCancel, #transferStart").click(function() {
+	//주문취소,발송완료,배송완료 버튼 누를시
+	$("#orderCancel, #transferStart, #transferDone").click(function() {
 		odStateChange(this.value);
 	});
 
@@ -121,13 +121,13 @@ var goPage = function(pageNum, tfNum) {
 			viewList += "<col width='10%;'>";
 			viewList += "</colgroup>";
 			viewList += "<tr>";
-			viewList += "<th><input type='checkbox' name='allCheck'></th>";
+			viewList += "<th><input type='checkbox' name='allCheck' onclick='allCheck()'></th>";
 			viewList += "<th>No</th>";
 			viewList += "<th>사용자ID</th>";
 			viewList += "<th>사용자이름</th>";
 			viewList += "<th>주문번호</th>";
 			viewList += "<th>주문날짜</th>";
-			viewList += "<th>배송날짜</th>";
+			viewList += "<th>발송날짜</th>";
 			viewList += "<th>발송상태</th>";
 			viewList += "</tr>";
 			if (reList.length == 0) {
@@ -217,40 +217,69 @@ var allCheck = function() {
 	}
 }
 
-//주문취소,발송중,발송완료 버튼 누를시
+//주문취소,발송완료,배송완료 버튼 누를시
 var odStateChange = function(nowOdState) {
 	checkList = [];
+	odStateFalseNum = 0;
 
 	$("input[name = eachCheck]").each(function(i, e) {
+
+		//발송상태 text가져오기
+		var stateStr = $(this).parent().siblings().filter('td').get(6).textContent;
+
 		//체크박스에 체크되어있는 것만
 		if (e.checked == true) {
 			checkList.push(e.value);
+			
+			//체크박스에 체크되어있는 row중 배송중이 아닌 것만 ++
+			if (stateStr != '배송중') {
+				odStateFalseNum += 1;
+			}
 		}
 	});
 	if (checkList.length != 0) {
+
 		if (confirm('변경하시겠습니까?')) {
-			$.ajax({
-				url: '/orderList/odStateChange',
-				type: 'GET',
-				data: {
-					"checkList": checkList,
-					"nowOdState": nowOdState
-				},
-				async: false,
-				success: function() {
-					alert("개시정보가 변경되었습니다");
-					goPage($("#hdThisPage").val(), 1);
-				},
-				error: function() {
-					alert("오류입니다. 관리자에게 문의해주세요");
-				}
-			});
+
+			if (nowOdState == 'transferDone' && odStateFalseNum == 0) {
+				//변경가능
+				okStateChange(checkList, nowOdState);
+			} else if (nowOdState == 'transferDone' && odStateFalseNum != 0) {
+				alert("발송이 되지않은항목이있습니다. 발송완료버튼을 눌러주세요");
+			} else if (nowOdState != 'transferDone') {
+				//변경가능
+				okStateChange(checkList, nowOdState);
+			}
 		}
+
 	} else {
 		alert("변경할 항목이 존재하지 않습니다");
 	}
 
 }
+
+
+
+//발송상태 변경가능
+var okStateChange = function(checkList, nowOdState) {
+	$.ajax({
+		url: '/orderList/odStateChange',
+		type: 'GET',
+		data: {
+			"checkList": checkList,
+			"nowOdState": nowOdState
+		},
+		async: false,
+		success: function() {
+			alert("개시정보가 변경되었습니다");
+			goPage($("#hdThisPage").val(), 1);
+		},
+		error: function() {
+			alert("오류입니다. 관리자에게 문의해주세요");
+		}
+	});
+}
+
 
 //odNo가 다른 함수로 넘어갈때 변형이 일어나서 2개로 나누어서 값 받음		
 var goDetail = function(odNo, odNo2, odState) {

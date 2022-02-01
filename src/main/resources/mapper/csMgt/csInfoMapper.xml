@@ -169,17 +169,15 @@
 	   	        O.OD_NO AS odNo
 	  		   ,LISTAGG(G.GD_NM,',') AS gdNm
 	           ,DECODE(O.OD_STATE,'100',<![CDATA['주문완료']]>,'200',<![CDATA['주문취소']]>,'300',<![CDATA['배송중']]>,'400',<![CDATA['배송완료']]>) AS odState
-	           ,TO_CHAR(T.TR_DATE,'yyyy-mm-dd')AS trDate
+	           ,TO_CHAR(O.TR_DATE,'yyyy-mm-dd')AS trDate
 	 	       FROM ORDER_INFO O
 	 	          LEFT OUTER JOIN GOODS_INFO G ON G.GD_NO = O.GD_NO
-                  LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
 		          WHERE O.CS_NO = #{selectOptValOne}
                   GROUP BY O.OD_NO,O.OD_STATE,T.TR_DATE)A      
             INNER JOIN (SELECT
                           	DISTINCT TO_CHAR(O.OD_DATE,'yyyy-mm-dd')AS odDate,O.OD_NO as odNo 
 	 				      FROM ORDER_INFO O
 	 				      LEFT OUTER JOIN GOODS_INFO G ON G.GD_NO = O.GD_NO
-                          LEFT OUTER JOIN TRANSFER_INFO T ON T.OD_NO = O.OD_NO
 					      WHERE O.CS_NO = #{selectOptValOne}) B ON B.odNo = A.odNo
 	    )WHERE ROWNUM <![CDATA[<=]]> #{endCount}
 	)WHERE rnum <![CDATA[>=]]> #{startCount}

@@ -77,7 +77,7 @@
 	margin-right: 120px;
 }
 
-#transferStart {
+#transferStart, #transferDone{
 	float: right;
 	margin-right: 20px;
 }

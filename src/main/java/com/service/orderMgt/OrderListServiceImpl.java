@@ -32,32 +32,20 @@ public class OrderListServiceImpl implements OrderListService {
 		return orderListDao.selectOrderListCount(svo);
 	}
 
-	// 주문상태 변경하기
+	// 주문상태,발송날짜 변경하기
 	@Override
 	public void updateOdState(Map<String, Object> searchMap) {
 		// 체크박스에 체크된 checkList안의 갯수
 		List<?> checkList = (List<?>) searchMap.get("checkList");
 		for (int i = 0; i < checkList.size(); i++) {
 			String checkedOdNo = (String) checkList.get(i);
-
-			// TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
-			int hasodNo = orderListDao.hasOdNo(checkedOdNo);
-
-			//발송완료버튼눌렀을때만 실행
-			if("transferStart".equals(searchMap.get("nowOdState"))) {
-				// 주문상태 변경하기
-				if (hasodNo == 0) {
-					// 중복되지않을때 실행
-					orderListDao.insertTrDate(checkedOdNo);
-				} 
-			}
-			
 			searchMap.put("checkedOdNo", checkedOdNo);
+			
 			orderListDao.updateOdState(searchMap);
 		}
 	}
 
-	//주문목록상세내역가져오기
+	// 주문목록상세내역가져오기
 	@Override
 	public OrderWrapVO getOrderDetail(Map<String, Object> modleMap) {
 		return orderListDao.selectOrderDetail(modleMap);

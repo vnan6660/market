@@ -22,11 +22,8 @@ public interface OrderListDao {
 	//주문상태 변경하기
 	Object updateOdState(Map<String, Object> searchMap);
 
-	//배송날쩌 저장하기
-	void insertTrDate(String checkedOdNo);
-
-	//TRANFER_INFO테이블에 checkedOdNo가 있는지 중복체크
-	int hasOdNo(String checkedOdNo);
+	//배송날쩌 업데이트하기
+	void updateTrDate(String checkedOdNo);
 
 	//주문목록상세내역가져오기
 	OrderWrapVO selectOrderDetail(Map<String, Object> modleMap);

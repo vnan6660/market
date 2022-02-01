@@ -19,7 +19,7 @@ public interface OrderListService {
 	//검색글 카운트
 	int getOrderListCount(SearchVO svo);
 
-	//주문상태 변경하기
+	// 주문상태,발송날짜 변경하기
 	void updateOdState(Map<String, Object> searchMap);
 
 	//주문목록상세내역가져오기
