@@ -77,19 +77,17 @@ var userMainAttachEvent = function() {
 		$("#bestRankListTwo").show();
 	});
 
+	//베스트셀러탭의 +버튼을 클릭시 실행
+	$("#bestSellerTab ul:nth-of-type(1) li:nth-of-type(2)").click(function(){
+		location.href = '/bestBook/bestBookPage';
+	});
+	
 	//베스트셀러탭클릭시
-	$("#bestSellerTab ul li").click(function() {
+	$("#bestSellerTab ul:nth-of-type(2) li").click(function() {
 		//li의 첫번째 태그에의 값 가져오기
 		var bestTabVal = this.childNodes[0].defaultValue;
 
-		//+버튼을 눌렀을때 실행
-		if (typeof bestTabVal == 'undefined') {
-			location.href = '/bestBook/bestBookPage';
-
-			//bestTabVal에 맞는 베스트셀러 불러오기	
-		} else {
-			bestSellerLoad(bestTabVal);
-		}
+		bestSellerLoad(bestTabVal);
 	});
 
 	//추천도서탭클릭시

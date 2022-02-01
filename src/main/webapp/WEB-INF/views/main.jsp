@@ -35,7 +35,7 @@
 						<a href="#gift" id="gfTab">증정품</a>
 				</div>
 			</div>
-			<div id="leftDown">
+			<div id="leftDown" style="margin-top: 12px;">
 				<div style="display: flex;">
 					<!--이건 베스트,신간 적용할것-->
 						<div id="bestSeller">
@@ -43,6 +43,9 @@
 							<div id="bestSellerTab">
 								<ul>
 									<li style="font-weight: 700;">베스트셀러</li>
+									<li class="hover" style="font-weight: 700; position: absolute; right: 694px;">+</li>
+								</ul>
+								<ul>
 									<li class="hover"><input type="hidden" value="special">전문서적</li>
 									<li class="hover"><input type="hidden" value="general">일반서적</li>
 									<li class="hover"><input type="hidden" value="foreign">외국어</li>
@@ -50,7 +53,6 @@
 									<li class="hover"><input type="hidden" value="magazine">잡지</li>
 									<li class="hover"><input type="hidden" value="it">IT</li>
 									<li class="hover"><input type="hidden" value="exam">수험서</li>
-									<li class="hover">+</li>
 								</ul>
 							</div>
 							<ul></ul>
@@ -59,13 +61,15 @@
 							<div id="recommendTab">
 								<ul>
 									<li style="font-weight: 700;">추천도서</li>
+								</ul>
+								<ul>
 									<li class="hover"><input type="hidden" value="newBook">신간도서</li>
 									<li class="hover"><input type="hidden" value="localBook">국내도서</li>
 									<li class="hover"><input type="hidden" value="foreignBook">외국도서</li>
 								</ul>
 							</div>
-							<ul style="border: 1px solid; height: 86.7%;">
-								<li id="recomnImg">
+							<ul style="border: 1px solid; height: 90%;">
+								<li id="recomnImg" style="margin-top: 23px;">
 									<input type="hidden" id="recomnGdNo">
 									<img class="hover" alt="이미지없음" style="width: 80%; height:220px; padding: 1em; margin-left: 30px;">
 								</li>

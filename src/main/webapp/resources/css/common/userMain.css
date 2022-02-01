@@ -97,7 +97,6 @@
 /*-------베스트셀러 ------*/
 #bestRank {
 	width: 25%;
-    height: 611px;
 	border: 1px solid #000;
 	margin-left: -75px;
 }
@@ -117,11 +116,15 @@
 	margin-left: -11.5px;
 }
 
+#bestRank ul {
+	height: 687px;
+}
+
 #bestRank ul li {
 	display: flex;
 	white-space: nowrap;
 	margin-bottom: 5px;
-	padding: 1em;
+	padding: 2em 1em;
 }
 
 #bestRank ul li div:nth-of-type(1) {
@@ -152,13 +155,32 @@
 	line-height: 50px;
 	justify-content: space-around;
 	font-size: 16px;
+	border: 1px solid;
+}
+
+#bestSellerTab>ul:nth-of-type(2), #recommendTab>ul:nth-of-type(2) {
+	font-size: 12px;
 	background-color: #d9e0ee;
 }
 
-#bestSellerTab>ul>li:nth-of-type(9) {
-	border: 1px solid;
-	padding: 0.5em 1em;
-	line-height: 29px;
+#bestSellerTab>ul:nth-of-type(2) li:not(#bestSellerTab>ul:nth-of-type(2) li:last-of-type)
+	{
+	border-right: 1px solid;
+}
+
+#bestSellerTab>ul:nth-of-type(2) li {
+	width: 100px;
+	text-align: center;
+}
+
+#recommendTab>ul:nth-of-type(2) li:not(#recommendTab>ul:nth-of-type(2) li:last-of-type)
+	{
+	border-right: 1px solid;
+}
+
+#recommendTab>ul:nth-of-type(2) li {
+	width: 200px;
+	text-align: center;
 }
 
 #bestSeller {
@@ -171,6 +193,7 @@
 	flex-wrap: wrap;
 	justify-content: space-around;
 	border: 1px solid;
+	height: 90%;
 }
 
 #bestSeller>ul>li {
@@ -195,6 +218,7 @@
 	width: 40%;
 	padding: 0 0 0 2px;
 }
-#recomndReload{
+
+#recomndReload {
 	width: 250px;
 }
